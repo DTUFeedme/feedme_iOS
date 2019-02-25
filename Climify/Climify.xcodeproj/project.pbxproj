@@ -7,15 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A112693522242AA000B18A38 /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112693422242AA000B18A38 /* Beacon.swift */; };
 		A136A0D2220C595000189E21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136A0D1220C595000189E21 /* AppDelegate.swift */; };
 		A136A0D4220C595000189E21 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136A0D3220C595000189E21 /* ViewController.swift */; };
 		A136A0D7220C595000189E21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D5220C595000189E21 /* Main.storyboard */; };
 		A136A0D9220C595000189E21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D8220C595000189E21 /* Assets.xcassets */; };
 		A136A0DC220C595000189E21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136A0DA220C595000189E21 /* LaunchScreen.storyboard */; };
 		A136A0E5220C597800189E21 /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136A0E4220C597800189E21 /* BluetoothService.swift */; };
+		A1E3FA8B2223F7F800DDCCB8 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FA8A2223F7F800DDCCB8 /* LocationService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A112693422242AA000B18A38 /* Beacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beacon.swift; sourceTree = "<group>"; };
 		A136A0CE220C595000189E21 /* Climify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Climify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A136A0D1220C595000189E21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A136A0D3220C595000189E21 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +27,7 @@
 		A136A0DB220C595000189E21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A136A0DD220C595000189E21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A136A0E4220C597800189E21 /* BluetoothService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothService.swift; sourceTree = "<group>"; };
+		A1E3FA8A2223F7F800DDCCB8 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,8 @@
 			children = (
 				A136A0E4220C597800189E21 /* BluetoothService.swift */,
 				A136A0D1220C595000189E21 /* AppDelegate.swift */,
+				A1E3FA8A2223F7F800DDCCB8 /* LocationService.swift */,
+				A112693422242AA000B18A38 /* Beacon.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -164,6 +170,8 @@
 			files = (
 				A136A0D4220C595000189E21 /* ViewController.swift in Sources */,
 				A136A0E5220C597800189E21 /* BluetoothService.swift in Sources */,
+				A112693522242AA000B18A38 /* Beacon.swift in Sources */,
+				A1E3FA8B2223F7F800DDCCB8 /* LocationService.swift in Sources */,
 				A136A0D2220C595000189E21 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

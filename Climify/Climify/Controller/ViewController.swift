@@ -11,11 +11,16 @@ import UIKit
 class ViewController: UIViewController {
     
     var bluetoothService: BluetoothService!
+    var locationService: LocationService!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bluetoothService = BluetoothService()
-        bluetoothService.initBluetooth()
+        //bluetoothService = BluetoothService()
+        //bluetoothService.initBluetooth()
+        
+        locationService = LocationService()
+        locationService.initLocation()
     }
 }
 
