@@ -11,12 +11,14 @@ import UIKit
 class Beacon: NSObject {
 
         var id: String
+        var name: String
         var currMessurement: Int
         var latestRssis: [Int]
     
-        init(id: String, rssi: Int){
+    init(id: String, rssi: Int, name: String){
             self.currMessurement = 0
             self.id = id
+            self.name = name
             self.latestRssis = Array(repeating: -200, count: 5)
             super.init()
             self.addRssi(rssi: rssi)
