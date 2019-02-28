@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JCK-SH-gZk">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Feedback-->
+        <scene sceneID="g2T-Lq-1Ba">
+            <objects>
+                <viewController id="eTv-KG-uPv" customClass="FeedbackController" customModule="Climify" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Pw1-8i-Tv9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="W6u-7h-hAN">
+                                <rect key="frame" x="20" y="40" width="335" height="107.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="how is the temperature?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fzQ-vN-nme">
+                                        <rect key="frame" x="13.5" y="0.0" width="308.5" height="38.5"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="28"/>
+                                        <color key="textColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="reK-nF-3No">
+                                        <rect key="frame" x="34" y="63.5" width="267" height="44"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jse-Bk-Skb">
+                                                <rect key="frame" x="0.0" y="0.0" width="83" height="44"/>
+                                                <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                <state key="normal" title="too low">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IC9-GF-ytw">
+                                                <rect key="frame" x="103" y="0.0" width="53" height="44"/>
+                                                <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                <state key="normal" title="fine">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XNY-tY-OYE">
+                                                <rect key="frame" x="176" y="0.0" width="91" height="44"/>
+                                                <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                <state key="normal" title="too high">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="8gD-gr-wt7">
+                                <rect key="frame" x="20" y="179.5" width="335" height="107.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="how is the humidity?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lq0-8z-aIt">
+                                        <rect key="frame" x="37" y="0.0" width="261.5" height="38.5"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="28"/>
+                                        <color key="textColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="CpT-0x-5Df">
+                                        <rect key="frame" x="34" y="63.5" width="267" height="44"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yg8-bB-2Yr">
+                                                <rect key="frame" x="0.0" y="0.0" width="83" height="44"/>
+                                                <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                <state key="normal" title="too low">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z3h-PG-g53">
+                                                <rect key="frame" x="103" y="0.0" width="53" height="44"/>
+                                                <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                <state key="normal" title="fine">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p5d-yI-rag">
+                                                <rect key="frame" x="176" y="0.0" width="91" height="44"/>
+                                                <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                <state key="normal" title="too high">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mp6-jW-6L2">
+                                <rect key="frame" x="0.0" y="162.5" width="375" height="2"/>
+                                <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="3X6-V3-GaQ"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="azD-cr-TgS">
+                                <rect key="frame" x="0.0" y="302" width="375" height="2"/>
+                                <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="aNB-YM-hdK"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="4XR-lg-HX8">
+                                <rect key="frame" x="20" y="319" width="335" height="107.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="how is the ----?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5D-hP-dAX">
+                                        <rect key="frame" x="75" y="0.0" width="185.5" height="38.5"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="28"/>
+                                        <color key="textColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="SPm-6l-1Ce">
+                                        <rect key="frame" x="34" y="63.5" width="267" height="44"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="47E-0F-8YG">
+                                                <rect key="frame" x="0.0" y="0.0" width="83" height="44"/>
+                                                <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                <state key="normal" title="too low">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D6z-pq-TsK">
+                                                <rect key="frame" x="103" y="0.0" width="53" height="44"/>
+                                                <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                <state key="normal" title="fine">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mse-DV-g4v">
+                                                <rect key="frame" x="176" y="0.0" width="91" height="44"/>
+                                                <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                <state key="normal" title="too high">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dT9-pa-0bP">
+                                <rect key="frame" x="0.0" y="441.5" width="375" height="2"/>
+                                <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="wVq-Dt-5L9"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4d-Bm-sBa">
+                                <rect key="frame" x="40" y="586" width="295" height="41"/>
+                                <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="send feedback">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="lpK-Pu-E3O" kind="show" id="alG-8p-Bog"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="C4d-Bm-sBa" firstAttribute="leading" secondItem="sKP-8R-cDD" secondAttribute="leading" constant="40" id="4iy-5P-VZD"/>
+                            <constraint firstItem="sKP-8R-cDD" firstAttribute="trailing" secondItem="4XR-lg-HX8" secondAttribute="trailing" constant="20" id="5Sp-Xg-KjN"/>
+                            <constraint firstItem="4XR-lg-HX8" firstAttribute="top" secondItem="azD-cr-TgS" secondAttribute="bottom" constant="15" id="6sg-TV-nSj"/>
+                            <constraint firstItem="8gD-gr-wt7" firstAttribute="leading" secondItem="sKP-8R-cDD" secondAttribute="leading" constant="20" id="7cF-uH-cy0"/>
+                            <constraint firstItem="sKP-8R-cDD" firstAttribute="trailing" secondItem="W6u-7h-hAN" secondAttribute="trailing" constant="20" id="7gz-AN-4Sv"/>
+                            <constraint firstItem="8gD-gr-wt7" firstAttribute="top" secondItem="Mp6-jW-6L2" secondAttribute="bottom" constant="15" id="M5d-rr-DwX"/>
+                            <constraint firstAttribute="trailing" secondItem="dT9-pa-0bP" secondAttribute="trailing" id="Ncz-ub-vH4"/>
+                            <constraint firstItem="4XR-lg-HX8" firstAttribute="leading" secondItem="sKP-8R-cDD" secondAttribute="leading" constant="20" id="XiX-W5-pOO"/>
+                            <constraint firstItem="Mp6-jW-6L2" firstAttribute="top" secondItem="W6u-7h-hAN" secondAttribute="bottom" constant="15" id="ZzW-7G-waM"/>
+                            <constraint firstItem="W6u-7h-hAN" firstAttribute="top" secondItem="sKP-8R-cDD" secondAttribute="top" constant="20" id="cvv-Px-W4m"/>
+                            <constraint firstItem="dT9-pa-0bP" firstAttribute="top" secondItem="4XR-lg-HX8" secondAttribute="bottom" constant="15" id="dfa-JE-T92"/>
+                            <constraint firstItem="azD-cr-TgS" firstAttribute="top" secondItem="8gD-gr-wt7" secondAttribute="bottom" constant="15" id="f8T-6M-X8l"/>
+                            <constraint firstItem="sKP-8R-cDD" firstAttribute="trailing" secondItem="Mp6-jW-6L2" secondAttribute="trailing" id="i8X-BA-21m"/>
+                            <constraint firstItem="C4d-Bm-sBa" firstAttribute="trailing" secondItem="sKP-8R-cDD" secondAttribute="trailing" constant="-40" id="inz-vl-scY"/>
+                            <constraint firstItem="sKP-8R-cDD" firstAttribute="bottom" secondItem="C4d-Bm-sBa" secondAttribute="bottom" constant="40" id="kiQ-Vr-p5P"/>
+                            <constraint firstItem="W6u-7h-hAN" firstAttribute="leading" secondItem="sKP-8R-cDD" secondAttribute="leading" constant="20" id="oJp-Hw-KA6"/>
+                            <constraint firstItem="sKP-8R-cDD" firstAttribute="trailing" secondItem="8gD-gr-wt7" secondAttribute="trailing" constant="20" id="oib-hn-viz"/>
+                            <constraint firstAttribute="trailing" secondItem="azD-cr-TgS" secondAttribute="trailing" id="qzw-Yo-Ccu"/>
+                            <constraint firstItem="Mp6-jW-6L2" firstAttribute="leading" secondItem="sKP-8R-cDD" secondAttribute="leading" id="uWj-Lh-K2A"/>
+                            <constraint firstItem="dT9-pa-0bP" firstAttribute="leading" secondItem="Pw1-8i-Tv9" secondAttribute="leading" id="wUc-dV-5uY"/>
+                            <constraint firstItem="azD-cr-TgS" firstAttribute="leading" secondItem="sKP-8R-cDD" secondAttribute="leading" id="ysm-U7-VCF"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="sKP-8R-cDD"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Feedback" id="nyy-rW-IYY"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eIH-QO-vED" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-20" y="179.46026986506749"/>
+        </scene>
+        <!--temperature-->
+        <scene sceneID="Fgf-p4-B1h">
+            <objects>
+                <viewController id="cYD-PC-89k" customClass="TempController" customModule="Climify" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZAl-hK-E2o">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="66" translatesAutoresizingMaskIntoConstraints="NO" id="zkB-Xo-Jst">
+                                <rect key="frame" x="33" y="98" width="308.5" height="569"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="how is the temperature?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J28-0v-YMF">
+                                        <rect key="frame" x="0.0" y="0.0" width="308.5" height="38.5"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="28"/>
+                                        <color key="textColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYc-yK-kKc">
+                                        <rect key="frame" x="95.5" y="104.5" width="118" height="49"/>
+                                        <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="118" id="4XJ-qL-gbT"/>
+                                            <constraint firstAttribute="height" constant="49" id="9K6-Hk-gb6"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                        <state key="normal" title="too low">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="temperatureFeedback:" destination="cYD-PC-89k" eventType="touchUpInside" id="G4U-W7-QuU"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6UH-DF-VqD">
+                                        <rect key="frame" x="95.5" y="219.5" width="118" height="49"/>
+                                        <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="118" id="dDN-ZY-xJt"/>
+                                            <constraint firstAttribute="height" constant="49" id="v8c-Hr-pCc"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                        <state key="normal" title="fine">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="temperatureFeedback:" destination="cYD-PC-89k" eventType="touchUpInside" id="Xnr-sa-Be9"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14t-sg-6Ma">
+                                        <rect key="frame" x="95.5" y="334.5" width="118" height="49"/>
+                                        <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="49" id="ICU-Q1-kbP"/>
+                                            <constraint firstAttribute="width" constant="118" id="Y8V-ao-qXF"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                        <state key="normal" title="too high">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="temperatureFeedback:" destination="cYD-PC-89k" eventType="touchUpInside" id="htM-5Z-jLM"/>
+                                        </connections>
+                                    </button>
+                                    <pageControl opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="4eX-2f-XNE">
+                                        <rect key="frame" x="135" y="449.5" width="39" height="119.5"/>
+                                        <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="currentPageIndicatorTintColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </pageControl>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="4eX-2f-XNE" firstAttribute="centerX" secondItem="zkB-Xo-Jst" secondAttribute="centerX" id="OH1-On-htX"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="zkB-Xo-Jst" secondAttribute="bottom" id="69l-rj-pil"/>
+                            <constraint firstItem="zkB-Xo-Jst" firstAttribute="leading" secondItem="SHr-nm-3Pk" secondAttribute="leading" constant="33" id="HWA-Hg-ldB"/>
+                            <constraint firstItem="zkB-Xo-Jst" firstAttribute="top" secondItem="SHr-nm-3Pk" secondAttribute="top" constant="34" id="Wnh-vB-peu"/>
+                            <constraint firstItem="SHr-nm-3Pk" firstAttribute="trailing" secondItem="zkB-Xo-Jst" secondAttribute="trailing" constant="33.5" id="lS0-fh-JG1"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="SHr-nm-3Pk"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="temperature" id="EGj-Ga-lTg"/>
+                    <connections>
+                        <segue destination="XxL-LB-U4i" kind="show" identifier="temptohumid" id="jbn-UC-osq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PUS-6J-NR4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-46" y="954"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="6Wd-re-fKb">
+            <objects>
+                <viewController id="lpK-Pu-E3O" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eYg-eX-L11">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="feedback registered" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SHn-Ni-g8i">
+                                <rect key="frame" x="58" y="136" width="258" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="28"/>
+                                <color key="textColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="PlJ-u9-VSj"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s7Z-It-89u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="794" y="183"/>
+        </scene>
+        <!--Feedback-->
+        <scene sceneID="5YT-to-peb">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JCK-SH-gZk" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Feedback" image="cloud_glyph" id="3Tc-Fu-oTu"/>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gsv-kT-hFK">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="cYD-PC-89k" kind="relationship" relationship="rootViewController" id="nnN-hf-F5d"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="unQ-mq-vPw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-959.20000000000005" y="179.46026986506749"/>
+        </scene>
+        <!--humidity-->
+        <scene sceneID="G6k-v4-0iB">
+            <objects>
+                <viewController id="XxL-LB-U4i" customClass="HumidController" customModule="Climify" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NoR-WK-KA7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="66" translatesAutoresizingMaskIntoConstraints="NO" id="BS2-Rz-cwn">
+                                <rect key="frame" x="33" y="98" width="308.5" height="569"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="how is the humidity?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKo-Rx-xmh">
+                                        <rect key="frame" x="23.5" y="0.0" width="261.5" height="38.5"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="28"/>
+                                        <color key="textColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="93X-on-e23">
+                                        <rect key="frame" x="95.5" y="104.5" width="118" height="49"/>
+                                        <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="49" id="UHd-vT-uAK"/>
+                                            <constraint firstAttribute="width" constant="118" id="llr-OB-ef4"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                        <state key="normal" title="too low">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="humidityFeedback:" destination="XxL-LB-U4i" eventType="touchUpInside" id="MEw-I9-Fo3"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BFJ-tc-xEn">
+                                        <rect key="frame" x="95.5" y="219.5" width="118" height="49"/>
+                                        <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="118" id="7Oi-xR-gXw"/>
+                                            <constraint firstAttribute="height" constant="49" id="gB8-Xo-X2a"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                        <state key="normal" title="fine">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="humidityFeedback:" destination="XxL-LB-U4i" eventType="touchUpInside" id="NeJ-2t-xKW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X27-ad-Z8K">
+                                        <rect key="frame" x="95.5" y="334.5" width="118" height="49"/>
+                                        <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="49" id="YIT-7W-Br2"/>
+                                            <constraint firstAttribute="width" constant="118" id="iGF-iR-edx"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                        <state key="normal" title="too high">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="humidityFeedback:" destination="XxL-LB-U4i" eventType="touchUpInside" id="Ki4-mZ-wnu"/>
+                                        </connections>
+                                    </button>
+                                    <pageControl opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" currentPage="1" translatesAutoresizingMaskIntoConstraints="NO" id="rpa-nI-HmV">
+                                        <rect key="frame" x="135" y="449.5" width="39" height="119.5"/>
+                                        <color key="pageIndicatorTintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="currentPageIndicatorTintColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </pageControl>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="rpa-nI-HmV" firstAttribute="centerX" secondItem="BS2-Rz-cwn" secondAttribute="centerX" id="IO2-VR-gwW"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Shz-rN-lQd" firstAttribute="trailing" secondItem="BS2-Rz-cwn" secondAttribute="trailing" constant="33.5" id="EPC-2d-Nb2"/>
+                            <constraint firstItem="BS2-Rz-cwn" firstAttribute="leading" secondItem="Shz-rN-lQd" secondAttribute="leading" constant="33" id="GAg-N2-U1O"/>
+                            <constraint firstItem="BS2-Rz-cwn" firstAttribute="top" secondItem="Shz-rN-lQd" secondAttribute="top" constant="34" id="Nek-ai-b0o"/>
+                            <constraint firstAttribute="bottom" secondItem="BS2-Rz-cwn" secondAttribute="bottom" id="VLN-dR-wZx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Shz-rN-lQd"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="humidity" id="IJB-iI-cms"/>
+                    <connections>
+                        <segue destination="qRz-o6-gZ4" kind="show" identifier="humidtoquality" id="lQc-JQ-AUA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fNt-zB-qL4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="793" y="954"/>
+        </scene>
+        <!--air quality-->
+        <scene sceneID="yry-TF-sG4">
+            <objects>
+                <viewController id="qRz-o6-gZ4" customClass="QualityController" customModule="Climify" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wAC-8G-hv8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="66" translatesAutoresizingMaskIntoConstraints="NO" id="Yog-EL-88K">
+                                <rect key="frame" x="33" y="98" width="308.5" height="569"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="how is the air quality?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6r5-s1-O1t">
+                                        <rect key="frame" x="17" y="0.0" width="274.5" height="38.5"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="28"/>
+                                        <color key="textColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Qk-xe-0V0">
+                                        <rect key="frame" x="95.5" y="104.5" width="118" height="49"/>
+                                        <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="49" id="KHQ-E9-J3V"/>
+                                            <constraint firstAttribute="width" constant="118" id="un2-HQ-JmX"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                        <state key="normal" title="too low">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="humidityFeedback:" destination="qRz-o6-gZ4" eventType="touchUpInside" id="jtc-qh-fc0"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ee-7L-8eE">
+                                        <rect key="frame" x="95.5" y="219.5" width="118" height="49"/>
+                                        <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="118" id="axu-AI-Lxr"/>
+                                            <constraint firstAttribute="height" constant="49" id="gvx-Vp-YvJ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                        <state key="normal" title="fine">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="humidityFeedback:" destination="qRz-o6-gZ4" eventType="touchUpInside" id="3ZO-Ct-Duz"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JUW-P2-Fsn">
+                                        <rect key="frame" x="95.5" y="334.5" width="118" height="49"/>
+                                        <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="49" id="4Tt-S3-crF"/>
+                                            <constraint firstAttribute="width" constant="118" id="6ek-u5-4DE"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                        <state key="normal" title="too high">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="humidityFeedback:" destination="qRz-o6-gZ4" eventType="touchUpInside" id="qEm-Rl-4dl"/>
+                                        </connections>
+                                    </button>
+                                    <pageControl opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" currentPage="2" translatesAutoresizingMaskIntoConstraints="NO" id="Ygx-z8-Z73">
+                                        <rect key="frame" x="135" y="449.5" width="39" height="119.5"/>
+                                        <color key="pageIndicatorTintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="currentPageIndicatorTintColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </pageControl>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Ygx-z8-Z73" firstAttribute="centerX" secondItem="Yog-EL-88K" secondAttribute="centerX" id="Q4O-aD-ldr"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jCG-Fc-nk8" firstAttribute="trailing" secondItem="Yog-EL-88K" secondAttribute="trailing" constant="33.5" id="16B-Jo-IyD"/>
+                            <constraint firstItem="Yog-EL-88K" firstAttribute="leading" secondItem="jCG-Fc-nk8" secondAttribute="leading" constant="33" id="Nbw-MX-LG3"/>
+                            <constraint firstItem="Yog-EL-88K" firstAttribute="top" secondItem="jCG-Fc-nk8" secondAttribute="top" constant="34" id="cIl-LC-qUr"/>
+                            <constraint firstAttribute="bottom" secondItem="Yog-EL-88K" secondAttribute="bottom" id="q99-Ph-DhC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="jCG-Fc-nk8"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="air quality" id="oaU-gs-JA9"/>
+                    <connections>
+                        <segue destination="grJ-g7-5el" kind="show" identifier="feedbackreceived" id="Q2Z-A9-9HQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cjx-gV-xxG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1692" y="954"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="qtD-72-m7E">
+            <objects>
+                <viewController id="grJ-g7-5el" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vHz-Ui-zwh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pdP-V1-wcb">
+                                <rect key="frame" x="44.5" y="79.5" width="286.5" height="175"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="thanks!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDt-Ca-lhq">
+                                        <rect key="frame" x="44.5" y="0.0" width="197.5" height="82"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="60"/>
+                                        <color key="textColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="we have received your" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WdH-R2-HW1">
+                                        <rect key="frame" x="0.0" y="90" width="286.5" height="38.5"/>
+                                        <color key="tintColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="28"/>
+                                        <color key="textColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="feedback" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2C-Ra-D8J">
+                                        <rect key="frame" x="83.5" y="136.5" width="119.5" height="38.5"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="28"/>
+                                        <color key="textColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="feed_succes" translatesAutoresizingMaskIntoConstraints="NO" id="8TE-nl-Ynr">
+                                <rect key="frame" x="142.5" y="288.5" width="90" height="90"/>
+                                <color key="tintColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="DzJ-Bc-dSy"/>
+                                    <constraint firstAttribute="width" constant="90" id="Tf9-f3-Ntp"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="8TE-nl-Ynr" firstAttribute="centerX" secondItem="vHz-Ui-zwh" secondAttribute="centerX" id="CkY-RF-shL"/>
+                            <constraint firstItem="pdP-V1-wcb" firstAttribute="centerY" secondItem="vHz-Ui-zwh" secondAttribute="centerY" multiplier="0.5" id="GMn-ux-kP6"/>
+                            <constraint firstItem="pdP-V1-wcb" firstAttribute="centerX" secondItem="vHz-Ui-zwh" secondAttribute="centerX" id="W0a-xy-Isr"/>
+                            <constraint firstItem="8TE-nl-Ynr" firstAttribute="centerY" secondItem="vHz-Ui-zwh" secondAttribute="centerY" id="lKc-Sg-Xhm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dPj-Dw-zBk"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l9a-N0-mX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2487" y="954"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="cloud_glyph" width="45" height="45"/>
+        <image name="feed_succes" width="67.5" height="67.5"/>
+    </resources>
+    <color key="tintColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+</document>

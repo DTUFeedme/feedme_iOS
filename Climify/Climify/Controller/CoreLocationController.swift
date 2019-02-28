@@ -25,6 +25,10 @@ class CoreLocationController: UIViewController, CLLocationManagerDelegate {
         rssiLabel.text = "\(rssi)"
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        manager.requestAlwaysAuthorization()
+        rangeBeacons()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRegions()
@@ -58,7 +62,6 @@ class CoreLocationController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didRangeBeacons rangedBeacons: [CLBeacon], in region: CLBeaconRegion) {
-        print(region.identifier)
         if let beacon = rangedBeacons.first {
             
             let rssi = beacon.rssi

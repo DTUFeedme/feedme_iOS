@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "bluetooth logo.png",
+      "filename" : "bar_glyph.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "icons8-bar-chart-filled-60.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "icons8-bar-chart-filled-90.png",
       "scale" : "3x"
     }
   ],

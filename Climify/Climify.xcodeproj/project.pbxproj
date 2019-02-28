@@ -8,16 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		A112693522242AA000B18A38 /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112693422242AA000B18A38 /* Beacon.swift */; };
+		A12159A02227E1DB000802D7 /* HumidController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A121599F2227E1DB000802D7 /* HumidController.swift */; };
+		A12159A42227E305000802D7 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12159A32227E305000802D7 /* Feedback.swift */; };
+		A12159A72227E95F000802D7 /* SegueFromLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12159A62227E95F000802D7 /* SegueFromLeft.swift */; };
+		A12159A92227EB6F000802D7 /* QualityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12159A82227EB6F000802D7 /* QualityController.swift */; };
 		A136A0D2220C595000189E21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136A0D1220C595000189E21 /* AppDelegate.swift */; };
 		A136A0D4220C595000189E21 /* CoreLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136A0D3220C595000189E21 /* CoreLocationController.swift */; };
 		A136A0D7220C595000189E21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D5220C595000189E21 /* Main.storyboard */; };
 		A136A0D9220C595000189E21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D8220C595000189E21 /* Assets.xcassets */; };
 		A136A0DC220C595000189E21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136A0DA220C595000189E21 /* LaunchScreen.storyboard */; };
-		A1FA8725222589C300461799 /* FeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FA8724222589C300461799 /* FeedbackController.swift */; };
+		A1DB86272226AB3000F7F745 /* Feedback.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DB86262226AB3000F7F745 /* Feedback.storyboard */; };
+		A1DB86292226ABFF00F7F745 /* Beacon.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DB86282226ABFF00F7F745 /* Beacon.storyboard */; };
+		A1DB862B2226ADBC00F7F745 /* Charts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DB862A2226ADBC00F7F745 /* Charts.storyboard */; };
+		A1DB862D2226B6FA00F7F745 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DB862C2226B6FA00F7F745 /* Profile.storyboard */; };
+		A1FA8725222589C300461799 /* TempController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FA8724222589C300461799 /* TempController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A112693422242AA000B18A38 /* Beacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beacon.swift; sourceTree = "<group>"; };
+		A121599F2227E1DB000802D7 /* HumidController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumidController.swift; sourceTree = "<group>"; };
+		A12159A32227E305000802D7 /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
+		A12159A62227E95F000802D7 /* SegueFromLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueFromLeft.swift; sourceTree = "<group>"; };
+		A12159A82227EB6F000802D7 /* QualityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualityController.swift; sourceTree = "<group>"; };
 		A136A0CE220C595000189E21 /* Climify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Climify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A136A0D1220C595000189E21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A136A0D3220C595000189E21 /* CoreLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationController.swift; sourceTree = "<group>"; };
@@ -25,7 +37,11 @@
 		A136A0D8220C595000189E21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A136A0DB220C595000189E21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A136A0DD220C595000189E21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A1FA8724222589C300461799 /* FeedbackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackController.swift; sourceTree = "<group>"; };
+		A1DB86262226AB3000F7F745 /* Feedback.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Feedback.storyboard; sourceTree = "<group>"; };
+		A1DB86282226ABFF00F7F745 /* Beacon.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Beacon.storyboard; sourceTree = "<group>"; };
+		A1DB862A2226ADBC00F7F745 /* Charts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Charts.storyboard; sourceTree = "<group>"; };
+		A1DB862C2226B6FA00F7F745 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		A1FA8724222589C300461799 /* TempController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +55,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A12159A52227E941000802D7 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				A12159A62227E95F000802D7 /* SegueFromLeft.swift */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
 		A136A0C5220C595000189E21 = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +82,7 @@
 		A136A0D0220C595000189E21 /* Climify */ = {
 			isa = PBXGroup;
 			children = (
+				A12159A52227E941000802D7 /* Animation */,
 				A136A0E8220C59FC00189E21 /* View */,
 				A136A0E7220C59E000189E21 /* Controller */,
 				A136A0E3220C595D00189E21 /* Model */,
@@ -71,6 +96,7 @@
 			children = (
 				A136A0D1220C595000189E21 /* AppDelegate.swift */,
 				A112693422242AA000B18A38 /* Beacon.swift */,
+				A12159A32227E305000802D7 /* Feedback.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -79,7 +105,9 @@
 			isa = PBXGroup;
 			children = (
 				A136A0D3220C595000189E21 /* CoreLocationController.swift */,
-				A1FA8724222589C300461799 /* FeedbackController.swift */,
+				A1FA8724222589C300461799 /* TempController.swift */,
+				A121599F2227E1DB000802D7 /* HumidController.swift */,
+				A12159A82227EB6F000802D7 /* QualityController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -90,6 +118,10 @@
 				A136A0D8220C595000189E21 /* Assets.xcassets */,
 				A136A0D5220C595000189E21 /* Main.storyboard */,
 				A136A0DA220C595000189E21 /* LaunchScreen.storyboard */,
+				A1DB86262226AB3000F7F745 /* Feedback.storyboard */,
+				A1DB86282226ABFF00F7F745 /* Beacon.storyboard */,
+				A1DB862A2226ADBC00F7F745 /* Charts.storyboard */,
+				A1DB862C2226B6FA00F7F745 /* Profile.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -152,8 +184,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1DB86292226ABFF00F7F745 /* Beacon.storyboard in Resources */,
+				A1DB862B2226ADBC00F7F745 /* Charts.storyboard in Resources */,
 				A136A0DC220C595000189E21 /* LaunchScreen.storyboard in Resources */,
+				A1DB86272226AB3000F7F745 /* Feedback.storyboard in Resources */,
 				A136A0D9220C595000189E21 /* Assets.xcassets in Resources */,
+				A1DB862D2226B6FA00F7F745 /* Profile.storyboard in Resources */,
 				A136A0D7220C595000189E21 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -165,7 +201,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1FA8725222589C300461799 /* FeedbackController.swift in Sources */,
+				A12159A02227E1DB000802D7 /* HumidController.swift in Sources */,
+				A1FA8725222589C300461799 /* TempController.swift in Sources */,
+				A12159A72227E95F000802D7 /* SegueFromLeft.swift in Sources */,
+				A12159A42227E305000802D7 /* Feedback.swift in Sources */,
+				A12159A92227EB6F000802D7 /* QualityController.swift in Sources */,
 				A136A0D4220C595000189E21 /* CoreLocationController.swift in Sources */,
 				A112693522242AA000B18A38 /* Beacon.swift in Sources */,
 				A136A0D2220C595000189E21 /* AppDelegate.swift in Sources */,
