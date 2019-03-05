@@ -18,17 +18,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="OHm-Ip-OYy">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Climify" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QTQ-Z8-nuU">
                                 <rect key="frame" x="55" y="64" width="265" height="112.5"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="82"/>
-                                <color key="textColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="QTQ-Z8-nuU" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.35" id="OpA-XP-TQD"/>
+                            <constraint firstItem="OHm-Ip-OYy" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="gC0-x5-PYM"/>
                             <constraint firstItem="QTQ-Z8-nuU" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="kCB-sH-Xa2"/>
+                            <constraint firstItem="OHm-Ip-OYy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="kSI-Ux-F7D"/>
+                            <constraint firstItem="OHm-Ip-OYy" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="rD6-Wq-Eo9"/>
+                            <constraint firstItem="OHm-Ip-OYy" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="u2z-ty-ClW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -38,4 +45,7 @@
             <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background" width="640" height="1136"/>
+    </resources>
 </document>

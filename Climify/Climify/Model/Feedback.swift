@@ -24,7 +24,7 @@ class Feedback: NSObject {
         case high = 2
     }
     
-    enum Placeholder:Int {
+    enum AirQuality:Int {
         case empty = -1
         case low = 0
         case fine = 1
@@ -33,16 +33,20 @@ class Feedback: NSObject {
     
     var temperature: Temperature
     var humidity: Humidity
-    var placeholder: Placeholder
+    var airQuality: AirQuality
     
-    init(temperature: Temperature, humidity: Humidity, placeholder: Placeholder) {
+//    init(questions:[Question]){
+//        
+//    }
+    
+    init(temperature: Temperature, humidity: Humidity, airQuality: AirQuality) {
         self.temperature = temperature
         self.humidity = humidity
-        self.placeholder = placeholder
+        self.airQuality = airQuality
     }
     
     convenience override init(){
-        self.init(temperature: Temperature.empty, humidity: Humidity.empty, placeholder: Placeholder.empty)
+        self.init(temperature: Temperature.empty, humidity: Humidity.empty, airQuality: AirQuality.empty)
     }
 
 }

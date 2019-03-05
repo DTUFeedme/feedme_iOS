@@ -15,7 +15,7 @@ class Beacon: NSObject {
         var currMessurement: Int
         var latestRssis: [Int]
     
-    init(id: String, rssi: Int, name: String){
+        init(id: String, rssi: Int, name: String){
             self.currMessurement = 0
             self.id = id
             self.name = name
@@ -23,7 +23,11 @@ class Beacon: NSObject {
             super.init()
             self.addRssi(rssi: rssi)
         }
-        
+    
+        convenience override init(){
+            self.init(id: "", rssi: -200, name: "")
+        }
+    
         func calcAverage() -> Double {
             return Double(latestRssis.reduce(0,+))/Double(latestRssis.count)
         }

@@ -16,13 +16,13 @@ class QualityController: UIViewController {
     @IBAction func humidityFeedback(_ sender: UIButton) {
         switch sender.tag {
         case 0:
-            feedback.placeholder = .low
+            feedback.airQuality = .low
         case 1:
-            feedback.placeholder = .fine
+            feedback.airQuality = .fine
         case 2:
-            feedback.placeholder = .high
+            feedback.airQuality = .high
         default:
-            feedback.placeholder = .empty
+            feedback.airQuality = .empty
         }
         self.performSegue(withIdentifier: nextSegue, sender: self)
     }

@@ -14,7 +14,7 @@ class CoreLocationController: UIViewController, CLLocationManagerDelegate {
     var manager:CLLocationManager = CLLocationManager()
     var regions:[CLBeaconRegion] = []
     var beacons:[Beacon] = []
-    var nearestBeacon = Beacon(id: "", rssi: -200, name: "")
+    var nearestBeacon = Beacon.init()
     
     @IBOutlet weak var nearestBeaconLabel: UILabel!
     @IBOutlet weak var rssiLabel: UILabel!
@@ -31,6 +31,10 @@ class CoreLocationController: UIViewController, CLLocationManagerDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        
         setupRegions()
         manager.delegate = self
         manager.requestAlwaysAuthorization()

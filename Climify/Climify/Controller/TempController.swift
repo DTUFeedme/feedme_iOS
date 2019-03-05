@@ -29,6 +29,27 @@ class TempController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let url = URL(string: "http://localhost:3000/questions")
+        let urlRequest = URLRequest(url: url!)
+        
+        
+        
+        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+            
+            
+            if error != nil {
+                print(error as Any)
+                return
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! [AnyObject]
+                print(json.count)
+            } catch let error {
+                print(error)
+            }
+        }.resume()
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
