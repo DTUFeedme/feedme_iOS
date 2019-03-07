@@ -13,9 +13,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let defaults = UserDefaults.standard
+        
+        let launchedBefore = defaults.bool(forKey: "launchedBefore")
+        
+        if launchedBefore {
+            print("User ID: ",defaults.string(forKey: "userID"))
+        }
+        else {
+            let networkService = NetworkService()
+            networkService.initUser()
+            defaults.set(true, forKey: "launchedBefore")
+        }
+        
+        
         let green = UIColor(red: 28/255, green: 177/255, blue: 118/255, alpha: 1)
         let darkGreen = UIColor(red: 14/255, green: 120/255, blue: 100/255, alpha: 1)
         UITabBar.appearance().barTintColor = green
@@ -23,12 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().unselectedItemTintColor = .white
         
         
-        let navigationFont = UIFont(name: "Avenir Next", size: 20)
+        let navigationFont = UIFont(name: "Avenir Next", size: 28)
         UINavigationBar.appearance().barTintColor = green
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: green, NSAttributedString.Key.font: navigationFont!]
-        //UINavigationBar.tintColor = .red
-        
-        //sleep(2)
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: darkGreen, NSAttributedString.Key.font: navigationFont!]
+  
         return true
     }
 

@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		138803B8D02E06D424C0D05D /* Pods_Climify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDA98B687EF5DDCB0097D03F /* Pods_Climify.framework */; };
 		A112693522242AA000B18A38 /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112693422242AA000B18A38 /* Beacon.swift */; };
+		A1141A1222314B4900659DF1 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1141A1122314B4900659DF1 /* NetworkService.swift */; };
 		A12159A02227E1DB000802D7 /* HumidController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A121599F2227E1DB000802D7 /* HumidController.swift */; };
 		A12159A42227E305000802D7 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12159A32227E305000802D7 /* Feedback.swift */; };
 		A12159A92227EB6F000802D7 /* QualityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12159A82227EB6F000802D7 /* QualityController.swift */; };
@@ -20,11 +22,13 @@
 		A1DB86292226ABFF00F7F745 /* Beacon.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DB86282226ABFF00F7F745 /* Beacon.storyboard */; };
 		A1DB862B2226ADBC00F7F745 /* Charts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DB862A2226ADBC00F7F745 /* Charts.storyboard */; };
 		A1DB862D2226B6FA00F7F745 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DB862C2226B6FA00F7F745 /* Profile.storyboard */; };
-		A1FA8725222589C300461799 /* TempController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FA8724222589C300461799 /* TempController.swift */; };
+		A1FA8725222589C300461799 /* FeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FA8724222589C300461799 /* FeedbackController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7BD095BB893E76FA98D1C554 /* Pods-Climify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Climify.release.xcconfig"; path = "Pods/Target Support Files/Pods-Climify/Pods-Climify.release.xcconfig"; sourceTree = "<group>"; };
 		A112693422242AA000B18A38 /* Beacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beacon.swift; sourceTree = "<group>"; };
+		A1141A1122314B4900659DF1 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A121599F2227E1DB000802D7 /* HumidController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumidController.swift; sourceTree = "<group>"; };
 		A12159A32227E305000802D7 /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
 		A12159A82227EB6F000802D7 /* QualityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualityController.swift; sourceTree = "<group>"; };
@@ -39,7 +43,9 @@
 		A1DB86282226ABFF00F7F745 /* Beacon.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Beacon.storyboard; sourceTree = "<group>"; };
 		A1DB862A2226ADBC00F7F745 /* Charts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Charts.storyboard; sourceTree = "<group>"; };
 		A1DB862C2226B6FA00F7F745 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
-		A1FA8724222589C300461799 /* TempController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempController.swift; sourceTree = "<group>"; };
+		A1FA8724222589C300461799 /* FeedbackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackController.swift; sourceTree = "<group>"; };
+		A8DAFB9C4349805DFA56BFFE /* Pods-Climify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Climify.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Climify/Pods-Climify.debug.xcconfig"; sourceTree = "<group>"; };
+		FDA98B687EF5DDCB0097D03F /* Pods_Climify.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Climify.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,17 +53,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				138803B8D02E06D424C0D05D /* Pods_Climify.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E514F45FCE56D9A69C27948 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FDA98B687EF5DDCB0097D03F /* Pods_Climify.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A1141A1022314B3200659DF1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A1141A1122314B4900659DF1 /* NetworkService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		A136A0C5220C595000189E21 = {
 			isa = PBXGroup;
 			children = (
 				A136A0D0220C595000189E21 /* Climify */,
 				A136A0CF220C595000189E21 /* Products */,
+				F6312B53235545BD0FC14AC8 /* Pods */,
+				2E514F45FCE56D9A69C27948 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,6 +97,8 @@
 		A136A0D0220C595000189E21 /* Climify */ = {
 			isa = PBXGroup;
 			children = (
+				A1B29A2E223153500065DE01 /* NotUsedRightNow */,
+				A1141A1022314B3200659DF1 /* Services */,
 				A136A0E8220C59FC00189E21 /* View */,
 				A136A0E7220C59E000189E21 /* Controller */,
 				A136A0E3220C595D00189E21 /* Model */,
@@ -94,9 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				A136A0D3220C595000189E21 /* CoreLocationController.swift */,
-				A1FA8724222589C300461799 /* TempController.swift */,
-				A121599F2227E1DB000802D7 /* HumidController.swift */,
-				A12159A82227EB6F000802D7 /* QualityController.swift */,
+				A1FA8724222589C300461799 /* FeedbackController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -115,6 +140,24 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		A1B29A2E223153500065DE01 /* NotUsedRightNow */ = {
+			isa = PBXGroup;
+			children = (
+				A121599F2227E1DB000802D7 /* HumidController.swift */,
+				A12159A82227EB6F000802D7 /* QualityController.swift */,
+			);
+			path = NotUsedRightNow;
+			sourceTree = "<group>";
+		};
+		F6312B53235545BD0FC14AC8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A8DAFB9C4349805DFA56BFFE /* Pods-Climify.debug.xcconfig */,
+				7BD095BB893E76FA98D1C554 /* Pods-Climify.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -122,9 +165,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A136A0E0220C595000189E21 /* Build configuration list for PBXNativeTarget "Climify" */;
 			buildPhases = (
+				33541BED265026BB4C98556D /* [CP] Check Pods Manifest.lock */,
 				A136A0CA220C595000189E21 /* Sources */,
 				A136A0CB220C595000189E21 /* Frameworks */,
 				A136A0CC220C595000189E21 /* Resources */,
+				1E49045C2B613DFDBC3DE7FF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -185,13 +230,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1E49045C2B613DFDBC3DE7FF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Climify/Pods-Climify-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Climify/Pods-Climify-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		33541BED265026BB4C98556D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Climify-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A136A0CA220C595000189E21 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				A12159A02227E1DB000802D7 /* HumidController.swift in Sources */,
-				A1FA8725222589C300461799 /* TempController.swift in Sources */,
+				A1FA8725222589C300461799 /* FeedbackController.swift in Sources */,
+				A1141A1222314B4900659DF1 /* NetworkService.swift in Sources */,
 				A12159A42227E305000802D7 /* Feedback.swift in Sources */,
 				A12159A92227EB6F000802D7 /* QualityController.swift in Sources */,
 				A136A0D4220C595000189E21 /* CoreLocationController.swift in Sources */,
@@ -340,6 +433,7 @@
 		};
 		A136A0E1220C595000189E21 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A8DAFB9C4349805DFA56BFFE /* Pods-Climify.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -358,6 +452,7 @@
 		};
 		A136A0E2220C595000189E21 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7BD095BB893E76FA98D1C554 /* Pods-Climify.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
