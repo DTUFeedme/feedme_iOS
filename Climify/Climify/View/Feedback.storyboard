@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JCK-SH-gZk">
-    <device id="retina6_1" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cYD-PC-89k">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,20 +15,34 @@
             <objects>
                 <viewController id="cYD-PC-89k" customClass="FeedbackController" customModule="Climify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZAl-hK-E2o">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uCj-Bh-Bem">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <items>
+                                    <navigationItem title="Climify" id="fmP-Bt-U77">
+                                        <barButtonItem key="leftBarButtonItem" image="back_glyph" id="5pa-WH-XRG">
+                                            <color key="tintColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <action selector="backButtonAction:" destination="cYD-PC-89k" id="aRw-hM-Gsh"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ynq-B5-g6P">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JEX-fq-4Z0">
-                                        <rect key="frame" x="193.5" y="742.5" width="27" height="38.5"/>
+                                        <rect key="frame" x="174" y="493.5" width="27" height="38.5"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="28"/>
                                         <color key="textColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="66" translatesAutoresizingMaskIntoConstraints="NO" id="zkB-Xo-Jst">
-                                        <rect key="frame" x="148" y="161" width="118" height="395"/>
+                                        <rect key="frame" x="128.5" y="13.5" width="118" height="395"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-------" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J28-0v-YMF">
                                                 <rect key="frame" x="14" y="0.0" width="90" height="50"/>
@@ -109,21 +123,33 @@
                                 <constraints>
                                     <constraint firstItem="JEX-fq-4Z0" firstAttribute="centerX" secondItem="Ynq-B5-g6P" secondAttribute="centerX" id="BZm-Yd-eiL"/>
                                     <constraint firstItem="JEX-fq-4Z0" firstAttribute="centerY" secondItem="Ynq-B5-g6P" secondAttribute="centerY" multiplier="1.7" id="Rnf-0a-Lbw"/>
-                                    <constraint firstItem="zkB-Xo-Jst" firstAttribute="centerY" secondItem="Ynq-B5-g6P" secondAttribute="centerY" multiplier="0.8" id="Wge-d5-CXg"/>
+                                    <constraint firstItem="zkB-Xo-Jst" firstAttribute="centerY" secondItem="Ynq-B5-g6P" secondAttribute="centerY" multiplier="0.7" id="Wge-d5-CXg"/>
                                     <constraint firstItem="zkB-Xo-Jst" firstAttribute="centerX" secondItem="Ynq-B5-g6P" secondAttribute="centerX" id="edi-b1-bYk"/>
                                 </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SOg-7t-ceG">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                                <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <accessibility key="accessibilityConfiguration" identifier="view"/>
                         <constraints>
-                            <constraint firstItem="Ynq-B5-g6P" firstAttribute="top" secondItem="ZAl-hK-E2o" secondAttribute="top" id="8Lu-Q3-tY9"/>
+                            <constraint firstItem="uCj-Bh-Bem" firstAttribute="top" secondItem="SHr-nm-3Pk" secondAttribute="top" id="HRS-8t-8m9"/>
+                            <constraint firstItem="uCj-Bh-Bem" firstAttribute="top" secondItem="SOg-7t-ceG" secondAttribute="bottom" id="O6g-ij-uKU"/>
                             <constraint firstItem="Ynq-B5-g6P" firstAttribute="leading" secondItem="SHr-nm-3Pk" secondAttribute="leading" id="Ogd-uV-42J"/>
                             <constraint firstAttribute="bottom" secondItem="Ynq-B5-g6P" secondAttribute="bottom" id="RJP-P1-Tqe"/>
+                            <constraint firstAttribute="trailing" secondItem="SOg-7t-ceG" secondAttribute="trailing" id="XJ2-DQ-izn"/>
+                            <constraint firstItem="Ynq-B5-g6P" firstAttribute="top" secondItem="uCj-Bh-Bem" secondAttribute="bottom" id="Xuy-tB-8b8"/>
+                            <constraint firstItem="uCj-Bh-Bem" firstAttribute="leading" secondItem="SHr-nm-3Pk" secondAttribute="leading" id="abs-bl-iLS"/>
+                            <constraint firstItem="uCj-Bh-Bem" firstAttribute="trailing" secondItem="SHr-nm-3Pk" secondAttribute="trailing" id="f4D-N3-Yhu"/>
+                            <constraint firstItem="SOg-7t-ceG" firstAttribute="leading" secondItem="ZAl-hK-E2o" secondAttribute="leading" id="g79-lc-5xH"/>
                             <constraint firstItem="SHr-nm-3Pk" firstAttribute="trailing" secondItem="Ynq-B5-g6P" secondAttribute="trailing" id="uGD-f8-Kx7"/>
+                            <constraint firstItem="SOg-7t-ceG" firstAttribute="top" secondItem="ZAl-hK-E2o" secondAttribute="top" id="v4w-5W-X3u"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SHr-nm-3Pk"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Feedback" image="cloud_glyph" id="OWb-yM-kv6"/>
                     <navigationItem key="navigationItem" title="Climify" id="EGj-Ga-lTg">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="back_glyph" id="kYH-fF-nZV">
                             <color key="tintColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -135,8 +161,9 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="backButton" destination="kYH-fF-nZV" id="cWY-wT-cx8"/>
+                        <outlet property="backButton" destination="5pa-WH-XRG" id="Sgp-W7-X7G"/>
                         <outlet property="backgroundView" destination="Ynq-B5-g6P" id="HC6-ae-Zjk"/>
                         <outlet property="buttonOne" destination="WYc-yK-kKc" id="eUx-hy-wIM"/>
                         <outlet property="buttonThree" destination="14t-sg-6Ma" id="EM5-1M-k4n"/>
@@ -148,31 +175,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PUS-6J-NR4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-47.826086956521742" y="953.57142857142856"/>
-        </scene>
-        <!--Feedback-->
-        <scene sceneID="5YT-to-peb">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JCK-SH-gZk" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Feedback" image="cloud_glyph" id="3Tc-Fu-oTu"/>
-                    <toolbarItems/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gsv-kT-hFK">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="cYD-PC-89k" kind="relationship" relationship="rootViewController" id="nnN-hf-F5d"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="unQ-mq-vPw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-47" y="180"/>
+            <point key="canvasLocation" x="-48.799999999999997" y="953.07346326836591"/>
         </scene>
         <!--Main-->
         <scene sceneID="h3V-uf-uaS">
@@ -187,14 +190,14 @@
             <objects>
                 <viewController id="grJ-g7-5el" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vHz-Ui-zwh">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="iMm-pI-rJZ">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pdP-V1-wcb">
-                                <rect key="frame" x="98" y="136.5" width="218.5" height="175"/>
+                                <rect key="frame" x="78.5" y="79.5" width="218.5" height="175"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="thanks!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDt-Ca-lhq">
                                         <rect key="frame" x="10.5" y="0.0" width="197.5" height="82"/>
@@ -218,7 +221,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rtQ-Ns-T9n">
-                                <rect key="frame" x="137" y="689.5" width="140" height="55"/>
+                                <rect key="frame" x="117.5" y="506" width="140" height="55"/>
                                 <color key="backgroundColor" red="0.10980392160000001" green="0.69411764710000001" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="30c-FK-cSa"/>
@@ -259,7 +262,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back_glyph" width="45" height="45"/>
+        <image name="back_glyph" width="48" height="48"/>
         <image name="background" width="640" height="1136"/>
         <image name="cloud_glyph" width="45" height="45"/>
         <image name="settings_glyph" width="45" height="45"/>

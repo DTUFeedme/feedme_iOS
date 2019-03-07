@@ -2,21 +2,22 @@
 //  Feedback.swift
 //  Climify
 //
-//  Created by Christian Hjelmslund on 28/02/2019.
+//  Created by Christian Hjelmslund on 07/03/2019.
 //  Copyright © 2019 Christian Hjelmslund. All rights reserved.
 //
 
 import UIKit
 
 class Feedback: NSObject {
-    
-    var questionID: String
+
     var userID: String
-    var answer: Int
+    var roomID: String
+    var answers: [Answer]
     
-    init(questionID: String, answer: Int) {
-        self.questionID = questionID
-        self.answer = answer
+    init(answers: [Answer], roomID: String){
+        self.answers = answers
+        self.roomID = roomID
+        
         self.userID = "userID"
         if let userID = UserDefaults.standard.string(forKey: "userID"){
             self.userID = userID
@@ -24,6 +25,6 @@ class Feedback: NSObject {
     }
     
     convenience override init(){
-        self.init(questionID: "", answer: -1)
+        self.init(answers: [], roomID: "xxx")
     }
 }

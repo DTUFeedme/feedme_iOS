@@ -41,7 +41,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VV8-GP-HjB">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
-                                    <navigationItem id="orm-6D-h6a"/>
+                                    <navigationItem title="Climify" id="orm-6D-h6a"/>
                                 </items>
                             </navigationBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="57Z-fo-CRh">

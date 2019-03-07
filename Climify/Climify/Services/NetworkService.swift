@@ -8,15 +8,20 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
 
 class NetworkService: NSObject {
 
     let fetchQuestionsUrl = "http://localhost:3000/api/questions"
     let initUserUrl = "http://localhost:3000/api/users"
+    let feedbackUrl = "http://localhost:3000/api/feedback"
     
     var questions: [Question] = []
+ 
     
     func getQuestions(completionHandler: @escaping (_ questions: [Question]) -> Void) {
+        
+        
         if let url = URL(string: fetchQuestionsUrl){
             let urlRequest = URLRequest(url: url)
             
@@ -50,23 +55,41 @@ class NetworkService: NSObject {
     }
     
     func initUser(){
-        if let url = URL(string: initUserUrl) {
-            var urlRequest = URLRequest(url: url)
-            urlRequest.httpMethod = "POST"
-            
-            URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-                if error != nil {
-                    print(error as Any)
-                    return
-                }
-                do {
-                    let json = try JSON(data: data!)
-                    print(json["_id"])
-                    UserDefaults.standard.set(json["_id"].string, forKey: "userID")
-                } catch let error {
-                    print(error)
-                }
-            }.resume()
+
+        AF.request(initUserUrl, method: .post).responseJSON{ response in
+
+            switch response.result {
+            case .success(let value) :
+               if let id = JSON(value)["_id"].string {
+               print(id)
+               UserDefaults.standard.set(id, forKey: "userID")
+               }
+            case .failure(let error):
+                print(error)
+            }
         }
+    }
+    
+    func postFeedback(feedback: Feedback){
+    
+            var json: [String : Any] = [:]
+            json["roomId"] = feedback.roomID
+            json["userId"] = feedback.userID
+
+            var questions: [[String: String]] = []
+
+            for elements in feedback.answers {
+                var dict: [String: String] = [:]
+
+                dict["_id"] = elements.questionID
+                dict["answer"] = elements.answer
+                questions.append(dict)
+            }
+            json["questions"] = questions
+            
+            AF.request(feedbackUrl, method: .post, parameters: json, encoding: JSONEncoding.default)
+                .responseString { response in
+                    print(response)
+            }
     }
 }

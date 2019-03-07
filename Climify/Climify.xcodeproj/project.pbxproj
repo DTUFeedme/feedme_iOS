@@ -10,13 +10,14 @@
 		138803B8D02E06D424C0D05D /* Pods_Climify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDA98B687EF5DDCB0097D03F /* Pods_Climify.framework */; };
 		A112693522242AA000B18A38 /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112693422242AA000B18A38 /* Beacon.swift */; };
 		A1141A1222314B4900659DF1 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1141A1122314B4900659DF1 /* NetworkService.swift */; };
-		A12159A42227E305000802D7 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12159A32227E305000802D7 /* Feedback.swift */; };
+		A12159A42227E305000802D7 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12159A32227E305000802D7 /* Answer.swift */; };
 		A136A0D2220C595000189E21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136A0D1220C595000189E21 /* AppDelegate.swift */; };
 		A136A0D4220C595000189E21 /* CoreLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136A0D3220C595000189E21 /* CoreLocationController.swift */; };
 		A136A0D7220C595000189E21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D5220C595000189E21 /* Main.storyboard */; };
 		A136A0D9220C595000189E21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D8220C595000189E21 /* Assets.xcassets */; };
 		A136A0DC220C595000189E21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136A0DA220C595000189E21 /* LaunchScreen.storyboard */; };
 		A1B29A32223162AE0065DE01 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B29A31223162AE0065DE01 /* Question.swift */; };
+		A1B490A62231847400198E6F /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B490A52231847400198E6F /* Feedback.swift */; };
 		A1DB86272226AB3000F7F745 /* Feedback.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DB86262226AB3000F7F745 /* Feedback.storyboard */; };
 		A1DB86292226ABFF00F7F745 /* Beacon.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DB86282226ABFF00F7F745 /* Beacon.storyboard */; };
 		A1DB862B2226ADBC00F7F745 /* Charts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DB862A2226ADBC00F7F745 /* Charts.storyboard */; };
@@ -28,7 +29,7 @@
 		7BD095BB893E76FA98D1C554 /* Pods-Climify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Climify.release.xcconfig"; path = "Pods/Target Support Files/Pods-Climify/Pods-Climify.release.xcconfig"; sourceTree = "<group>"; };
 		A112693422242AA000B18A38 /* Beacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beacon.swift; sourceTree = "<group>"; };
 		A1141A1122314B4900659DF1 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		A12159A32227E305000802D7 /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
+		A12159A32227E305000802D7 /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		A136A0CE220C595000189E21 /* Climify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Climify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A136A0D1220C595000189E21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A136A0D3220C595000189E21 /* CoreLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationController.swift; sourceTree = "<group>"; };
@@ -37,6 +38,7 @@
 		A136A0DB220C595000189E21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A136A0DD220C595000189E21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1B29A31223162AE0065DE01 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		A1B490A52231847400198E6F /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
 		A1DB86262226AB3000F7F745 /* Feedback.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Feedback.storyboard; sourceTree = "<group>"; };
 		A1DB86282226ABFF00F7F745 /* Beacon.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Beacon.storyboard; sourceTree = "<group>"; };
 		A1DB862A2226ADBC00F7F745 /* Charts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Charts.storyboard; sourceTree = "<group>"; };
@@ -109,8 +111,9 @@
 			children = (
 				A136A0D1220C595000189E21 /* AppDelegate.swift */,
 				A112693422242AA000B18A38 /* Beacon.swift */,
-				A12159A32227E305000802D7 /* Feedback.swift */,
+				A12159A32227E305000802D7 /* Answer.swift */,
 				A1B29A31223162AE0065DE01 /* Question.swift */,
+				A1B490A52231847400198E6F /* Feedback.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -229,12 +232,14 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Climify/Pods-Climify-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,10 +278,11 @@
 			files = (
 				A1FA8725222589C300461799 /* FeedbackController.swift in Sources */,
 				A1141A1222314B4900659DF1 /* NetworkService.swift in Sources */,
-				A12159A42227E305000802D7 /* Feedback.swift in Sources */,
+				A12159A42227E305000802D7 /* Answer.swift in Sources */,
 				A136A0D4220C595000189E21 /* CoreLocationController.swift in Sources */,
 				A112693522242AA000B18A38 /* Beacon.swift in Sources */,
 				A1B29A32223162AE0065DE01 /* Question.swift in Sources */,
+				A1B490A62231847400198E6F /* Feedback.swift in Sources */,
 				A136A0D2220C595000189E21 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

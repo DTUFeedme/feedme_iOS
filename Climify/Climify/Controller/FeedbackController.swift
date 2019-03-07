@@ -27,7 +27,7 @@ class FeedbackController: UIViewController {
     let networkService = NetworkService()
     var currentQuestionNo = 0
     var questions: [Question] = []
-    var feedback: [Feedback] = []
+    var feedback = Feedback.init()
     
     
     @IBAction func backButtonAction(_ sender: Any) {
@@ -36,7 +36,7 @@ class FeedbackController: UIViewController {
         if currentQuestionNo > 0 {
         
         currentQuestionNo -= 1
-        feedback.remove(at: currentQuestionNo)
+        feedback.answers.remove(at: currentQuestionNo)
         updateUI()
         backgroundView.transform = CGAffineTransform(translationX: -backgroundView.frame.size.width, y: 0)
         
@@ -51,48 +51,50 @@ class FeedbackController: UIViewController {
     
     @IBAction func temperatureFeedback(_ sender: UIButton) {
         
-        if currentQuestionNo < questions.count-1 {
+
+        if currentQuestionNo < questions.count {
             
             let id = questions[currentQuestionNo].questionID
-            var answer = -1
+            var answer = "00000000"
             
             switch sender.tag {
             case 0:
-                answer = sender.tag
+                answer = "1111111111"
             case 1:
-                answer = sender.tag
+                answer = "2222222222"
             case 2:
-                answer = sender.tag
+                answer = "3333333333"
             default:
                 print("default")
             }
-            feedback.append(Feedback(questionID: id, answer: answer))
+            feedback.answers.append(Answer(questionID: id, answer: answer))
+            if currentQuestionNo < questions.count-1 {
             
-            
-            currentQuestionNo += 1
-            updateUI()
-            
-            backgroundView.transform = CGAffineTransform(translationX: backgroundView.frame.size.width, y: 0)
+                currentQuestionNo += 1
+                updateUI()
+                
+                backgroundView.transform = CGAffineTransform(translationX: backgroundView.frame.size.width, y: 0)
 
-            UIView.animate(withDuration: 0.4,
-                           delay: 0.0,
-                           options: .curveEaseInOut,
-                           animations: {
-                            self.backgroundView.transform = CGAffineTransform(translationX: 0, y: 0)
-            })
-        } else if currentQuestionNo == questions.count-1 {
-            postFeedback()
-            self.performSegue(withIdentifier: feedbackReceivedSegue, sender: self)
+                UIView.animate(withDuration: 0.4,
+                               delay: 0.0,
+                               options: .curveEaseInOut,
+                               animations: {
+                                self.backgroundView.transform = CGAffineTransform(translationX: 0, y: 0)
+                })
+            } else if currentQuestionNo == questions.count-1 {
+                feedback.roomID = "5c8140f9ac7aa950167d9167"
+                networkService.postFeedback(feedback: feedback)
+                self.performSegue(withIdentifier: feedbackReceivedSegue, sender: self)
+            }
         }
     }
     
     func updateUI(){
-        if currentQuestionNo >= 1 {
-            backButton.tintColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-        } else {
+        if currentQuestionNo < 1 {
             backButton.tintColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
+        } else {
+            backButton.tintColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         }
-        
         questionLabel.text = questions[currentQuestionNo].question
         pagesLabel.text = "\(currentQuestionNo+1)/\(questions.count)"
     }
@@ -118,15 +120,6 @@ class FeedbackController: UIViewController {
                 self.buttonThree.isHidden = true
                 
             }
-        }
-    }
-    
-    func postFeedback(){
-        for ele in feedback {
-            print("Question ID: ",ele.questionID)
-            print("User ID:",ele.userID)
-            print("Answer: ",ele.answer)
-            print("------")
         }
     }
 }
