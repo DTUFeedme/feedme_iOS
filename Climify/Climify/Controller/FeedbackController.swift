@@ -13,21 +13,30 @@ class FeedbackController: UIViewController {
     
     
     @IBOutlet var backButton: UIBarButtonItem!
-    var feedback = Feedback.init()
     let feedbackReceivedSegue = "feedbackreceived"
     
     @IBOutlet weak var pagesLabel: UILabel!
     @IBOutlet weak var backgroundView: UIView!
-    @IBOutlet weak var question: UILabel!
+    @IBOutlet weak var questionLabel: UILabel!
+    
+    
+    @IBOutlet weak var buttonOne: UIButton!
+    @IBOutlet weak var buttonTwo: UIButton!
+    @IBOutlet weak var buttonThree: UIButton!
     
     let networkService = NetworkService()
-    var currentQuestionNo = 1
-    var questions: [String] = []
+    var currentQuestionNo = 0
+    var questions: [Question] = []
+    var feedback: [Feedback] = []
+    
     
     @IBAction func backButtonAction(_ sender: Any) {
         
-        if currentQuestionNo > 1 {
+        
+        if currentQuestionNo > 0 {
+        
         currentQuestionNo -= 1
+        feedback.remove(at: currentQuestionNo)
         updateUI()
         backgroundView.transform = CGAffineTransform(translationX: -backgroundView.frame.size.width, y: 0)
         
@@ -41,18 +50,25 @@ class FeedbackController: UIViewController {
     }
     
     @IBAction func temperatureFeedback(_ sender: UIButton) {
-        switch sender.tag {
-        case 0:
-            feedback.temperature = .low
-        case 1:
-            feedback.temperature = .fine
-        case 2:
-            feedback.temperature = .high
-        default:
-            feedback.temperature = .empty
-        }
         
-        if currentQuestionNo < questions.count {
+        if currentQuestionNo < questions.count-1 {
+            
+            let id = questions[currentQuestionNo].questionID
+            var answer = -1
+            
+            switch sender.tag {
+            case 0:
+                answer = sender.tag
+            case 1:
+                answer = sender.tag
+            case 2:
+                answer = sender.tag
+            default:
+                print("default")
+            }
+            feedback.append(Feedback(questionID: id, answer: answer))
+            
+            
             currentQuestionNo += 1
             updateUI()
             
@@ -64,26 +80,25 @@ class FeedbackController: UIViewController {
                            animations: {
                             self.backgroundView.transform = CGAffineTransform(translationX: 0, y: 0)
             })
-        } else if currentQuestionNo == questions.count {
+        } else if currentQuestionNo == questions.count-1 {
+            postFeedback()
             self.performSegue(withIdentifier: feedbackReceivedSegue, sender: self)
         }
     }
     
     func updateUI(){
-        if currentQuestionNo > 1 {
+        if currentQuestionNo >= 1 {
             backButton.tintColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         } else {
             backButton.tintColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
         }
-        question.text = questions[currentQuestionNo-1]
-        pagesLabel.text = "\(currentQuestionNo)/\(questions.count)"
+        
+        questionLabel.text = questions[currentQuestionNo].question
+        pagesLabel.text = "\(currentQuestionNo+1)/\(questions.count)"
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        backButton.tintColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
-        
         
         getQuestions()
     }
@@ -94,12 +109,24 @@ class FeedbackController: UIViewController {
             self.questions = questions
             
             if let question = self.questions.first {
-                self.question.text = question
-                self.pagesLabel.text = "\(self.currentQuestionNo)/\(questions.count)"
+                self.questionLabel.text = question.question
+                self.pagesLabel.text = "\(self.currentQuestionNo+1)/\(questions.count)"
             } else {
-                self.question.text = "no questions"
+                self.questionLabel.text = "no questions"
+                self.buttonOne.isHidden = true
+                self.buttonTwo.isHidden = true
+                self.buttonThree.isHidden = true
+                
             }
-            print(questions)
+        }
+    }
+    
+    func postFeedback(){
+        for ele in feedback {
+            print("Question ID: ",ele.questionID)
+            print("User ID:",ele.userID)
+            print("Answer: ",ele.answer)
+            print("------")
         }
     }
 }

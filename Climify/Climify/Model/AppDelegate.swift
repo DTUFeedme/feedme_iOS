@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let launchedBefore = defaults.bool(forKey: "launchedBefore")
         
         if launchedBefore {
-            print("User ID: ",defaults.string(forKey: "userID"))
+            print("User ID: ",defaults.string(forKey: "userID") as Any)
         }
         else {
             let networkService = NetworkService()

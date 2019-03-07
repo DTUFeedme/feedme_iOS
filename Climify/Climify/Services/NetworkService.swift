@@ -14,9 +14,9 @@ class NetworkService: NSObject {
     let fetchQuestionsUrl = "http://localhost:3000/api/questions"
     let initUserUrl = "http://localhost:3000/api/users"
     
-    var questions: [String] = []
+    var questions: [Question] = []
     
-    func getQuestions(completionHandler: @escaping (_ articles: [String]) -> Void) {
+    func getQuestions(completionHandler: @escaping (_ questions: [Question]) -> Void) {
         if let url = URL(string: fetchQuestionsUrl){
             let urlRequest = URLRequest(url: url)
             
@@ -33,7 +33,8 @@ class NetworkService: NSObject {
                     let json = try JSON(data: data!)
                     
                     for element in json {
-                        if let question = element.1["name"].string {
+                        if let questionName = element.1["name"].string, let id = element.1["_id"].string {
+                            let question = Question(questionID: id, question: questionName)
                             self.questions.append(question)
                         }
                     }

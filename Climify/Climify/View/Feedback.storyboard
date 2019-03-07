@@ -126,7 +126,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Climify" id="EGj-Ga-lTg">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="back_glyph" id="kYH-fF-nZV">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="backButtonAction:" destination="cYD-PC-89k" id="7rZ-jV-z3y"/>
                             </connections>
@@ -138,8 +138,11 @@
                     <connections>
                         <outlet property="backButton" destination="kYH-fF-nZV" id="cWY-wT-cx8"/>
                         <outlet property="backgroundView" destination="Ynq-B5-g6P" id="HC6-ae-Zjk"/>
+                        <outlet property="buttonOne" destination="WYc-yK-kKc" id="eUx-hy-wIM"/>
+                        <outlet property="buttonThree" destination="14t-sg-6Ma" id="EM5-1M-k4n"/>
+                        <outlet property="buttonTwo" destination="6UH-DF-VqD" id="4BK-nB-317"/>
                         <outlet property="pagesLabel" destination="JEX-fq-4Z0" id="wCU-GY-dYI"/>
-                        <outlet property="question" destination="J28-0v-YMF" id="Z8Y-zT-oDA"/>
+                        <outlet property="questionLabel" destination="J28-0v-YMF" id="FbO-Md-VaS"/>
                         <segue destination="grJ-g7-5el" kind="presentation" identifier="feedbackreceived" modalTransitionStyle="crossDissolve" id="yws-SC-MlR"/>
                     </connections>
                 </viewController>

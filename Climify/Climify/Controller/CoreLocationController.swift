@@ -31,10 +31,7 @@ class CoreLocationController: UIViewController, CLLocationManagerDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
-        
+
         setupRegions()
         manager.delegate = self
         manager.requestAlwaysAuthorization()

@@ -10,43 +10,20 @@ import UIKit
 
 class Feedback: NSObject {
     
-    enum Temperature:Int {
-        case empty = -1
-        case low = 0
-        case fine = 1
-        case high = 2
-    }
+    var questionID: String
+    var userID: String
+    var answer: Int
     
-    enum Humidity:Int {
-        case empty = -1
-        case low = 0
-        case fine = 1
-        case high = 2
-    }
-    
-    enum AirQuality:Int {
-        case empty = -1
-        case low = 0
-        case fine = 1
-        case high = 2
-    }
-    
-    var temperature: Temperature
-    var humidity: Humidity
-    var airQuality: AirQuality
-    
-//    init(questions:[Question]){
-//        
-//    }
-    
-    init(temperature: Temperature, humidity: Humidity, airQuality: AirQuality) {
-        self.temperature = temperature
-        self.humidity = humidity
-        self.airQuality = airQuality
+    init(questionID: String, answer: Int) {
+        self.questionID = questionID
+        self.answer = answer
+        self.userID = "userID"
+        if let userID = UserDefaults.standard.string(forKey: "userID"){
+            self.userID = userID
+        }
     }
     
     convenience override init(){
-        self.init(temperature: Temperature.empty, humidity: Humidity.empty, airQuality: AirQuality.empty)
+        self.init(questionID: "", answer: -1)
     }
-
 }
