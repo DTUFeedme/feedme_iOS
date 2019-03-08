@@ -18,15 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let defaults = UserDefaults.standard
         
-        let launchedBefore = defaults.bool(forKey: "launchedBefore")
-        
-        if launchedBefore {
-            print("User ID: ",defaults.string(forKey: "userID")!)
+        if let userID = defaults.string(forKey: "userID") {
+            print(userID)
         }
+        
         else {
             let networkService = NetworkService()
             networkService.initUser()
-            defaults.set(true, forKey: "launchedBefore")
         }
         
         
@@ -35,7 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().barTintColor = green
         UITabBar.appearance().tintColor = darkGreen
         UITabBar.appearance().unselectedItemTintColor = .white
-        
         
         let navigationFont = UIFont(name: "Avenir Next", size: 28)
         UINavigationBar.appearance().barTintColor = green

@@ -18,7 +18,7 @@ class Feedback: NSObject {
         self.answers = answers
         self.roomID = roomID
         
-        self.userID = "userID"
+        self.userID = "no user ID"
         if let userID = UserDefaults.standard.string(forKey: "userID"){
             self.userID = userID
         }

@@ -37,15 +37,10 @@ class FeedbackController: UIViewController {
         
         currentQuestionNo -= 1
         feedback.answers.remove(at: currentQuestionNo)
-        updateUI()
-        backgroundView.transform = CGAffineTransform(translationX: -backgroundView.frame.size.width, y: 0)
         
-        UIView.animate(withDuration: 0.4,
-                       delay: 0.0,
-                       options: .curveEaseInOut,
-                       animations: {
-                        self.backgroundView.transform = CGAffineTransform(translationX: 0, y: 0)
-        })
+        updateUI()
+        animateSlideGesture(forward: false)
+            
         }
     }
     
@@ -59,29 +54,24 @@ class FeedbackController: UIViewController {
             
             switch sender.tag {
             case 0:
-                answer = "1111111111"
+                answer = "111111"
             case 1:
-                answer = "2222222222"
+                answer = "222222"
             case 2:
                 answer = "3333333333"
             default:
                 print("default")
             }
             feedback.answers.append(Answer(questionID: id, answer: answer))
+            
             if currentQuestionNo < questions.count-1 {
             
                 currentQuestionNo += 1
                 updateUI()
+                animateSlideGesture(forward: true)
                 
-                backgroundView.transform = CGAffineTransform(translationX: backgroundView.frame.size.width, y: 0)
-
-                UIView.animate(withDuration: 0.4,
-                               delay: 0.0,
-                               options: .curveEaseInOut,
-                               animations: {
-                                self.backgroundView.transform = CGAffineTransform(translationX: 0, y: 0)
-                })
-            } else if currentQuestionNo == questions.count-1 {
+            } else if currentQuestionNo >= questions.count-1 {
+                print(feedback.userID)
                 feedback.roomID = "5c8140f9ac7aa950167d9167"
                 networkService.postFeedback(feedback: feedback)
                 self.performSegue(withIdentifier: feedbackReceivedSegue, sender: self)
@@ -121,5 +111,20 @@ class FeedbackController: UIViewController {
                 
             }
         }
+    }
+    
+    func animateSlideGesture(forward: Bool){
+        
+        if forward {
+        backgroundView.transform = CGAffineTransform(translationX: backgroundView.frame.size.width, y: 0)
+        } else {
+             backgroundView.transform = CGAffineTransform(translationX: -backgroundView.frame.size.width, y: 0)
+        }
+        UIView.animate(withDuration: 0.4,
+                       delay: 0.0,
+                       options: .curveEaseInOut,
+                       animations: {
+                        self.backgroundView.transform = CGAffineTransform(translationX: 0, y: 0)
+        })
     }
 }

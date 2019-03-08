@@ -12,30 +12,24 @@ import Alamofire
 
 class NetworkService: NSObject {
 
-    let fetchQuestionsUrl = "http://localhost:3000/api/questions"
-    let initUserUrl = "http://localhost:3000/api/users"
-    let feedbackUrl = "http://localhost:3000/api/feedback"
+    let questionsUrl = "http://10.123.195.30:3000/api/questions"
+    let initUserUrl = "http://10.123.195.30:3000/api/users"
+    let feedbackUrl = "http://10.123.195.30:3000/api/feedback"
+    let beaconsUrl = "http://10.123.195.30:3000/api/beacons"
+    let roomUrl = "http://10.123.195.30:3000/api/rooms"
     
     var questions: [Question] = []
- 
+    var beacons: [Beacon] = []
     
     func getQuestions(completionHandler: @escaping (_ questions: [Question]) -> Void) {
         
+        let group = DispatchGroup()
+        group.enter()
         
-        if let url = URL(string: fetchQuestionsUrl){
-            let urlRequest = URLRequest(url: url)
-            
-            let group = DispatchGroup()
-            group.enter()
-            
-            URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-                if error != nil {
-                    print(error as Any)
-                    group.leave()
-                    return
-                }
-                do {
-                    let json = try JSON(data: data!)
+        AF.request(questionsUrl, method: .get).responseJSON{ response in
+            switch response.result {
+                case .success(let value) :
+                    let json = JSON(value)
                     
                     for element in json {
                         if let questionName = element.1["name"].string, let id = element.1["_id"].string {
@@ -43,29 +37,68 @@ class NetworkService: NSObject {
                             self.questions.append(question)
                         }
                     }
-                } catch let error {
-                    print(error)
-                }
+            case .failure(let error):
                 group.leave()
-                }.resume()
-            group.notify(queue: .main) {
-                completionHandler(self.questions)
+                print(error)
+                return
             }
+            group.leave()
+        }
+        group.notify(queue: .main) {
+            completionHandler(self.questions)
         }
     }
+    
+    func getBeacons(completionHandler: @escaping (_ beacons: [Beacon]) -> Void){
+        
+        let group = DispatchGroup()
+        group.enter()
+        
+        AF.request(beaconsUrl, method: .get).responseJSON{ response in
+            switch response.result {
+            case .success(let value) :
+                let json = JSON(value)
+                
+                for element in json {
+                     if let name = element.1["name"].string,
+                        let id = element.1["_id"].string,
+                        let location = element.1["location"].string,
+                        let uuid = element.1["uuid"].string,
+                        let room = element.1["room"].dictionary {
+                        
+                        if let roomId = room["_id"]?.string, let roomName = room["name"]?.string, let roomLocation = room["location"]?.string{
+                            let room = Room(id: roomId, name: roomName, location: roomLocation)
+                            
+                            
+                            let beacon = Beacon(id: id, uuid: uuid, name: name, room: room, location: location)
+                            self.beacons.append(beacon)
+                        }
+                    }
+                }
+            case .failure(let error):
+                print(error)
+                return
+            }
+            group.leave()
+        }
+        group.notify(queue: .main) {
+            completionHandler(self.beacons)
+        }
+            
+        }
+    
     
     func initUser(){
 
         AF.request(initUserUrl, method: .post).responseJSON{ response in
 
             switch response.result {
-            case .success(let value) :
-               if let id = JSON(value)["_id"].string {
-               print(id)
-               UserDefaults.standard.set(id, forKey: "userID")
-               }
-            case .failure(let error):
-                print(error)
+                case .success(let value) :
+                   if let id = JSON(value)["_id"].string {
+                   UserDefaults.standard.set(id, forKey: "userID")
+                   }
+                case .failure(let error):
+                    print(error)
             }
         }
     }
@@ -83,13 +116,19 @@ class NetworkService: NSObject {
 
                 dict["_id"] = elements.questionID
                 dict["answer"] = elements.answer
+                
                 questions.append(dict)
             }
             json["questions"] = questions
             
             AF.request(feedbackUrl, method: .post, parameters: json, encoding: JSONEncoding.default)
                 .responseString { response in
-                    print(response)
+                    switch response.result {
+                    case.success(_):
+                        print(response)
+                    case.failure(let error):
+                        print(error)
+                    }
             }
     }
 }
