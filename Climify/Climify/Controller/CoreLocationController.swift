@@ -50,11 +50,12 @@ class CoreLocationController: UIViewController, CLLocationManagerDelegate {
     }
     
     func getBeacons(){
-        networkService.getBeacons() { responseBeacons in
-            
+        networkService.getBeacons() { responseBeacons, statusCode in
+            if statusCode == 200 {
             self.serverBeacons = responseBeacons
             self.setupRegions()
             self.rangeBeacons()
+            }
         }
     }
     

@@ -17,7 +17,7 @@ class NetworkService: NSObject {
     let feedbackUrl = "http://192.168.1.102:3000/api/feedback"
     let beaconsUrl = "http://192.168.1.102:3000/api/beacons"
     let roomUrl = "http://192.168.1.102:3000/api/rooms"
-
+    var statusCode: Int = -1
     
     
 //    let questionsUrl = "http://10.16.99.9:3000/api/questions"
@@ -27,7 +27,6 @@ class NetworkService: NSObject {
 //    let roomUrl = "http://10.16.99.9:3000/api/rooms"
     
     
-    var beacons: [Beacon] = []
     
     struct Connectivity {
         static let sharedInstance = NetworkReachabilityManager()!
@@ -36,10 +35,8 @@ class NetworkService: NSObject {
         }
     }
     
-    func getQuestions(currentRoomID: String, completion: @escaping (_ questions: [Question]) -> Void) {
-        
-//        let group = DispatchGroup()
-//        group.enter()
+    
+    func getQuestions(currentRoomID: String, completion: @escaping (_ questions: [Question], _ statusCode: Int) -> Void) {
         
         if let userId = UserDefaults.standard.string(forKey: "userID") {
             let headers: HTTPHeaders = [
@@ -48,42 +45,33 @@ class NetworkService: NSObject {
             ]
             var questions: [Question] = []
             AF.request(questionsUrl, method: .get, headers: headers).responseJSON{ response in
-                print(currentRoomID)
-                print("GET QUESTIONS STATUS: ",String(response.response!.statusCode))
+                
+                guard let statusCode = response.response?.statusCode else { return }
+                
                 switch response.result {
-                    case .success(let value) :
-                        let json = JSON(value)
-                        print(json.count)
-                        for element in json {
-                            if let questionName = element.1["name"].string, let id = element.1["_id"].string {
-                                let question = Question(questionID: id, question: questionName)
-                                questions.append(question)
-                            }
+                case .success(let value) :
+                    let json = JSON(value)
+                    for element in json {
+                        if let questionName = element.1["name"].string, let id = element.1["_id"].string {
+                            let question = Question(questionID: id, question: questionName)
+                            questions.append(question)
                         }
-                    completion(questions)
+                    }
+                    completion(questions, statusCode)
                 case .failure(let error):
-//                    group.leave()
                     print(error)
-                    return
+                    completion(questions, statusCode)
                 }
-//                group.leave()
             }
-//            group.notify(queue: .main) {
-//                print("yooo ", questions.count)
-//                completionHandler(questions)
-//            }
         }
-        
     }
     
-    func getBeacons(completionHandler: @escaping (_ beacons: [Beacon]) -> Void){
-        
-        
-        let group = DispatchGroup()
-        group.enter()
-        
+    func getBeacons(completion: @escaping (_ beacons: [Beacon], _ statusCode: Int) -> Void){
+        var beacons: [Beacon] = []
         AF.request(beaconsUrl, method: .get).responseJSON{ response in
-            print("GET BEACON STATUS: ",String(response.response!.statusCode))
+            
+            guard let statusCode = response.response?.statusCode else { return }
+            
             switch response.result {
             case .success(let value) :
                 let json = JSON(value)
@@ -97,81 +85,69 @@ class NetworkService: NSObject {
                         
                         if let roomId = room["_id"]?.string, let roomName = room["name"]?.string, let roomLocation = room["location"]?.string{
                             let room = Room(id: roomId, name: roomName, location: roomLocation)
-                            
-                            
                             let beacon = Beacon(id: id, uuid: uuid, name: name, room: room, location: location)
-                            self.beacons.append(beacon)
+                            beacons.append(beacon)
                         }
                     }
                 }
+                completion(beacons, statusCode)
             case .failure(let error):
                 print(error)
-                return
+                completion(beacons, statusCode)
             }
-            group.leave()
         }
-        group.notify(queue: .main) {
-            completionHandler(self.beacons)
-        }        
     }
     
     
-    func initUser(completionHandler: @escaping (_ result: String) -> Void){
+    func initUser(completion: @escaping (_ statusCode: Int) -> Void){
 
-        let group = DispatchGroup()
-        group.enter()
-        
         AF.request(initUserUrl, method: .post).responseJSON{ response in
+            guard let statusCode = response.response?.statusCode else { return }
             switch response.result {
                 case .success(let value) :
                    if let id = JSON(value)["_id"].string {
-                   UserDefaults.standard.set(id, forKey: "userID")
-                   group.leave()
-                   group.notify(queue: .main) { completionHandler("success") }
+                    UserDefaults.standard.set(id, forKey: "userID")
+                    completion(statusCode)
                    }
                 case .failure(let error):
-                    group.leave()
-                    group.notify(queue: .main) { completionHandler("failure") }
                     print(error)
+                    completion(statusCode)
             }
         }
     }
     
-    func postFeedback(feedback: Feedback){
+    func postFeedback(feedback: Feedback, completion: @escaping (_ statusCode: Int) -> Void){
         
-            //
-            var json: [String : Any] = [:]
-            json["roomId"] = feedback.roomID
+        
             if let userId = feedback.userID {
-                let headers: HTTPHeaders = [
-                    "userId": userId
-                ]
+                let headers: HTTPHeaders = [ "userId": userId ]
             
+                var json: [String : Any] = [:]
+                json["roomId"] = feedback.roomID
+                var questions: [[String: Any]] = []
 
-            var questions: [[String: Any]] = []
-
-            for elements in feedback.answers {
-                var dict: [String: Any] = [:]
-
-                dict["_id"] = elements.questionID
-                dict["answer"] = elements.answer as Int
+                for elements in feedback.answers {
+                    var dict: [String: Any] = [:]
+                    dict["_id"] = elements.questionID
+                    dict["answer"] = elements.answer as Int
+                    questions.append(dict)
+                }
                 
-                questions.append(dict)
-            }
+                json["questions"] = questions
                 
-            json["questions"] = questions
-                
-        
-            AF.request(feedbackUrl, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
-                .responseString { response in
-                    print(String(response.response!.statusCode))
-                    switch response.result {
-                    case.success(_):
-                        print(response)
-                    case.failure(let error):
-                        print(error)
+                AF.request(feedbackUrl, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
+                    .responseString { response in
+                        guard let statusCode = response.response?.statusCode else { return }
+                        switch response.result {
+                        case.success(_):
+                            print(response.result.value!)
+                            completion(statusCode)
+                        case.failure(let error):
+                            print(error)
+                            completion(statusCode)
+                    }
                 }
             }
-        }
     }
 }
+

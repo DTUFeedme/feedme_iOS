@@ -18,6 +18,7 @@
 		A136A0D7220C595000189E21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D5220C595000189E21 /* Main.storyboard */; };
 		A136A0D9220C595000189E21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D8220C595000189E21 /* Assets.xcassets */; };
 		A136A0DC220C595000189E21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136A0DA220C595000189E21 /* LaunchScreen.storyboard */; };
+		A1581EB7223A8B8F0083C4C9 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1581EB6223A8B8F0083C4C9 /* Reachability.swift */; };
 		A1734B2C223657FE004AB9DD /* AppBeaconTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1734B2B223657FE004AB9DD /* AppBeaconTest.swift */; };
 		A1734B2E223664BB004AB9DD /* FeedbackTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1734B2D223664BB004AB9DD /* FeedbackTest.swift */; };
 		A1B29A32223162AE0065DE01 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B29A31223162AE0065DE01 /* Question.swift */; };
@@ -55,6 +56,7 @@
 		A136A0D8220C595000189E21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A136A0DB220C595000189E21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A136A0DD220C595000189E21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1581EB6223A8B8F0083C4C9 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A1734B212236577A004AB9DD /* ClimifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClimifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1734B252236577A004AB9DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1734B2B223657FE004AB9DD /* AppBeaconTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBeaconTest.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				A1141A1122314B4900659DF1 /* NetworkService.swift */,
+				A1581EB6223A8B8F0083C4C9 /* Reachability.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				A1B29A32223162AE0065DE01 /* Question.swift in Sources */,
 				A1B490A62231847400198E6F /* Feedback.swift in Sources */,
 				A136A0D2220C595000189E21 /* AppDelegate.swift in Sources */,
+				A1581EB7223A8B8F0083C4C9 /* Reachability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

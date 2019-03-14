@@ -27,7 +27,7 @@ extension UIButton {
     func flash() {
         
         let flash = CABasicAnimation(keyPath: "opacity")
-        flash.duration = 0.15
+        flash.duration = 0.06
         flash.fromValue = 1
         flash.toValue = 0.1
         flash.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
@@ -39,7 +39,6 @@ extension UIButton {
     
     func rotate(rotate: Double) {
         UIView.animate(withDuration: 0.5) {
-            print("PI: ",.pi*rotate)
             self.transform = CGAffineTransform(rotationAngle: CGFloat((Double.pi)*rotate))
         }
     }
