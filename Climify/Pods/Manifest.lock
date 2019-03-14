@@ -1,20 +1,24 @@
 PODS:
   - Alamofire (5.0.0-beta.2)
+  - OpenSans (1.0.3)
   - SwiftyJSON (4.2.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-beta.2)
+  - OpenSans
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - OpenSans
     - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: d1e5493588babe3e7b56ae29e8032942f4de09fe
+  OpenSans: 33078846463eae780aa5f82986b51cce085f970d
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 005c33c47a5339489c0f4044bc2bdd4aa4340063
+PODFILE CHECKSUM: 70af889fbeacac2d00650a868cb42359e4a81994
 
 COCOAPODS: 1.5.3

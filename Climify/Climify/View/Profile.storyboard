@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Profile-->
+        <!--PROFILE-->
         <scene sceneID="vWT-Ps-DbC">
             <objects>
                 <viewController id="9pt-JR-Smd" sceneMemberID="viewController">
@@ -33,7 +33,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4aE-dx-kTX"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Profile" image="profile_glyph" id="lXF-sQ-VUl"/>
+                    <tabBarItem key="tabBarItem" title="PROFILE" image="profile_glyph" id="lXF-sQ-VUl"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aVK-Mg-dtB" userLabel="First Responder" sceneMemberID="firstResponder"/>

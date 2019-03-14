@@ -10,7 +10,7 @@ import UIKit
 
 class Feedback: NSObject {
 
-    var userID: String
+    var userID: String?
     var roomID: String
     var answers: [Answer]
     
@@ -18,7 +18,7 @@ class Feedback: NSObject {
         self.answers = answers
         self.roomID = roomID
         
-        self.userID = "no user ID"
+        //self.userID = "no user ID"
         if let userID = UserDefaults.standard.string(forKey: "userID"){
             self.userID = userID
         }

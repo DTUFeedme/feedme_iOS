@@ -19,51 +19,105 @@ class FeedbackController: UIViewController {
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var questionLabel: UILabel!
     
-    
+    @IBOutlet weak var roomLocationLabel: UILabel!
+    @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet weak var buttonOne: UIButton!
     @IBOutlet weak var buttonTwo: UIButton!
     @IBOutlet weak var buttonThree: UIButton!
     
+    @IBOutlet weak var reloadInternetButton: UIButton!
+    @IBOutlet weak var reloadInternetLabel: UILabel!
+    var currentRoomID: String = ""
     let networkService = NetworkService()
     var currentQuestionNo = 0
+//    var rotateButton:Double = 0.99
     var questions: [Question] = []
-    var feedback = Feedback.init()
+    var isFeedbackInitiated = false
+    var feedback:Feedback? = nil
+    let coreLocationController = CoreLocationController()
+    var delegate: UserChangedRoomDelegate!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBAction func reloadIfConnected(_ sender: Any) {
+        reloadInternetButton.rotateImage()
+        reloadInternetLabel.text = "Are you sure you are \nconnected?"
+//        rotateButton+=1
+        viewDidLoad()
+    }
     
     @IBAction func backButtonAction(_ sender: Any) {
         
-        
         if currentQuestionNo > 0 {
-        
         currentQuestionNo -= 1
-        feedback.answers.remove(at: currentQuestionNo)
-        
+            if let tempFeedback = feedback{
+                tempFeedback.answers.remove(at: currentQuestionNo)
+            }
         updateUI()
         animateSlideGesture(forward: false)
+        }
+    }
+    
+    func reloadUI(){
+        let isConnected = NetworkService.Connectivity.isConnectedToInternet
+        print(isConnected)
+        if isConnected == false {
+            self.questionLabel.font = UIFont(name: "AvenirNext-UltraLight", size: 24)
+            self.questionLabel.textAlignment = NSTextAlignment.left
+            self.questionLabel.text = "Please make sure you have internet connection..."
+            self.buttonOne.isHidden = true
+            self.buttonTwo.isHidden = true
+            self.buttonThree.isHidden = true
+            self.reloadInternetLabel.isHidden = false
+            self.reloadInternetButton.isHidden = false
+            activityIndicator.stopAnimating()
+        } else if currentRoomID == "" {
+            self.questionLabel.font = UIFont(name: "AvenirNext-UltraLight", size: 24)
+            self.questionLabel.textAlignment = NSTextAlignment.left
+            self.questionLabel.text = "Couldn't estimate your location..."
+            self.roomLocationLabel.text = "estimating you location..."
+            self.buttonOne.isHidden = true
+            self.buttonTwo.isHidden = true
+            self.buttonThree.isHidden = true
+            self.reloadInternetLabel.isHidden = true
+            self.reloadInternetButton.isHidden = true
+            activityIndicator.startAnimating()
+        } else {
+            self.buttonOne.isHidden = false
+            self.buttonTwo.isHidden = false
+            self.buttonThree.isHidden = false
+            self.reloadInternetLabel.isHidden = true
+            self.reloadInternetButton.isHidden = true
+            activityIndicator.stopAnimating()
             
         }
     }
     
     @IBAction func temperatureFeedback(_ sender: UIButton) {
         
-
+        if !isFeedbackInitiated {
+            feedback = Feedback.init()
+            isFeedbackInitiated = true
+        }
+        
         if currentQuestionNo < questions.count {
             
             let id = questions[currentQuestionNo].questionID
-            var answer = "00000000"
+            var answer = 0
             
             switch sender.tag {
             case 0:
-                answer = "111111"
+                answer = 1
             case 1:
-                answer = "222222"
+                answer = 2
             case 2:
-                answer = "3333333333"
+                answer = 3
             default:
                 print("default")
             }
-            feedback.answers.append(Answer(questionID: id, answer: answer))
-            
+            sender.flash()
+            if let tempFeedback = feedback {
+                tempFeedback.answers.append(Answer(questionID: id, answer: answer))
+            }
             if currentQuestionNo < questions.count-1 {
             
                 currentQuestionNo += 1
@@ -71,10 +125,13 @@ class FeedbackController: UIViewController {
                 animateSlideGesture(forward: true)
                 
             } else if currentQuestionNo >= questions.count-1 {
-                print(feedback.userID)
-                feedback.roomID = "5c8140f9ac7aa950167d9167"
-                networkService.postFeedback(feedback: feedback)
-                self.performSegue(withIdentifier: feedbackReceivedSegue, sender: self)
+                if let tempFeedback = feedback {
+                    
+                    tempFeedback.roomID = currentRoomID
+                    
+                    networkService.postFeedback(feedback: tempFeedback)
+                    self.performSegue(withIdentifier: feedbackReceivedSegue, sender: self)
+                }
             }
         }
     }
@@ -89,26 +146,46 @@ class FeedbackController: UIViewController {
         pagesLabel.text = "\(currentQuestionNo+1)/\(questions.count)"
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        reloadUI()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        coreLocationController.userChangedDelegate = self
         
-        getQuestions()
+        if (NetworkService.Connectivity.isConnectedToInternet){
+            checkIfUserExists()
+            coreLocationController.startLocating()
+        } else {
+            reloadUI()
+        }
+    }
+    
+    func checkIfUserExists(){
+        let defaults = UserDefaults.standard
+        
+        if let userID = defaults.string(forKey: "userID") {
+            print(userID)
+        } else {
+            networkService.initUser() { result in
+                if result == "success" {
+                    self.feedback = Feedback.init()
+                } else {
+                    print("no connection right now")
+                }
+            }
+        }
     }
     
     func getQuestions(){
-        networkService.getQuestions() { questions in
-            
+         networkService.getQuestions(currentRoomID: currentRoomID) { questions in
+            self.questions.removeAll()
             self.questions = questions
+            self.reloadUI()
             
             if let question = self.questions.first {
                 self.questionLabel.text = question.question
                 self.pagesLabel.text = "\(self.currentQuestionNo+1)/\(questions.count)"
-            } else {
-                self.questionLabel.text = "no questions"
-                self.buttonOne.isHidden = true
-                self.buttonTwo.isHidden = true
-                self.buttonThree.isHidden = true
-                
             }
         }
     }
@@ -116,15 +193,31 @@ class FeedbackController: UIViewController {
     func animateSlideGesture(forward: Bool){
         
         if forward {
-        backgroundView.transform = CGAffineTransform(translationX: backgroundView.frame.size.width, y: 0)
+        backgroundView.transform = CGAffineTransform(translationX: backgroundView.frame.size.width*2, y: 0)
         } else {
-             backgroundView.transform = CGAffineTransform(translationX: -backgroundView.frame.size.width, y: 0)
+             backgroundView.transform = CGAffineTransform(translationX: -backgroundView.frame.size.width*2, y: 0)
         }
-        UIView.animate(withDuration: 0.4,
-                       delay: 0.0,
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.25,
                        options: .curveEaseInOut,
                        animations: {
                         self.backgroundView.transform = CGAffineTransform(translationX: 0, y: 0)
         })
     }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }
+
+extension FeedbackController: UserChangedRoomDelegate {
+    
+    func userChangedRoom(roomname: String, roomid: String) {
+        roomLocationLabel.text = "you are in room \(roomname)"
+        currentRoomID = roomid
+        self.questions.removeAll()
+        getQuestions()
+        reloadUI()
+    }
+}
+
+

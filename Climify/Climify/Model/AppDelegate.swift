@@ -15,31 +15,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
+//        let green = UIColor(red: 28/255, green: 177/255, blue: 118/255, alpha: 1)
+        //let anotherGreen = UIColor(red: 5/255, green: 112/255, blue: 106/255, alpha: 1)
+        let xcodegreen =  UIColor(red: 25/255, green: 181/255, blue: 178/255, alpha: 1)
+//        let darkGreen = UIColor(red: 14/255, green: 120/255, blue: 100/255, alpha: 1)
+        let barBlack = UIColor(red: 15/255, green: 20/255, blue: 15/255, alpha: 1)
         
-        let defaults = UserDefaults.standard
+        UITabBar.appearance().barTintColor = barBlack
         
-        if let userID = defaults.string(forKey: "userID") {
-            print(userID)
-        }
+        UITabBar.appearance().tintColor = .white
+        UITabBar.appearance().unselectedItemTintColor = xcodegreen
         
-        else {
-            let networkService = NetworkService()
-            networkService.initUser()
-        }
-        
-        
-        let green = UIColor(red: 28/255, green: 177/255, blue: 118/255, alpha: 1)
-        let darkGreen = UIColor(red: 14/255, green: 120/255, blue: 100/255, alpha: 1)
-        UITabBar.appearance().barTintColor = green
-        UITabBar.appearance().tintColor = darkGreen
-        UITabBar.appearance().unselectedItemTintColor = .white
-        
-        let navigationFont = UIFont(name: "Avenir Next", size: 28)
-        UINavigationBar.appearance().barTintColor = green
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: darkGreen, NSAttributedString.Key.font: navigationFont!]
-  
+        let navigationFont = UIFont(name: "Avenir Next", size: 26)
+                  UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: xcodegreen, NSAttributedString.Key.font: navigationFont!]
+//  
         return true
     }
+    
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

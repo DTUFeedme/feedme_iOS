@@ -11,12 +11,17 @@ import CoreLocation
 
 class CoreLocationController: UIViewController, CLLocationManagerDelegate {
     
+
+    @IBOutlet weak var beaconTapped: UITabBarItem?
     var manager:CLLocationManager = CLLocationManager()
     var regions:[CLBeaconRegion] = []
     var beacons:[AppBeacon] = []
     var serverBeacons:[Beacon] = []
-    var nearestBeacon = AppBeacon.init()
+    private var nearestBeacon = AppBeacon.init()
     let networkService = NetworkService()
+    var didLoadUI = false
+    var userChangedDelegate: UserChangedRoomDelegate?
+    
     
     @IBOutlet weak var nearestBeaconLabel: UILabel!
     @IBOutlet weak var rssiLabel: UILabel!
@@ -28,22 +33,29 @@ class CoreLocationController: UIViewController, CLLocationManagerDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        didLoadUI = true
         manager.requestAlwaysAuthorization()
         rangeBeacons()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        startLocating()
+    }
+    
+    func startLocating (){
+        getBeacons()
+        manager.delegate = self
+        manager.requestAlwaysAuthorization()
+    }
+    
+    func getBeacons(){
         networkService.getBeacons() { responseBeacons in
             
             self.serverBeacons = responseBeacons
             self.setupRegions()
             self.rangeBeacons()
-            
         }
-        //setupRegionsOutdated()
-        manager.delegate = self
-        manager.requestAlwaysAuthorization()
     }
     
     func setupRegions(){
@@ -57,6 +69,7 @@ class CoreLocationController: UIViewController, CLLocationManagerDelegate {
     }
     
     func rangeBeacons(){
+        
         for region in regions {
             manager.startRangingBeacons(in: region)
         }
@@ -70,9 +83,8 @@ class CoreLocationController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didRangeBeacons rangedBeacons: [CLBeacon], in region: CLBeaconRegion) {
-        print(rangedBeacons.count)
+        
         if let beacon = rangedBeacons.first {
-            
             let rssi = beacon.rssi
             let id = beacon.proximityUUID.uuidString
             
@@ -81,8 +93,10 @@ class CoreLocationController: UIViewController, CLLocationManagerDelegate {
                 nearestBeacon.name = region.identifier
                 
                 if let tempBeacon = matchFoundBeaconWithBeaconInSystem(uuid: id, name: region.identifier){
-                    
                     nearestBeacon = AppBeacon(id: tempBeacon.id, uuid: tempBeacon.uuid, location: tempBeacon.location, room: tempBeacon.room, name: tempBeacon.name, rssi: rssi)
+                    if !didLoadUI{
+                        userChangedDelegate!.userChangedRoom(roomname: nearestBeacon.room.name, roomid: nearestBeacon.room.id)
+                    }
                     beacons.append(nearestBeacon)
                 }
                 
@@ -91,22 +105,26 @@ class CoreLocationController: UIViewController, CLLocationManagerDelegate {
                 if let result = beacons.first(where: { (element) -> Bool in element.uuid == id.lowercased() }
                     ) {
                     //print(result.name)
-                    if result.name == "eRE6"{
-                        print("eRE6 RSSI: ",rssi)
-                    } else if result.name == "ha2T"{
-                        print("ha2T RSSI: ",rssi)
-                    } else if result.name == "vIgJ"{
-                        print("vIgJ: ",rssi)
-                    }
+//                    if result.name == "eRE6"{
+//                        print("eRE6 RSSI: ",rssi)
+//                    } else if result.name == "ha2T"{
+//                        print("ha2T RSSI: ",rssi)
+//                    } else if result.name == "vIgJ"{
+//                        print("vIgJ: ",rssi)
+//                    }
                     result.addRssi(rssi: rssi)
                     if nearestBeacon.calcAverage() < result.calcAverage() && nearestBeacon.uuid != id {
                         nearestBeacon = result
+                        if !didLoadUI{
+                            userChangedDelegate!.userChangedRoom(roomname: nearestBeacon.room.name, roomid: nearestBeacon.room.id)
+                        }
+                       
                     }
-//                    print()
-                    updateLabels()
+                    if (didLoadUI){
+                        updateLabels()
+                    }
                 } else {
-//                     When server works
-                    
+
                     if let tempBeacon = matchFoundBeaconWithBeaconInSystem(uuid: id, name: region.identifier){
                         
                         let newBeacon = AppBeacon(id: tempBeacon.id, uuid: tempBeacon.uuid, location: tempBeacon.location, room: tempBeacon.room, name: tempBeacon.name, rssi: rssi)
@@ -127,17 +145,12 @@ class CoreLocationController: UIViewController, CLLocationManagerDelegate {
         return nil
     }
     
-    // LEGACY - STILL IN USE
-//    func setupRegionsOutdated(){
-//        let uuid1:UUID = UUID(uuidString: "f7826da6-4fa2-4e98-8024-bc5b71e0893e")!
-//        let uuid2:UUID = UUID(uuidString: "f7826da6-4fa2-4e98-8024-bc5b71e0893b")!
-//        let id1 = "ha2T"
-//        let id2 = "vIgJ"
-//        let region1 = CLBeaconRegion(proximityUUID: uuid1, identifier: id1)
-//        let region2 = CLBeaconRegion(proximityUUID: uuid2, identifier: id2)
-//
-//        regions.append(region1)
-//        regions.append(region2)
-//    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }
+protocol UserChangedRoomDelegate {
+    func userChangedRoom(roomname: String, roomid: String)
+}
+
 

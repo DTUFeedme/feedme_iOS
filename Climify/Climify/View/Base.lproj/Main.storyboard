@@ -12,8 +12,8 @@
         <!--Tab Bar Controller-->
         <scene sceneID="0Vb-Pg-arz">
             <objects>
-                <tabBarController id="hPZ-xK-bCI" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="q16-po-cy7">
+                <tabBarController storyboardIdentifier="main" id="hPZ-xK-bCI" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="q16-po-cy7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -30,12 +30,7 @@ class AppBeacon: Beacon {
         }
         
         func addRssi(rssi: Int){
-//            if self.name == "CHRILLE"{
-//                print("CHRILLE: ",self.calcAverage())
-//            } else if self.name == "SEBA"{
-//                 print("SEBA: ",self.calcAverage())
-//            }
-            
+
             if currMessurement > 4 {
                 currMessurement = 0
             }
