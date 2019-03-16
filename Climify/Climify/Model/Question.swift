@@ -13,13 +13,16 @@ class Question: NSObject {
     
     var questionID: String
     var question: String
+    var answerOptions: [String]
     
-    init(questionID: String, question: String) {
+    
+    init(questionID: String, question: String, answerOptions: [String]) {
+        self.answerOptions = answerOptions
         self.questionID = questionID
         self.question = question
     }
     
     convenience override init(){
-        self.init(questionID: "", question: "")
+        self.init(questionID: "", question: "", answerOptions: [])
     }
 }

@@ -9,8 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class FeedbackController: UIViewController {
-    
+class FeedbackController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var backButton: UIBarButtonItem!
     let feedbackReceivedSegue = "feedbackreceived"
@@ -21,9 +20,6 @@ class FeedbackController: UIViewController {
     
     @IBOutlet weak var roomLocationLabel: UILabel!
     @IBOutlet weak var navItem: UINavigationItem!
-    @IBOutlet weak var buttonOne: UIButton!
-    @IBOutlet weak var buttonTwo: UIButton!
-    @IBOutlet weak var buttonThree: UIButton!
     
     @IBOutlet weak var reloadInternetButton: UIButton!
     @IBOutlet weak var reloadInternetLabel: UILabel!
@@ -31,13 +27,14 @@ class FeedbackController: UIViewController {
     let networkService = NetworkService()
     var currentQuestionNo = 0
     var questions: [Question] = []
+    var answers: [String] = []
     var isFeedbackInitiated = false
     var feedback:Feedback? = nil
     let coreLocationController = CoreLocationController()
     var delegate: UserChangedRoomDelegate!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var systemStatusMessage = ""
     
+    @IBOutlet weak var tableView: UITableView!
     
     enum HTTPStatusCode: Int {
         case SUCCES = 200
@@ -51,6 +48,7 @@ class FeedbackController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.separatorColor = UIColor.clear
         
         if (NetworkService.Connectivity.isConnectedToInternet){
             checkIfUserExists()
@@ -58,6 +56,7 @@ class FeedbackController: UIViewController {
             coreLocationController.startLocating()
             reloadUI()
         }
+
     }
     
     func updateUI(){
@@ -68,106 +67,54 @@ class FeedbackController: UIViewController {
         }
         questionLabel.text = questions[currentQuestionNo].question
         pagesLabel.text = "\(currentQuestionNo+1)/\(questions.count)"
+        tableView.reloadData()
     }
     
-    func reloadUI(){
-        let isConnected = Reachability.isConnectedToNetwork()
-        if isConnected == false {
-            questionLabel.font = UIFont(name: "AvenirNext-UltraLight", size: 24)
-            questionLabel.textAlignment = NSTextAlignment.left
-            questionLabel.text = "Please make sure you have internet connection..."
-            buttonOne.isHidden = true
-            buttonTwo.isHidden = true
-            buttonThree.isHidden = true
-            reloadInternetLabel.isHidden = false
-            reloadInternetButton.isHidden = false
-            activityIndicator.stopAnimating()
-        } else if currentRoomID == "" {
-            questionLabel.font = UIFont(name: "AvenirNext-UltraLight", size: 24)
-            questionLabel.textAlignment = NSTextAlignment.left
-            questionLabel.text = "Couldn't estimate your location..."
-            roomLocationLabel.text = "Trying to estimate your location..."
-            buttonOne.isHidden = true
-            buttonTwo.isHidden = true
-            buttonThree.isHidden = true
-            reloadInternetLabel.isHidden = true
-            reloadInternetButton.isHidden = true
-            activityIndicator.startAnimating()
-        } else {
-            buttonOne.isHidden = false
-            buttonTwo.isHidden = false
-            buttonThree.isHidden = false
-            reloadInternetLabel.isHidden = true
-            reloadInternetButton.isHidden = true
-            activityIndicator.stopAnimating()
-        }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return answers.count
     }
     
-    @IBAction func reloadIfConnected(_ sender: Any) {
-        reloadInternetButton.rotateImage()
-        reloadInternetLabel.text = "Are you sure you are connected?"
-        viewDidLoad()
-    }
-    
-    @IBAction func backButtonAction(_ sender: Any) {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellAnswer", for: indexPath) as! AnswerCell
+        cell.answerLabel.text = answers[indexPath.row]
         
-        if currentQuestionNo > 0 {
-            currentQuestionNo -= 1
-            if let tempFeedback = feedback{
-                tempFeedback.answers.remove(at: currentQuestionNo)
-            }
-            updateUI()
-            animateSlideGesture(forward: false)
-        }
+        return cell
+        
     }
     
-    func restartFeedback(){
-        currentQuestionNo = 0
-        questions.removeAll()
-        isFeedbackInitiated = false
-    }
-    
-    
-    
-    @IBAction func temperatureFeedback(_ sender: UIButton) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if !isFeedbackInitiated {
             feedback = Feedback.init()
             isFeedbackInitiated = true
         }
         
+        let currentCell = tableView.cellForRow(at: indexPath) as! AnswerCell
+        currentCell.flash()
+        
         if currentQuestionNo < questions.count {
             
             let id = questions[currentQuestionNo].questionID
-            var answer = 0
-            
-            switch sender.tag {
-            case 0:
-                answer = 1
-            case 1:
-                answer = 2
-            case 2:
-                answer = 3
-            default:
-                print("default")
-            }
-            sender.flash()
+            let answer = answers[indexPath.row]
+
             if let tempFeedback = feedback {
                 tempFeedback.answers.append(Answer(questionID: id, answer: answer))
             }
             if currentQuestionNo < questions.count-1 {
-            
                 currentQuestionNo += 1
                 animateSlideGesture(forward: true)
+                answers = questions[currentQuestionNo].answerOptions
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                     self.updateUI()
+                    self.tableView.reloadData()
                 }
                 
             } else if currentQuestionNo >= questions.count-1 {
                 if let tempFeedback = feedback {
                     
                     tempFeedback.roomID = currentRoomID
-                    print(Reachability.isConnectedToNetwork())
+                    
                     if !NetworkService.Connectivity.isConnectedToInternet {
                         restartFeedback()
                         updateUI()
@@ -192,8 +139,55 @@ class FeedbackController: UIViewController {
                 }
             }
         }
+        
     }
-
+    
+    func reloadUI(){
+        let isConnected = Reachability.isConnectedToNetwork()
+        if isConnected == false {
+            questionLabel.font = UIFont(name: "AvenirNext-UltraLight", size: 28)
+            questionLabel.textAlignment = NSTextAlignment.left
+            questionLabel.text = "Please make sure you have internet connection..."
+            reloadInternetLabel.isHidden = false
+            reloadInternetButton.isHidden = false
+        } else if currentRoomID == "" {
+            questionLabel.font = UIFont(name: "AvenirNext-UltraLight", size: 28)
+            questionLabel.textAlignment = NSTextAlignment.left
+            questionLabel.text = "Couldn't estimate your location..."
+            roomLocationLabel.text = "Trying to estimate your location..."
+            reloadInternetLabel.isHidden = true
+            reloadInternetButton.isHidden = true
+        } else {
+            reloadInternetLabel.isHidden = true
+            reloadInternetButton.isHidden = true
+        }
+    }
+    
+    @IBAction func reloadIfConnected(_ sender: Any) {
+        reloadInternetButton.rotateImage()
+        reloadInternetLabel.text = "Are you sure you are connected?"
+        viewDidLoad()
+    }
+    
+    @IBAction func backButtonAction(_ sender: Any) {
+        
+        if currentQuestionNo > 0 {
+            
+            currentQuestionNo -= 1
+            answers = questions[currentQuestionNo].answerOptions
+            if let tempFeedback = feedback{
+                tempFeedback.answers.remove(at: currentQuestionNo)
+            }
+            updateUI()
+            animateSlideGesture(forward: false)
+        }
+    }
+    
+    func restartFeedback(){
+        currentQuestionNo = 0
+        questions.removeAll()
+        isFeedbackInitiated = false
+    }
     
     func checkIfUserExists(){
         if let userID = UserDefaults.standard.string(forKey: "userID") {
@@ -219,15 +213,17 @@ class FeedbackController: UIViewController {
     
     func getQuestions(){
          networkService.getQuestions(currentRoomID: currentRoomID) { questions, statusCode in
-            
+            print(questions)
             switch statusCode {
             case HTTPStatusCode.SUCCES.rawValue...299:
                 if questions.isEmpty {
                     self.systemStatusMessage = "No feedback is needed right now..."
                 } else {
                     self.questions = questions
+                    self.answers = questions[self.currentQuestionNo].answerOptions
                     self.reloadUI()
                     self.updateUI()
+                    self.tableView.reloadData()
                     
                     if let question = self.questions.first {
                         self.questionLabel.text = question.question

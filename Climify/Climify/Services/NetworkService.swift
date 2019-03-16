@@ -12,21 +12,19 @@ import Alamofire
 
 class NetworkService: NSObject {
 
-    let questionsUrl = "http://192.168.1.102:3000/api/questions"
-    let initUserUrl = "http://192.168.1.102:3000/api/users"
-    let feedbackUrl = "http://192.168.1.102:3000/api/feedback"
-    let beaconsUrl = "http://192.168.1.102:3000/api/beacons"
-    let roomUrl = "http://192.168.1.102:3000/api/rooms"
+//    let questionsUrl = "http://192.168.1.102:3000/api/questions"
+//    let initUserUrl = "http://192.168.1.102:3000/api/users"
+//    let feedbackUrl = "http://192.168.1.102:3000/api/feedback"
+//    let beaconsUrl = "http://192.168.1.102:3000/api/beacons"
+//    let roomUrl = "http://192.168.1.102:3000/api/rooms"
     var statusCode: Int = -1
     
     
-//    let questionsUrl = "http://10.16.99.9:3000/api/questions"
-//    let initUserUrl = "http://10.16.99.9:3000/api/users"
-//    let feedbackUrl = "http://10.16.99.9:3000/api/feedback"
-//    let beaconsUrl = "http://10.16.99.9:3000/api/beacons"
-//    let roomUrl = "http://10.16.99.9:3000/api/rooms"
-    
-    
+    let questionsUrl = "http://10.123.194.221:3000/api/questions"
+    let initUserUrl = "http://10.123.194.221:3000/api/users"
+    let feedbackUrl = "http://10.123.194.221:3000/api/feedback"
+    let beaconsUrl = "http://10.123.194.221:3000/api/beacons"
+    let roomUrl = "http://10.123.194.221:3000/api/rooms"
     
     struct Connectivity {
         static let sharedInstance = NetworkReachabilityManager()!
@@ -52,8 +50,15 @@ class NetworkService: NSObject {
                 case .success(let value) :
                     let json = JSON(value)
                     for element in json {
-                        if let questionName = element.1["name"].string, let id = element.1["_id"].string {
-                            let question = Question(questionID: id, question: questionName)
+                        if let questionName = element.1["name"].string, let id = element.1["_id"].string, let answersJson = element.1["answerOptions"].array {
+                            var answerOptions: [String] = []
+                            for element in answersJson {
+                                if let element = element.string{
+                                    answerOptions.append(element)
+                                }
+                            }
+                            let question = Question(questionID: id, question: questionName, answerOptions: answerOptions)
+                            
                             questions.append(question)
                         }
                     }
@@ -129,7 +134,7 @@ class NetworkService: NSObject {
                 for elements in feedback.answers {
                     var dict: [String: Any] = [:]
                     dict["_id"] = elements.questionID
-                    dict["answer"] = elements.answer as Int
+                    dict["answer"] = elements.answer
                     questions.append(dict)
                 }
                 

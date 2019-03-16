@@ -41,7 +41,7 @@
                                 <color key="tintColor" red="0.018800640479999998" green="0.4208230972" blue="0.3974343836" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="barTintColor" red="0.058823529411764705" green="0.078431372549019607" blue="0.058823529411764705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
-                                    <navigationItem title="CLIMIFY" id="orm-6D-h6a"/>
+                                    <navigationItem title="beacon" id="orm-6D-h6a"/>
                                 </items>
                             </navigationBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="57Z-fo-CRh">

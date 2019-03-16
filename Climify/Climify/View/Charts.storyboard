@@ -13,38 +13,49 @@
         <!--DATA-->
         <scene sceneID="1TT-un-YZ4">
             <objects>
-                <viewController id="UiN-GM-flf" sceneMemberID="viewController">
+                <viewController id="UiN-GM-flf" customClass="DataViewController" customModule="Climify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="c4z-Rs-dvh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="data" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fd8-k6-uLe">
-                                <rect key="frame" x="101" y="56" width="173" height="55"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="40"/>
-                                <color key="textColor" red="0.098039215690000001" green="0.70980392160000005" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6hP-oI-DIH">
-                                <rect key="frame" x="157.5" y="303.5" width="60" height="60"/>
-                                <color key="tintColor" red="0.098039215690000001" green="0.70980392160000005" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="8Fa-lU-Cwz"/>
-                                    <constraint firstAttribute="height" constant="60" id="qAf-V5-hdn"/>
-                                </constraints>
-                            </activityIndicatorView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HIZ-eS-8QG">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                                <color key="backgroundColor" red="0.058823529409999999" green="0.078431372550000003" blue="0.058823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A2s-pT-jGf" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0OZ-3a-Sff">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <color key="barTintColor" red="0.058823529409999999" green="0.078431372550000003" blue="0.058823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <items>
+                                    <navigationItem title="data" id="tjc-uF-yQu"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
-                        <color key="backgroundColor" red="0.16078431369999999" green="0.16862745100000001" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Fd8-k6-uLe" firstAttribute="top" secondItem="Kr8-Qo-fQp" secondAttribute="top" constant="36" id="9LD-hY-idw"/>
-                            <constraint firstItem="6hP-oI-DIH" firstAttribute="centerX" secondItem="c4z-Rs-dvh" secondAttribute="centerX" id="Gx9-JV-F8f"/>
-                            <constraint firstItem="Kr8-Qo-fQp" firstAttribute="trailing" secondItem="Fd8-k6-uLe" secondAttribute="trailing" constant="101" id="Hqx-Sg-jGQ"/>
-                            <constraint firstItem="6hP-oI-DIH" firstAttribute="centerY" secondItem="c4z-Rs-dvh" secondAttribute="centerY" id="wnr-3z-LKZ"/>
-                            <constraint firstItem="Fd8-k6-uLe" firstAttribute="leading" secondItem="Kr8-Qo-fQp" secondAttribute="leading" constant="101" id="xDA-ir-O3F"/>
+                            <constraint firstItem="0OZ-3a-Sff" firstAttribute="top" secondItem="Kr8-Qo-fQp" secondAttribute="top" id="3GP-WP-Q1S"/>
+                            <constraint firstAttribute="trailing" secondItem="A2s-pT-jGf" secondAttribute="trailing" id="3VF-n8-M7s"/>
+                            <constraint firstItem="A2s-pT-jGf" firstAttribute="top" secondItem="0OZ-3a-Sff" secondAttribute="bottom" id="L0y-BB-hWf"/>
+                            <constraint firstItem="A2s-pT-jGf" firstAttribute="bottom" secondItem="Kr8-Qo-fQp" secondAttribute="bottom" id="L5d-Vy-GmZ"/>
+                            <constraint firstItem="0OZ-3a-Sff" firstAttribute="top" secondItem="HIZ-eS-8QG" secondAttribute="bottom" id="Wyr-fB-Nbu"/>
+                            <constraint firstItem="0OZ-3a-Sff" firstAttribute="leading" secondItem="HIZ-eS-8QG" secondAttribute="leading" id="c9R-jH-ECQ"/>
+                            <constraint firstItem="0OZ-3a-Sff" firstAttribute="trailing" secondItem="HIZ-eS-8QG" secondAttribute="trailing" id="eG9-SC-tE4"/>
+                            <constraint firstItem="0OZ-3a-Sff" firstAttribute="leading" secondItem="c4z-Rs-dvh" secondAttribute="leading" id="enW-fG-fWQ"/>
+                            <constraint firstItem="0OZ-3a-Sff" firstAttribute="top" secondItem="HIZ-eS-8QG" secondAttribute="bottom" id="f2S-ZG-91n"/>
+                            <constraint firstItem="A2s-pT-jGf" firstAttribute="trailing" secondItem="0OZ-3a-Sff" secondAttribute="trailing" id="gfi-TD-Vqo"/>
+                            <constraint firstItem="HIZ-eS-8QG" firstAttribute="top" secondItem="c4z-Rs-dvh" secondAttribute="top" id="lnT-FI-ZE5"/>
+                            <constraint firstItem="A2s-pT-jGf" firstAttribute="leading" secondItem="0OZ-3a-Sff" secondAttribute="leading" id="rwg-KR-qIt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Kr8-Qo-fQp"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="DATA" image="bar_glyph" id="TAg-Yq-469"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="barChartView" destination="A2s-pT-jGf" id="W0C-b5-f23"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XUY-Il-itg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

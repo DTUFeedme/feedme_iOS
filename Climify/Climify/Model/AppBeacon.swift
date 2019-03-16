@@ -12,10 +12,12 @@ class AppBeacon: Beacon {
 
         var currMessurement: Int
         var latestRssis: [Int]
+        var connectionLost: [Int]
     
         init(id: String, uuid: String, location: String, room: Room, name: String, rssi: Int){
             self.currMessurement = 0
             self.latestRssis = Array(repeating: -200, count: 5)
+            self.connectionLost = Array(repeating: -200, count: 5)
             
             super.init(id: id, uuid: uuid, name: name, room: room, location: location)
             self.addRssi(rssi: rssi)
@@ -37,6 +39,13 @@ class AppBeacon: Beacon {
             if rssi < 0 {
                 latestRssis[currMessurement] = rssi
             }
+            connectionLost[currMessurement] = rssi
+            print(rssi)
+            if (Double(connectionLost.reduce(0,+))/Double(connectionLost.count) == 0) {
+                print("Connection lost")
+            }
             currMessurement += 1
         }
+    
+    
 }

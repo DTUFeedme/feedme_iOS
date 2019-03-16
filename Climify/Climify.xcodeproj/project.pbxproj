@@ -11,7 +11,7 @@
 		A112693522242AA000B18A38 /* AppBeacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112693422242AA000B18A38 /* AppBeacon.swift */; };
 		A1141A1222314B4900659DF1 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1141A1122314B4900659DF1 /* NetworkService.swift */; };
 		A11662D52236F70F00A7F607 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11662D42236F70F00A7F607 /* UIButtonExtension.swift */; };
-		A11662D72237073800A7F607 /* FeedbackReceivedControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11662D62237073800A7F607 /* FeedbackReceivedControllerViewController.swift */; };
+		A11662D72237073800A7F607 /* ReceivedFeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11662D62237073800A7F607 /* ReceivedFeedbackController.swift */; };
 		A12159A42227E305000802D7 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12159A32227E305000802D7 /* Answer.swift */; };
 		A136A0D2220C595000189E21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136A0D1220C595000189E21 /* AppDelegate.swift */; };
 		A136A0D4220C595000189E21 /* CoreLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136A0D3220C595000189E21 /* CoreLocationController.swift */; };
@@ -19,8 +19,10 @@
 		A136A0D9220C595000189E21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D8220C595000189E21 /* Assets.xcassets */; };
 		A136A0DC220C595000189E21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136A0DA220C595000189E21 /* LaunchScreen.storyboard */; };
 		A1581EB7223A8B8F0083C4C9 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1581EB6223A8B8F0083C4C9 /* Reachability.swift */; };
+		A1581EB9223A96230083C4C9 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1581EB8223A96230083C4C9 /* AnswerCell.swift */; };
 		A1734B2C223657FE004AB9DD /* AppBeaconTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1734B2B223657FE004AB9DD /* AppBeaconTest.swift */; };
 		A1734B2E223664BB004AB9DD /* FeedbackTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1734B2D223664BB004AB9DD /* FeedbackTest.swift */; };
+		A1B1E3A2223BA77F00CCC8A2 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B1E3A1223BA77F00CCC8A2 /* DataViewController.swift */; };
 		A1B29A32223162AE0065DE01 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B29A31223162AE0065DE01 /* Question.swift */; };
 		A1B490A62231847400198E6F /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B490A52231847400198E6F /* Feedback.swift */; };
 		A1DB86272226AB3000F7F745 /* Feedback.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DB86262226AB3000F7F745 /* Feedback.storyboard */; };
@@ -47,7 +49,7 @@
 		A112693422242AA000B18A38 /* AppBeacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBeacon.swift; sourceTree = "<group>"; };
 		A1141A1122314B4900659DF1 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A11662D42236F70F00A7F607 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
-		A11662D62237073800A7F607 /* FeedbackReceivedControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackReceivedControllerViewController.swift; sourceTree = "<group>"; };
+		A11662D62237073800A7F607 /* ReceivedFeedbackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedFeedbackController.swift; sourceTree = "<group>"; };
 		A12159A32227E305000802D7 /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		A136A0CE220C595000189E21 /* Climify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Climify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A136A0D1220C595000189E21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -57,10 +59,12 @@
 		A136A0DB220C595000189E21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A136A0DD220C595000189E21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1581EB6223A8B8F0083C4C9 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		A1581EB8223A96230083C4C9 /* AnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
 		A1734B212236577A004AB9DD /* ClimifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClimifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1734B252236577A004AB9DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1734B2B223657FE004AB9DD /* AppBeaconTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBeaconTest.swift; sourceTree = "<group>"; };
 		A1734B2D223664BB004AB9DD /* FeedbackTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackTest.swift; sourceTree = "<group>"; };
+		A1B1E3A1223BA77F00CCC8A2 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		A1B29A31223162AE0065DE01 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		A1B490A52231847400198E6F /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
 		A1DB86262226AB3000F7F745 /* Feedback.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Feedback.storyboard; sourceTree = "<group>"; };
@@ -154,6 +158,7 @@
 		A136A0E3220C595D00189E21 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A1B1E3A3223BCC9400CCC8A2 /* Cells */,
 				A136A0D1220C595000189E21 /* AppDelegate.swift */,
 				A112693422242AA000B18A38 /* AppBeacon.swift */,
 				A12159A32227E305000802D7 /* Answer.swift */,
@@ -170,7 +175,8 @@
 			children = (
 				A136A0D3220C595000189E21 /* CoreLocationController.swift */,
 				A1FA8724222589C300461799 /* FeedbackController.swift */,
-				A11662D62237073800A7F607 /* FeedbackReceivedControllerViewController.swift */,
+				A11662D62237073800A7F607 /* ReceivedFeedbackController.swift */,
+				A1B1E3A1223BA77F00CCC8A2 /* DataViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -197,6 +203,14 @@
 				A1734B2D223664BB004AB9DD /* FeedbackTest.swift */,
 			);
 			path = ClimifyTests;
+			sourceTree = "<group>";
+		};
+		A1B1E3A3223BCC9400CCC8A2 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A1581EB8223A96230083C4C9 /* AnswerCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		F6312B53235545BD0FC14AC8 /* Pods */ = {
@@ -321,6 +335,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Climify/Pods-Climify-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/OpenSans/OpenSans.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
@@ -329,6 +344,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSans.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -370,13 +386,15 @@
 				A11662D52236F70F00A7F607 /* UIButtonExtension.swift in Sources */,
 				A1141A1222314B4900659DF1 /* NetworkService.swift in Sources */,
 				A12159A42227E305000802D7 /* Answer.swift in Sources */,
-				A11662D72237073800A7F607 /* FeedbackReceivedControllerViewController.swift in Sources */,
+				A11662D72237073800A7F607 /* ReceivedFeedbackController.swift in Sources */,
 				A136A0D4220C595000189E21 /* CoreLocationController.swift in Sources */,
 				A1EB9F2C223280EC006AFB57 /* Room.swift in Sources */,
+				A1B1E3A2223BA77F00CCC8A2 /* DataViewController.swift in Sources */,
 				A112693522242AA000B18A38 /* AppBeacon.swift in Sources */,
 				A1EB9F2922326F69006AFB57 /* Beacon.swift in Sources */,
 				A1B29A32223162AE0065DE01 /* Question.swift in Sources */,
 				A1B490A62231847400198E6F /* Feedback.swift in Sources */,
+				A1581EB9223A96230083C4C9 /* AnswerCell.swift in Sources */,
 				A136A0D2220C595000189E21 /* AppDelegate.swift in Sources */,
 				A1581EB7223A8B8F0083C4C9 /* Reachability.swift in Sources */,
 			);

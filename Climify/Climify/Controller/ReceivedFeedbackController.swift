@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FeedbackReceivedControllerViewController: UIViewController {
+class ReceivedFeedbackController: UIViewController {
 
     @IBOutlet weak var feedbackImage: UIImageView!
     
