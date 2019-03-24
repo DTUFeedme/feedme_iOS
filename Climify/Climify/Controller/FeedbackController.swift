@@ -11,9 +11,8 @@ import SwiftyJSON
 
 class FeedbackController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet var backButton: UIBarButtonItem!
     let feedbackReceivedSegue = "feedbackreceived"
-    
+    @IBOutlet var backButton: UIBarButtonItem!
     @IBOutlet weak var pagesLabel: UILabel!
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var questionLabel: UILabel!
@@ -23,25 +22,22 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var reloadInternetButton: UIButton!
     @IBOutlet weak var reloadInternetLabel: UILabel!
-    var currentRoomID: String = ""
-    let networkService = NetworkService()
-    var currentQuestionNo = 0
-    var questions: [Question] = []
-    var answers: [String] = []
-    var isFeedbackInitiated = false
-    var feedback:Feedback? = nil
-    let coreLocationController = CoreLocationController()
-    var delegate: UserChangedRoomDelegate!
-    var systemStatusMessage = ""
-    
     @IBOutlet weak var tableView: UITableView!
     
-    enum HTTPStatusCode: Int {
-        case SUCCES = 200
-        case REDIRECTION = 300
-        case CLIENTERROR = 400
-        case SERVERERROR = 500
-    }
+    let networkService = NetworkService()
+    let coreLocationController = CoreLocationController()
+    
+    var questions: [Question] = []
+    var answers: [String] = []
+    
+    var currentRoomID: String = "isEmpty"
+    var systemStatusMessage = ""
+    var currentQuestionNo = 0
+ 
+    var isFeedbackInitiated = false
+    var feedback:Feedback? = nil
+    
+    var delegate: UserChangedRoomDelegate!
     
     override func viewDidAppear(_ animated: Bool) {
         reloadUI()
@@ -56,7 +52,6 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
             coreLocationController.startLocating()
             reloadUI()
         }
-
     }
     
     func updateUI(){
@@ -123,18 +118,22 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
                     }
                     networkService.postFeedback(feedback: tempFeedback) { statusCode in
                         switch statusCode {
-                        case HTTPStatusCode.SUCCES.rawValue:
+                        case HTTPCode.SUCCES:
                             self.performSegue(withIdentifier: self.feedbackReceivedSegue, sender: self)
-                        case HTTPStatusCode.CLIENTERROR.rawValue...499:
+                        case HTTPCode.CLIENTERROR...499:
                             self.systemStatusMessage = "Couldn't send feedback. Try again later..."
+                            self.reloadUI()
                             print("Client error when getting posting feedback")
-                        case HTTPStatusCode.SERVERERROR.rawValue...599:
+                        case HTTPCode.SERVERERROR...599:
                             self.systemStatusMessage = "Couldn't send feedback. Try again later..."
+                            self.reloadUI()
                             print("Server error when getting posting feedback")
                         default:
                             self.systemStatusMessage = "Something went wrong. Try again later..."
+                            self.reloadUI()
                             print("3 Something's way off: \(statusCode)")
                         }
+                        self.questionLabel.text = self.systemStatusMessage
                     }
                 }
             }
@@ -143,18 +142,22 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func reloadUI(){
-        let isConnected = Reachability.isConnectedToNetwork()
+        let isConnected = NetworkService.Connectivity.isConnectedToInternet
         if isConnected == false {
             questionLabel.font = UIFont(name: "AvenirNext-UltraLight", size: 28)
             questionLabel.textAlignment = NSTextAlignment.left
             questionLabel.text = "Please make sure you have internet connection..."
             reloadInternetLabel.isHidden = false
             reloadInternetButton.isHidden = false
-        } else if currentRoomID == "" {
+        } else if currentRoomID == "isEmpty" {
             questionLabel.font = UIFont(name: "AvenirNext-UltraLight", size: 28)
             questionLabel.textAlignment = NSTextAlignment.left
             questionLabel.text = "Couldn't estimate your location..."
             roomLocationLabel.text = "Trying to estimate your location..."
+            reloadInternetLabel.isHidden = true
+            reloadInternetButton.isHidden = true
+        } else if questions.isEmpty {
+            questionLabel.text = systemStatusMessage
             reloadInternetLabel.isHidden = true
             reloadInternetButton.isHidden = true
         } else {
@@ -195,16 +198,19 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             networkService.initUser() { statusCode in
                 switch statusCode {
-                case HTTPStatusCode.SUCCES.rawValue:
+                case HTTPCode.SUCCES:
                     self.feedback = Feedback.init()
-                case HTTPStatusCode.CLIENTERROR.rawValue...499:
+                case HTTPCode.CLIENTERROR...499:
                     self.systemStatusMessage = "Something went wrong. Try again later..."
+                    self.reloadUI()
                     print("Client error when getting the questions")
-                case HTTPStatusCode.SERVERERROR.rawValue...599:
+                case HTTPCode.SERVERERROR...599:
                     self.systemStatusMessage = "Something went wrong. Try again later..."
+                    self.reloadUI()
                     print("Server error when getting the questions")
                 default:
                     self.systemStatusMessage = "Something went wrong. Try again later..."
+                    self.reloadUI()
                     print("1 Something's way off: \(statusCode)")
                 }
             }
@@ -215,9 +221,10 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          networkService.getQuestions(currentRoomID: currentRoomID) { questions, statusCode in
             print(questions)
             switch statusCode {
-            case HTTPStatusCode.SUCCES.rawValue...299:
+            case HTTPCode.SUCCES...299:
                 if questions.isEmpty {
                     self.systemStatusMessage = "No feedback is needed right now..."
+                    self.reloadUI()
                 } else {
                     self.questions = questions
                     self.answers = questions[self.currentQuestionNo].answerOptions
@@ -230,14 +237,17 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
                         self.pagesLabel.text = "\(self.currentQuestionNo+1)/\(questions.count)"
                     }
                 }
-            case HTTPStatusCode.CLIENTERROR.rawValue...499:
+            case HTTPCode.CLIENTERROR...499:
                 self.systemStatusMessage = "Something went wrong. Try again later..."
+                self.reloadUI()
                 print("Client error when getting the questions")
-            case HTTPStatusCode.SERVERERROR.rawValue...599:
+            case HTTPCode.SERVERERROR...599:
                 self.systemStatusMessage = "Something went wrong. Try again later..."
+                self.reloadUI()
                 print("Server error when getting the questions")
             default:
                 self.systemStatusMessage = "Something went wrong. Try again later..."
+                self.reloadUI()
                 print("2 Something's way off: \(statusCode)")
             }
         }
@@ -261,7 +271,6 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
                        options: .curveEaseInOut,
                        animations: {
                         self.backgroundView.transform = CGAffineTransform(translationX: 0, y: 0)
-                        
         })
         
     }
@@ -274,7 +283,7 @@ extension FeedbackController: UserChangedRoomDelegate {
     
     func userChangedRoom(roomname: String, roomid: String) {
         currentRoomID = roomid
-        roomLocationLabel.text = "you are in the \(roomname)"
+        roomLocationLabel.text = "you are located in \(roomname)"
         restartFeedback()
         getQuestions()
         reloadUI()

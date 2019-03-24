@@ -22,7 +22,6 @@
                         <segue destination="Mml-jw-vU2" kind="relationship" relationship="viewControllers" id="Frn-GY-PVq"/>
                         <segue destination="uCw-WJ-aaJ" kind="relationship" relationship="viewControllers" id="RfG-G4-CJe"/>
                         <segue destination="A6x-tv-3Pn" kind="relationship" relationship="viewControllers" id="kdR-o2-lnU"/>
-                        <segue destination="WXN-ze-BaW" kind="relationship" relationship="viewControllers" id="TAp-wn-pOi"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PcV-w2-SpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -49,25 +48,15 @@
             </objects>
             <point key="canvasLocation" x="-2185" y="-336"/>
         </scene>
-        <!--Charts-->
+        <!--Data-->
         <scene sceneID="z0H-pB-a0L">
             <objects>
-                <viewControllerPlaceholder storyboardName="Charts" id="A6x-tv-3Pn" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Data" id="A6x-tv-3Pn" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="QvA-Ke-Upi"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xXc-xy-cGI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1866" y="-336"/>
-        </scene>
-        <!--Profile-->
-        <scene sceneID="g2J-qG-rxw">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Profile" id="WXN-ze-BaW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="uIH-lj-hGW"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PQh-tn-50f" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1536" y="-330"/>
         </scene>
     </scenes>
 </document>

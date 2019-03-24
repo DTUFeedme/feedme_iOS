@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--BEACON-->
+        <!--beacon-->
         <scene sceneID="0uZ-c3-Nc9">
             <objects>
                 <viewController storyboardIdentifier="coreLocationController" id="gBv-Eo-Fb2" customClass="CoreLocationController" customModule="Climify" customModuleProvider="target" sceneMemberID="viewController">
@@ -83,7 +83,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SAu-DI-rzl"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="BEACON" image="beacon_glyph" id="Y1T-fi-b5X"/>
+                    <tabBarItem key="tabBarItem" title="beacon" image="beacon_glyph" id="Y1T-fi-b5X"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="beaconTapped" destination="Y1T-fi-b5X" id="Z81-Vq-dk6"/>

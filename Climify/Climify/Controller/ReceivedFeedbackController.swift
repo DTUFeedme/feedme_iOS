@@ -13,9 +13,7 @@ class ReceivedFeedbackController: UIViewController {
     @IBOutlet weak var feedbackImage: UIImageView!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-
-        
+        super.viewDidLoad()        
         // Do any additional setup after loading the view.
     }
     

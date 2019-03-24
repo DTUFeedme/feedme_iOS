@@ -1,199 +1,155 @@
 import UIKit
 import Charts
 
-class DataViewController: UIViewController {
+class DataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+   
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var mydataButton: UIButton!
+    @IBOutlet weak var alldataButton: UIButton!
+    @IBOutlet weak var todayButton: UIButton!
+    @IBOutlet weak var lastweekButton: UIButton!
+    @IBOutlet weak var lastmonthButton: UIButton!
+    var questions: [String] = ["1","2"]
+    let popupSegue = "popupSegue"
+    var mydataIsSelected = true
     
     @IBOutlet weak var barChartView: BarChartView!
-//    @IBOutlet weak var pieChart: PieChartView!
-//
-//
-//    var iosDataEntry = PieChartDataEntry(value: 0)
-//    var macDataEntry = PieChartDataEntry(value: 0)
-//
-//
+    @IBOutlet weak var slideView: UIView!
     
-    var months: [Int]!
-    //var numberOfDownloadsDataEntries = [PieChartDataEntry]()
+    @IBAction func alldataButtonAction(_ sender: Any) {
+        if mydataIsSelected {
+            animateSlideGesture()
+        }
+         mydataIsSelected = false
+    }
+    
+    @IBAction func timespanAction(_ sender: UIButton) {
+        updatetimeSpanUI(tag: sender.tag)
+    }
+    
+    @IBAction func mydataButtonAction(_ sender: Any) {
+        
+        if !mydataIsSelected {
+            animateSlideGesture()
+        }
+        mydataIsSelected = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        barChartView.noDataText = "You need to provide data for the chart."
-        
-        months = [1,2,3]
-        let unitsSold = [20, 4, 6]
-        
-        setChart(dataPoints: months, values: unitsSold)
-        
-//        pieChart.chartDescription?.text = ""
-//        iosDataEntry.label = "Too hot"
-//        macDataEntry.label = "Too cold"
-//
-//        pieChart.holeColor = UIColor.clear
-//        numberOfDownloadsDataEntries = [iosDataEntry, macDataEntry]
-//
-//        iosDataEntry.value = 10
-//        macDataEntry.value = 13
-//
-//        updateChartData()
-        
+        tableView.separatorColor = UIColor.clear
     }
     
-   
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return questions.count
+    }
     
-    func setChart(dataPoints: [Int], values: [Int]) {
-        
-        barChartView.noDataText = "You need to provide data for the chart."
-        
-        var dataEntries: [BarChartDataEntry] = []
-        
-        for i in 0..<dataPoints.count {
-            
-            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(values[i]) )
-            dataEntries.append(dataEntry)
-            
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellQuestion", for: indexPath) as! QuestionCell
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let currentCell = tableView.cellForRow(at: indexPath) as! QuestionCell
+        currentCell.flash()
+
+        self.performSegue(withIdentifier: popupSegue, sender: self)
+    }
+    
+    
+    func animateSlideGesture(){
+        if mydataIsSelected {
+            UIView.animate(withDuration: 0.3,
+                           delay: 0.1,
+                           options: .curveEaseInOut,
+                           animations: {
+                            self.slideView.transform = CGAffineTransform(translationX: self.slideView.frame.size.width+2, y: 0)
+            })
+            tableView.transform = CGAffineTransform(translationX: tableView.frame.size.width*2, y: 0)
+            alldataButton.setTitleColor(.white, for: .normal)
+            mydataButton.setTitleColor(Colors.dark, for: .normal)
+        } else if !mydataIsSelected {
+        UIView.animate(withDuration: 0.3,
+                       delay: 0.1,
+                       options: .curveEaseInOut,
+                       animations: {
+                        self.slideView.transform = CGAffineTransform(translationX: 0, y: 0)
+        })
+            tableView.transform = CGAffineTransform(translationX: -tableView.frame.size.width*2, y: 0)
+            alldataButton.setTitleColor(Colors.dark, for: .normal)
+            mydataButton.setTitleColor(.white, for: .normal)
         }
         
-        let xAxis = barChartView.xAxis
-        xAxis.labelPosition = .top
-        xAxis.labelFont = .systemFont(ofSize: 10)
-        xAxis.granularity = 1
-        xAxis.labelCount = 7
-        xAxis.valueFormatter = DayAxisValueFormatter(chart: barChartView)
-
-        let leftAxisFormatter = NumberFormatter()
-        leftAxisFormatter.minimumFractionDigits = 0
-        leftAxisFormatter.maximumFractionDigits = 1
-        leftAxisFormatter.negativeSuffix = " $"
-        leftAxisFormatter.positiveSuffix = " $"
-
-        let leftAxis = barChartView.leftAxis
-        leftAxis.labelFont = .systemFont(ofSize: 10)
-        leftAxis.labelCount = 8
-        leftAxis.valueFormatter = DefaultAxisValueFormatter(formatter: leftAxisFormatter)
-        leftAxis.labelPosition = .outsideChart
-        leftAxis.spaceTop = 0.15
-        leftAxis.axisMinimum = 0
+        UIView.animate(withDuration: 1,
+                       delay: 0,
+                       options: .curveEaseInOut,
+                       animations: {
+                        self.tableView.transform = CGAffineTransform(translationX: 0, y: 0)
+        })
         
-        
-        
-//        let marker = MarkerView(color: UIColor(white: 0.35, alpha: 1))
-//        marker.chartView = barChartView
-//        marker.minimumSize = CGSize(width: 80, height: 40)
-//        barChartView.marker = marker
-        
-        let chartDataSet = BarChartDataSet(values: dataEntries, label: "Units Sold")
-        let chartData = BarChartData(dataSet: chartDataSet)
-         barChartView.data = chartData
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func updatetimeSpanUI(tag: Int){
+        switch tag {
+        case 0:
+            todayButton.pulsate()
+            todayButton.titleLabel?.font = Fonts.avenir20
+            todayButton.setTitleColor(.white, for: .normal)
+            
+            lastweekButton.titleLabel?.font = Fonts.avenir18
+            lastweekButton.setTitleColor(Colors.cyan, for: .normal)
+            
+            lastmonthButton.titleLabel?.font = Fonts.avenir18
+            lastmonthButton.setTitleColor(Colors.cyan, for: .normal)
+            // Only for testing
+            questions = ["1","2"]
+        case 1:
+            lastweekButton.pulsate()
+            lastweekButton.titleLabel?.font = Fonts.avenir20
+            lastweekButton.setTitleColor(.white, for: .normal)
+            
+            todayButton.titleLabel?.font = Fonts.avenir18
+            todayButton.setTitleColor(Colors.cyan, for: .normal)
+            
+            lastmonthButton.titleLabel?.font = Fonts.avenir18
+            lastmonthButton.setTitleColor(Colors.cyan, for: .normal)
+            // Only for testing
+            questions = ["1","1","2"]
+        case 2:
+            lastmonthButton.pulsate()
+            lastmonthButton.titleLabel?.font = Fonts.avenir20
+            lastmonthButton.setTitleColor(.white, for: .normal)
+            
+            todayButton.titleLabel?.font = Fonts.avenir18
+            todayButton.setTitleColor(Colors.cyan, for: .normal)
+            
+            lastweekButton.titleLabel?.font = Fonts.avenir18
+            lastweekButton.setTitleColor(Colors.cyan, for: .normal)
+            
+            // Only for testing
+            questions = ["1","2","3","4"]
+        default:
+            break
+        }
+        tableView.reloadData()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
+}
+
+extension UITabBarController {
+    open override var childForStatusBarStyle: UIViewController? {
+        return selectedViewController
+    }
+}
+
+extension UINavigationController {
+    open override var childForStatusBarStyle: UIViewController? {
+        return visibleViewController
+    }
 }
 
 
-public class DayAxisValueFormatter: NSObject, IAxisValueFormatter {
-    weak var chart: BarLineChartViewBase?
-    let months = ["Jan", "Feb", "Mar",
-                  "Apr", "May", "Jun",
-                  "Jul", "Aug", "Sep",
-                  "Oct", "Nov", "Dec"]
-    
-    init(chart: BarLineChartViewBase) {
-        self.chart = chart
-    }
-    
-    public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        let days = Int(value)
-        let year = determineYear(forDays: days)
-        let month = determineMonth(forDayOfYear: days)
-        
-        let monthName = months[month % months.count]
-        let yearName = "\(year)"
-        
-        if let chart = chart,
-            chart.visibleXRange > 30 * 6 {
-            return monthName + yearName
-        } else {
-            let dayOfMonth = determineDayOfMonth(forDays: days, month: month + 12 * (year - 2016))
-            var appendix: String
-            
-            switch dayOfMonth {
-            case 1, 21, 31: appendix = "st"
-            case 2, 22: appendix = "nd"
-            case 3, 23: appendix = "rd"
-            default: appendix = "th"
-            }
-            
-            return dayOfMonth == 0 ? "" : String(format: "%d\(appendix) \(monthName)", dayOfMonth)
-        }
-    }
-    
-    private func days(forMonth month: Int, year: Int) -> Int {
-        // month is 0-based
-        switch month {
-        case 1:
-            var is29Feb = false
-            if year < 1582 {
-                is29Feb = (year < 1 ? year + 1 : year) % 4 == 0
-            } else if year > 1582 {
-                is29Feb = year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
-            }
-            
-            return is29Feb ? 29 : 28
-            
-        case 3, 5, 8, 10:
-            return 30
-            
-        default:
-            return 31
-        }
-    }
-    
-    private func determineMonth(forDayOfYear dayOfYear: Int) -> Int {
-        var month = -1
-        var days = 0
-        
-        while days < dayOfYear {
-            month += 1
-            if month >= 12 {
-                month = 0
-            }
-            
-            let year = determineYear(forDays: days)
-            days += self.days(forMonth: month, year: year)
-        }
-        
-        return max(month, 0)
-    }
-    
-    private func determineDayOfMonth(forDays days: Int, month: Int) -> Int {
-        var count = 0
-        var daysForMonth = 0
-        
-        while count < month {
-            let year = determineYear(forDays: days)
-            daysForMonth += self.days(forMonth: count % 12, year: year)
-            count += 1
-        }
-        
-        return days - daysForMonth
-    }
-    
-    private func determineYear(forDays days: Int) -> Int {
-        switch days {
-        case ...366: return 2016
-        case 367...730: return 2017
-        case 731...1094: return 2018
-        case 1095...1458: return 2019
-        default: return 2020
-        }
-    }
-}

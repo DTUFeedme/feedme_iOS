@@ -17,20 +17,7 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="OHm-Ip-OYy">
-                                <rect key="frame" x="61" y="86.5" width="253" height="127"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="127" id="BXi-2e-f5U"/>
-                                    <constraint firstAttribute="width" constant="253" id="M00-ZN-ORq"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.016086829826235771" green="0.45225125551223755" blue="0.42896002531051636" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="OHm-Ip-OYy" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ahJ-8n-W6G"/>
-                            <constraint firstItem="OHm-Ip-OYy" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.45" id="cbp-rL-0Hp"/>
-                        </constraints>
+                        <color key="backgroundColor" red="0.16078431369999999" green="0.16862745100000001" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
@@ -39,7 +26,4 @@
             <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="logo" width="380" height="190"/>
-    </resources>
 </document>

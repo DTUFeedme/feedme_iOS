@@ -105,14 +105,6 @@ class CoreLocationController: UIViewController, CLLocationManagerDelegate {
             } else {
                 if let result = beacons.first(where: { (element) -> Bool in element.uuid == id.lowercased() }
                     ) {
-                    //print(result.name)
-//                    if result.name == "eRE6"{
-//                        print("eRE6 RSSI: ",rssi)
-//                    } else if result.name == "ha2T"{
-//                        print("ha2T RSSI: ",rssi)
-//                    } else if result.name == "vIgJ"{
-//                        print("vIgJ: ",rssi)
-//                    }
                     result.addRssi(rssi: rssi)
                     if nearestBeacon.calcAverage() < result.calcAverage() && nearestBeacon.uuid != id {
                         nearestBeacon = result
@@ -137,7 +129,6 @@ class CoreLocationController: UIViewController, CLLocationManagerDelegate {
     }
     
     func matchFoundBeaconWithBeaconInSystem(uuid: String, name: String) -> Beacon? {
-        
         for beacon in serverBeacons{
             if beacon.uuid == uuid.lowercased() {
                 return beacon

@@ -1,20 +1,18 @@
 //
-//  AnswerCell.swift
+//  QuestionCell.swift
 //  Climify
 //
-//  Created by Christian Hjelmslund on 14/03/2019.
+//  Created by Christian Hjelmslund on 24/03/2019.
 //  Copyright © 2019 Christian Hjelmslund. All rights reserved.
 //
 
 import UIKit
 
-class AnswerCell: UITableViewCell {
+class QuestionCell: UITableViewCell {
 
-    
-    @IBOutlet weak var answerLabel: UILabel!
     @IBOutlet weak var bgView: UIView!
-    
-    
+    @IBOutlet weak var questionLabel: UILabel!
+    @IBOutlet weak var howManyTimesAnsweredLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -22,31 +20,23 @@ class AnswerCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
         selectionStyle = UITableViewCell.SelectionStyle.none
-        // Configure the view for the selected state
     }
-    
-    
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         bgView.layer.cornerRadius = 20
     }
-    
     func flash() {
         
         let flash = CABasicAnimation(keyPath: "opacity")
-        flash.duration = 0.06
+        flash.duration = 0.1
         flash.fromValue = 1
         flash.toValue = 0.1
         flash.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         flash.autoreverses = true
-        flash.repeatCount = 4
+        flash.repeatCount = 2
         
         layer.add(flash, forKey: nil)
     }
-    
-    
 
 }

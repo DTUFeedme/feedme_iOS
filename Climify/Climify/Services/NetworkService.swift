@@ -20,11 +20,11 @@ class NetworkService: NSObject {
     var statusCode: Int = -1
     
     
-    let questionsUrl = "http://10.123.194.221:3000/api/questions"
-    let initUserUrl = "http://10.123.194.221:3000/api/users"
-    let feedbackUrl = "http://10.123.194.221:3000/api/feedback"
-    let beaconsUrl = "http://10.123.194.221:3000/api/beacons"
-    let roomUrl = "http://10.123.194.221:3000/api/rooms"
+    let questionsUrl = "http://climify.compute.dtu.dk/api/questions"
+    let initUserUrl = "http://climify.compute.dtu.dk/api/users"
+    let feedbackUrl = "http://climify.compute.dtu.dk/api/feedback"
+    let beaconsUrl = "http://climify.compute.dtu.dk/api/beacons"
+    let roomUrl = "http://climify.compute.dtu.dk/api/rooms"
     
     struct Connectivity {
         static let sharedInstance = NetworkReachabilityManager()!

@@ -182,7 +182,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SHr-nm-3Pk"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="FEEDBACK" image="cloud_glyph" id="OWb-yM-kv6"/>
+                    <tabBarItem key="tabBarItem" title="feedback" image="cloud_glyph" id="OWb-yM-kv6"/>
                     <navigationItem key="navigationItem" title="Climify" id="EGj-Ga-lTg">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="back_glyph" id="kYH-fF-nZV">
                             <color key="tintColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
