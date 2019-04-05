@@ -12,6 +12,7 @@ import SwiftyJSON
 class FeedbackController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let feedbackReceivedSegue = "feedbackreceived"
+    let userErrorMessage =  "Couldn't send feedback. Try again later..."
     @IBOutlet var backButton: UIBarButtonItem!
     @IBOutlet weak var pagesLabel: UILabel!
     @IBOutlet weak var backgroundView: UIView!
@@ -28,30 +29,28 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
     let coreLocationController = CoreLocationController()
     
     var questions: [Question] = []
-    var answers: [String] = []
-    
-    var currentRoomID: String = "isEmpty"
+    var answers: [Question.answerOption] = []
+    var currentRoomID: String = ""
     var systemStatusMessage = ""
     var currentQuestionNo = 0
- 
-    var isFeedbackInitiated = false
-    var feedback:Feedback? = nil
-    
     var delegate: UserChangedRoomDelegate!
     
     override func viewDidAppear(_ animated: Bool) {
         reloadUI()
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorColor = UIColor.clear
-        
-        if (NetworkService.Connectivity.isConnectedToInternet){
+
+        if checkConnectivity(){
             checkIfUserExists()
             coreLocationController.userChangedDelegate = self
             coreLocationController.startLocating()
             reloadUI()
         }
+        
     }
     
     func updateUI(){
@@ -60,6 +59,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             backButton.tintColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         }
+        print(questions[currentQuestionNo].question)
         questionLabel.text = questions[currentQuestionNo].question
         pagesLabel.text = "\(currentQuestionNo+1)/\(questions.count)"
         tableView.reloadData()
@@ -71,87 +71,72 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellAnswer", for: indexPath) as! AnswerCell
-        cell.answerLabel.text = answers[indexPath.row]
-        
+        cell.answerLabel.text = answers[indexPath.row].value
         return cell
         
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if !isFeedbackInitiated {
-            feedback = Feedback.init()
-            isFeedbackInitiated = true
+    func checkConnectivity() -> Bool{
+        if !NetworkService.Connectivity.isConnectedToInternet {
+            restartFeedback()
+            updateUI()
+            reloadUI()
+            return false
+        } else {
+            return true
         }
-        
-        let currentCell = tableView.cellForRow(at: indexPath) as! AnswerCell
-        currentCell.flash()
+    }
+    
+    func postFeedback(index: Int){
         
         if currentQuestionNo < questions.count {
             
-            let id = questions[currentQuestionNo].questionID
-            let answer = answers[indexPath.row]
-
-            if let tempFeedback = feedback {
-                tempFeedback.answers.append(Answer(questionID: id, answer: answer))
-            }
+            let questionId = questions[currentQuestionNo].questionID
+            let answerId = answers[index].id
+            
             if currentQuestionNo < questions.count-1 {
-                currentQuestionNo += 1
-                animateSlideGesture(forward: true)
-                answers = questions[currentQuestionNo].answerOptions
-                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                    self.answers = self.questions[self.currentQuestionNo].answerOptions
                     self.updateUI()
                     self.tableView.reloadData()
                 }
-                
-            } else if currentQuestionNo >= questions.count-1 {
-                if let tempFeedback = feedback {
-                    
-                    tempFeedback.roomID = currentRoomID
-                    
-                    if !NetworkService.Connectivity.isConnectedToInternet {
-                        restartFeedback()
-                        updateUI()
-                        reloadUI()
-                        return
-                    }
-                    networkService.postFeedback(feedback: tempFeedback) { statusCode in
-                        switch statusCode {
-                        case HTTPCode.SUCCES:
-                            self.performSegue(withIdentifier: self.feedbackReceivedSegue, sender: self)
-                        case HTTPCode.CLIENTERROR...499:
-                            self.systemStatusMessage = "Couldn't send feedback. Try again later..."
-                            self.reloadUI()
-                            print("Client error when getting posting feedback")
-                        case HTTPCode.SERVERERROR...599:
-                            self.systemStatusMessage = "Couldn't send feedback. Try again later..."
-                            self.reloadUI()
-                            print("Server error when getting posting feedback")
-                        default:
-                            self.systemStatusMessage = "Something went wrong. Try again later..."
-                            self.reloadUI()
-                            print("3 Something's way off: \(statusCode)")
-                        }
-                        self.questionLabel.text = self.systemStatusMessage
+            }
+            currentQuestionNo += 1
+            animateSlideGesture(forward: true)
+           
+            if checkConnectivity() {
+                let feedback = Feedback(answerId: answerId, roomID: currentRoomID, questionId: questionId)
+                networkService.postFeedback(feedback: feedback) { statusCode in
+                    if statusCode == HTTPCode.SUCCES {
+                        print("Succesfully posted feedback")
+                    } else {
+                        self.systemStatusMessage = self.userErrorMessage
+                        self.reloadUI()
+                        print("The statuscode is: ", statusCode)
                     }
                 }
             }
+            if currentQuestionNo == questions.count {
+                 self.performSegue(withIdentifier: self.feedbackReceivedSegue, sender: self)
+            }
         }
-        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let currentCell = tableView.cellForRow(at: indexPath) as! AnswerCell
+        currentCell.flash()
+        postFeedback(index: indexPath.row)
+
     }
     
     func reloadUI(){
-        let isConnected = NetworkService.Connectivity.isConnectedToInternet
-        if isConnected == false {
-            questionLabel.font = UIFont(name: "AvenirNext-UltraLight", size: 28)
-            questionLabel.textAlignment = NSTextAlignment.left
+//        let isConnected = NetworkService.Connectivity.isConnectedToInternet
+        if NetworkService.Connectivity.isConnectedToInternet == false {
             questionLabel.text = "Please make sure you have internet connection..."
             reloadInternetLabel.isHidden = false
             reloadInternetButton.isHidden = false
         } else if currentRoomID == "isEmpty" {
-            questionLabel.font = UIFont(name: "AvenirNext-UltraLight", size: 28)
-            questionLabel.textAlignment = NSTextAlignment.left
             questionLabel.text = "Couldn't estimate your location..."
             roomLocationLabel.text = "Trying to estimate your location..."
             reloadInternetLabel.isHidden = true
@@ -175,12 +160,8 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
     @IBAction func backButtonAction(_ sender: Any) {
         
         if currentQuestionNo > 0 {
-            
             currentQuestionNo -= 1
             answers = questions[currentQuestionNo].answerOptions
-            if let tempFeedback = feedback{
-                tempFeedback.answers.remove(at: currentQuestionNo)
-            }
             updateUI()
             animateSlideGesture(forward: false)
         }
@@ -189,29 +170,18 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
     func restartFeedback(){
         currentQuestionNo = 0
         questions.removeAll()
-        isFeedbackInitiated = false
     }
     
     func checkIfUserExists(){
-        if let userID = UserDefaults.standard.string(forKey: "userID") {
-            print(userID)
-        } else {
-            networkService.initUser() { statusCode in
-                switch statusCode {
-                case HTTPCode.SUCCES:
-                    self.feedback = Feedback.init()
-                case HTTPCode.CLIENTERROR...499:
-                    self.systemStatusMessage = "Something went wrong. Try again later..."
+        if TOKEN == nil {
+            networkService.getToken() { statusCode in
+                if statusCode == HTTPCode.SUCCES {
+                    self.coreLocationController.userChangedDelegate = self
+                    self.coreLocationController.startLocating()
+                } else {
+                    self.systemStatusMessage = self.userErrorMessage
                     self.reloadUI()
-                    print("Client error when getting the questions")
-                case HTTPCode.SERVERERROR...599:
-                    self.systemStatusMessage = "Something went wrong. Try again later..."
-                    self.reloadUI()
-                    print("Server error when getting the questions")
-                default:
-                    self.systemStatusMessage = "Something went wrong. Try again later..."
-                    self.reloadUI()
-                    print("1 Something's way off: \(statusCode)")
+                    print("The statuscode is: ", statusCode)
                 }
             }
         }
@@ -219,9 +189,8 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
     
     func getQuestions(){
          networkService.getQuestions(currentRoomID: currentRoomID) { questions, statusCode in
-            print(questions)
-            switch statusCode {
-            case HTTPCode.SUCCES...299:
+            
+            if statusCode == HTTPCode.SUCCES {
                 if questions.isEmpty {
                     self.systemStatusMessage = "No feedback is needed right now..."
                     self.reloadUI()
@@ -237,23 +206,15 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
                         self.pagesLabel.text = "\(self.currentQuestionNo+1)/\(questions.count)"
                     }
                 }
-            case HTTPCode.CLIENTERROR...499:
-                self.systemStatusMessage = "Something went wrong. Try again later..."
+            } else {
+                self.systemStatusMessage = self.userErrorMessage
                 self.reloadUI()
-                print("Client error when getting the questions")
-            case HTTPCode.SERVERERROR...599:
-                self.systemStatusMessage = "Something went wrong. Try again later..."
-                self.reloadUI()
-                print("Server error when getting the questions")
-            default:
-                self.systemStatusMessage = "Something went wrong. Try again later..."
-                self.reloadUI()
-                print("2 Something's way off: \(statusCode)")
+                print("The statuscode is: ", statusCode)
             }
         }
     }
     
-    
+    // UI and Extensions...
     func animateSlideGesture(forward: Bool){
         
         if forward {
@@ -283,9 +244,23 @@ extension FeedbackController: UserChangedRoomDelegate {
     
     func userChangedRoom(roomname: String, roomid: String) {
         currentRoomID = roomid
-        roomLocationLabel.text = "you are located in \(roomname)"
+        roomLocationLabel.text = "You are in \(roomname) 🙂"
         restartFeedback()
         getQuestions()
         reloadUI()
     }
 }
+
+
+extension UITabBarController {
+    open override var childForStatusBarStyle: UIViewController? {
+        return selectedViewController
+    }
+}
+
+extension UINavigationController {
+    open override var childForStatusBarStyle: UIViewController? {
+        return visibleViewController
+    }
+}
+

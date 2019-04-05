@@ -100,8 +100,6 @@ class CoreLocationController: UIViewController, CLLocationManagerDelegate {
                     }
                     beacons.append(nearestBeacon)
                 }
-                
-
             } else {
                 if let result = beacons.first(where: { (element) -> Bool in element.uuid == id.lowercased() }
                     ) {
@@ -109,6 +107,7 @@ class CoreLocationController: UIViewController, CLLocationManagerDelegate {
                     if nearestBeacon.calcAverage() < result.calcAverage() && nearestBeacon.uuid != id {
                         nearestBeacon = result
                         if !didLoadUI{
+                            
                             userChangedDelegate!.userChangedRoom(roomname: nearestBeacon.room.name, roomid: nearestBeacon.room.id)
                         }
                        

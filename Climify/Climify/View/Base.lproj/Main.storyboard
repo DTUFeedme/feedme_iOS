@@ -9,19 +9,20 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
+        <!--Main Controller-->
         <scene sceneID="0Vb-Pg-arz">
             <objects>
-                <tabBarController storyboardIdentifier="main" id="hPZ-xK-bCI" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="main" id="hPZ-xK-bCI" customClass="MainController" customModule="Climify" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="q16-po-cy7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
+                        <outlet property="myBar" destination="q16-po-cy7" id="9AS-Kl-Tfc"/>
                         <segue destination="Mml-jw-vU2" kind="relationship" relationship="viewControllers" id="Frn-GY-PVq"/>
-                        <segue destination="uCw-WJ-aaJ" kind="relationship" relationship="viewControllers" id="RfG-G4-CJe"/>
-                        <segue destination="A6x-tv-3Pn" kind="relationship" relationship="viewControllers" id="kdR-o2-lnU"/>
+                        <segue destination="A6x-tv-3Pn" kind="relationship" relationship="viewControllers" id="otN-MJ-0dT"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PcV-w2-SpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -36,17 +37,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PLF-JV-Snt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2466" y="-336"/>
-        </scene>
-        <!--Beacon-->
-        <scene sceneID="MLR-8l-cW0">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Beacon" id="uCw-WJ-aaJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="YFb-ND-K91"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xMk-e2-EEP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2185" y="-336"/>
+            <point key="canvasLocation" x="-2431" y="-336"/>
         </scene>
         <!--Data-->
         <scene sceneID="z0H-pB-a0L">
@@ -56,7 +47,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xXc-xy-cGI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1866" y="-336"/>
+            <point key="canvasLocation" x="-1655" y="-336"/>
         </scene>
     </scenes>
 </document>

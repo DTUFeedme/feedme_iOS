@@ -15,7 +15,7 @@ class QuestionCell: UITableViewCell {
     @IBOutlet weak var howManyTimesAnsweredLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        bgView.backgroundColor = .myCyan()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -11,14 +11,16 @@ import UIKit
 class Answer: NSObject {
     
     var questionID: String
-    var answer: String
+    var answerValue: String
+    var answerID: String
     
-    init(questionID: String, answer: String) {
+    init(questionID: String, answerValue: String, answerID: String) {
         self.questionID = questionID
-        self.answer = answer 
+        self.answerValue = answerValue
+        self.answerID = answerID
     }
     
     convenience override init(){
-        self.init(questionID: "", answer: "")
+        self.init(questionID: "", answerValue: "", answerID: "")
     }
 }

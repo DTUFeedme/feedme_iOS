@@ -10,21 +10,23 @@ import UIKit
 
 class Feedback: NSObject {
 
-    var userID: String?
+    var authToken: String?
     var roomID: String
-    var answers: [Answer]
+    var questionId: String
+    var answerId: String
+    //var answers: [Answer]
     
-    init(answers: [Answer], roomID: String){
-        self.answers = answers
+    init(answerId: String, roomID: String, questionId: String){
+        self.answerId = answerId
         self.roomID = roomID
+        self.questionId = questionId
         
-        //self.userID = "no user ID"
-        if let userID = UserDefaults.standard.string(forKey: "userID"){
-            self.userID = userID
+        if let token = UserDefaults.standard.string(forKey: "x-auth-token"){
+            self.authToken = token
         }
     }
     
     convenience override init(){
-        self.init(answers: [], roomID: "xxx")
+        self.init(answerId: "", roomID: "", questionId: "")
     }
 }

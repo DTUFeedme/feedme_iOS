@@ -11,12 +11,17 @@ import UIKit
 
 class Question: NSObject {
     
+    
     var questionID: String
     var question: String
-    var answerOptions: [String]
+    var answerOptions: [answerOption]
     
+    struct answerOption {
+        var id: String
+        var value: String
+    }
     
-    init(questionID: String, question: String, answerOptions: [String]) {
+    init(questionID: String, question: String, answerOptions: [answerOption]) {
         self.answerOptions = answerOptions
         self.questionID = questionID
         self.question = question

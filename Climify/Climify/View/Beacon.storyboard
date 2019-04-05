@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--beacon-->
+        <!--Beacon-->
         <scene sceneID="0uZ-c3-Nc9">
             <objects>
                 <viewController storyboardIdentifier="coreLocationController" id="gBv-Eo-Fb2" customClass="CoreLocationController" customModule="Climify" customModuleProvider="target" sceneMemberID="viewController">
@@ -37,16 +37,17 @@
                             </stackView>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VV8-GP-HjB">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <color key="backgroundColor" red="0.096866182980000007" green="0.71135669950000002" blue="0.697058022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="tintColor" red="0.018800640479999998" green="0.4208230972" blue="0.3974343836" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="barTintColor" red="0.058823529411764705" green="0.078431372549019607" blue="0.058823529411764705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
                                     <navigationItem title="beacon" id="orm-6D-h6a"/>
                                 </items>
                             </navigationBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="57Z-fo-CRh">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
-                                <color key="backgroundColor" red="0.058823529411764705" green="0.078431372549019607" blue="0.058823529411764705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="j25-ll-87F">
                                 <rect key="frame" x="43" y="98" width="289" height="145"/>
@@ -83,7 +84,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SAu-DI-rzl"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="beacon" image="beacon_glyph" id="Y1T-fi-b5X"/>
+                    <tabBarItem key="tabBarItem" title="Beacon" image="beacon_glyph" id="Y1T-fi-b5X"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="beaconTapped" destination="Y1T-fi-b5X" id="Z81-Vq-dk6"/>

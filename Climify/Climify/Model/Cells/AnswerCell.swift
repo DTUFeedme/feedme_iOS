@@ -17,7 +17,7 @@ class AnswerCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        bgView.backgroundColor = .myCyan()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -27,10 +27,9 @@ class AnswerCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    
-    
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         bgView.layer.cornerRadius = 20
     }
     
