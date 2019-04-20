@@ -11,33 +11,31 @@
 		A112693522242AA000B18A38 /* AppBeacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112693422242AA000B18A38 /* AppBeacon.swift */; };
 		A1141A1222314B4900659DF1 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1141A1122314B4900659DF1 /* NetworkService.swift */; };
 		A11662D52236F70F00A7F607 /* UIButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11662D42236F70F00A7F607 /* UIButtons.swift */; };
-		A11662D72237073800A7F607 /* ReceivedFeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11662D62237073800A7F607 /* ReceivedFeedbackController.swift */; };
 		A12159A42227E305000802D7 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12159A32227E305000802D7 /* Answer.swift */; };
 		A136A0D2220C595000189E21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136A0D1220C595000189E21 /* AppDelegate.swift */; };
-		A136A0D4220C595000189E21 /* CoreLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136A0D3220C595000189E21 /* CoreLocationController.swift */; };
 		A136A0D7220C595000189E21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D5220C595000189E21 /* Main.storyboard */; };
 		A136A0D9220C595000189E21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D8220C595000189E21 /* Assets.xcassets */; };
 		A136A0DC220C595000189E21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136A0DA220C595000189E21 /* LaunchScreen.storyboard */; };
 		A1581EB9223A96230083C4C9 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1581EB8223A96230083C4C9 /* AnswerCell.swift */; };
 		A1734B2C223657FE004AB9DD /* AppBeaconTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1734B2B223657FE004AB9DD /* AppBeaconTest.swift */; };
 		A1734B2E223664BB004AB9DD /* FeedbackTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1734B2D223664BB004AB9DD /* FeedbackTest.swift */; };
-		A18507322254959F005C081C /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18507312254959F005C081C /* MainController.swift */; };
+		A18507322254959F005C081C /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18507312254959F005C081C /* TabBarController.swift */; };
 		A18507342254A904005C081C /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18507332254A904005C081C /* Colors.swift */; };
 		A18507362254AB44005C081C /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18507352254AB44005C081C /* Fonts.swift */; };
+		A1907217226707B200B6EE2B /* CoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1907216226707B200B6EE2B /* CoreLocation.swift */; };
 		A1B0C47B224790C800F5A885 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B0C47A224790C800F5A885 /* Constants.swift */; };
-		A1B1E3A2223BA77F00CCC8A2 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B1E3A1223BA77F00CCC8A2 /* DataViewController.swift */; };
+		A1B1E3A2223BA77F00CCC8A2 /* DataTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B1E3A1223BA77F00CCC8A2 /* DataTabController.swift */; };
 		A1B29A32223162AE0065DE01 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B29A31223162AE0065DE01 /* Question.swift */; };
 		A1B490A62231847400198E6F /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B490A52231847400198E6F /* Feedback.swift */; };
 		A1B5D365224AACA100FE92E2 /* RoomChooserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B5D364224AACA100FE92E2 /* RoomChooserController.swift */; };
 		A1BD499D2247AEA700DCA20D /* QuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BD499C2247AEA700DCA20D /* QuestionCell.swift */; };
 		A1C9B4B022561DE000A8748D /* Building.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C9B4AF22561DE000A8748D /* Building.swift */; };
 		A1DB86272226AB3000F7F745 /* Feedback.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DB86262226AB3000F7F745 /* Feedback.storyboard */; };
-		A1DB86292226ABFF00F7F745 /* Beacon.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DB86282226ABFF00F7F745 /* Beacon.storyboard */; };
 		A1DB862B2226ADBC00F7F745 /* Data.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DB862A2226ADBC00F7F745 /* Data.storyboard */; };
 		A1E15B172247F3A200B5C3EF /* DiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E15B162247F3A200B5C3EF /* DiagramViewController.swift */; };
 		A1EB9F2922326F69006AFB57 /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EB9F2822326F69006AFB57 /* Beacon.swift */; };
 		A1EB9F2C223280EC006AFB57 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EB9F2B223280EC006AFB57 /* Room.swift */; };
-		A1FA8725222589C300461799 /* FeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FA8724222589C300461799 /* FeedbackController.swift */; };
+		A1FA8725222589C300461799 /* FeedbackTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FA8724222589C300461799 /* FeedbackTabController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,11 +53,9 @@
 		A112693422242AA000B18A38 /* AppBeacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBeacon.swift; sourceTree = "<group>"; };
 		A1141A1122314B4900659DF1 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A11662D42236F70F00A7F607 /* UIButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtons.swift; sourceTree = "<group>"; };
-		A11662D62237073800A7F607 /* ReceivedFeedbackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedFeedbackController.swift; sourceTree = "<group>"; };
 		A12159A32227E305000802D7 /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		A136A0CE220C595000189E21 /* Climify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Climify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A136A0D1220C595000189E21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A136A0D3220C595000189E21 /* CoreLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationController.swift; sourceTree = "<group>"; };
 		A136A0D6220C595000189E21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A136A0D8220C595000189E21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A136A0DB220C595000189E21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -69,23 +65,23 @@
 		A1734B252236577A004AB9DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1734B2B223657FE004AB9DD /* AppBeaconTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBeaconTest.swift; sourceTree = "<group>"; };
 		A1734B2D223664BB004AB9DD /* FeedbackTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackTest.swift; sourceTree = "<group>"; };
-		A18507312254959F005C081C /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		A18507312254959F005C081C /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		A18507332254A904005C081C /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		A18507352254AB44005C081C /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		A1907216226707B200B6EE2B /* CoreLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocation.swift; sourceTree = "<group>"; };
 		A1B0C47A224790C800F5A885 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		A1B1E3A1223BA77F00CCC8A2 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
+		A1B1E3A1223BA77F00CCC8A2 /* DataTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTabController.swift; sourceTree = "<group>"; };
 		A1B29A31223162AE0065DE01 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		A1B490A52231847400198E6F /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
 		A1B5D364224AACA100FE92E2 /* RoomChooserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChooserController.swift; sourceTree = "<group>"; };
 		A1BD499C2247AEA700DCA20D /* QuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCell.swift; sourceTree = "<group>"; };
 		A1C9B4AF22561DE000A8748D /* Building.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Building.swift; sourceTree = "<group>"; };
 		A1DB86262226AB3000F7F745 /* Feedback.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Feedback.storyboard; sourceTree = "<group>"; };
-		A1DB86282226ABFF00F7F745 /* Beacon.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Beacon.storyboard; sourceTree = "<group>"; };
 		A1DB862A2226ADBC00F7F745 /* Data.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Data.storyboard; sourceTree = "<group>"; };
 		A1E15B162247F3A200B5C3EF /* DiagramViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramViewController.swift; sourceTree = "<group>"; };
 		A1EB9F2822326F69006AFB57 /* Beacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beacon.swift; sourceTree = "<group>"; };
 		A1EB9F2B223280EC006AFB57 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
-		A1FA8724222589C300461799 /* FeedbackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackController.swift; sourceTree = "<group>"; };
+		A1FA8724222589C300461799 /* FeedbackTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackTabController.swift; sourceTree = "<group>"; };
 		A8DAFB9C4349805DFA56BFFE /* Pods-Climify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Climify.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Climify/Pods-Climify.debug.xcconfig"; sourceTree = "<group>"; };
 		FDA98B687EF5DDCB0097D03F /* Pods_Climify.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Climify.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -181,6 +177,7 @@
 				A1EB9F2822326F69006AFB57 /* Beacon.swift */,
 				A1EB9F2B223280EC006AFB57 /* Room.swift */,
 				A1C9B4AF22561DE000A8748D /* Building.swift */,
+				A1907216226707B200B6EE2B /* CoreLocation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -188,13 +185,11 @@
 		A136A0E7220C59E000189E21 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				A136A0D3220C595000189E21 /* CoreLocationController.swift */,
-				A1FA8724222589C300461799 /* FeedbackController.swift */,
-				A11662D62237073800A7F607 /* ReceivedFeedbackController.swift */,
-				A1B1E3A1223BA77F00CCC8A2 /* DataViewController.swift */,
+				A1FA8724222589C300461799 /* FeedbackTabController.swift */,
+				A1B1E3A1223BA77F00CCC8A2 /* DataTabController.swift */,
 				A1E15B162247F3A200B5C3EF /* DiagramViewController.swift */,
 				A1B5D364224AACA100FE92E2 /* RoomChooserController.swift */,
-				A18507312254959F005C081C /* MainController.swift */,
+				A18507312254959F005C081C /* TabBarController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -206,7 +201,6 @@
 				A136A0D5220C595000189E21 /* Main.storyboard */,
 				A136A0DA220C595000189E21 /* LaunchScreen.storyboard */,
 				A1DB86262226AB3000F7F745 /* Feedback.storyboard */,
-				A1DB86282226ABFF00F7F745 /* Beacon.storyboard */,
 				A1DB862A2226ADBC00F7F745 /* Data.storyboard */,
 			);
 			path = View;
@@ -323,7 +317,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1DB86292226ABFF00F7F745 /* Beacon.storyboard in Resources */,
 				A1DB862B2226ADBC00F7F745 /* Data.storyboard in Resources */,
 				A136A0DC220C595000189E21 /* LaunchScreen.storyboard in Resources */,
 				A1DB86272226AB3000F7F745 /* Feedback.storyboard in Resources */,
@@ -399,22 +392,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1FA8725222589C300461799 /* FeedbackController.swift in Sources */,
+				A1FA8725222589C300461799 /* FeedbackTabController.swift in Sources */,
+				A1907217226707B200B6EE2B /* CoreLocation.swift in Sources */,
 				A18507342254A904005C081C /* Colors.swift in Sources */,
 				A11662D52236F70F00A7F607 /* UIButtons.swift in Sources */,
 				A1C9B4B022561DE000A8748D /* Building.swift in Sources */,
 				A1E15B172247F3A200B5C3EF /* DiagramViewController.swift in Sources */,
 				A1141A1222314B4900659DF1 /* NetworkService.swift in Sources */,
 				A12159A42227E305000802D7 /* Answer.swift in Sources */,
-				A11662D72237073800A7F607 /* ReceivedFeedbackController.swift in Sources */,
 				A18507362254AB44005C081C /* Fonts.swift in Sources */,
-				A18507322254959F005C081C /* MainController.swift in Sources */,
-				A136A0D4220C595000189E21 /* CoreLocationController.swift in Sources */,
+				A18507322254959F005C081C /* TabBarController.swift in Sources */,
 				A1EB9F2C223280EC006AFB57 /* Room.swift in Sources */,
 				A1BD499D2247AEA700DCA20D /* QuestionCell.swift in Sources */,
 				A1B0C47B224790C800F5A885 /* Constants.swift in Sources */,
 				A1B5D365224AACA100FE92E2 /* RoomChooserController.swift in Sources */,
-				A1B1E3A2223BA77F00CCC8A2 /* DataViewController.swift in Sources */,
+				A1B1E3A2223BA77F00CCC8A2 /* DataTabController.swift in Sources */,
 				A112693522242AA000B18A38 /* AppBeacon.swift in Sources */,
 				A1EB9F2922326F69006AFB57 /* Beacon.swift in Sources */,
 				A1B29A32223162AE0065DE01 /* Question.swift in Sources */,

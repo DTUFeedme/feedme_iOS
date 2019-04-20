@@ -1,10 +1,10 @@
 import UIKit
 import Charts
 
-class DataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
-    let coreLocationController = CoreLocationController()
+    let coreLocationController = CoreLocation()
     let networkService = NetworkService()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var mydataButton: UIButton!
@@ -25,7 +25,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     var questions: [Question] = [Question(question: "", questionId: "", answeredCount: 0)]
   
     var mydataIsSelected = true
-    var time = "day"
+    var time = "month"
     var currentRoom = ""
     var currentRoomId = ""
     var choosenRoomId = ""
@@ -249,7 +249,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
 }
 
 // PROTOCOLS AND DELEGATES
-extension DataViewController: ManuallyChangedRoom {
+extension DataTabController: ManuallyChangedRoom {
     func roomchanged(roomname: String, roomid: String) {
         manuallyChangedRoom = true
         choosenRoom = roomname
@@ -258,7 +258,7 @@ extension DataViewController: ManuallyChangedRoom {
         getAnsweredQuestions()
     }
 }
-extension DataViewController: UserChangedRoomDelegate {
+extension DataTabController: UserChangedRoomDelegate {
     func userChangedRoom(roomname: String, roomid: String) {
         currentRoom = roomname
         currentRoomId = roomid

@@ -8,10 +8,8 @@
 
 import UIKit
 
-class MainController: UITabBarController, UITabBarControllerDelegate {
+class TabBarController: UITabBarController, UITabBarControllerDelegate {
 
-    @IBOutlet weak var myBar: UITabBar!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self

@@ -13,7 +13,7 @@
         <!--Climify-->
         <scene sceneID="Fgf-p4-B1h">
             <objects>
-                <viewController storyboardIdentifier="Feedback" id="cYD-PC-89k" customClass="FeedbackController" customModule="Climify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Feedback" id="cYD-PC-89k" customClass="FeedbackTabController" customModule="Climify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZAl-hK-E2o">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <color key="backgroundColor" red="0.1118319109082222" green="0.69468110799789429" blue="0.46431201696395874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.0" green="0.40396848190000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="barTintColor" red="0.27843137254901962" green="0.27843137254901962" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
                                     <navigationItem title="feedback" id="fmP-Bt-U77">
                                         <barButtonItem key="backBarButtonItem" title="Back" id="QQi-z9-Y89"/>
@@ -138,6 +138,13 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VSD-8p-MG1">
+                                        <rect key="frame" x="0.0" y="602" width="375" height="1"/>
+                                        <color key="backgroundColor" red="0.34629267009999998" green="1" blue="0.32091913640000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="xod-8c-cbF"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.16078431372549018" green="0.16862745098039217" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -146,6 +153,7 @@
                                     <constraint firstItem="1nA-di-rW9" firstAttribute="trailing" secondItem="Oga-Hs-NX6" secondAttribute="trailing" id="IdI-CJ-s2t"/>
                                     <constraint firstItem="ihm-nA-wjr" firstAttribute="centerX" secondItem="Ynq-B5-g6P" secondAttribute="centerX" id="KtC-4k-yul"/>
                                     <constraint firstItem="GKe-21-8IL" firstAttribute="centerY" secondItem="Ynq-B5-g6P" secondAttribute="centerY" id="PvV-Rs-vjb"/>
+                                    <constraint firstAttribute="bottom" secondItem="VSD-8p-MG1" secondAttribute="bottom" id="VIJ-za-qMM"/>
                                     <constraint firstItem="zkB-Xo-Jst" firstAttribute="leading" secondItem="Ynq-B5-g6P" secondAttribute="leading" constant="20" id="ahG-vW-dKa"/>
                                     <constraint firstItem="GKe-21-8IL" firstAttribute="centerX" secondItem="Ynq-B5-g6P" secondAttribute="centerX" id="cRo-SM-rG8"/>
                                     <constraint firstItem="zkB-Xo-Jst" firstAttribute="centerX" secondItem="Ynq-B5-g6P" secondAttribute="centerX" id="edi-b1-bYk"/>
@@ -153,12 +161,14 @@
                                     <constraint firstItem="JEX-fq-4Z0" firstAttribute="centerY" secondItem="Ynq-B5-g6P" secondAttribute="centerY" multiplier="1.9" id="gdZ-la-5h7"/>
                                     <constraint firstItem="JEX-fq-4Z0" firstAttribute="top" secondItem="1nA-di-rW9" secondAttribute="top" id="k71-aW-pyQ"/>
                                     <constraint firstItem="GKe-21-8IL" firstAttribute="leading" secondItem="J28-0v-YMF" secondAttribute="leading" id="mbg-s4-Isz"/>
+                                    <constraint firstItem="VSD-8p-MG1" firstAttribute="leading" secondItem="Ynq-B5-g6P" secondAttribute="leading" id="qRr-fe-NFe"/>
+                                    <constraint firstAttribute="trailing" secondItem="VSD-8p-MG1" secondAttribute="trailing" id="u9T-4S-48z"/>
                                     <constraint firstAttribute="trailing" secondItem="zkB-Xo-Jst" secondAttribute="trailing" constant="20" id="xC0-88-mhx"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SOg-7t-ceG">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.27843137254901962" green="0.27843137254901962" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.096866182980000007" green="0.71135669950000002" blue="0.697058022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
@@ -180,7 +190,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SHr-nm-3Pk"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Feedback" image="cloud_glyph" id="OWb-yM-kv6"/>
+                    <tabBarItem key="tabBarItem" title="" image="cloud_glyph" id="OWb-yM-kv6">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-10"/>
+                        <inset key="largeContentSizeImageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="1"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" title="Climify" id="EGj-Ga-lTg">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="back_glyph" id="kYH-fF-nZV">
                             <color key="tintColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

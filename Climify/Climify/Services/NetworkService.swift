@@ -26,7 +26,7 @@ class NetworkService: NSObject {
         }
     }
     
-    func getAnsweredQuestions(roomID: String, time: String, me: Bool, completion: @escaping (_ questions: [DataViewController.Question], _ statusCode: Int) -> Void){
+    func getAnsweredQuestions(roomID: String, time: String, me: Bool, completion: @escaping (_ questions: [DataTabController.Question], _ statusCode: Int) -> Void){
         guard let token = TOKEN else { return }
         let headers: HTTPHeaders = [ "x-auth-token": token]
         
@@ -37,7 +37,7 @@ class NetworkService: NSObject {
      
         let getAnsweredQuestionsUrl = "\(feedbackUrl)/answeredquestions/?room=\(roomID)&user=\(user)&t=\(time)"
         print(getAnsweredQuestionsUrl)
-        var questions: [DataViewController.Question] = []
+        var questions: [DataTabController.Question] = []
         AF.request(getAnsweredQuestionsUrl, method: .get, headers: headers).responseJSON{ response in
             guard let statusCode = response.response?.statusCode else { return }
             
@@ -49,7 +49,7 @@ class NetworkService: NSObject {
                         if let questionName = element.1["question"]["value"].string,
                             let questionId = element.1["question"]["_id"].string,
                             let questionCount = element.1["timesAnswered"].int {
-                            let question = DataViewController.Question(question: questionName,questionId: questionId,answeredCount: questionCount)
+                            let question = DataTabController.Question(question: questionName,questionId: questionId,answeredCount: questionCount)
                             questions.append(question)
                         }
                     }

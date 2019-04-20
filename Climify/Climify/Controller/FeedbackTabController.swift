@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class FeedbackController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let feedbackReceivedSegue = "feedbackreceived"
     let userErrorMessage =  "Couldn't send feedback. Try again later..."
@@ -26,7 +26,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var tableView: UITableView!
     
     let networkService = NetworkService()
-    let coreLocationController = CoreLocationController()
+    let coreLocationController = CoreLocation()
     
     var questions: [Question] = []
     var answers: [Question.answerOption] = []
@@ -38,8 +38,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidAppear(_ animated: Bool) {
         reloadUI()
     }
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorColor = UIColor.clear
@@ -50,7 +49,6 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
             coreLocationController.startLocating()
             reloadUI()
         }
-        
     }
     
     func updateUI(){
@@ -81,10 +79,9 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
             restartFeedback()
             updateUI()
             reloadUI()
-            return false
-        } else {
-            return true
         }
+        // test if works
+        return NetworkService.Connectivity.isConnectedToInternet
     }
     
     func postFeedback(index: Int){
@@ -233,14 +230,14 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
                        animations: {
                         self.backgroundView.transform = CGAffineTransform(translationX: 0, y: 0)
         })
-        
     }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+                return .lightContent
     }
 }
 
-extension FeedbackController: UserChangedRoomDelegate {
+extension FeedbackTabController: UserChangedRoomDelegate {
     
     func userChangedRoom(roomname: String, roomid: String) {
         currentRoomID = roomid
@@ -250,7 +247,6 @@ extension FeedbackController: UserChangedRoomDelegate {
         reloadUI()
     }
 }
-
 
 extension UITabBarController {
     open override var childForStatusBarStyle: UIViewController? {

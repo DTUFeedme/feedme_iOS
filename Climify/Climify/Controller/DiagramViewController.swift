@@ -59,6 +59,7 @@ class DiagramViewController: UIViewController {
         networkService.getFeedback(questionID: questionID, roomID: roomID, time: time, me: meIsSelected) { answers, statusCode in
             for answer in answers {
                 let dataEntry = PieChartDataEntry(value: Double(answer.answerCount))
+                
                 dataEntry.label = answer.answerOption
                 self.dataEntries.append(dataEntry)
             }
@@ -85,10 +86,10 @@ class DiagramViewController: UIViewController {
         formatter.multiplier = 1
         chartData.setValueFormatter(DefaultValueFormatter(formatter:formatter))
         
-        chartData.setValueFont(.systemFont(ofSize: 12, weight: .bold))
+        chartData.setValueFont(.systemFont(ofSize: 14, weight: .bold))
         
         pieChart.usePercentValuesEnabled = true
-        chartData.setValueTextColor(.darkGray)
+        chartData.setValueTextColor(.black)
         
         pieChart.data = chartData
     }
