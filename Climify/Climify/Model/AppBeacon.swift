@@ -10,9 +10,9 @@ import UIKit
 
 class AppBeacon: Beacon {
 
-        var currMessurement: Int
-        var latestRssis: [Int]
-        var connectionLost: [Int]
+        private var currMessurement: Int
+        private var latestRssis: [Int]
+        private var connectionLost: [Int]
     
         init(id: String, uuid: String, location: String, room: Room, name: String, rssi: Int){
             self.currMessurement = 0
@@ -28,11 +28,12 @@ class AppBeacon: Beacon {
         }
     
         func calcAverage() -> Double {
-            return Double(latestRssis.reduce(0,+))/Double(latestRssis.count)
+            return Double(latestRssis.filter{ $0 != -200 }.reduce(0,+))/Double(latestRssis.filter{ $0 != -200 }.count)
         }
         
         func addRssi(rssi: Int){
-
+            
+            
             if currMessurement > 4 {
                 currMessurement = 0
             }

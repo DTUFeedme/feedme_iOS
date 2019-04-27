@@ -4,58 +4,66 @@ import Charts
 class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
-    let coreLocationController = CoreLocation()
-    let networkService = NetworkService()
+    private let coreLocation = CoreLocation()
+    private let climifyApi = ClimifyAPI()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var mydataButton: UIButton!
     @IBOutlet weak var alldataButton: UIButton!
     @IBOutlet weak var todayButton: UIButton!
     @IBOutlet weak var lastweekButton: UIButton!
     @IBOutlet weak var lastmonthButton: UIButton!
+    @IBOutlet weak var alltimeButton: UIButton!
     @IBOutlet weak var slideView: UIView!
     @IBOutlet weak var choosenRoomLabel: UILabel!
     @IBOutlet weak var roomLocationLabel: UILabel!
-    var label = UILabel()
+    private var label = UILabel()
     
     struct Question {
         var question: String
         var questionId: String
         var answeredCount: Int
     }
-    var questions: [Question] = [Question(question: "", questionId: "", answeredCount: 0)]
+    // maybe do as in portfolio light, if empty then show message
+    private var questions: [Question] = [Question(question: "", questionId: "", answeredCount: 0)]
   
-    var mydataIsSelected = true
-    var time = "month"
-    var currentRoom = ""
-    var currentRoomId = ""
-    var choosenRoomId = ""
-    var choosenRoom = ""
-    var hasProvidedFeedback = true
-    var manuallyChangedRoom = false
+    private var mydataIsSelected = true
+    private var time = Time.all
+    private var currentRoom = ""
+    private var currentRoomId = ""
+    private var chosenRoomId = ""
+    private var chosenRoom = ""
+    private var hasProvidedFeedback = true
+    private var manuallyChangedRoom = false
     
     override func viewDidAppear(_ animated: Bool) {
         getAnsweredQuestions()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.separatorColor = UIColor.clear
-        
-        if (NetworkService.Connectivity.isConnectedToInternet){
-            guard let _ = TOKEN else { return }
-            coreLocationController.userChangedDelegate = self
-            coreLocationController.startLocating()
-            //getAnsweredQuestions()
+
+        if let tbc = self.tabBarController as? TabBarController {
+            tbc.addNewTabBarItem()
         }
-        choosenRoom = currentRoom
+        
         tableView.separatorColor = UIColor.clear
         
-        label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
+        UITabBar.appearance().tintColor = .red
+        
+        
+        if (ClimifyAPI.Connectivity.isConnectedToInternet){
+            guard let _ = TOKEN else { return }
+            coreLocation.userChangedRoomDelegate = self
+            coreLocation.startLocating()
+        }
+        chosenRoom = currentRoom
+        tableView.separatorColor = UIColor.clear
+        
+        label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
         label.numberOfLines = 0
         label.center = self.view.center
-        label.textAlignment = .center
-        label.text = "Please give feedback before you can see feedback"
-        label.font = .avenir20()
-        label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = .justified
+        label.text = "Woops. You have not given any feedback in this room yet. Please change room in the upper right corner or provide feedback 😎"
+        label.font = .avenir18()
         label.textColor = .white
         self.view.addSubview(label)
         label.isHidden = true
@@ -73,8 +81,8 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
     @IBAction func changeRoomButton(_ sender: Any) {
         
         let roomChooserVC = storyboard?.instantiateViewController(withIdentifier: "roomchooser") as! RoomChooserController
-        roomChooserVC.delegate = self
-        roomChooserVC.chosenRoom = choosenRoom
+        roomChooserVC.manuallyChangedRoomDelegate = self
+        roomChooserVC.currentRoom = currentRoom
         
         present(roomChooserVC, animated: true, completion: nil)
     }
@@ -94,15 +102,20 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     // NETWORKING
     
-    func getAnsweredQuestions(){
-        networkService.getAnsweredQuestions(roomID: choosenRoomId, time: time, me: mydataIsSelected) { questions, statusCode in
+    private func getAnsweredQuestions(){
+        climifyApi.getAnsweredQuestions(roomID: chosenRoomId, time: time, me: mydataIsSelected) { questions, statusCode in
             print(questions)
             if statusCode == HTTPCode.SUCCES {
                 if questions.isEmpty {
                    self.hideUI()
                 } else {
                     self.showUI()
-                    self.questions = questions
+                    var localQuestions: [Question] = []
+                    for q in questions {
+                        let question = Question(question: q.question, questionId: q.questionId, answeredCount: q.answeredCount)
+                        localQuestions.append(question)
+                    }
+                    self.questions = localQuestions
                     self.tableView.reloadData()
                 }
             } else {
@@ -120,7 +133,7 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellQuestion", for: indexPath) as! QuestionCell
         cell.questionLabel.text = questions[indexPath.row].question
-        cell.howManyTimesAnsweredLabel.text = String(questions[indexPath.row].answeredCount)
+        cell.howManyTimesAnsweredLabel.text = String(questions[indexPath.row].answeredCount)        
         return cell
     }
     
@@ -129,9 +142,9 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
         let currentCell = tableView.cellForRow(at: indexPath) as! QuestionCell
         currentCell.flash()
         let diagramVC = storyboard?.instantiateViewController(withIdentifier: "diagramview") as! DiagramViewController
-        diagramVC.room = choosenRoom
+        diagramVC.room = chosenRoom
         diagramVC.meIsSelected = mydataIsSelected
-        diagramVC.roomID = choosenRoomId
+        diagramVC.roomID = chosenRoomId
         diagramVC.time = time
         diagramVC.questionID = questions[indexPath.row].questionId
         diagramVC.question = questions[indexPath.row].question
@@ -139,8 +152,9 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
         present(diagramVC, animated: true, completion: nil)
     }
     
+    
     // UI
-    func timeChanged(tag: Int){
+    private func timeChanged(tag: Int){
         switch tag {
         case 0:
             todayButton.pulsate()
@@ -152,9 +166,10 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
             
             lastmonthButton.titleLabel?.font = .avenir18()
             lastmonthButton.setTitleColor(.myCyan(), for: .normal)
-            time = "day"
             
-            getAnsweredQuestions()
+            alltimeButton.titleLabel?.font = .avenir18()
+            alltimeButton.setTitleColor(.myCyan(), for: .normal)
+            time = Time.day
         case 1:
             lastweekButton.pulsate()
             lastweekButton.titleLabel?.font = .avenir20()
@@ -165,9 +180,10 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
             
             lastmonthButton.titleLabel?.font = .avenir18()
             lastmonthButton.setTitleColor(.myCyan(), for: .normal)
-            time = "week"
+            time = Time.week
             
-            getAnsweredQuestions()
+            alltimeButton.titleLabel?.font = .avenir18()
+            alltimeButton.setTitleColor(.myCyan(), for: .normal)
         case 2:
             lastmonthButton.pulsate()
             lastmonthButton.titleLabel?.font = .avenir20()
@@ -178,19 +194,36 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
             
             lastweekButton.titleLabel?.font = .avenir18()
             lastweekButton.setTitleColor(.myCyan(), for: .normal)
-            time = "month"
-            getAnsweredQuestions()
+            time = Time.month
             
+            alltimeButton.titleLabel?.font = .avenir18()
+            alltimeButton.setTitleColor(.myCyan(), for: .normal)
+            
+        case 3:
+            alltimeButton.titleLabel?.font = .avenir20()
+            alltimeButton.setTitleColor(.white, for: .normal)
+            alltimeButton.pulsate()
+            
+            lastmonthButton.titleLabel?.font = .avenir18()
+            lastmonthButton.setTitleColor(.myCyan(), for: .normal)
+            
+            todayButton.titleLabel?.font = .avenir18()
+            todayButton.setTitleColor(.myCyan(), for: .normal)
+            
+            lastweekButton.titleLabel?.font = .avenir18()
+            lastweekButton.setTitleColor(.myCyan(), for: .normal)
+            time = Time.all
         default:
             break
         }
-        tableView.reloadData()
+        getAnsweredQuestions()
+//        tableView.reloadData()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    func showUI(){
+    private func showUI(){
         tableView.isHidden = false
         mydataButton.isHidden = false
         alldataButton.isHidden = false
@@ -199,9 +232,10 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
         lastmonthButton.isHidden = false
         slideView.isHidden = false
         roomLocationLabel.isHidden = false
+        alltimeButton.isHidden = false
         label.isHidden = true
     }
-    func hideUI(){
+    private func hideUI(){
         tableView.isHidden = true
         mydataButton.isHidden = true
         alldataButton.isHidden = true
@@ -210,12 +244,14 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
         lastmonthButton.isHidden = true
         slideView.isHidden = true
         roomLocationLabel.isHidden = true
+        alltimeButton.isHidden = true
+        choosenRoomLabel.isHidden = true
         label.isHidden = false
     
         
     }
     
-    func animateSlideGesture(right: Bool){
+    private func animateSlideGesture(right: Bool){
         if right {
             UIView.animate(withDuration: 0.3,
                            delay: 0.1,
@@ -249,11 +285,11 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
 }
 
 // PROTOCOLS AND DELEGATES
-extension DataTabController: ManuallyChangedRoom {
+extension DataTabController: ManuallyChangedRoomDelegate {
     func roomchanged(roomname: String, roomid: String) {
         manuallyChangedRoom = true
-        choosenRoom = roomname
-        choosenRoomId = roomid
+        chosenRoom = roomname
+        chosenRoomId = roomid
         choosenRoomLabel.text = "showing questions answered from \(roomname)"
         getAnsweredQuestions()
     }
@@ -265,8 +301,8 @@ extension DataTabController: UserChangedRoomDelegate {
         roomLocationLabel.text = "You are in \(roomname) 🙂"
         
         if !manuallyChangedRoom {
-            choosenRoom = roomname
-            choosenRoomId = roomid
+            chosenRoom = roomname
+            chosenRoomId = roomid
             choosenRoomLabel.text =  "showing questions answered from \(roomname)"
             getAnsweredQuestions()
         }

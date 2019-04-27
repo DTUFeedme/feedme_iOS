@@ -1,5 +1,5 @@
 //
-//  NetworkService.swift
+//  ClimifyAPI.swift
 //  Climify
 //
 //  Created by Christian Hjelmslund on 07/03/2019.
@@ -10,14 +10,16 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 
-class NetworkService: NSObject {
+class ClimifyAPI: NSObject {
 
-    let questionsUrl = "http://climify.compute.dtu.dk/api/questions"
-    let getTokenUrl = "http://climify.compute.dtu.dk/api/users"
-    let feedbackUrl = "http://climify.compute.dtu.dk/api/feedback"
-    let beaconsUrl = "http://climify.compute.dtu.dk/api/beacons"
-    let roomUrl = "http://climify.compute.dtu.dk/api/rooms"
-    let buildingsUrl = "http://climify.compute.dtu.dk/api/buildings"
+    private let questionsUrl = "http://climify.compute.dtu.dk/api/questions"
+    private let getTokenUrl = "http://climify.compute.dtu.dk/api/users"
+    private let feedbackUrl = "http://climify.compute.dtu.dk/api/feedback"
+    private let beaconsUrl = "http://climify.compute.dtu.dk/api/beacons"
+    private let roomUrl = "http://climify.compute.dtu.dk/api/rooms"
+    private let buildingsUrl = "http://climify.compute.dtu.dk/api/buildings"
+    private let loginUrl = "climify.compute.dtu.dk/api/auth"
+    
     
     struct Connectivity {
         static let sharedInstance = NetworkReachabilityManager()!
@@ -26,7 +28,7 @@ class NetworkService: NSObject {
         }
     }
     
-    func getAnsweredQuestions(roomID: String, time: String, me: Bool, completion: @escaping (_ questions: [DataTabController.Question], _ statusCode: Int) -> Void){
+    func getAnsweredQuestions(roomID: String, time: Time, me: Bool, completion: @escaping (_ questions: [(question: String, questionId: String, answeredCount: Int)], _ statusCode: Int) -> Void){
         guard let token = TOKEN else { return }
         let headers: HTTPHeaders = [ "x-auth-token": token]
         
@@ -35,9 +37,9 @@ class NetworkService: NSObject {
             user = "me"
         }
      
-        let getAnsweredQuestionsUrl = "\(feedbackUrl)/answeredquestions/?room=\(roomID)&user=\(user)&t=\(time)"
+        let getAnsweredQuestionsUrl = "\(feedbackUrl)/answeredquestions/?room=\(roomID)&user=\(user)&t=\(time.rawValue)"
         print(getAnsweredQuestionsUrl)
-        var questions: [DataTabController.Question] = []
+        var questions: [(question: String, questionId: String, answeredCount: Int)] = []
         AF.request(getAnsweredQuestionsUrl, method: .get, headers: headers).responseJSON{ response in
             guard let statusCode = response.response?.statusCode else { return }
             
@@ -49,7 +51,7 @@ class NetworkService: NSObject {
                         if let questionName = element.1["question"]["value"].string,
                             let questionId = element.1["question"]["_id"].string,
                             let questionCount = element.1["timesAnswered"].int {
-                            let question = DataTabController.Question(question: questionName,questionId: questionId,answeredCount: questionCount)
+                            let question = (question: questionName,questionId: questionId,answeredCount: questionCount)
                             questions.append(question)
                         }
                     }
@@ -191,8 +193,29 @@ class NetworkService: NSObject {
         }
     }
     
-
-    func getFeedback(questionID: String, roomID: String, time: String, me: Bool, completion: @escaping (_ answers: [DiagramViewController.DataEntry], _ statusCode: Int) -> Void){
+    func login(email: String, password: String, completion: @escaping (_ statusCode: Int) -> Void) {
+        guard let token = TOKEN else { return }
+        
+        let headers: HTTPHeaders = [ "x-auth-token": token ]
+        
+        var json: [String : Any] = [:]
+        json["email"] = email
+        json["password"] = password
+        
+        AF.request(loginUrl, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers).responseString { response in
+            guard let statusCode = response.response?.statusCode else { return }
+            switch response.result {
+            case.success(_):
+                completion(statusCode)
+            case.failure(let error):
+                print(error)
+                completion(statusCode)
+            }
+        }
+    }
+    
+    // Change to tuples
+    func getFeedback(questionID: String, roomID: String, time: Time, me: Bool, completion: @escaping (_ answers: [(answerOption: String, answerCount: Int)], _ statusCode: Int) -> Void){
         
         guard let token = TOKEN else { return }
         
@@ -201,10 +224,9 @@ class NetworkService: NSObject {
         if me {
             user = "me"
         }
-        let getFeedbackStatisticsUrl = "\(feedbackUrl)/questionstatistics/\(questionID)/?room=\(roomID)&user=\(user)&t=\(time)"
-        print(getFeedbackStatisticsUrl)
+        let getFeedbackStatisticsUrl = "\(feedbackUrl)/questionstatistics/\(questionID)/?room=\(roomID)&user=\(user)&t=\(time.rawValue)"
         
-        var feedback: [DiagramViewController.DataEntry] = []
+        var feedback: [(answerOption: String, answerCount: Int)] = []
         AF.request(getFeedbackStatisticsUrl, method: .get, headers: headers).responseJSON{ response in
             
             guard let statusCode = response.response?.statusCode else { return }
@@ -215,7 +237,7 @@ class NetworkService: NSObject {
                 for element in json {
                     if let answer = element.1["answer"]["value"].string,
                         let answerCount = element.1["timesAnswered"].int {
-                        let answer = DiagramViewController.DataEntry(answerOption: answer, answerCount: answerCount)
+                        let answer = (answerOption: answer, answerCount: answerCount)
                         feedback.append(answer)
                     }
                 }

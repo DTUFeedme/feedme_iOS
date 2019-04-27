@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Room: NSObject {
+struct Room {
     var id: String
     var name: String
     var location: String
@@ -19,7 +19,7 @@ class Room: NSObject {
         self.location = location
     }
     
-    convenience override init(){
+    init(){
         self.init(id: "", name: "", location: "")
     }
 }

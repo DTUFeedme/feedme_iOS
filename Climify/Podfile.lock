@@ -4,12 +4,14 @@ PODS:
     - Charts/Core (= 3.2.2)
   - Charts/Core (3.2.2)
   - OpenSans (1.0.3)
+  - SideMenuSwift (1.0.1)
   - SwiftyJSON (4.2.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-beta.2)
   - Charts
   - OpenSans
+  - SideMenuSwift
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
@@ -17,14 +19,16 @@ SPEC REPOS:
     - Alamofire
     - Charts
     - OpenSans
+    - SideMenuSwift
     - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: d1e5493588babe3e7b56ae29e8032942f4de09fe
   Charts: f69cf0518b6d1d62608ca504248f1bbe0b6ae77e
   OpenSans: 33078846463eae780aa5f82986b51cce085f970d
+  SideMenuSwift: a78d47182aa03b5c07570fe57d3ba22c4561f2ce
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: ad82fc619e078b81cea3f235e1bbee18ba8f2c73
+PODFILE CHECKSUM: fd5a024968d003176d1f277a8d306a0dde6415af
 
 COCOAPODS: 1.5.3

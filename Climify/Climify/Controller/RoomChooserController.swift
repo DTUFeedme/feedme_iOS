@@ -12,26 +12,40 @@ class RoomChooserController: UIViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var choosenRoomLabel: UILabel!
     @IBOutlet weak var buildingPickerView: UIPickerView!
-    let networkService = NetworkService()
-    var delegate: ManuallyChangedRoom!
-    var buildings: [Building] = []//[Building(id: nil, name: "test", rooms: [Room(id: "", name: "", location: " ")])]
-    var selectedBuildingIndex = 0
-    var selectedRoomIndex = 0
-    var chosenRoom = ""
+    @IBOutlet weak var saveChanges: UIButton!
+    
+    private let climifyApi = ClimifyAPI()
+    var manuallyChangedRoomDelegate: ManuallyChangedRoomDelegate!
+    private var buildings: [Building] = []
+    private var selectedBuildingIndex = 0
+    private var selectedRoomIndex = 0
+    var currentRoom = ""
+    
+    @IBAction func hidePopUp(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func doneButton(_ sender: Any) {
-        delegate.roomchanged(roomname: buildings[selectedBuildingIndex].rooms[selectedRoomIndex].name, roomid: buildings[selectedBuildingIndex].rooms[selectedRoomIndex].id)
+        manuallyChangedRoomDelegate.roomchanged(roomname: buildings[selectedBuildingIndex].rooms[selectedRoomIndex].name, roomid: buildings[selectedBuildingIndex].rooms[selectedRoomIndex].id)
         dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        choosenRoomLabel.text = "you are in \(chosenRoom)"
+     
+        buildingPickerView.layer.shadowColor = UIColor.black.cgColor
+        buildingPickerView.layer.shadowOpacity = 5
+        buildingPickerView.layer.shadowOffset = CGSize.zero
+        buildingPickerView.layer.shadowRadius = 15
+        saveChanges.backgroundColor = .clear
+        saveChanges.layer.cornerRadius = 20
+        saveChanges.layer.borderWidth = 2
+        saveChanges.layer.borderColor = .myCyan()
+        choosenRoomLabel.text = "you are in \(currentRoom)"
         bgView.layer.cornerRadius = 15
         bgView.layer.masksToBounds = true
         
-        networkService.getBuildings() { buildings, statusCode in
+        climifyApi.getBuildings() { buildings, statusCode in
             if statusCode == HTTPCode.SUCCES {
                 self.buildings = buildings
                 self.buildingPickerView.delegate = self
@@ -93,7 +107,7 @@ class RoomChooserController: UIViewController, UIPickerViewDataSource, UIPickerV
         }
         label.textColor = .myCyan()
         label.textAlignment = .center
-        label.font = label.font.withSize(20)
+        label.font = label.font.withSize(22)
 //        
         if component == 0 {
             label.text =  buildings[row].name
@@ -112,7 +126,7 @@ class RoomChooserController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
 }
 
-protocol ManuallyChangedRoom {
+protocol ManuallyChangedRoomDelegate {
     func roomchanged(roomname: String, roomid: String)
 }
 

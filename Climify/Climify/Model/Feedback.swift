@@ -8,13 +8,12 @@
 
 import UIKit
 
-class Feedback: NSObject {
+struct Feedback {
 
     var authToken: String?
     var roomID: String
     var questionId: String
     var answerId: String
-    //var answers: [Answer]
     
     init(answerId: String, roomID: String, questionId: String){
         self.answerId = answerId
@@ -26,7 +25,7 @@ class Feedback: NSObject {
         }
     }
     
-    convenience override init(){
+    init(){
         self.init(answerId: "", roomID: "", questionId: "")
     }
 }

@@ -14,5 +14,15 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         super.viewDidLoad()
         self.delegate = self
     }
+
+    func addNewTabBarItem(){
+        let sb = UIStoryboard(name: "Data", bundle: nil)
+        
+        if let roomChooserVC = sb.instantiateViewController(withIdentifier: "roomchooser") as? RoomChooserController {
+            roomChooserVC.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 3)
+            self.viewControllers?.append(roomChooserVC)
+        }
+        
+    }
 }
 

@@ -13,25 +13,16 @@ class DiagramViewController: UIViewController {
 
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var pieChart: PieChartView!
-    var dummyDataEntry1 = PieChartDataEntry(value: 10)
-    var dummyDataEntry2 = PieChartDataEntry(value: 17)
     @IBOutlet weak var roomLocationLabel: UILabel!
     
-    let networkService = NetworkService()
+    private let climifyApi = ClimifyAPI()
     var room = ""
     var roomID = ""
-    var time = ""
+    var time = Time.day
     var question = ""
     var questionID = ""
     var meIsSelected = true
-    struct DataEntry {
-        var answerOption: String
-        var answerCount: Int
-    }
-    
-    //var data: [DataEntry] = []
-    
-    var dataEntries = [PieChartDataEntry]()
+    private var dataEntries = [PieChartDataEntry]()
     
     @IBAction func tapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -40,6 +31,11 @@ class DiagramViewController: UIViewController {
         super.viewDidLoad()
         bgView.layer.cornerRadius = 15
         bgView.layer.masksToBounds = true
+        pieChart.layer.shadowColor = UIColor.black.cgColor
+        pieChart.layer.shadowOpacity = 5
+        pieChart.layer.shadowOffset = CGSize.zero
+        pieChart.layer.shadowRadius = 15
+
         roomLocationLabel.text = room
         pieChart.centerText = question
         
@@ -56,19 +52,21 @@ class DiagramViewController: UIViewController {
         l.yOffset = 10
         l.textColor = .myCyan()
         
-        networkService.getFeedback(questionID: questionID, roomID: roomID, time: time, me: meIsSelected) { answers, statusCode in
+        getFeedback()
+    }
+    
+    private func getFeedback(){
+        climifyApi.getFeedback(questionID: questionID, roomID: roomID, time: time, me: meIsSelected) { answers, statusCode in
             for answer in answers {
                 let dataEntry = PieChartDataEntry(value: Double(answer.answerCount))
-                
                 dataEntry.label = answer.answerOption
                 self.dataEntries.append(dataEntry)
             }
             self.updateChart()
         }
-        updateChart()
     }
     
-    func updateChart(){
+    private func updateChart(){
         let chartDataSet = PieChartDataSet(values: dataEntries, label: nil)
         let chartData = PieChartData(dataSet: chartDataSet)
         

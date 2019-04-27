@@ -8,19 +8,19 @@
 
 import UIKit
 
-class Answer: NSObject {
+struct Answer {
     
     var questionID: String
     var answerValue: String
-    var answerID: String
+    var id: String
     
     init(questionID: String, answerValue: String, answerID: String) {
         self.questionID = questionID
         self.answerValue = answerValue
-        self.answerID = answerID
+        self.id = answerID
     }
     
-    convenience override init(){
+    init(){
         self.init(questionID: "", answerValue: "", answerID: "")
     }
 }

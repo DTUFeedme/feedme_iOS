@@ -9,10 +9,10 @@
 import UIKit
 
 
-class Question: NSObject {
+struct Question {
     
     
-    var questionID: String
+    var id: String
     var question: String
     var answerOptions: [answerOption]
     
@@ -23,11 +23,11 @@ class Question: NSObject {
     
     init(questionID: String, question: String, answerOptions: [answerOption]) {
         self.answerOptions = answerOptions
-        self.questionID = questionID
+        self.id = questionID
         self.question = question
     }
     
-    convenience override init(){
+    init(){
         self.init(questionID: "", question: "", answerOptions: [])
     }
 }
