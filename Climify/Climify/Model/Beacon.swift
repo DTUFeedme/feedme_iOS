@@ -11,15 +11,13 @@ import UIKit
 class Beacon: NSObject {
     var uuid: String
     var name: String
-    var room: Room
+    var building: Building
     var id: String
-    var location: String
     
-    init (id: String, uuid: String, name: String, room: Room, location: String){
+    init (id: String, uuid: String, name: String, building: Building){
         self.id = id
-        self.location = location
         self.uuid = uuid
         self.name = name
-        self.room = room
+        self.building = building
     }
 }

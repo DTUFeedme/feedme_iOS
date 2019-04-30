@@ -11,15 +11,13 @@ import UIKit
 struct Room {
     var id: String
     var name: String
-    var location: String
     
-    init (id: String, name: String, location: String){
+    init (id: String, name: String){
         self.id = id
         self.name = name
-        self.location = location
     }
     
     init(){
-        self.init(id: "", name: "", location: "")
+        self.init(id: "", name: "")
     }
 }

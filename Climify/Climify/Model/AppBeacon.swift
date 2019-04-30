@@ -13,39 +13,43 @@ class AppBeacon: Beacon {
         private var currMessurement: Int
         private var latestRssis: [Int]
         private var connectionLost: [Int]
+        var numberOfRssis = 5
     
-        init(id: String, uuid: String, location: String, room: Room, name: String, rssi: Int){
+        init(id: String, uuid: String, building: Building, name: String){
             self.currMessurement = 0
-            self.latestRssis = Array(repeating: -200, count: 5)
-            self.connectionLost = Array(repeating: -200, count: 5)
-            
-            super.init(id: id, uuid: uuid, name: name, room: room, location: location)
-            self.addRssi(rssi: rssi)
+            self.latestRssis = Array(repeating: -100, count: numberOfRssis)
+            self.connectionLost = Array(repeating: -100, count: numberOfRssis)
+            super.init(id: id, uuid: uuid, name: name, building: building)
         }
     
         convenience init(){
-            self.init(id: "", uuid: "", location: "", room: Room.init(), name: "", rssi: -200)
+            self.init(id: "", uuid: "", building: Building.init(), name: "")
         }
     
+    
         func calcAverage() -> Double {
-            return Double(latestRssis.filter{ $0 != -200 }.reduce(0,+))/Double(latestRssis.filter{ $0 != -200 }.count)
+            let filteredList = latestRssis.filter{ $0 != -100 }
+            if filteredList.count == 0 {
+                return -100
+            } else {
+                return Double(filteredList.reduce(0,+))/Double(filteredList.count)
+            }
         }
         
         func addRssi(rssi: Int){
             
-            
-            if currMessurement > 4 {
+            if currMessurement >= numberOfRssis {
                 currMessurement = 0
             }
             if rssi < 0 {
                 latestRssis[currMessurement] = rssi
+            } else {
+                latestRssis[currMessurement] = -100
             }
-            connectionLost[currMessurement] = rssi
-            if (Double(connectionLost.reduce(0,+))/Double(connectionLost.count) == 0) {
-                print("Connection lost")
-            }
+//            connectionLost[currMessurement] = rssi
+//            if (Double(connectionLost.reduce(0,+))/Double(connectionLost.count) == -100) {
+//                print(self.name, "Connection lost")
+//            }
             currMessurement += 1
         }
-    
-    
 }

@@ -9,13 +9,17 @@
 import UIKit
 
 struct Building {
-    var id: String?
+    var id: String
     var name: String
-    var rooms: [Room]
+    var rooms: [Room]?
     
-    init (id: String?, name: String, rooms: [Room]){
+    init (id: String, name: String, rooms: [Room]?){
         self.id = id
         self.name = name
         self.rooms = rooms
+    }
+    
+    init(){
+        self.init(id: "", name: "", rooms: [Room.init()])
     }
 }

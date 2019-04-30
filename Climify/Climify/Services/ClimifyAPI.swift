@@ -18,7 +18,9 @@ class ClimifyAPI: NSObject {
     private let beaconsUrl = "http://climify.compute.dtu.dk/api/beacons"
     private let roomUrl = "http://climify.compute.dtu.dk/api/rooms"
     private let buildingsUrl = "http://climify.compute.dtu.dk/api/buildings"
-    private let loginUrl = "climify.compute.dtu.dk/api/auth"
+    private let loginUrl = "http://climify.compute.dtu.dk/api/auth"
+    private let scanningUrl = "http://climify.compute.dtu.dk/api/signalmaps"
+    private var requestCounter = 0
     
     
     struct Connectivity {
@@ -114,17 +116,15 @@ class ClimifyAPI: NSObject {
             switch response.result {
             case .success(let value) :
                 let json = JSON(value)
-                
                 for element in json {
                      if let name = element.1["name"].string,
                         let id = element.1["_id"].string,
-                        let location = element.1["location"].string,
                         let uuid = element.1["uuid"].string,
-                        let room = element.1["room"].dictionary {
+                        let building = element.1["building"].dictionary {
                         
-                        if let roomId = room["_id"]?.string, let roomName = room["name"]?.string, let roomLocation = room["location"]?.string{
-                            let room = Room(id: roomId, name: roomName, location: roomLocation)
-                            let beacon = Beacon(id: id, uuid: uuid, name: name, room: room, location: location)
+                        if let buildingId = building["_id"]?.string, let buildingName = building["name"]?.string{
+                            let building = Building(id: buildingId, name: buildingName, rooms: nil)
+                            let beacon = Beacon(id: id, uuid: uuid, name: name, building: building)
                             beacons.append(beacon)
                         }
                     }
@@ -153,17 +153,18 @@ class ClimifyAPI: NSObject {
                 for building in json {
                     var buildingRooms: [Room] = []
                     if let buildingName = building.1["name"].string,
+                        let buildingId = building.1["_id"].string,
                         let rooms = building.1["rooms"].array {
                         
                         for room in rooms {
                             if let roomId = room["_id"].string,
                                 let roomName = room["name"].string {
                                 
-                                let buildingRoom = Room(id: roomId, name: roomName, location: "irrelevant?")
+                                let buildingRoom = Room(id: roomId, name: roomName)
                                 buildingRooms.append(buildingRoom)
                             }
                         }
-                        let building = Building(id: nil, name: buildingName, rooms: buildingRooms)
+                        let building = Building(id: buildingId, name: buildingName, rooms: buildingRooms)
                         buildings.append(building)
                     }
                 }
@@ -193,23 +194,27 @@ class ClimifyAPI: NSObject {
         }
     }
     
-    func login(email: String, password: String, completion: @escaping (_ statusCode: Int) -> Void) {
+    func login(email: String, password: String, completion: @escaping (_ statusCode: Int, _ description: String) -> Void) {
         guard let token = TOKEN else { return }
         
         let headers: HTTPHeaders = [ "x-auth-token": token ]
-        
+        print(token)
+        print(email)
+        print(password)
         var json: [String : Any] = [:]
         json["email"] = email
         json["password"] = password
         
         AF.request(loginUrl, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers).responseString { response in
+            print(response)
             guard let statusCode = response.response?.statusCode else { return }
             switch response.result {
             case.success(_):
-                completion(statusCode)
+                print(response.description)                
+                completion(statusCode, response.description)
             case.failure(let error):
                 print(error)
-                completion(statusCode)
+                completion(statusCode, "Error")
             }
         }
     }
@@ -247,6 +252,77 @@ class ClimifyAPI: NSObject {
                 completion(feedback,statusCode)
             }
         }
+    }
+    
+    func postRoom(buildingId: String, name: String,  completion: @escaping (_ statusCode: Int, _ roomId: String) -> Void) {
+        guard let token = TOKEN else { return }
+        let headers: HTTPHeaders = ["x-auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Y2M2Y2NhYTc4NWJhMjY3NGRiYzc0ODAiLCJyb2xlIjoxLCJpYXQiOjE1NTY1MzIzOTR9.sQ-WJMKipJaaRsfBoFlIIb04Ip3SfTQvTCr9JfWNTMY"]
+        var json: [String : Any] = [:]
+        json["buildingId"] = buildingId
+        json["name"] = name
+        
+        AF.request(roomUrl, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
+            .responseJSON { response in
+                
+                guard let statusCode = response.response?.statusCode else { return }
+                switch response.result {
+                case.success(let value):
+                    let json = JSON(value)
+
+                    for element in json {
+                        print("element: ", element)
+                        if let roomId = element.1["_id"].string {
+                            print(roomId)
+                            completion(statusCode, roomId)
+                        } else {
+                            completion(400, "")
+                        }
+                    }
+                    print(response.result)
+                    print(response)
+                    print(statusCode)
+                case.failure(let error):
+                    completion(statusCode, "")
+                    print(statusCode)
+                    print(error)
+                    
+                }
+        }
+
+    }
+    
+    func postSignalMap(signalMap: [Any], roomId: String?, buildingId: String?,  completion: @escaping (_ statusCode: Int, _ roomId: String) -> Void){
+        guard let token = TOKEN else { return }
+        let headers: HTTPHeaders = ["x-auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Y2M2Y2NhYTc4NWJhMjY3NGRiYzc0ODAiLCJyb2xlIjoxLCJpYXQiOjE1NTY1MzIzOTR9.sQ-WJMKipJaaRsfBoFlIIb04Ip3SfTQvTCr9JfWNTMY"]
+
+        var json: [String : Any] = [:]
+        json["beacons"] = signalMap
+        if let roomid = roomId {
+            json["roomId"] = roomid
+        } else if let buildingid = buildingId {
+            json["buildingId"] = buildingid
+        }
+        
+        AF.request(scanningUrl, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
+            .responseJSON { response in
+            print(self.requestCounter)
+            self.requestCounter+=1
+            guard let statusCode = response.response?.statusCode else { return }
+            switch response.result {
+            case.success(let value):
+                
+                let jsonResult = JSON(value)
+                if let roomid = jsonResult["room"].string {
+                    completion(statusCode, roomid)
+                } else {
+                    completion(statusCode, "")
+                }
+            case.failure(let error):
+                completion(statusCode, "")
+                print(error)
+            }
+        }
+        
     }
     
     func postFeedback(feedback: Feedback, completion: @escaping (_ statusCode: Int) -> Void){

@@ -60,8 +60,11 @@ class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.separatorColor = UIColor.clear
         sideMenu.layer.shadowOpacity = 1
         sideMenu.layer.shadowRadius = 6
-        
     }
+    
+    
+    
+    
     @IBAction func sideMenuAction(_ sender: Any) {
         if isMenuShowing {
             sideMenuTrailing.constant = -255

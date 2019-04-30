@@ -26,8 +26,14 @@ class RoomChooserController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
     
     @IBAction func doneButton(_ sender: Any) {
-        manuallyChangedRoomDelegate.roomchanged(roomname: buildings[selectedBuildingIndex].rooms[selectedRoomIndex].name, roomid: buildings[selectedBuildingIndex].rooms[selectedRoomIndex].id)
-        dismiss(animated: true, completion: nil)
+        if let name = buildings[selectedBuildingIndex].rooms?[selectedRoomIndex].name, let roomid = buildings[selectedBuildingIndex].rooms?[selectedRoomIndex].id {
+            manuallyChangedRoomDelegate.roomchanged(roomname: name, roomid: roomid)
+           
+            
+            dismiss(animated: true, completion: nil)
+        }
+//        manuallyChangedRoomDelegate.roomchanged(roomname: buildings[selectedBuildingIndex].rooms[selectedRoomIndex].name, roomid: buildings[selectedBuildingIndex].rooms[selectedRoomIndex].id)
+//        dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -70,7 +76,11 @@ class RoomChooserController: UIViewController, UIPickerViewDataSource, UIPickerV
         if component == 0 {
             return buildings.count
         } else {
-            return buildings[selectedBuildingIndex].rooms.count
+            if let rooms = buildings[selectedBuildingIndex].rooms {
+                return rooms.count
+            } else {
+                return 0
+            }
         }
     }
     
@@ -78,7 +88,11 @@ class RoomChooserController: UIViewController, UIPickerViewDataSource, UIPickerV
         if component == 0 {
             return buildings[row].name
         } else {
-            return buildings[selectedBuildingIndex].rooms[row].name
+            if let room = buildings[selectedBuildingIndex].rooms?[row] {
+                return room.name
+            } else {
+                return ""
+            }
         }
     }
     
@@ -112,7 +126,9 @@ class RoomChooserController: UIViewController, UIPickerViewDataSource, UIPickerV
         if component == 0 {
             label.text =  buildings[row].name
         } else {
-            label.text =  buildings[selectedBuildingIndex].rooms[row].name
+            if let roomname = buildings[selectedBuildingIndex].rooms?[row] {
+                label.text = roomname.name
+            }
         }
         
         label.lineBreakMode = .byWordWrapping
