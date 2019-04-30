@@ -13,6 +13,7 @@
 		A1141A1222314B4900659DF1 /* ClimifyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1141A1122314B4900659DF1 /* ClimifyAPI.swift */; };
 		A11662D52236F70F00A7F607 /* UIButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11662D42236F70F00A7F607 /* UIButtons.swift */; };
 		A12AF6412274845C007F6C7D /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12AF6402274845C007F6C7D /* LoginController.swift */; };
+		A12B9F7622787C3500FEAC32 /* ScanningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B9F7522787C3500FEAC32 /* ScanningViewController.swift */; };
 		A136A0D2220C595000189E21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136A0D1220C595000189E21 /* AppDelegate.swift */; };
 		A136A0D7220C595000189E21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D5220C595000189E21 /* Main.storyboard */; };
 		A136A0D9220C595000189E21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D8220C595000189E21 /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 		A1141A1122314B4900659DF1 /* ClimifyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimifyAPI.swift; sourceTree = "<group>"; };
 		A11662D42236F70F00A7F607 /* UIButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtons.swift; sourceTree = "<group>"; };
 		A12AF6402274845C007F6C7D /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		A12B9F7522787C3500FEAC32 /* ScanningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanningViewController.swift; sourceTree = "<group>"; };
 		A136A0CE220C595000189E21 /* Climify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Climify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A136A0D1220C595000189E21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A136A0D6220C595000189E21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				A1B5D364224AACA100FE92E2 /* RoomChooserController.swift */,
 				A18507312254959F005C081C /* TabBarController.swift */,
 				A12AF6402274845C007F6C7D /* LoginController.swift */,
+				A12B9F7522787C3500FEAC32 /* ScanningViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				A1C9B4B022561DE000A8748D /* Building.swift in Sources */,
 				A1E15B172247F3A200B5C3EF /* DiagramViewController.swift in Sources */,
 				A1141A1222314B4900659DF1 /* ClimifyAPI.swift in Sources */,
+				A12B9F7622787C3500FEAC32 /* ScanningViewController.swift in Sources */,
 				A18507362254AB44005C081C /* Fonts.swift in Sources */,
 				A18507322254959F005C081C /* TabBarController.swift in Sources */,
 				A12AF6412274845C007F6C7D /* LoginController.swift in Sources */,

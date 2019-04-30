@@ -46,10 +46,6 @@ class AppBeacon: Beacon {
             } else {
                 latestRssis[currMessurement] = -100
             }
-//            connectionLost[currMessurement] = rssi
-//            if (Double(connectionLost.reduce(0,+))/Double(connectionLost.count) == -100) {
-//                print(self.name, "Connection lost")
-//            }
             currMessurement += 1
         }
 }

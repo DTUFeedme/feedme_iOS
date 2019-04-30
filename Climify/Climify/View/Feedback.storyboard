@@ -286,6 +286,9 @@
                                                     <state key="normal" title="Info">
                                                         <color key="titleColor" red="0.098039215690000001" green="0.70980392160000005" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <segue destination="vOx-9X-xVT" kind="show" id="p8G-NQ-bhv"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -339,7 +342,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U1A-Yz-awt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-165" y="16"/>
+            <point key="canvasLocation" x="-323" y="121"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="73D-f6-C8x">
@@ -416,7 +419,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4O6-Mq-JYM" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="c2y-f9-fBP" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="411" y="-106"/>
+            <point key="canvasLocation" x="261" y="-229"/>
+        </scene>
+        <!--Scanning View Controller-->
+        <scene sceneID="LdS-v5-opr">
+            <objects>
+                <viewController id="vOx-9X-xVT" customClass="ScanningViewController" customModule="Climify" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jGN-cK-jyn">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1lY-Rs-h5o">
+                                <rect key="frame" x="73" y="92" width="100" height="30"/>
+                                <state key="normal" title="Start Scanning"/>
+                                <connections>
+                                    <action selector="startScanning:" destination="vOx-9X-xVT" eventType="touchUpInside" id="jfc-kr-Dka"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="roomname" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i5A-o6-QxW">
+                                <rect key="frame" x="77" y="37" width="96" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="voN-TT-FXM">
+                                <rect key="frame" x="73" y="151" width="100" height="30"/>
+                                <state key="normal" title="Stop Scanning"/>
+                                <connections>
+                                    <action selector="stopScanning:" destination="vOx-9X-xVT" eventType="touchUpInside" id="0aC-2N-2vQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWb-Ln-nBD">
+                                <rect key="frame" x="64" y="222" width="119" height="30"/>
+                                <state key="normal" title="TestYourLocation"/>
+                                <connections>
+                                    <action selector="testYourLocation:" destination="vOx-9X-xVT" eventType="touchUpInside" id="WAV-7C-u18"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="IWb-Ln-nBD" firstAttribute="top" secondItem="voN-TT-FXM" secondAttribute="bottom" constant="41" id="7DG-wY-SLf"/>
+                            <constraint firstItem="i5A-o6-QxW" firstAttribute="leading" secondItem="ybP-sZ-s3c" secondAttribute="leading" constant="77" id="FqK-wa-iYw"/>
+                            <constraint firstItem="1lY-Rs-h5o" firstAttribute="leading" secondItem="ybP-sZ-s3c" secondAttribute="leading" constant="73" id="Sd3-sb-QZy"/>
+                            <constraint firstItem="voN-TT-FXM" firstAttribute="centerX" secondItem="IWb-Ln-nBD" secondAttribute="centerX" id="UNh-6k-8ct"/>
+                            <constraint firstItem="voN-TT-FXM" firstAttribute="top" secondItem="1lY-Rs-h5o" secondAttribute="bottom" constant="29" id="W58-T8-CxZ"/>
+                            <constraint firstItem="i5A-o6-QxW" firstAttribute="centerX" secondItem="jGN-cK-jyn" secondAttribute="centerX" id="XI8-7j-Pzc"/>
+                            <constraint firstItem="i5A-o6-QxW" firstAttribute="top" secondItem="ybP-sZ-s3c" secondAttribute="top" constant="17" id="Zvm-ex-uuq"/>
+                            <constraint firstItem="1lY-Rs-h5o" firstAttribute="leading" secondItem="voN-TT-FXM" secondAttribute="leading" id="de9-V4-jWY"/>
+                            <constraint firstItem="1lY-Rs-h5o" firstAttribute="top" secondItem="i5A-o6-QxW" secondAttribute="bottom" constant="25" id="gxk-cB-JhD"/>
+                            <constraint firstItem="1lY-Rs-h5o" firstAttribute="centerX" secondItem="IWb-Ln-nBD" secondAttribute="centerX" id="hIh-Mg-ASx"/>
+                            <constraint firstItem="i5A-o6-QxW" firstAttribute="trailing" secondItem="voN-TT-FXM" secondAttribute="trailing" id="oIh-su-UUO"/>
+                            <constraint firstItem="IWb-Ln-nBD" firstAttribute="leading" secondItem="ybP-sZ-s3c" secondAttribute="leading" constant="64" id="xkV-hd-2eb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ybP-sZ-s3c"/>
+                    </view>
+                    <connections>
+                        <outlet property="roomname" destination="i5A-o6-QxW" id="2PP-e1-6Gv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YIV-SB-WET" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="962" y="46"/>
         </scene>
         <!--Success Controller-->
         <scene sceneID="qtD-72-m7E">
@@ -540,7 +604,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l9a-N0-mX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1200.8" y="934.18290854572717"/>
+            <point key="canvasLocation" x="361" y="898"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Rqk-8P-Z3h">

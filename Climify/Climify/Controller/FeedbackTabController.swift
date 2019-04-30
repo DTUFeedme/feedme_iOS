@@ -48,12 +48,12 @@ class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
        
         setupUI()
-        if checkConnectivity(){
-            checkIfUserExists()
-            coreLocation.userChangedRoomDelegate = self
-            coreLocation.startLocating()
-            reloadUI()
-        }
+//        if checkConnectivity(){
+//            checkIfUserExists()
+//            coreLocation.userChangedRoomDelegate = self
+//            coreLocation.startLocating()
+//            reloadUI()
+//        }
     }
     
     func setupUI(){

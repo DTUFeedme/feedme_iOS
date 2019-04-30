@@ -18,13 +18,10 @@ class CoreLocation: NSObject, CLLocationManagerDelegate {
     private var nearestBeacon = AppBeacon()
     private let climifyApi = ClimifyAPI()
     private var signalMap:[String: [Double]] = [:]
-    
-    private var requestSent = false
-    private var isMappingRoom = false
-    var timer = Timer()
-    
-    
- 
+    private var timerSetup = Timer()
+    private var timerGetRoom = Timer()
+    private var buildingId: String? = nil
+    var isMappingRoom = false
     var userChangedRoomDelegate: UserChangedRoomDelegate?
     
     func startLocating(){
@@ -34,10 +31,20 @@ class CoreLocation: NSObject, CLLocationManagerDelegate {
         manager.requestAlwaysAuthorization()
     }
     
-    func initTimer(){
-        timer = Timer.scheduledTimer(timeInterval: 4, target: self, selector:#selector(addToSignalMap), userInfo: nil, repeats: true)
+    // when scanning
+    func initTimerAddToSignalMap(){
+        timerSetup = Timer.scheduledTimer(timeInterval: 4, target: self, selector:#selector(addToSignalMap), userInfo: nil, repeats: true)
     }
-
+    
+    // when wanting to get room location
+    func initTimerGetRoom(){
+        timerGetRoom = Timer.scheduledTimer(timeInterval: 5, target: self, selector:#selector(getRoom), userInfo: nil, repeats: true)
+    }
+    
+    func stopTimerAddToSignalMap() {
+        timerSetup.invalidate()
+    }
+    
     private func getBeacons(){
         climifyApi.getBeacons() { responseBeacons, statusCode in
             if statusCode == 200 {
@@ -46,7 +53,12 @@ class CoreLocation: NSObject, CLLocationManagerDelegate {
                 self.initSignalMap()
                 self.setupRegions()
                 self.rangeBeacons()
-                self.initTimer()
+                if self.isMappingRoom {
+                    self.initTimerAddToSignalMap()
+                } else {
+                    self.initTimerAddToSignalMap()
+                    self.initTimerGetRoom()
+                }
             }
         }
     }
@@ -79,141 +91,76 @@ class CoreLocation: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    
     func locationManager(_ manager: CLLocationManager, didRangeBeacons rangedBeacons: [CLBeacon], in region: CLBeaconRegion) {
-        
         if let beacon = rangedBeacons.first {
             scanRoom(name: region.identifier, rangedBeacon: beacon)
         }
-
     }
-    
     
     
     func scanRoom(name: String, rangedBeacon: CLBeacon){
         if let beacon = getBeacon(id: rangedBeacon.proximityUUID.uuidString) {
+            buildingId = beacon.building.id
             beacon.addRssi(rssi: rangedBeacon.rssi)
         }
     }
     
     @objc func addToSignalMap() {
-        
         for beacon in beacons {
             signalMap[beacon.uuid]?.append(beacon.calcAverage())
         }
         
-        print(signalMap)
-//
-//        var maxLength = getArrayLength()
-//
-//        for beacon in signalMap {
-//            if beacon.value.count < maxLength {
-//                signalMap[beacon.key]?.append(-100)
-//            }
-//        }
-//        print(signalMap)
     }
     
-    func getArrayLength() -> Int {
-        var maxLength = 0
-        for beacon in signalMap {
-            if beacon.value.count > maxLength {
-                maxLength = beacon.value.count
+    @objc func getRoom() {
+        let serverSignalMap = convertSignalMapToServer(signalMap: signalMap)
+        if let buildingId = buildingId {
+            print(serverSignalMap)
+            climifyApi.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) { statusCode, roomId in
+                print("roomid: ", roomId)
             }
         }
-        return maxLength
     }
     
+    func postRoom(roomname: String) {
+        
+        if let buildingId = buildingId {
+            climifyApi.postRoom(buildingId: buildingId, name: roomname) { statusCode, roomId in
+                self.pushSignalMap(roomid: roomId, buildingId: buildingId)
+            }
+        }
+    }
     
+    func convertSignalMapToServer(signalMap: [String: [Double]]) -> [Any] {
+        var serverSignalMap: [Any] = []
+        for beacon in beacons {
+            var beaconDict: [String: Any] = [:]
+            beaconDict["beaconId"] = beacon.id
+            beaconDict["signals"] = signalMap[beacon.uuid]
+            serverSignalMap.append(beaconDict)
+        }
+        return serverSignalMap
+    }
+   
     
-    
-    
-    
-//    var serverSignalMap:[Any] = []
-//    for beacon in beacons {
-//    var beaconDict: [String: Any] = [:]
-//    beaconDict["beaconId"] = beacon.id
-//    beaconDict["signals"] = signalMap[beacon.uuid]
-//    serverSignalMap.append(beaconDict)
-//    }
-//
-//    counter+=1
-//    if (requestSent == false ) {
-//    if isMappingRoom {
-//    // Send et post room request først - så smid resultatet af room Id ind før at det virker
-//    // BUTTON CLICKED ->
-//    climifyApi.postSignalMap(signalMap: serverSignalMap, roomId: "5cc6e79d032e5567cf4e31d4", buildingId: nil) { statusCode, roomId in
-//    print("code: ",statusCode, " room: ",roomId)
-//    }
-//    requestSent = true
-//    } else {
-//    // Smid beacons building id ind i stedet for hardcoded buildingId
-//    climifyApi.postSignalMap(signalMap: serverSignalMap, roomId: nil, buildingId: "5cc6ccdf785ba2674dbc7481") { statusCode, roomId in
-//    print("code: ",statusCode, " room: ",roomId)
-//    }
-//    requestSent = true
-//    }
-//    }
+    func pushSignalMap(roomid: String, buildingId: String){
+        
+        let serverSignalMap = convertSignalMapToServer(signalMap: signalMap)
+
+        climifyApi.postSignalMap(signalMap: serverSignalMap, roomid: roomid, buildingId: buildingId) { statusCode, roomId in
+        }
+    }
     
     func addBeacons(){
         for beacon in serverBeacons {
             let beacon = AppBeacon(id: beacon.id, uuid: beacon.uuid, building: beacon.building, name: beacon.name)
             beacons.append(beacon)
         }
-        print(beacons)
-        
     }
-    
-//    private func matchFoundBeaconWithBeaconInSystem(uuid: String, name: String) -> Beacon? {
-//        for beacon in serverBeacons {
-//            if beacon.uuid == uuid.lowercased(){
-//                return beacon
-//            }
-//        }
-//        return nil
-//    }
-    
     
     func getBeacon(id: String) -> AppBeacon? {
         return beacons.first(where: { (element) -> Bool in element.uuid == id.lowercased()})
     }
-    
-    
-
-    // LEGACY CODE
-//
-//    func initNearestBeacon(beaconName: String, id: String, rssi: Int){
-//        if nearestBeacon.uuid == "" {
-//            nearestBeacon.uuid = id.lowercased()
-//            nearestBeacon.name = beaconName
-//
-//            if let tempBeacon = matchFoundBeaconWithBeaconInSystem(uuid: id, name: beaconName){
-//                nearestBeacon = AppBeacon(id: tempBeacon.id, uuid: tempBeacon.uuid, building: tempBeacon.building, name: tempBeacon.name, rssi: rssi)
-//
-//                //                userChangedRoomDelegate!.userChangedRoom(roomname: nearestBeacon.room.name, roomid: nearestBeacon.room.id)
-//                beacons.append(nearestBeacon)
-//            }
-//        }
-//    }
-//    func getLocationByNearestBeacon(beaconName: String, rangedBeacons: [CLBeacon]){
-//
-//        if let beacon = rangedBeacons.first {
-//            let rssi = beacon.rssi
-//            let id = beacon.proximityUUID.uuidString
-//
-//            initNearestBeacon(beaconName: beaconName, id: id, rssi: rssi)
-//
-//            if let beacon = getBeacon(id: id) {
-//                beacon.addRssi(rssi: rssi)
-//                if nearestBeacon.calcAverage() < beacon.calcAverage() && nearestBeacon.uuid != id {
-//                    nearestBeacon = beacon
-////                    userChangedRoomDelegate!.userChangedRoom(roomname: nearestBeacon.room.name, roomid: nearestBeacon.room.id)
-//                }
-//            } else {
-//                addNewBeacon(id: id, name: beaconName, rssi: rssi)
-//            }
-//        }
-//    }
 }
 
 protocol UserChangedRoomDelegate {

@@ -255,7 +255,7 @@ class ClimifyAPI: NSObject {
     }
     
     func postRoom(buildingId: String, name: String,  completion: @escaping (_ statusCode: Int, _ roomId: String) -> Void) {
-        guard let token = TOKEN else { return }
+//        guard let token = TOKEN else { return }
         let headers: HTTPHeaders = ["x-auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Y2M2Y2NhYTc4NWJhMjY3NGRiYzc0ODAiLCJyb2xlIjoxLCJpYXQiOjE1NTY1MzIzOTR9.sQ-WJMKipJaaRsfBoFlIIb04Ip3SfTQvTCr9JfWNTMY"]
         var json: [String : Any] = [:]
         json["buildingId"] = buildingId
@@ -264,40 +264,39 @@ class ClimifyAPI: NSObject {
         AF.request(roomUrl, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
             .responseJSON { response in
                 
-                guard let statusCode = response.response?.statusCode else { return }
-                switch response.result {
-                case.success(let value):
-                    let json = JSON(value)
-
-                    for element in json {
-                        print("element: ", element)
-                        if let roomId = element.1["_id"].string {
-                            print(roomId)
-                            completion(statusCode, roomId)
-                        } else {
-                            completion(400, "")
-                        }
-                    }
-                    print(response.result)
-                    print(response)
-                    print(statusCode)
-                case.failure(let error):
-                    completion(statusCode, "")
-                    print(statusCode)
-                    print(error)
-                    
+            guard let statusCode = response.response?.statusCode else { return }
+            switch response.result {
+            case.success(let value):
+                let json = JSON(value)
+                print(json)
+                if let roomId = json["_id"].string {
+                    completion(statusCode, roomId)
+                } else {
+                    completion(400, "")
                 }
+                print(response.result)
+                print(response)
+                print(statusCode)
+            case.failure(let error):
+                completion(statusCode, "")
+                print(statusCode)
+                print(error)
+                
+            }
         }
-
     }
     
-    func postSignalMap(signalMap: [Any], roomId: String?, buildingId: String?,  completion: @escaping (_ statusCode: Int, _ roomId: String) -> Void){
-        guard let token = TOKEN else { return }
+    
+    func postSignalMap(signalMap: [Any], roomid: String?, buildingId: String?, completion: @escaping (_ statusCode: Int, _ roomId: String) -> Void) {
+        
+//        guard let token = TOKEN else { return }
+ 
+
         let headers: HTTPHeaders = ["x-auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Y2M2Y2NhYTc4NWJhMjY3NGRiYzc0ODAiLCJyb2xlIjoxLCJpYXQiOjE1NTY1MzIzOTR9.sQ-WJMKipJaaRsfBoFlIIb04Ip3SfTQvTCr9JfWNTMY"]
 
         var json: [String : Any] = [:]
         json["beacons"] = signalMap
-        if let roomid = roomId {
+        if let roomid = roomid {
             json["roomId"] = roomid
         } else if let buildingid = buildingId {
             json["buildingId"] = buildingid
@@ -305,12 +304,10 @@ class ClimifyAPI: NSObject {
         
         AF.request(scanningUrl, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
             .responseJSON { response in
-            print(self.requestCounter)
-            self.requestCounter+=1
+         
             guard let statusCode = response.response?.statusCode else { return }
             switch response.result {
             case.success(let value):
-                
                 let jsonResult = JSON(value)
                 if let roomid = jsonResult["room"].string {
                     completion(statusCode, roomid)
@@ -318,8 +315,9 @@ class ClimifyAPI: NSObject {
                     completion(statusCode, "")
                 }
             case.failure(let error):
-                completion(statusCode, "")
                 print(error)
+                completion(statusCode, "")
+                
             }
         }
         
