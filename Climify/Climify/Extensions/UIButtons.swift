@@ -24,6 +24,15 @@ extension UIButton {
         layer.add(pulse, forKey: "pulse")
     }
     
+    func pulseInfite(){
+        let pulse = CASpringAnimation(keyPath: "transform.scale")
+        pulse.fromValue = 1
+        pulse.toValue = 1.1
+        pulse.autoreverses = true
+        pulse.repeatCount = 500
+        layer.add(pulse, forKey: "pulse")
+    }
+    
     func flash() {
         
         let flash = CABasicAnimation(keyPath: "opacity")
@@ -43,7 +52,6 @@ extension UIButton {
         }
     }
     func rotateImage() {
-        
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotationAnimation.fromValue = 0.0
         rotationAnimation.toValue = CGFloat.pi

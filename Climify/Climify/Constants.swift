@@ -14,6 +14,7 @@ struct HTTPCode {
     static let REDIRECTION = 300
     static let CLIENTERROR = 400
     static let SERVERERROR = 500
+    static let JSONERROR = 600
 }
 
 let TOKEN = UserDefaults.standard.string(forKey: "x-auth-token")

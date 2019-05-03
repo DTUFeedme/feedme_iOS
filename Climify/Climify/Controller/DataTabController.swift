@@ -16,6 +16,7 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
     @IBOutlet weak var slideView: UIView!
     @IBOutlet weak var choosenRoomLabel: UILabel!
     @IBOutlet weak var roomLocationLabel: UILabel!
+    
     private var label = UILabel()
     
     struct Question {
@@ -26,29 +27,26 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
     // maybe do as in portfolio light, if empty then show message
     private var questions: [Question] = [Question(question: "", questionId: "", answeredCount: 0)]
   
+    private var hasGivenFeedback = false
     private var mydataIsSelected = true
     private var time = Time.all
     private var currentRoom = ""
-    private var currentRoomId = ""
-    private var chosenRoomId = ""
+    var currentRoomId = ""
+    var chosenRoomId = ""
     private var chosenRoom = ""
     private var hasProvidedFeedback = true
+    private var hasStartedLocating = false
     private var manuallyChangedRoom = false
     
     override func viewDidAppear(_ animated: Bool) {
+        if hasStartedLocating {
+            coreLocation.initTimerfetchRoom()
+        }
+        hasStartedLocating = true
         getAnsweredQuestions()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if let tbc = self.tabBarController as? TabBarController {
-            tbc.addNewTabBarItem()
-        }
-        
-        tableView.separatorColor = UIColor.clear
-        
-        UITabBar.appearance().tintColor = .red
-        
         
         if (ClimifyAPI.Connectivity.isConnectedToInternet){
             guard let _ = TOKEN else { return }
@@ -56,6 +54,7 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
             coreLocation.startLocating()
         }
         chosenRoom = currentRoom
+        chosenRoomId = currentRoomId
         tableView.separatorColor = UIColor.clear
         
         label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
@@ -67,6 +66,16 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
         label.textColor = .white
         self.view.addSubview(label)
         label.isHidden = true
+    }
+    
+    func updateCurrentRoomIdLabel(){
+        if !currentRoomId.isEmpty {
+            roomLocationLabel.text = "You are in \(currentRoomId) 🙂"
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        coreLocation.stopTimerfetchRoom()
     }
     
     // BUTTONS
@@ -104,12 +113,12 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     private func getAnsweredQuestions(){
         climifyApi.getAnsweredQuestions(roomID: chosenRoomId, time: time, me: mydataIsSelected) { questions, statusCode in
-            print(questions)
             if statusCode == HTTPCode.SUCCES {
                 if questions.isEmpty {
                    self.hideUI()
                 } else {
                     self.showUI()
+                    self.hasGivenFeedback = true
                     var localQuestions: [Question] = []
                     for q in questions {
                         let question = Question(question: q.question, questionId: q.questionId, answeredCount: q.answeredCount)
@@ -224,6 +233,7 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
         return .lightContent
     }
     private func showUI(){
+        alltimeButton.isHidden = false
         tableView.isHidden = false
         mydataButton.isHidden = false
         alldataButton.isHidden = false
@@ -236,19 +246,21 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
         label.isHidden = true
     }
     private func hideUI(){
-        tableView.isHidden = true
-        mydataButton.isHidden = true
-        alldataButton.isHidden = true
-        todayButton.isHidden = true
-        lastweekButton.isHidden = true
-        lastmonthButton.isHidden = true
-        slideView.isHidden = true
-        roomLocationLabel.isHidden = true
-        alltimeButton.isHidden = true
+       
+//        roomLocationLabel.isHidden = true
         choosenRoomLabel.isHidden = true
+        tableView.isHidden = true
         label.isHidden = false
-    
         
+        if !hasGivenFeedback {
+            alltimeButton.isHidden = true
+            slideView.isHidden = true
+            alldataButton.isHidden = true
+            todayButton.isHidden = true
+            lastweekButton.isHidden = true
+            lastmonthButton.isHidden = true
+            mydataButton.isHidden = true
+        }
     }
     
     private func animateSlideGesture(right: Bool){
@@ -298,7 +310,7 @@ extension DataTabController: UserChangedRoomDelegate {
     func userChangedRoom(roomname: String, roomid: String) {
         currentRoom = roomname
         currentRoomId = roomid
-        roomLocationLabel.text = "You are in \(roomname) 🙂"
+        roomLocationLabel.text = "You are in \(roomid) 🙂"
         
         if !manuallyChangedRoom {
             chosenRoom = roomname

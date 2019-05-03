@@ -36,7 +36,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Seb and Chrill</string>
+	<string>To be able to determine your location, we need to be granted this permission ☺️</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Ey yo</string>
 	<key>UILaunchStoryboardName</key>

@@ -13,47 +13,52 @@ import SideMenuSwift
 class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
-    private let userErrorMessage =  "Couldn't send feedback. Try again later..."
+    private let userErrorMessage =  "Couldn't send feedback. Try again later 😐"
     @IBOutlet weak var pagesLabel: UILabel!
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var questionLabel: UILabel!
-    
     @IBOutlet weak var roomLocationLabel: UILabel!
-    
-    // Side Menu
     @IBOutlet weak var sideMenuTrailing: NSLayoutConstraint!
     @IBOutlet weak var sideMenu: UIView!
     private var isMenuShowing = false
-    
+    private var hasStartedLocation = false
     @IBOutlet weak var reloadInternetButton: UIButton!
     @IBOutlet weak var reloadInternetLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     private let climifyApi = ClimifyAPI()
     private let coreLocation = CoreLocation()
-    
     private var questions: [Question] = []
     private var answers: [Question.answerOption] = []
-    private var currentRoomID: String = ""
+    var currentRoomID: String = ""
     private var systemStatusMessage = ""
     private var currentQuestionNo = 0
     var userChangedRoomDelegate: UserChangedRoomDelegate!
-
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
+        sideMenuTrailing.constant = -255
         reloadUI()
+        if hasStartedLocation {
+            coreLocation.initTimerfetchRoom()
+        }
+        hasStartedLocation = true
     }
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        coreLocation.stopTimerfetchRoom()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
        
         setupUI()
-//        if checkConnectivity(){
-//            checkIfUserExists()
-//            coreLocation.userChangedRoomDelegate = self
-//            coreLocation.startLocating()
-//            reloadUI()
-//        }
+        if checkConnectivity(){
+            checkIfUserExists()
+            updateUI()
+            coreLocation.userChangedRoomDelegate = self
+            coreLocation.startLocating()
+            reloadUI()
+        }
     }
     
     func setupUI(){
@@ -61,8 +66,6 @@ class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewD
         sideMenu.layer.shadowOpacity = 1
         sideMenu.layer.shadowRadius = 6
     }
-    
-    
     
     
     @IBAction func sideMenuAction(_ sender: Any) {
@@ -78,9 +81,11 @@ class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     private func updateUI(){
-        questionLabel.text = questions[currentQuestionNo].question
-        pagesLabel.text = "\(currentQuestionNo+1)/\(questions.count)"
-        tableView.reloadData()
+        if let text = questions[safe: currentQuestionNo]?.question {
+            questionLabel.text = text
+            pagesLabel.text = "\(currentQuestionNo+1)/\(questions.count)"
+            tableView.reloadData()
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -89,9 +94,12 @@ class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellAnswer", for: indexPath) as! AnswerCell
-        cell.answerLabel.text = answers[indexPath.row].value
-        return cell
-        
+        if let text = answers[safe:indexPath.row]?.value {
+            cell.answerLabel.text = text
+            return cell
+        } else {
+            return cell
+        }
     }
     
     private func checkConnectivity() -> Bool{
@@ -149,12 +157,12 @@ class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewD
     private func reloadUI(){
 //        let isConnected = ClimifyAPI.Connectivity.isConnectedToInternet
         if ClimifyAPI.Connectivity.isConnectedToInternet == false {
-            questionLabel.text = "Please make sure you have internet connection..."
+            questionLabel.text = "Please make sure you have internet connection 🤔"
             reloadInternetLabel.isHidden = false
             reloadInternetButton.isHidden = false
-        } else if currentRoomID == "isEmpty" {
+        } else if currentRoomID == "" {
             questionLabel.text = "Couldn't estimate your location..."
-            roomLocationLabel.text = "Trying to estimate your location..."
+            roomLocationLabel.text = "Trying to estimate your location 🤔"
             reloadInternetLabel.isHidden = true
             reloadInternetButton.isHidden = true
         } else if questions.isEmpty {
@@ -169,7 +177,7 @@ class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func reloadIfConnected(_ sender: Any) {
         reloadInternetButton.rotateImage()
-        reloadInternetLabel.text = "Are you sure you are connected?"
+        reloadInternetLabel.text = "Are you sure you are connected? 🤔"
         viewDidLoad()
     }
     
@@ -192,8 +200,6 @@ class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewD
         if TOKEN == nil {
             climifyApi.getToken() { statusCode in
                 if statusCode == HTTPCode.SUCCES {
-                    self.coreLocation.userChangedRoomDelegate = self
-                    self.coreLocation.startLocating()
                 } else {
                     self.systemStatusMessage = self.userErrorMessage
                     self.reloadUI()
@@ -208,22 +214,20 @@ class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewD
             
             if statusCode == HTTPCode.SUCCES {
                 if questions.isEmpty {
-                    self.systemStatusMessage = "No feedback is needed right now..."
+                    self.systemStatusMessage = "No feedback is needed right now ☺️"
                     self.reloadUI()
                 } else {
                     self.questions = questions
                     self.answers = questions[self.currentQuestionNo].answerOptions
                     self.reloadUI()
                     self.updateUI()
-                    self.tableView.reloadData()
-                    
                     if let question = self.questions.first {
                         self.questionLabel.text = question.question
                         self.pagesLabel.text = "\(self.currentQuestionNo+1)/\(questions.count)"
                     }
                 }
             } else {
-                self.systemStatusMessage = self.userErrorMessage
+                self.systemStatusMessage = "No feedback is needed right now ☺️"
                 self.reloadUI()
                 print("The statuscode is: ", statusCode)
             }
@@ -260,7 +264,11 @@ extension FeedbackTabController: UserChangedRoomDelegate {
     
     func userChangedRoom(roomname: String, roomid: String) {
         currentRoomID = roomid
-        roomLocationLabel.text = "You are in \(roomname) 🙂"
+        if roomid.isEmpty {
+            roomLocationLabel.text = "Couldn't estimate your location 🤔"
+        } else {
+            roomLocationLabel.text = "You are in \(roomid) 🙂"
+        }
         restartFeedback()
         getQuestions()
         reloadUI()

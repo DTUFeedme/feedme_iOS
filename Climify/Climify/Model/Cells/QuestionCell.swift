@@ -30,6 +30,11 @@ class QuestionCell: UITableViewCell {
         bgView.backgroundColor = .clear
         bgView.layer.cornerRadius = 20
         bgView.layer.borderWidth = 1
+        bgView.layer.cornerRadius = 15
+        bgView.layer.shadowOpacity = 1
+        bgView.layer.shadowOffset = CGSize.zero
+        bgView.layer.shadowColor = UIColor.white.cgColor
+        bgView.layer.shadowRadius = 10
         bgView.layer.borderColor = UIColor.white.cgColor
     }
     func flash() {

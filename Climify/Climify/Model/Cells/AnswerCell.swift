@@ -32,9 +32,14 @@ class AnswerCell: UITableViewCell {
 //        bgView.layer.cornerRadius = 20
         answerLabel.textColor = .white
         bgView.backgroundColor = .clear
-        bgView.layer.cornerRadius = 20
+        bgView.layer.cornerRadius = 15
+        bgView.layer.shadowOpacity = 1
+        bgView.layer.shadowOffset = CGSize.zero
+        bgView.layer.shadowColor = .myCyan()
+        bgView.layer.shadowRadius = 5
         bgView.layer.borderWidth = 1
         bgView.layer.borderColor = UIColor.white.cgColor
+        
     }
     
     func flash() {

@@ -18,6 +18,7 @@
 		A136A0D7220C595000189E21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D5220C595000189E21 /* Main.storyboard */; };
 		A136A0D9220C595000189E21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D8220C595000189E21 /* Assets.xcassets */; };
 		A136A0DC220C595000189E21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136A0DA220C595000189E21 /* LaunchScreen.storyboard */; };
+		A1539952227B3E0D00F06A78 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1539951227B3E0D00F06A78 /* Collection.swift */; };
 		A1581EB9223A96230083C4C9 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1581EB8223A96230083C4C9 /* AnswerCell.swift */; };
 		A1734B2C223657FE004AB9DD /* AppBeaconTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1734B2B223657FE004AB9DD /* AppBeaconTest.swift */; };
 		A1734B2E223664BB004AB9DD /* FeedbackTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1734B2D223664BB004AB9DD /* FeedbackTest.swift */; };
@@ -65,6 +66,7 @@
 		A136A0D8220C595000189E21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A136A0DB220C595000189E21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A136A0DD220C595000189E21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1539951227B3E0D00F06A78 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		A1581EB8223A96230083C4C9 /* AnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
 		A1734B212236577A004AB9DD /* ClimifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClimifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1734B252236577A004AB9DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				A11662D42236F70F00A7F607 /* UIButtons.swift */,
 				A18507332254A904005C081C /* Colors.swift */,
 				A18507352254AB44005C081C /* Fonts.swift */,
+				A1539951227B3E0D00F06A78 /* Collection.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -191,7 +194,6 @@
 		A136A0E7220C59E000189E21 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				A10C9DC2226E022A000506C7 /* SuccessController.swift */,
 				A1FA8724222589C300461799 /* FeedbackTabController.swift */,
 				A1B1E3A1223BA77F00CCC8A2 /* DataTabController.swift */,
 				A1E15B162247F3A200B5C3EF /* DiagramViewController.swift */,
@@ -199,6 +201,7 @@
 				A18507312254959F005C081C /* TabBarController.swift */,
 				A12AF6402274845C007F6C7D /* LoginController.swift */,
 				A12B9F7522787C3500FEAC32 /* ScanningViewController.swift */,
+				A10C9DC2226E022A000506C7 /* SuccessController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				A11662D52236F70F00A7F607 /* UIButtons.swift in Sources */,
 				A1C9B4B022561DE000A8748D /* Building.swift in Sources */,
 				A1E15B172247F3A200B5C3EF /* DiagramViewController.swift in Sources */,
+				A1539952227B3E0D00F06A78 /* Collection.swift in Sources */,
 				A1141A1222314B4900659DF1 /* ClimifyAPI.swift in Sources */,
 				A12B9F7622787C3500FEAC32 /* ScanningViewController.swift in Sources */,
 				A18507362254AB44005C081C /* Fonts.swift in Sources */,

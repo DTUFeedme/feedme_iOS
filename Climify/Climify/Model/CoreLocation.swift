@@ -15,18 +15,17 @@ class CoreLocation: NSObject, CLLocationManagerDelegate {
     private var regions:[CLBeaconRegion] = []
     private var beacons:[AppBeacon] = []
     private var serverBeacons:[Beacon] = []
-    private var nearestBeacon = AppBeacon()
     private let climifyApi = ClimifyAPI()
     private var signalMap:[String: [Double]] = [:]
     private var timerSetup = Timer()
-    private var timerGetRoom = Timer()
+    private var timerfetchRoom = Timer()
     private var buildingId: String? = nil
     var isMappingRoom = false
+    private var currentRoomId: String = ""
     var userChangedRoomDelegate: UserChangedRoomDelegate?
     
     func startLocating(){
         getBeacons()
-
         manager.delegate = self
         manager.requestAlwaysAuthorization()
     }
@@ -37,12 +36,18 @@ class CoreLocation: NSObject, CLLocationManagerDelegate {
     }
     
     // when wanting to get room location
-    func initTimerGetRoom(){
-        timerGetRoom = Timer.scheduledTimer(timeInterval: 5, target: self, selector:#selector(getRoom), userInfo: nil, repeats: true)
+    func initTimerfetchRoom(){
+        timerfetchRoom = Timer.scheduledTimer(timeInterval: 5, target: self, selector:#selector(fetchRoom), userInfo: nil, repeats: true)
     }
+    
     
     func stopTimerAddToSignalMap() {
         timerSetup.invalidate()
+    }
+    
+    
+    func stopTimerfetchRoom() {
+        timerfetchRoom.invalidate()
     }
     
     private func getBeacons(){
@@ -57,7 +62,7 @@ class CoreLocation: NSObject, CLLocationManagerDelegate {
                     self.initTimerAddToSignalMap()
                 } else {
                     self.initTimerAddToSignalMap()
-                    self.initTimerGetRoom()
+                    self.initTimerfetchRoom()
                 }
             }
         }
@@ -93,12 +98,12 @@ class CoreLocation: NSObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didRangeBeacons rangedBeacons: [CLBeacon], in region: CLBeaconRegion) {
         if let beacon = rangedBeacons.first {
-            scanRoom(name: region.identifier, rangedBeacon: beacon)
+            scanRoom(rangedBeacon: beacon)
         }
     }
     
     
-    func scanRoom(name: String, rangedBeacon: CLBeacon){
+    func scanRoom(rangedBeacon: CLBeacon){
         if let beacon = getBeacon(id: rangedBeacon.proximityUUID.uuidString) {
             buildingId = beacon.building.id
             beacon.addRssi(rssi: rangedBeacon.rssi)
@@ -109,15 +114,22 @@ class CoreLocation: NSObject, CLLocationManagerDelegate {
         for beacon in beacons {
             signalMap[beacon.uuid]?.append(beacon.calcAverage())
         }
-        
     }
     
-    @objc func getRoom() {
+    @objc func fetchRoom() {
         let serverSignalMap = convertSignalMapToServer(signalMap: signalMap)
         if let buildingId = buildingId {
-            print(serverSignalMap)
+            if serverSignalMap.isEmpty {
+                return
+            }
+            print("-----", serverSignalMap)
             climifyApi.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) { statusCode, roomId in
-                print("roomid: ", roomId)
+                self.signalMap.removeAll()
+                self.initSignalMap()
+                if roomId != self.currentRoomId {
+                    self.currentRoomId = roomId
+                    self.userChangedRoomDelegate?.userChangedRoom(roomname: "", roomid: roomId)
+                }
             }
         }
     }
@@ -127,6 +139,9 @@ class CoreLocation: NSObject, CLLocationManagerDelegate {
         if let buildingId = buildingId {
             climifyApi.postRoom(buildingId: buildingId, name: roomname) { statusCode, roomId in
                 self.pushSignalMap(roomid: roomId, buildingId: buildingId)
+                self.signalMap.removeAll()
+                self.beacons.removeAll()
+                self.regions.removeAll()
             }
         }
     }
@@ -148,6 +163,7 @@ class CoreLocation: NSObject, CLLocationManagerDelegate {
         let serverSignalMap = convertSignalMapToServer(signalMap: signalMap)
 
         climifyApi.postSignalMap(signalMap: serverSignalMap, roomid: roomid, buildingId: buildingId) { statusCode, roomId in
+            
         }
     }
     

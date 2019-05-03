@@ -28,17 +28,17 @@ class RoomChooserController: UIViewController, UIPickerViewDataSource, UIPickerV
     @IBAction func doneButton(_ sender: Any) {
         if let name = buildings[selectedBuildingIndex].rooms?[selectedRoomIndex].name, let roomid = buildings[selectedBuildingIndex].rooms?[selectedRoomIndex].id {
             manuallyChangedRoomDelegate.roomchanged(roomname: name, roomid: roomid)
-           
-            
             dismiss(animated: true, completion: nil)
         }
-//        manuallyChangedRoomDelegate.roomchanged(roomname: buildings[selectedBuildingIndex].rooms[selectedRoomIndex].name, roomid: buildings[selectedBuildingIndex].rooms[selectedRoomIndex].id)
-//        dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+        if currentRoom == "" {
+            choosenRoomLabel.text = "couldn't estimate your location 😱"
+        } else {
+            choosenRoomLabel.text = "you are in \(currentRoom)"
+        }
         buildingPickerView.layer.shadowColor = UIColor.black.cgColor
         buildingPickerView.layer.shadowOpacity = 5
         buildingPickerView.layer.shadowOffset = CGSize.zero
@@ -47,7 +47,7 @@ class RoomChooserController: UIViewController, UIPickerViewDataSource, UIPickerV
         saveChanges.layer.cornerRadius = 20
         saveChanges.layer.borderWidth = 2
         saveChanges.layer.borderColor = .myCyan()
-        choosenRoomLabel.text = "you are in \(currentRoom)"
+        
         bgView.layer.cornerRadius = 15
         bgView.layer.masksToBounds = true
         

@@ -14,9 +14,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        let vc = sb.instantiateViewController(withIdentifier: "main")
+        window?.rootViewController = vc
+        window?.makeKeyAndVisible()
+        
+        if let admin = UserDefaults.standard.bool(forKey: "isAdmin") as? Bool {
+            print(UserDefaults.standard.string(forKey: "x-auth-token"))
+            if admin {
+                if let tbc = vc as? TabBarController {
+                    tbc.addNewTabBarItem()
+                }
+            }
+        }
 
         UINavigationBar.appearance().barTintColor = .myGray()
-        
         UITabBar.appearance().barTintColor = .myGray()
         UITabBar.appearance().tintColor = .white
         UITabBar.appearance().unselectedItemTintColor = .myCyan()

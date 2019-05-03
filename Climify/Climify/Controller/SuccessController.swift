@@ -14,6 +14,10 @@ class SuccessController: UIViewController {
     @IBOutlet weak var thanksLabel: UILabel!
     @IBOutlet weak var returnButton: UIButton!
     @IBOutlet weak var animationViewLabel: UILabel!
+    @IBAction func returnButton(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: {})
+        self.navigationController?.popViewController(animated: true)
+    }
     
     
     override func viewDidLoad() {
