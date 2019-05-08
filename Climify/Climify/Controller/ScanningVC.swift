@@ -8,21 +8,18 @@
 
 import UIKit
 
-class ScanningViewController: UIViewController {
+class ScanningVC: UIViewController {
 
     @IBOutlet weak var provideRoomLabel: UILabel!
-    private var coreLocation = CoreLocation()
     private var isScanning = false
     @IBOutlet weak var roomname: UITextField!
     @IBOutlet weak var scanningButton: UIButton!
     
     @IBAction func startScanning(_ sender: Any) {
-        
-      
-        
         if isScanning {
-            coreLocation.postRoom(roomname: roomname.text!)
-            coreLocation.stopTimerAddToSignalMap()
+            CoreLocation.sharedInstance.postRoom(roomname: roomname.text!)
+            CoreLocation.sharedInstance.stopTimerAddToSignalMap()
+            CoreLocation.sharedInstance.isMappingRoom = false
             scanningButton.setTitleColor(.myGreen(), for: .normal)
             scanningButton.layer.borderColor = .myGreen()
             scanningButton.layer.removeAllAnimations()
@@ -37,8 +34,8 @@ class ScanningViewController: UIViewController {
                 scanningButton.pulseInfite()
                 scanningButton.setTitleColor(.myRed(), for: .normal)
                 scanningButton.layer.borderColor = .myRed()
-                coreLocation.isMappingRoom = true
-                coreLocation.startLocating()
+                CoreLocation.sharedInstance.isMappingRoom = true
+                CoreLocation.sharedInstance.startLocating()
                 scanningButton.setTitle("Stop Scanning", for: .normal)
                 isScanning = !isScanning
             }
@@ -65,6 +62,9 @@ class ScanningViewController: UIViewController {
         scanningButton.layer.shadowOpacity = 1
         scanningButton.layer.shadowOffset = CGSize.zero
         scanningButton.layer.shadowRadius = 10
-        
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 }

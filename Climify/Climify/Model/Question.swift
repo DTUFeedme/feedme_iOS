@@ -26,8 +26,4 @@ struct Question {
         self.id = questionID
         self.question = question
     }
-    
-    init(){
-        self.init(questionID: "", question: "", answerOptions: [])
-    }
 }

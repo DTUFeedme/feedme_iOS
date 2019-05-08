@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 import SideMenuSwift
 
-class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
     private let userErrorMessage =  "Couldn't send feedback. Try again later 😐"
@@ -25,27 +25,29 @@ class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var reloadInternetButton: UIButton!
     @IBOutlet weak var reloadInternetLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    
     private let climifyApi = ClimifyAPI()
-    private let coreLocation = CoreLocation()
     private var questions: [Question] = []
     private var answers: [Question.answerOption] = []
     var currentRoomID: String = ""
+    var currentRoomName: String = ""
     private var systemStatusMessage = ""
     private var currentQuestionNo = 0
     var userChangedRoomDelegate: UserChangedRoomDelegate!
     
     override func viewWillAppear(_ animated: Bool) {
         sideMenuTrailing.constant = -255
-        reloadUI()
+        restartFeedback()
+        getQuestions()
+        
+
         if hasStartedLocation {
-            coreLocation.initTimerfetchRoom()
+            CoreLocation.sharedInstance.initTimerfetchRoom()
         }
         hasStartedLocation = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        coreLocation.stopTimerfetchRoom()
+        CoreLocation.sharedInstance.stopTimerfetchRoom()
     }
     
     override func viewDidLoad() {
@@ -55,8 +57,8 @@ class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewD
         if checkConnectivity(){
             checkIfUserExists()
             updateUI()
-            coreLocation.userChangedRoomDelegate = self
-            coreLocation.startLocating()
+            CoreLocation.sharedInstance.userChangedRoomDelegate = self
+            CoreLocation.sharedInstance.startLocating()
             reloadUI()
         }
     }
@@ -112,7 +114,7 @@ class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     private func postFeedback(index: Int){
-        
+          print(currentQuestionNo, questions.count)
         if currentQuestionNo < questions.count {
             
             let questionId = questions[currentQuestionNo].id
@@ -140,6 +142,7 @@ class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewD
                     }
                 }
             }
+            print(currentQuestionNo, questions.count)
             if currentQuestionNo == questions.count {
                  self.performSegue(withIdentifier: "feedbackreceived", sender: self)
             }
@@ -197,9 +200,10 @@ class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     private func checkIfUserExists(){
-        if TOKEN == nil {
+        if UserDefaults.standard.string(forKey: "x-auth-token") == nil {
             climifyApi.getToken() { statusCode in
                 if statusCode == HTTPCode.SUCCES {
+                    print("success")
                 } else {
                     self.systemStatusMessage = self.userErrorMessage
                     self.reloadUI()
@@ -211,7 +215,7 @@ class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewD
     
     private func getQuestions(){
          climifyApi.getQuestions(currentRoomID: currentRoomID) { questions, statusCode in
-            
+            print(questions)
             if statusCode == HTTPCode.SUCCES {
                 if questions.isEmpty {
                     self.systemStatusMessage = "No feedback is needed right now ☺️"
@@ -255,23 +259,32 @@ class FeedbackTabController: UIViewController, UITableViewDelegate, UITableViewD
         })
     }
     
+    func updateCurrentRoomNameLabel() {
+        roomLocationLabel.text = "You are in \(currentRoomName) 🙂"
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
                 return .lightContent
     }
 }
 
-extension FeedbackTabController: UserChangedRoomDelegate {
+extension FeedbackVC: UserChangedRoomDelegate {
     
     func userChangedRoom(roomname: String, roomid: String) {
-        currentRoomID = roomid
+        print("current: ", currentRoomID)
+        print("input: ", roomid)
         if roomid.isEmpty {
             roomLocationLabel.text = "Couldn't estimate your location 🤔"
-        } else {
-            roomLocationLabel.text = "You are in \(roomid) 🙂"
+        } else if roomid != currentRoomID {
+            currentRoomID = roomid
+            currentRoomName = roomname
+            restartFeedback()
+            getQuestions()
+            reloadUI()
+            roomLocationLabel.text = "You are in \(roomname) 🙂"
         }
-        restartFeedback()
-        getQuestions()
-        reloadUI()
+        currentRoomID = roomid
+        currentRoomName = roomname
     }
 }
 

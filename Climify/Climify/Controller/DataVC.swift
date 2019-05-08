@@ -1,10 +1,8 @@
 import UIKit
 import Charts
 
-class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
-    private let coreLocation = CoreLocation()
     private let climifyApi = ClimifyAPI()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var mydataButton: UIButton!
@@ -16,6 +14,7 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
     @IBOutlet weak var slideView: UIView!
     @IBOutlet weak var choosenRoomLabel: UILabel!
     @IBOutlet weak var roomLocationLabel: UILabel!
+    @IBOutlet weak var roomLocationBottomConstraint: NSLayoutConstraint!
     
     private var label = UILabel()
     
@@ -24,34 +23,33 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
         var questionId: String
         var answeredCount: Int
     }
-    // maybe do as in portfolio light, if empty then show message
-    private var questions: [Question] = [Question(question: "", questionId: "", answeredCount: 0)]
+    private var questions: [Question] = []
   
     private var hasGivenFeedback = false
     private var mydataIsSelected = true
     private var time = Time.all
-    private var currentRoom = ""
+    var currentRoom = ""
     var currentRoomId = ""
     var chosenRoomId = ""
-    private var chosenRoom = ""
+    var chosenRoom = ""
     private var hasProvidedFeedback = true
     private var hasStartedLocating = false
     private var manuallyChangedRoom = false
     
     override func viewDidAppear(_ animated: Bool) {
         if hasStartedLocating {
-            coreLocation.initTimerfetchRoom()
+            CoreLocation.sharedInstance.initTimerfetchRoom()
         }
         hasStartedLocating = true
         getAnsweredQuestions()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if (ClimifyAPI.Connectivity.isConnectedToInternet){
-            guard let _ = TOKEN else { return }
-            coreLocation.userChangedRoomDelegate = self
-            coreLocation.startLocating()
+            guard let _ = UserDefaults.standard.string(forKey: "x-auth-token") else { return }
+            CoreLocation.sharedInstance.initTimerfetchRoom()
         }
         chosenRoom = currentRoom
         chosenRoomId = currentRoomId
@@ -68,14 +66,14 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
         label.isHidden = true
     }
     
-    func updateCurrentRoomIdLabel(){
+    func updateCurrentRoomNameLabel(){
         if !currentRoomId.isEmpty {
-            roomLocationLabel.text = "You are in \(currentRoomId) 🙂"
+            roomLocationLabel.text = "You are in \(currentRoom) 🙂"
         }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        coreLocation.stopTimerfetchRoom()
+        CoreLocation.sharedInstance.stopTimerfetchRoom()
     }
     
     // BUTTONS
@@ -89,7 +87,7 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     @IBAction func changeRoomButton(_ sender: Any) {
         
-        let roomChooserVC = storyboard?.instantiateViewController(withIdentifier: "roomchooser") as! RoomChooserController
+        let roomChooserVC = storyboard?.instantiateViewController(withIdentifier: "roomchooser") as! RoomChooserVC
         roomChooserVC.manuallyChangedRoomDelegate = self
         roomChooserVC.currentRoom = currentRoom
         
@@ -150,7 +148,7 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         let currentCell = tableView.cellForRow(at: indexPath) as! QuestionCell
         currentCell.flash()
-        let diagramVC = storyboard?.instantiateViewController(withIdentifier: "diagramview") as! DiagramViewController
+        let diagramVC = storyboard?.instantiateViewController(withIdentifier: "diagramview") as! DiagramVC
         diagramVC.room = chosenRoom
         diagramVC.meIsSelected = mydataIsSelected
         diagramVC.roomID = chosenRoomId
@@ -226,13 +224,13 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
             break
         }
         getAnsweredQuestions()
-//        tableView.reloadData()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     private func showUI(){
+        roomLocationBottomConstraint.constant = 44
         alltimeButton.isHidden = false
         tableView.isHidden = false
         mydataButton.isHidden = false
@@ -246,12 +244,10 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
         label.isHidden = true
     }
     private func hideUI(){
-       
-//        roomLocationLabel.isHidden = true
+        
         choosenRoomLabel.isHidden = true
         tableView.isHidden = true
         label.isHidden = false
-        
         if !hasGivenFeedback {
             alltimeButton.isHidden = true
             slideView.isHidden = true
@@ -260,6 +256,7 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
             lastweekButton.isHidden = true
             lastmonthButton.isHidden = true
             mydataButton.isHidden = true
+            roomLocationBottomConstraint.constant = 10
         }
     }
     
@@ -292,12 +289,11 @@ class DataTabController: UIViewController, UITableViewDelegate, UITableViewDataS
                        animations: {
                         self.tableView.transform = CGAffineTransform(translationX: 0, y: 0)
         })
-        
     }
 }
 
 // PROTOCOLS AND DELEGATES
-extension DataTabController: ManuallyChangedRoomDelegate {
+extension DataVC: ManuallyChangedRoomDelegate {
     func roomchanged(roomname: String, roomid: String) {
         manuallyChangedRoom = true
         chosenRoom = roomname
@@ -306,11 +302,11 @@ extension DataTabController: ManuallyChangedRoomDelegate {
         getAnsweredQuestions()
     }
 }
-extension DataTabController: UserChangedRoomDelegate {
+extension DataVC: UserChangedRoomDelegate {
     func userChangedRoom(roomname: String, roomid: String) {
         currentRoom = roomname
         currentRoomId = roomid
-        roomLocationLabel.text = "You are in \(roomid) 🙂"
+        roomLocationLabel.text = "You are in \(roomname) 🙂"
         
         if !manuallyChangedRoom {
             chosenRoom = roomname

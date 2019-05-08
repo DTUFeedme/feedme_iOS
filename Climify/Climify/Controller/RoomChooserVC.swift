@@ -1,5 +1,5 @@
 //
-//  RoomChooserController.swift
+//  RoomChooserVC.swift
 //  Climify
 //
 //  Created by Christian Hjelmslund on 26/03/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RoomChooserController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate{
+class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate{
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var choosenRoomLabel: UILabel!
     @IBOutlet weak var buildingPickerView: UIPickerView!
@@ -69,7 +69,7 @@ class RoomChooserController: UIViewController, UIPickerViewDataSource, UIPickerV
     
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
         let w = pickerView.frame.size.width
-        return component == 0 ? (2 / 3.0) * w : (1 / 3.0) * w
+        return component == 0 ? (1 / 2.0) * w : (1 / 2.0) * w
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -113,14 +113,13 @@ class RoomChooserController: UIViewController, UIPickerViewDataSource, UIPickerV
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         
         var label: UILabel
-        
         if let view = view as? UILabel {
             label = view
         } else {
            label = UILabel(frame: CGRect(x: 0, y: 0, width: pickerView.frame.width/2, height: 400))
         }
         label.textColor = .myCyan()
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.font = label.font.withSize(22)
 //        
         if component == 0 {

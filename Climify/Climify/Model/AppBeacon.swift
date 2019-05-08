@@ -22,11 +22,6 @@ class AppBeacon: Beacon {
             super.init(id: id, uuid: uuid, name: name, building: building)
         }
     
-        convenience init(){
-            self.init(id: "", uuid: "", building: Building.init(), name: "")
-        }
-    
-    
         func calcAverage() -> Double {
             let filteredList = latestRssis.filter{ $0 != -100 }
             if filteredList.count == 0 {

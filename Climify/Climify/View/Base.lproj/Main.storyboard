@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
+        <!--Tab BarVC-->
         <scene sceneID="0Vb-Pg-arz">
             <objects>
-                <tabBarController storyboardIdentifier="main" id="hPZ-xK-bCI" customClass="TabBarController" customModule="Climify" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="main" id="hPZ-xK-bCI" customClass="TabBarVC" customModule="Climify" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="q16-po-cy7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

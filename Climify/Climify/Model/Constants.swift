@@ -17,6 +17,4 @@ struct HTTPCode {
     static let JSONERROR = 600
 }
 
-let TOKEN = UserDefaults.standard.string(forKey: "x-auth-token")
-
 

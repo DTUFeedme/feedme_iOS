@@ -18,8 +18,5 @@ struct Building {
         self.name = name
         self.rooms = rooms
     }
-    
-    init(){
-        self.init(id: "", name: "", rooms: [Room.init()])
-    }
+   
 }

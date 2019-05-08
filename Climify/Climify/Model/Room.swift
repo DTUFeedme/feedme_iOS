@@ -16,8 +16,4 @@ struct Room {
         self.id = id
         self.name = name
     }
-    
-    init(){
-        self.init(id: "", name: "")
-    }
 }

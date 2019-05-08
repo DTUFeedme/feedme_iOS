@@ -8,7 +8,8 @@
 
 import UIKit
 
-class SuccessController: UIViewController {
+class SuccessVC: UIViewController {
+    
     @IBOutlet weak var animationView: UIView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var thanksLabel: UILabel!

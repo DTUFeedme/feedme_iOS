@@ -20,14 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
         
-        if let admin = UserDefaults.standard.bool(forKey: "isAdmin") as? Bool {
-            print(UserDefaults.standard.string(forKey: "x-auth-token"))
-            if admin {
-                if let tbc = vc as? TabBarController {
-                    tbc.addNewTabBarItem()
-                }
-            }
-        }
+//        if UserDefaults.standard.contains(key: "isAdmin") {
+//            let admin = UserDefaults.standard.bool(forKey: "isAdmin")
+//            if admin {
+//                if let tbc = vc as? TabBarVC {
+//                    tbc.addNewTabBarItem()
+//                }
+//            }
+//        }
 
         UINavigationBar.appearance().barTintColor = .myGray()
         UITabBar.appearance().barTintColor = .myGray()
@@ -39,8 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-
-
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -62,7 +60,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+}
 
-
+extension UserDefaults {
+    func contains(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
+    }
 }
 

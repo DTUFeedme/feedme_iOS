@@ -24,8 +24,4 @@ struct Feedback {
             self.authToken = token
         }
     }
-    
-    init(){
-        self.init(answerId: "", roomID: "", questionId: "")
-    }
 }

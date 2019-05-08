@@ -11,6 +11,7 @@ import CoreLocation
 
 class CoreLocation: NSObject, CLLocationManagerDelegate {
     
+    static let sharedInstance = CoreLocation()
     private var manager:CLLocationManager = CLLocationManager()
     private var regions:[CLBeaconRegion] = []
     private var beacons:[AppBeacon] = []
@@ -106,13 +107,19 @@ class CoreLocation: NSObject, CLLocationManagerDelegate {
     func scanRoom(rangedBeacon: CLBeacon){
         if let beacon = getBeacon(id: rangedBeacon.proximityUUID.uuidString) {
             buildingId = beacon.building.id
+
             beacon.addRssi(rssi: rangedBeacon.rssi)
         }
     }
     
     @objc func addToSignalMap() {
+        
         for beacon in beacons {
-            signalMap[beacon.uuid]?.append(beacon.calcAverage())
+            if isMappingRoom {
+                signalMap[beacon.uuid]?.append(beacon.calcAverage())
+            } else {
+                signalMap[beacon.uuid]? = [beacon.calcAverage()]
+            }
         }
     }
     
@@ -122,13 +129,13 @@ class CoreLocation: NSObject, CLLocationManagerDelegate {
             if serverSignalMap.isEmpty {
                 return
             }
-            print("-----", serverSignalMap)
-            climifyApi.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) { statusCode, roomId in
+            climifyApi.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) { statusCode, room in
                 self.signalMap.removeAll()
                 self.initSignalMap()
-                if roomId != self.currentRoomId {
+                
+                if let roomId = room?.id, let roomname = room?.name {
                     self.currentRoomId = roomId
-                    self.userChangedRoomDelegate?.userChangedRoom(roomname: "", roomid: roomId)
+                    self.userChangedRoomDelegate?.userChangedRoom(roomname: roomname, roomid: roomId)
                 }
             }
         }
@@ -148,6 +155,7 @@ class CoreLocation: NSObject, CLLocationManagerDelegate {
     
     func convertSignalMapToServer(signalMap: [String: [Double]]) -> [Any] {
         var serverSignalMap: [Any] = []
+        
         for beacon in beacons {
             var beaconDict: [String: Any] = [:]
             beaconDict["beaconId"] = beacon.id

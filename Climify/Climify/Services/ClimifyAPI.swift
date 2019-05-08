@@ -30,7 +30,7 @@ class ClimifyAPI: NSObject {
     }
     
     func getAnsweredQuestions(roomID: String, time: Time, me: Bool, completion: @escaping (_ questions: [(question: String, questionId: String, answeredCount: Int)], _ statusCode: Int) -> Void){
-        guard let token = TOKEN else { return }
+        guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else { return }
         let headers: HTTPHeaders = [ "x-auth-token": token]
         
         var user = "all"
@@ -63,7 +63,7 @@ class ClimifyAPI: NSObject {
     }
     
     func getQuestions(currentRoomID: String, completion: @escaping (_ questions: [Question], _ statusCode: Int) -> Void) {
-        guard let token = TOKEN else { return }
+        guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else { return }
     
         let headers: HTTPHeaders = [
             "x-auth-token": token,
@@ -101,7 +101,7 @@ class ClimifyAPI: NSObject {
     }
     
     func getBeacons(completion: @escaping (_ beacons: [Beacon], _ statusCode: Int) -> Void){
-        guard let token = TOKEN else { return }
+        guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else { return }
     
         let headers: HTTPHeaders = [ "x-auth-token": token ]
         
@@ -135,7 +135,7 @@ class ClimifyAPI: NSObject {
     }
     
     func getBuildings(completion: @escaping (_ buildings: [Building],_ statusCode: Int) -> Void) {
-        guard let token = TOKEN else { return }
+        guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else { return }
         
         let headers: HTTPHeaders = [ "x-auth-token": token ]
 
@@ -192,20 +192,18 @@ class ClimifyAPI: NSObject {
     }
     
     func login(email: String, password: String, completion: @escaping (_ statusCode: Int, _ description: String) -> Void) {
-        guard let token = TOKEN else { return }
-        let headers: HTTPHeaders = [ "x-auth-token": token ]
-        
         var json: [String : Any] = [:]
         json["email"] = email
         json["password"] = password
         
-        AF.request(loginUrl, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers).responseString { response in
+        AF.request(loginUrl, method: .post, parameters: json, encoding: JSONEncoding.default).responseString { response in
             guard let statusCode = response.response?.statusCode else { return }
             switch response.result {
             case.success(let value):
                 switch statusCode {
                 case 200...300:
                     if let token = JSON(response.response?.allHeaderFields as Any)["x-auth-token"].string {
+                        print(token)
                         UserDefaults.standard.set(token, forKey: "x-auth-token")
                         UserDefaults.standard.set(true, forKey: "isAdmin")
                     }
@@ -226,7 +224,7 @@ class ClimifyAPI: NSObject {
     // Change to tuples
     func getFeedback(questionID: String, roomID: String, time: Time, me: Bool, completion: @escaping (_ answers: [(answerOption: String, answerCount: Int)], _ statusCode: Int) -> Void){
         
-        guard let token = TOKEN else { return }
+        guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else { return }
         
         let headers: HTTPHeaders = ["x-auth-token": token]
         var user = "all"
@@ -259,7 +257,7 @@ class ClimifyAPI: NSObject {
     }
     
     func postRoom(buildingId: String, name: String,  completion: @escaping (_ statusCode: Int, _ roomId: String) -> Void) {
-        guard let token = TOKEN else { return }
+        guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else { return }
         let headers: HTTPHeaders = ["x-auth-token": token]
         var json: [String : Any] = [:]
         json["buildingId"] = buildingId
@@ -272,7 +270,6 @@ class ClimifyAPI: NSObject {
             switch response.result {
             case.success(let value):
                 let json = JSON(value)
-                print(statusCode)
                 if let roomId = json["_id"].string {
                     completion(statusCode, roomId)
                 } else {
@@ -287,9 +284,9 @@ class ClimifyAPI: NSObject {
     }
     
     
-    func postSignalMap(signalMap: [Any], roomid: String?, buildingId: String?, completion: @escaping (_ statusCode: Int, _ roomId: String) -> Void) {
+    func postSignalMap(signalMap: [Any], roomid: String?, buildingId: String?, completion: @escaping (_ statusCode: Int, _ room: Room?) -> Void) {
         
-        guard let token = TOKEN else { return }
+        guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else { return }
         
         let headers: HTTPHeaders = ["x-auth-token": token]
 
@@ -308,15 +305,19 @@ class ClimifyAPI: NSObject {
             switch response.result {
             case.success(let value):
                 let jsonResult = JSON(value)
-                if let roomid = jsonResult["room"].string {
-                    print(roomid)
-                    completion(statusCode, roomid)
+                if let room = jsonResult["room"].dictionaryObject {
+                    if let id = room["_id"] as? String, let name = room["name"] as? String {
+                        let room = Room(id: id, name: name)
+                        completion(statusCode, room)
+                    } else {
+                        completion(statusCode, nil)
+                    }
                 } else {
-                    completion(statusCode, "")
+                    completion(statusCode, nil)
                 }
             case.failure(let error):
                 print("postSignalMap",error)
-                completion(statusCode, "")
+                completion(statusCode, nil)
                 
             }
         }

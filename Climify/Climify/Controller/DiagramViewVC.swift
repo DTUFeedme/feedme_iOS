@@ -9,7 +9,7 @@
 import UIKit
 import Charts
 
-class DiagramViewController: UIViewController {
+class DiagramVC: UIViewController {
 
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var pieChart: PieChartView!
