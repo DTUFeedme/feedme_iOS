@@ -11,7 +11,6 @@ import UIKit
 
 struct Question {
     
-    
     var id: String
     var question: String
     var answerOptions: [answerOption]

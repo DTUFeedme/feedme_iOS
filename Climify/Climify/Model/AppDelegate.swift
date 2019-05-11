@@ -20,14 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
         
-//        if UserDefaults.standard.contains(key: "isAdmin") {
-//            let admin = UserDefaults.standard.bool(forKey: "isAdmin")
-//            if admin {
-//                if let tbc = vc as? TabBarVC {
-//                    tbc.addNewTabBarItem()
-//                }
-//            }
-//        }
+        if UserDefaults.standard.contains(key: "isAdmin") {
+            let admin = UserDefaults.standard.bool(forKey: "isAdmin")
+            if admin {
+                if let tbc = vc as? TabBarVC {
+                    tbc.addNewTabBarItem()
+                }
+            }
+        }
 
         UINavigationBar.appearance().barTintColor = .myGray()
         UITabBar.appearance().barTintColor = .myGray()
@@ -59,12 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-}
-
-extension UserDefaults {
-    func contains(key: String) -> Bool {
-        return UserDefaults.standard.object(forKey: key) != nil
     }
 }
 

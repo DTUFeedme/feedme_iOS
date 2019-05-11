@@ -9,50 +9,20 @@
 import UIKit
 
 class ScanningVC: UIViewController {
-
-    @IBOutlet weak var provideRoomLabel: UILabel!
-    private var isScanning = false
+    
     @IBOutlet weak var roomname: UITextField!
     @IBOutlet weak var scanningButton: UIButton!
+    @IBOutlet weak var provideRoomLabel: UILabel!
+    @IBOutlet weak var message: UILabel!
     
-    @IBAction func startScanning(_ sender: Any) {
-        if isScanning {
-            CoreLocation.sharedInstance.postRoom(roomname: roomname.text!)
-            CoreLocation.sharedInstance.stopTimerAddToSignalMap()
-            CoreLocation.sharedInstance.isMappingRoom = false
-            scanningButton.setTitleColor(.myGreen(), for: .normal)
-            scanningButton.layer.borderColor = .myGreen()
-            scanningButton.layer.removeAllAnimations()
-            scanningButton.setTitle("Start Scanning", for: .normal)
-            isScanning = !isScanning
-        } else {
-            if (roomname.text?.isEmpty)! {
-                provideRoomLabel.text = "Please give a room name"
-            } else {
-                view.endEditing(true)
-                provideRoomLabel.text = ""
-                scanningButton.pulseInfite()
-                scanningButton.setTitleColor(.myRed(), for: .normal)
-                scanningButton.layer.borderColor = .myRed()
-                CoreLocation.sharedInstance.isMappingRoom = true
-                CoreLocation.sharedInstance.startLocating()
-                scanningButton.setTitle("Stop Scanning", for: .normal)
-                isScanning = !isScanning
-            }
-        }
-    }
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    @IBAction func tapped(_ sender: Any) {
-        view.endEditing(true)
-    }
-    
+    private var isScanning = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+    }
+    
+    func setupUI(){
         scanningButton.setTitleColor(.myGreen(), for: .normal)
         scanningButton.layer.cornerRadius = 0.5 * scanningButton.bounds.size.width
         scanningButton.clipsToBounds = true
@@ -63,6 +33,53 @@ class ScanningVC: UIViewController {
         scanningButton.layer.shadowOffset = CGSize.zero
         scanningButton.layer.shadowRadius = 10
     }
+    
+    @IBAction func startScanning(_ sender: Any) {
+        if isScanning {
+            LocationEstimator.sharedInstance.postRoom(roomname: roomname.text!) { statusCode in
+                if statusCode == HTTPCode.SUCCESS {
+                    self.message.text = "Succesfully saved room dimensions"
+                    self.roomname.text = nil
+                } else {
+                    self.message.text = "Something went wrong. Please check your internet connection"
+                }
+                LocationEstimator.sharedInstance.stopTimerAddToSignalMap()
+                LocationEstimator.sharedInstance.isMappingRoom = false
+            }
+       
+            scanningButton.setTitleColor(.myGreen(), for: .normal)
+            scanningButton.layer.borderColor = .myGreen()
+            scanningButton.layer.removeAllAnimations()
+            scanningButton.setTitle("Start Scanning", for: .normal)
+            isScanning = !isScanning
+        } else {
+            if (roomname.text?.isEmpty)! {
+                provideRoomLabel.text = "Please give a room name"
+            } else {
+                self.message.text = ""
+                view.endEditing(true)
+                provideRoomLabel.text = ""
+                scanningButton.pulseInfite()
+                scanningButton.setTitleColor(.myRed(), for: .normal)
+                scanningButton.layer.borderColor = .myRed()
+                LocationEstimator.sharedInstance.isMappingRoom = true
+                LocationEstimator.sharedInstance.initTimerAddToSignalMap()
+                scanningButton.setTitle("Stop Scanning", for: .normal)
+                isScanning = !isScanning
+            }
+        }
+        
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    @IBAction func tapped(_ sender: Any) {
+        view.endEditing(true)
+    }
+
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent

@@ -12,61 +12,49 @@ import XCTest
 
 class AppBeaconTest: XCTestCase {
     
-//    let beacon = AppBeacon(id: "id", uuid: "uuid", location: "location", room: Room.init(), name: "name", rssi: 0)
-//
-//    
-//    func testCalcAverage(){
-//        
-//        // When creating the AppBeacon, it will contain 5 rssi's values of -200 as default - therefore test the default value
-//        XCTAssertEqual(beacon.calcAverage(), -200)
-//        
-//        
-//        beacon.latestRssis = [1,2,5,7,10]
-//        // 1+2+5+7+10 = 25 -> 25/5 = 5
-//        // whole number as a result
-//        XCTAssertEqual(beacon.calcAverage(), 5.0)
-//        
-//        beacon.latestRssis = [1,2,5,7,11]
-//        // 1+2+5+7+10 = 25 -> 26/5 = 5.2
-//        // fraction as a result
-//        XCTAssertEqual(beacon.calcAverage(), 5.2)
-//        
-//        // also test with mixed numbers
-//        beacon.latestRssis = [1,2,-3,5,-17,13]
-//        // 1+2-3+5-17+13 = 1 => 1/6 = 0.166 = 0.17
-//        
-//        XCTAssertEqual(Double(round(100*beacon.calcAverage())/100), 0.17)
-//    }
-//    
-//    func testAddRssi(){
-//        
-//        // When creating the AppBeacon, in the initializer the first created RSSI value is added to AppBeacon, which means the currMessurement open creation is 1
-//        XCTAssertEqual(beacon.currMessurement, 1)
-//        beacon.addRssi(rssi: 10)
-//        XCTAssertEqual(beacon.currMessurement, 2)
-//        
-//        // test case where current messurement is > 4, should change to nil and in the end it is
-//        // incremented, so should be 1
-//        // set currMessurement to 5
-//        beacon.currMessurement = 5
-//        // add element - currMessurement could be 5+1 => 6, but should be 1.
-//        beacon.addRssi(rssi: 10)
-//        XCTAssertNotEqual(beacon.currMessurement, 6)
-//        XCTAssertEqual(beacon.currMessurement, 1)
-//        
-//        // test case where rssi is less than zero and see if it is added at the correct spot
-//        // since currMessurement increments in the end of the function, we test the case of currMessurement-1
-//        beacon.currMessurement = 2
-//        beacon.addRssi(rssi: -20)
-//        XCTAssertEqual(beacon.latestRssis[beacon.currMessurement-1], -20)
-//        
-//    }
-//    func testThatSuperWorks(){
-//        XCTAssertEqual(beacon.id, "id")
-//        XCTAssertEqual(beacon.uuid, "uuid")
-//        XCTAssertEqual(beacon.location, "location")
-////        XCTAssertEqual(beacon.room, room)
-//        XCTAssertEqual(beacon.name, "name")
-//   
-//    }
+    let beacon = AppBeacon(id: "id", uuid: "uuid", building: Building(id: "id", name: "building", rooms: nil), name: "beacon")
+    let beacon1 = AppBeacon(id: "id", uuid: "uuid", building: Building(id: "id", name: "building", rooms: nil), name: "beacon")
+    let beacon2 = AppBeacon(id: "id", uuid: "uuid", building: Building(id: "id", name: "building", rooms: nil), name: "beacon")
+
+    
+    func testCalcAverage(){
+        
+        // When creating the AppBeacon, it will contain 5 rssi's values of -100 as default - therefore test the default value
+        XCTAssertEqual(beacon.calcAverage(), -100)
+        
+        
+        beacon.addRssi(rssi: -30)
+        beacon.addRssi(rssi: -45)
+        beacon.addRssi(rssi: -60)
+        beacon.addRssi(rssi: -35)
+        beacon.addRssi(rssi: -20)
+        
+        // (-30-45-60-35-20) = -190 -> -190/5 = -38
+        XCTAssertEqual(beacon.calcAverage(), -38)
+        
+        
+        beacon1.addRssi(rssi: -25)
+        beacon1.addRssi(rssi: -35)
+        beacon1.addRssi(rssi: -130)
+        beacon1.addRssi(rssi: 20)
+        beacon1.addRssi(rssi: -60)
+        // -25-35-130+20-60
+        // Everything less than -100 will be discarded and all postive numbers (0 is included) will be discarded.
+        // (-25-35-60)/3 = -40
+        XCTAssertEqual(beacon1.calcAverage(), -40)
+        
+        // also test with mixed numbers
+        beacon2.addRssi(rssi: 0)
+        print(beacon2.calcAverage())
+        beacon2.addRssi(rssi: 0)
+        print(beacon2.calcAverage())
+        beacon2.addRssi(rssi: -130)
+        print(beacon2.calcAverage())
+        beacon2.addRssi(rssi: -60)
+        print(beacon2.calcAverage())
+        beacon2.addRssi(rssi: -25)
+        // (60-25)/2 = -42.5
+        
+        XCTAssertEqual(beacon2.calcAverage(), -42.5)
+    }
 }

@@ -3,7 +3,6 @@ import Charts
 
 class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    private let climifyApi = ClimifyAPI()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var mydataButton: UIButton!
     @IBOutlet weak var alldataButton: UIButton!
@@ -17,40 +16,47 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var roomLocationBottomConstraint: NSLayoutConstraint!
     
     private var label = UILabel()
-    
-    struct Question {
+    private struct Question {
         var question: String
         var questionId: String
         var answeredCount: Int
     }
     private var questions: [Question] = []
-  
     private var hasGivenFeedback = false
     private var mydataIsSelected = true
     private var time = Time.all
-    var currentRoom = ""
-    var currentRoomId = ""
-    var chosenRoomId = ""
-    var chosenRoom = ""
     private var hasProvidedFeedback = true
     private var hasStartedLocating = false
     private var manuallyChangedRoom = false
     
+    var currentRoom = ""
+    var currentRoomId = ""
+    var chosenRoomId = ""
+    var chosenRoom = ""
+    
     override func viewDidAppear(_ animated: Bool) {
-        if hasStartedLocating {
-            CoreLocation.sharedInstance.initTimerfetchRoom()
-        }
-        hasStartedLocating = true
-        getAnsweredQuestions()
+        LocationEstimator.sharedInstance.userChangedRoomDelegate = self
+        LocationEstimator.sharedInstance.initTimerfetchRoom()
+        fetchAnsweredQuestions()
     }
+    
+   
+    override func viewWillDisappear(_ animated: Bool) {
+        LocationEstimator.sharedInstance.stopTimerfetchRoom()
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if (ClimifyAPI.Connectivity.isConnectedToInternet){
             guard let _ = UserDefaults.standard.string(forKey: "x-auth-token") else { return }
-            CoreLocation.sharedInstance.initTimerfetchRoom()
         }
+        setupUI()
+    }
+    
+    func setupUI(){
         chosenRoom = currentRoom
         chosenRoomId = currentRoomId
         tableView.separatorColor = UIColor.clear
@@ -72,9 +78,6 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        CoreLocation.sharedInstance.stopTimerfetchRoom()
-    }
     
     // BUTTONS
     @IBAction func alldataButtonAction(_ sender: Any) {
@@ -83,7 +86,7 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             animateSlideGesture(right: true)
         }
         mydataIsSelected = false
-        getAnsweredQuestions()
+        fetchAnsweredQuestions()
     }
     @IBAction func changeRoomButton(_ sender: Any) {
         
@@ -104,30 +107,25 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             animateSlideGesture(right: false)
         }
         mydataIsSelected = true
-        getAnsweredQuestions()
+        fetchAnsweredQuestions()
     }
     
     // NETWORKING
     
-    private func getAnsweredQuestions(){
-        climifyApi.getAnsweredQuestions(roomID: chosenRoomId, time: time, me: mydataIsSelected) { questions, statusCode in
-            if statusCode == HTTPCode.SUCCES {
-                if questions.isEmpty {
-                   self.hideUI()
-                } else {
-                    self.showUI()
-                    self.hasGivenFeedback = true
-                    var localQuestions: [Question] = []
-                    for q in questions {
-                        let question = Question(question: q.question, questionId: q.questionId, answeredCount: q.answeredCount)
-                        localQuestions.append(question)
-                    }
-                    self.questions = localQuestions
-                    self.tableView.reloadData()
+    private func fetchAnsweredQuestions(){
+        ClimifyAPI.sharedInstance.fetchAnsweredQuestions(roomID: chosenRoomId, time: time, me: mydataIsSelected) { questions, error in
+            if error == nil {
+                self.showUI()
+                self.hasGivenFeedback = true
+                var localQuestions: [Question] = []
+                for question in questions! {
+                    let question = Question(question: question.question, questionId: question.questionId, answeredCount: question.answeredCount)
+                    localQuestions.append(question)
                 }
+                self.questions = localQuestions
+                self.tableView.reloadData()
             } else {
                 self.hideUI()
-                print("The statuscode is: ", statusCode)
             }
         }
     }
@@ -223,7 +221,7 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         default:
             break
         }
-        getAnsweredQuestions()
+        fetchAnsweredQuestions()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -299,11 +297,12 @@ extension DataVC: ManuallyChangedRoomDelegate {
         chosenRoom = roomname
         chosenRoomId = roomid
         choosenRoomLabel.text = "showing questions answered from \(roomname)"
-        getAnsweredQuestions()
+        fetchAnsweredQuestions()
     }
 }
 extension DataVC: UserChangedRoomDelegate {
     func userChangedRoom(roomname: String, roomid: String) {
+        print("--- I entered")
         currentRoom = roomname
         currentRoomId = roomid
         roomLocationLabel.text = "You are in \(roomname) 🙂"
@@ -312,7 +311,7 @@ extension DataVC: UserChangedRoomDelegate {
             chosenRoom = roomname
             chosenRoomId = roomid
             choosenRoomLabel.text =  "showing questions answered from \(roomname)"
-            getAnsweredQuestions()
+            fetchAnsweredQuestions()
         }
     }
 }

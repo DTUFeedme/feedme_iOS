@@ -11,21 +11,21 @@
 		A10C9DC3226E022A000506C7 /* SuccessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10C9DC2226E022A000506C7 /* SuccessVC.swift */; };
 		A112693522242AA000B18A38 /* AppBeacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112693422242AA000B18A38 /* AppBeacon.swift */; };
 		A1141A1222314B4900659DF1 /* ClimifyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1141A1122314B4900659DF1 /* ClimifyAPI.swift */; };
-		A11662D52236F70F00A7F607 /* UIButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11662D42236F70F00A7F607 /* UIButtons.swift */; };
+		A125A5C622842BE30012F7EB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A125A5C522842BE30012F7EB /* Extensions.swift */; };
 		A12AF6412274845C007F6C7D /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12AF6402274845C007F6C7D /* LoginVC.swift */; };
 		A12B9F7622787C3500FEAC32 /* ScanningVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B9F7522787C3500FEAC32 /* ScanningVC.swift */; };
 		A136A0D2220C595000189E21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136A0D1220C595000189E21 /* AppDelegate.swift */; };
 		A136A0D7220C595000189E21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D5220C595000189E21 /* Main.storyboard */; };
 		A136A0D9220C595000189E21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D8220C595000189E21 /* Assets.xcassets */; };
 		A136A0DC220C595000189E21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136A0DA220C595000189E21 /* LaunchScreen.storyboard */; };
-		A1539952227B3E0D00F06A78 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1539951227B3E0D00F06A78 /* Collection.swift */; };
 		A1581EB9223A96230083C4C9 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1581EB8223A96230083C4C9 /* AnswerCell.swift */; };
+		A16B8B0C22843D7F005D73BE /* LocationEstimatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16B8B0B22843D7F005D73BE /* LocationEstimatorTest.swift */; };
 		A1734B2C223657FE004AB9DD /* AppBeaconTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1734B2B223657FE004AB9DD /* AppBeaconTest.swift */; };
-		A1734B2E223664BB004AB9DD /* FeedbackTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1734B2D223664BB004AB9DD /* FeedbackTest.swift */; };
 		A18507322254959F005C081C /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18507312254959F005C081C /* TabBarVC.swift */; };
-		A18507342254A904005C081C /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18507332254A904005C081C /* Colors.swift */; };
-		A18507362254AB44005C081C /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18507352254AB44005C081C /* Fonts.swift */; };
-		A1907217226707B200B6EE2B /* CoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1907216226707B200B6EE2B /* CoreLocation.swift */; };
+		A1907217226707B200B6EE2B /* LocationEstimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1907216226707B200B6EE2B /* LocationEstimator.swift */; };
+		A1990B80228726C600A3E431 /* ClimifyAPIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1990B7F228726C600A3E431 /* ClimifyAPIProtocol.swift */; };
+		A1990B832287280A00A3E431 /* MockClimifyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1990B822287280A00A3E431 /* MockClimifyAPI.swift */; };
+		A1990B8522873C3700A3E431 /* ClimifyAPITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1990B8422873C3700A3E431 /* ClimifyAPITest.swift */; };
 		A1B0C47B224790C800F5A885 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B0C47A224790C800F5A885 /* Constants.swift */; };
 		A1B1E3A2223BA77F00CCC8A2 /* DataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B1E3A1223BA77F00CCC8A2 /* DataVC.swift */; };
 		A1B29A32223162AE0065DE01 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B29A31223162AE0065DE01 /* Question.swift */; };
@@ -33,7 +33,6 @@
 		A1B5D365224AACA100FE92E2 /* RoomChooserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B5D364224AACA100FE92E2 /* RoomChooserVC.swift */; };
 		A1BD499D2247AEA700DCA20D /* QuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BD499C2247AEA700DCA20D /* QuestionCell.swift */; };
 		A1C9B4B022561DE000A8748D /* Building.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C9B4AF22561DE000A8748D /* Building.swift */; };
-		A1D8D895226B5119001EE57A /* TimeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D8D894226B5119001EE57A /* TimeEnum.swift */; };
 		A1DB86272226AB3000F7F745 /* Feedback.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DB86262226AB3000F7F745 /* Feedback.storyboard */; };
 		A1DB862B2226ADBC00F7F745 /* Data.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DB862A2226ADBC00F7F745 /* Data.storyboard */; };
 		A1E15B172247F3A200B5C3EF /* DiagramViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E15B162247F3A200B5C3EF /* DiagramViewVC.swift */; };
@@ -57,7 +56,7 @@
 		A10C9DC2226E022A000506C7 /* SuccessVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessVC.swift; sourceTree = "<group>"; };
 		A112693422242AA000B18A38 /* AppBeacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBeacon.swift; sourceTree = "<group>"; };
 		A1141A1122314B4900659DF1 /* ClimifyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimifyAPI.swift; sourceTree = "<group>"; };
-		A11662D42236F70F00A7F607 /* UIButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtons.swift; sourceTree = "<group>"; };
+		A125A5C522842BE30012F7EB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A12AF6402274845C007F6C7D /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		A12B9F7522787C3500FEAC32 /* ScanningVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanningVC.swift; sourceTree = "<group>"; };
 		A136A0CE220C595000189E21 /* Climify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Climify.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,16 +65,16 @@
 		A136A0D8220C595000189E21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A136A0DB220C595000189E21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A136A0DD220C595000189E21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A1539951227B3E0D00F06A78 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		A1581EB8223A96230083C4C9 /* AnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
+		A16B8B0B22843D7F005D73BE /* LocationEstimatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEstimatorTest.swift; sourceTree = "<group>"; };
 		A1734B212236577A004AB9DD /* ClimifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClimifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1734B252236577A004AB9DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1734B2B223657FE004AB9DD /* AppBeaconTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBeaconTest.swift; sourceTree = "<group>"; };
-		A1734B2D223664BB004AB9DD /* FeedbackTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackTest.swift; sourceTree = "<group>"; };
 		A18507312254959F005C081C /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
-		A18507332254A904005C081C /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		A18507352254AB44005C081C /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
-		A1907216226707B200B6EE2B /* CoreLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocation.swift; sourceTree = "<group>"; };
+		A1907216226707B200B6EE2B /* LocationEstimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEstimator.swift; sourceTree = "<group>"; };
+		A1990B7F228726C600A3E431 /* ClimifyAPIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimifyAPIProtocol.swift; sourceTree = "<group>"; };
+		A1990B822287280A00A3E431 /* MockClimifyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockClimifyAPI.swift; sourceTree = "<group>"; };
+		A1990B8422873C3700A3E431 /* ClimifyAPITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimifyAPITest.swift; sourceTree = "<group>"; };
 		A1B0C47A224790C800F5A885 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A1B1E3A1223BA77F00CCC8A2 /* DataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataVC.swift; sourceTree = "<group>"; };
 		A1B29A31223162AE0065DE01 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
@@ -83,7 +82,6 @@
 		A1B5D364224AACA100FE92E2 /* RoomChooserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChooserVC.swift; sourceTree = "<group>"; };
 		A1BD499C2247AEA700DCA20D /* QuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCell.swift; sourceTree = "<group>"; };
 		A1C9B4AF22561DE000A8748D /* Building.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Building.swift; sourceTree = "<group>"; };
-		A1D8D894226B5119001EE57A /* TimeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEnum.swift; sourceTree = "<group>"; };
 		A1DB86262226AB3000F7F745 /* Feedback.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Feedback.storyboard; sourceTree = "<group>"; };
 		A1DB862A2226ADBC00F7F745 /* Data.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Data.storyboard; sourceTree = "<group>"; };
 		A1E15B162247F3A200B5C3EF /* DiagramViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramViewVC.swift; sourceTree = "<group>"; };
@@ -132,10 +130,7 @@
 		A11662D32236F6FB00A7F607 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				A11662D42236F70F00A7F607 /* UIButtons.swift */,
-				A18507332254A904005C081C /* Colors.swift */,
-				A18507352254AB44005C081C /* Fonts.swift */,
-				A1539951227B3E0D00F06A78 /* Collection.swift */,
+				A125A5C522842BE30012F7EB /* Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -184,9 +179,9 @@
 				A1EB9F2822326F69006AFB57 /* Beacon.swift */,
 				A1EB9F2B223280EC006AFB57 /* Room.swift */,
 				A1C9B4AF22561DE000A8748D /* Building.swift */,
-				A1907216226707B200B6EE2B /* CoreLocation.swift */,
+				A1907216226707B200B6EE2B /* LocationEstimator.swift */,
+				A1990B7F228726C600A3E431 /* ClimifyAPIProtocol.swift */,
 				A1B0C47A224790C800F5A885 /* Constants.swift */,
-				A1D8D894226B5119001EE57A /* TimeEnum.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -221,11 +216,21 @@
 		A1734B222236577A004AB9DD /* ClimifyTests */ = {
 			isa = PBXGroup;
 			children = (
+				A1990B81228727EB00A3E431 /* Mocks */,
 				A1734B252236577A004AB9DD /* Info.plist */,
+				A1990B8422873C3700A3E431 /* ClimifyAPITest.swift */,
 				A1734B2B223657FE004AB9DD /* AppBeaconTest.swift */,
-				A1734B2D223664BB004AB9DD /* FeedbackTest.swift */,
+				A16B8B0B22843D7F005D73BE /* LocationEstimatorTest.swift */,
 			);
 			path = ClimifyTests;
+			sourceTree = "<group>";
+		};
+		A1990B81228727EB00A3E431 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				A1990B822287280A00A3E431 /* MockClimifyAPI.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		A1B1E3A3223BCC9400CCC8A2 /* Cells */ = {
@@ -407,15 +412,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1FA8725222589C300461799 /* FeedbackVC.swift in Sources */,
-				A1907217226707B200B6EE2B /* CoreLocation.swift in Sources */,
-				A18507342254A904005C081C /* Colors.swift in Sources */,
-				A11662D52236F70F00A7F607 /* UIButtons.swift in Sources */,
+				A1907217226707B200B6EE2B /* LocationEstimator.swift in Sources */,
 				A1C9B4B022561DE000A8748D /* Building.swift in Sources */,
 				A1E15B172247F3A200B5C3EF /* DiagramViewVC.swift in Sources */,
-				A1539952227B3E0D00F06A78 /* Collection.swift in Sources */,
+				A1990B80228726C600A3E431 /* ClimifyAPIProtocol.swift in Sources */,
 				A1141A1222314B4900659DF1 /* ClimifyAPI.swift in Sources */,
 				A12B9F7622787C3500FEAC32 /* ScanningVC.swift in Sources */,
-				A18507362254AB44005C081C /* Fonts.swift in Sources */,
 				A18507322254959F005C081C /* TabBarVC.swift in Sources */,
 				A12AF6412274845C007F6C7D /* LoginVC.swift in Sources */,
 				A1EB9F2C223280EC006AFB57 /* Room.swift in Sources */,
@@ -425,8 +427,8 @@
 				A1B1E3A2223BA77F00CCC8A2 /* DataVC.swift in Sources */,
 				A112693522242AA000B18A38 /* AppBeacon.swift in Sources */,
 				A1EB9F2922326F69006AFB57 /* Beacon.swift in Sources */,
-				A1D8D895226B5119001EE57A /* TimeEnum.swift in Sources */,
 				A1B29A32223162AE0065DE01 /* Question.swift in Sources */,
+				A125A5C622842BE30012F7EB /* Extensions.swift in Sources */,
 				A1B490A62231847400198E6F /* Feedback.swift in Sources */,
 				A10C9DC3226E022A000506C7 /* SuccessVC.swift in Sources */,
 				A1581EB9223A96230083C4C9 /* AnswerCell.swift in Sources */,
@@ -438,8 +440,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1734B2E223664BB004AB9DD /* FeedbackTest.swift in Sources */,
 				A1734B2C223657FE004AB9DD /* AppBeaconTest.swift in Sources */,
+				A1990B832287280A00A3E431 /* MockClimifyAPI.swift in Sources */,
+				A1990B8522873C3700A3E431 /* ClimifyAPITest.swift in Sources */,
+				A16B8B0C22843D7F005D73BE /* LocationEstimatorTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

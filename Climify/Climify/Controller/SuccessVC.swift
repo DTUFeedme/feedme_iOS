@@ -15,14 +15,20 @@ class SuccessVC: UIViewController {
     @IBOutlet weak var thanksLabel: UILabel!
     @IBOutlet weak var returnButton: UIButton!
     @IBOutlet weak var animationViewLabel: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+        runAnimation()
+    }
+    
     @IBAction func returnButton(_ sender: UIButton) {
         self.dismiss(animated: true, completion: {})
         self.navigationController?.popViewController(animated: true)
     }
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    func setupUI(){
         descriptionLabel.isHidden = true
         thanksLabel.isHidden = true
         returnButton.isHidden = true
@@ -31,6 +37,9 @@ class SuccessVC: UIViewController {
         returnButton.layer.cornerRadius = 20
         returnButton.layer.borderWidth = 2
         returnButton.layer.borderColor = UIColor.white.cgColor
+    }
+    
+    func runAnimation(){
         
         let shape = CAShapeLayer()
         animationViewLabel.text = "sending..."

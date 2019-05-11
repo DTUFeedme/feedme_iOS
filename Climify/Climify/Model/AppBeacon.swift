@@ -13,7 +13,7 @@ class AppBeacon: Beacon {
         private var currMessurement: Int
         private var latestRssis: [Int]
         private var connectionLost: [Int]
-        var numberOfRssis = 5
+        private var numberOfRssis = 5
     
         init(id: String, uuid: String, building: Building, name: String){
             self.currMessurement = 0
@@ -36,7 +36,7 @@ class AppBeacon: Beacon {
             if currMessurement >= numberOfRssis {
                 currMessurement = 0
             }
-            if rssi < 0 {
+            if rssi < 0 && rssi >= -100 {
                 latestRssis[currMessurement] = rssi
             } else {
                 latestRssis[currMessurement] = -100

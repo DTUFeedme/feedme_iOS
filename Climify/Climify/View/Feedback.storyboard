@@ -213,7 +213,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PUS-6J-NR4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-460" y="880"/>
+            <point key="canvasLocation" x="-580" y="878"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="u9V-dT-PLG">
@@ -268,7 +268,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gLF-RR-Cv1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="46" y="43"/>
+            <point key="canvasLocation" x="82" y="72"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="73D-f6-C8x">
@@ -421,6 +421,12 @@
                                     <constraint firstAttribute="height" constant="2" id="IZN-Hf-R5t"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OKd-Ww-ueE">
+                                <rect key="frame" x="0.0" y="459" width="375" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.16038811210000001" green="0.1677560508" blue="0.21337759489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
@@ -437,13 +443,16 @@
                             <constraint firstItem="gIu-kZ-dMN" firstAttribute="centerX" secondItem="ZcV-Mw-Ayw" secondAttribute="centerX" id="JGE-59-tHH"/>
                             <constraint firstItem="LVT-5o-SsQ" firstAttribute="top" secondItem="ZcV-Mw-Ayw" secondAttribute="bottom" constant="5" id="KBa-5G-fN7"/>
                             <constraint firstItem="D6y-kY-91X" firstAttribute="leading" secondItem="ybP-sZ-s3c" secondAttribute="leading" id="NFx-hg-PAY"/>
+                            <constraint firstItem="OKd-Ww-ueE" firstAttribute="top" secondItem="1lY-Rs-h5o" secondAttribute="bottom" constant="25.5" id="VNy-aF-MdV"/>
                             <constraint firstItem="ybP-sZ-s3c" firstAttribute="trailing" secondItem="D6y-kY-91X" secondAttribute="trailing" id="Z7F-ob-z1U"/>
                             <constraint firstItem="GvM-mv-wjU" firstAttribute="leading" secondItem="ybP-sZ-s3c" secondAttribute="leading" id="dok-3U-XXj"/>
                             <constraint firstItem="gIu-kZ-dMN" firstAttribute="leading" secondItem="ybP-sZ-s3c" secondAttribute="leading" id="gzN-sx-6QG"/>
+                            <constraint firstItem="OKd-Ww-ueE" firstAttribute="leading" secondItem="ybP-sZ-s3c" secondAttribute="leading" id="i0Z-qe-EHd"/>
                             <constraint firstItem="1lY-Rs-h5o" firstAttribute="centerY" secondItem="jGN-cK-jyn" secondAttribute="centerY" id="j1m-vl-dSg"/>
                             <constraint firstItem="ZcV-Mw-Ayw" firstAttribute="centerX" secondItem="jGN-cK-jyn" secondAttribute="centerX" id="kzM-dB-7xL"/>
                             <constraint firstItem="ZcV-Mw-Ayw" firstAttribute="centerY" secondItem="jGN-cK-jyn" secondAttribute="centerY" multiplier="0.4" id="pbJ-if-KKM"/>
                             <constraint firstItem="ZcV-Mw-Ayw" firstAttribute="width" secondItem="1lY-Rs-h5o" secondAttribute="width" id="qG9-iB-5pn"/>
+                            <constraint firstItem="ybP-sZ-s3c" firstAttribute="trailing" secondItem="OKd-Ww-ueE" secondAttribute="trailing" id="rKr-pz-ar6"/>
                             <constraint firstItem="GvM-mv-wjU" firstAttribute="top" secondItem="ybP-sZ-s3c" secondAttribute="top" id="uIG-N8-b9v"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ybP-sZ-s3c"/>
@@ -454,6 +463,7 @@
                     <tabBarItem key="tabBarItem" title="Item" id="hdt-97-uI7"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="message" destination="OKd-Ww-ueE" id="7Yw-EX-WIJ"/>
                         <outlet property="provideRoomLabel" destination="gIu-kZ-dMN" id="I5R-Am-Um4"/>
                         <outlet property="roomname" destination="ZcV-Mw-Ayw" id="EhD-bP-ebS"/>
                         <outlet property="scanningButton" destination="1lY-Rs-h5o" id="h6S-Wj-vfn"/>
@@ -466,7 +476,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1134" y="72"/>
+            <point key="canvasLocation" x="1226" y="72"/>
         </scene>
         <!--SuccessVC-->
         <scene sceneID="qtD-72-m7E">
@@ -590,7 +600,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l9a-N0-mX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="360.80000000000001" y="897.30134932533736"/>
+            <point key="canvasLocation" x="332" y="900"/>
         </scene>
         <!--Feedback-->
         <scene sceneID="Rqk-8P-Z3h">
@@ -613,7 +623,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="if8-tK-BUb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1201" y="881"/>
+            <point key="canvasLocation" x="-1460" y="879"/>
         </scene>
     </scenes>
     <resources>

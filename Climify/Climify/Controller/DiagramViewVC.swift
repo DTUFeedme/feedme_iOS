@@ -14,28 +14,33 @@ class DiagramVC: UIViewController {
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var pieChart: PieChartView!
     @IBOutlet weak var roomLocationLabel: UILabel!
+    private var dataEntries = [PieChartDataEntry]()
     
-    private let climifyApi = ClimifyAPI()
     var room = ""
     var roomID = ""
     var time = Time.day
     var question = ""
     var questionID = ""
     var meIsSelected = true
-    private var dataEntries = [PieChartDataEntry]()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+        fetchFeedback()
+    }
     
     @IBAction func tapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    func setupUI(){
         bgView.layer.cornerRadius = 15
         bgView.layer.masksToBounds = true
         pieChart.layer.shadowColor = UIColor.black.cgColor
         pieChart.layer.shadowOpacity = 5
         pieChart.layer.shadowOffset = CGSize.zero
         pieChart.layer.shadowRadius = 15
-
+        
         roomLocationLabel.text = room
         pieChart.centerText = question
         
@@ -51,18 +56,20 @@ class DiagramVC: UIViewController {
         l.yEntrySpace = 0
         l.yOffset = 10
         l.textColor = .myCyan()
-        
-        getFeedback()
     }
     
-    private func getFeedback(){
-        climifyApi.getFeedback(questionID: questionID, roomID: roomID, time: time, me: meIsSelected) { answers, statusCode in
-            for answer in answers {
-                let dataEntry = PieChartDataEntry(value: Double(answer.answerCount))
-                dataEntry.label = answer.answerOption
-                self.dataEntries.append(dataEntry)
+    private func fetchFeedback(){
+        ClimifyAPI.sharedInstance.fetchFeedback(questionID: questionID, roomID: roomID, time: time, me: meIsSelected) { answers, error in
+            if error == nil {
+                for answer in answers! {
+                    let dataEntry = PieChartDataEntry(value: Double(answer.answerCount))
+                    dataEntry.label = answer.answerOption
+                    self.dataEntries.append(dataEntry)
+                }
+                self.updateChart()
+            } else {
+                self.roomLocationLabel.text = error?.errorDescription
             }
-            self.updateChart()
         }
     }
     

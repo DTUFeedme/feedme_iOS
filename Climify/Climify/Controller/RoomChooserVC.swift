@@ -14,11 +14,11 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     @IBOutlet weak var buildingPickerView: UIPickerView!
     @IBOutlet weak var saveChanges: UIButton!
     
-    private let climifyApi = ClimifyAPI()
-    var manuallyChangedRoomDelegate: ManuallyChangedRoomDelegate!
     private var buildings: [Building] = []
     private var selectedBuildingIndex = 0
     private var selectedRoomIndex = 0
+    
+    var manuallyChangedRoomDelegate: ManuallyChangedRoomDelegate!
     var currentRoom = ""
     
     @IBAction func hidePopUp(_ sender: Any) {
@@ -34,6 +34,20 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+        ClimifyAPI.sharedInstance.fetchBuildings() { buildings, error in
+            if error == nil {
+                self.buildings = buildings!
+                self.buildingPickerView.delegate = self
+                self.buildingPickerView.dataSource = self
+                self.buildingPickerView.reloadAllComponents()
+            } else {
+                print(error)
+            }
+        }
+    }
+    
+    func setupUI(){
         if currentRoom == "" {
             choosenRoomLabel.text = "couldn't estimate your location 😱"
         } else {
@@ -51,16 +65,6 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         bgView.layer.cornerRadius = 15
         bgView.layer.masksToBounds = true
         
-        climifyApi.getBuildings() { buildings, statusCode in
-            if statusCode == HTTPCode.SUCCES {
-                self.buildings = buildings
-                self.buildingPickerView.delegate = self
-                self.buildingPickerView.dataSource = self
-                self.buildingPickerView.reloadAllComponents()
-            } else {
-                print(statusCode)
-            }
-        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

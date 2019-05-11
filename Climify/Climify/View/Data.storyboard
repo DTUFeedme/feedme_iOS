@@ -52,9 +52,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YIb-TV-d7q">
                                 <rect key="frame" x="186.5" y="574" width="188.5" height="43"/>
                                 <color key="backgroundColor" red="0.098039215690000001" green="0.70980392160000005" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="43" id="vns-Uy-W1X"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
                                 <state key="normal" title="everyone">
                                     <color key="titleColor" red="0.16078431369999999" green="0.16862745100000001" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -275,7 +272,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XUY-Il-itg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1016.8" y="-58.020989505247378"/>
+            <point key="canvasLocation" x="1018" y="-162"/>
         </scene>
         <!--DiagramVC-->
         <scene sceneID="2AA-Iw-wcm">
@@ -352,7 +349,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1726" y="-46"/>
+            <point key="canvasLocation" x="1886" y="-16"/>
         </scene>
         <!--pick building and room-->
         <scene sceneID="LGb-Wf-NjC">
