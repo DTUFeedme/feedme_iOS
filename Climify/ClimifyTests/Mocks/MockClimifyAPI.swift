@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 @testable import Climify
 
 class MockClimifyAPI {
@@ -106,19 +105,83 @@ class MockClimifyAPI {
                     "name": "Rum1",
                     "building": "5cd491da2fc512294ee17df9",
                     "__v": 0
+                ],
+                [
+                    "_id": "5cd7e911cd7521362637208f",
+                    "name": "Test Room",
+                    "building": "5cd491da2fc512294ee17df9",
+                    "__v": 0
                 ]
             ]
+        ],
+        [
+            "name": "Building 308",
+            "_id": "5cd7fa95cd75213626372096",
+            "rooms": []
         ]
     ]
     
+    let mockLoginResponse = ["x-auth-token": "1234567810"]
+    
+    let mockPostRoomResponse: [String : Any] = [
+        "_id": "5cd7e911cd7521362637208f",
+        "name": "Test Room",
+        "building": "5cd491da2fc512294ee17df9",
+        "__v": 0
+        ]
+    
+    let mockPostSignalMapResponse: [String : Any] = [
+        "_id" : "5cd7f39ccd75213626372092",
+        "isActive" : false,
+        "beacons" : [
+            [
+                "_id" : "5cd71058cd752136263717ea",
+                "signals" : [
+                    -57.200000000000003
+                ]
+            ]
+        ],
+        "__v" : 0,
+        "room" : [
+            "_id" : "5cd710d0cd752136263717eb",
+            "__v" : 0,
+            "building" : "5cd491da2fc512294ee17df9",
+            "name" : "Rum1"
+        ]
+    ]
+    
+    
 }
 extension MockClimifyAPI: ClimifyAPIProtocol {
+    
     func postSignalMap(signalMap: [Any], roomid: String?, buildingId: String?, completion: @escaping (Room?, ServiceError?) -> Void) {
-        <#code#>
+        if shouldReturnError {
+            completion(nil, ServiceError.error(description: ""))
+        } else {
+            if let room = mockPostSignalMapResponse["room"] as! [String: Any]? {
+                if let id = room["_id"] as? String, let name = room["name"] as? String {
+                    let room = Room(id: id, name: name)
+                    completion(room, nil)
+                } else {
+                    completion(nil, ServiceError.error(description: ""))
+                }
+            } else {
+                completion(nil, ServiceError.error(description: ""))
+            }
+        }
     }
     
     func postRoom(buildingId: String, name: String, completion: @escaping (String?, ServiceError?) -> Void) {
-        <#code#>
+        
+        if shouldReturnError {
+            completion(nil, ServiceError.error(description: ""))
+        } else {
+            if let roomId = mockPostRoomResponse["_id"] as! String? {
+                completion(roomId, nil)
+            } else {
+                completion(nil, ServiceError.error(description: ""))
+            }
+        }
     }
     
     
@@ -212,6 +275,7 @@ extension MockClimifyAPI: ClimifyAPIProtocol {
     
     
     func fetchBeacons(completion: @escaping ([Beacon]?, ServiceError?) -> Void) {
+        print("########")
         if shouldReturnError {
             completion(nil, ServiceError.error(description: ""))
         } else {
@@ -277,7 +341,11 @@ extension MockClimifyAPI: ClimifyAPIProtocol {
         if shouldReturnError {
             completion(ServiceError.error(description: ""))
         } else {
-            completion(nil)
+            if let _ = mockLoginResponse["x-auth-token"] as String? {
+                completion(nil)
+            } else {
+                completion(ServiceError.error(description: ""))
+            }
         }
     }
 }

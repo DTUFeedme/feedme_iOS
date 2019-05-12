@@ -18,7 +18,7 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     private var selectedBuildingIndex = 0
     private var selectedRoomIndex = 0
     
-    var manuallyChangedRoomDelegate: ManuallyChangedRoomDelegate!
+    var manuallyChangedRoomDelegate: ManuallyChangedRoomProtocol!
     var currentRoom = ""
     
     @IBAction func hidePopUp(_ sender: Any) {
@@ -26,10 +26,10 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     }
     
     @IBAction func doneButton(_ sender: Any) {
-        if let name = buildings[selectedBuildingIndex].rooms?[selectedRoomIndex].name, let roomid = buildings[selectedBuildingIndex].rooms?[selectedRoomIndex].id {
+        if let name = buildings[safe: selectedBuildingIndex]?.rooms?[selectedRoomIndex].name, let roomid = buildings[safe: selectedBuildingIndex]?.rooms?[selectedRoomIndex].id {
             manuallyChangedRoomDelegate.roomchanged(roomname: name, roomid: roomid)
-            dismiss(animated: true, completion: nil)
         }
+        dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -143,10 +143,6 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-}
-
-protocol ManuallyChangedRoomDelegate {
-    func roomchanged(roomname: String, roomid: String)
 }
 
 

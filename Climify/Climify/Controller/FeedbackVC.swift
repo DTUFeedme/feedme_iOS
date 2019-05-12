@@ -30,7 +30,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private var hasStartedLocation = false
     var currentRoomID: String = ""
     var currentRoomName: String = ""
-    var userChangedRoomDelegate: UserChangedRoomDelegate!
+    var userChangedRoomDelegate: FoundNewRoomProtocol!
 
     
     override func viewDidAppear(_ animated: Bool) {
@@ -256,7 +256,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension FeedbackVC: UserChangedRoomDelegate {
+extension FeedbackVC: FoundNewRoomProtocol {
     
     func userChangedRoom(roomname: String, roomid: String) {
         if roomid.isEmpty {

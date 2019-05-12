@@ -11,26 +11,46 @@ import Alamofire
 @testable import Climify
 
 class ClimifyAPITest: XCTestCase {
-    
+ 
     let api = MockClimifyAPI()
-    
     override func setUp() {
+       
     }
 
     override func tearDown() {
     }
 
     func testLogin() {
-        let email = "a@a.dk"
-        let password = "12345"
+        
+        let testEmail = "a@a.dk"
+        let testPassword = "12345"
         
         api.shouldReturnError = true
-        api.login(email: email, password: password) { error in
+        api.login(email: testEmail, password: testPassword) { error in
             XCTAssertNotNil(error)
         }
         api.shouldReturnError = false
-        api.login(email: email, password: password) { error in
+        api.login(email: testEmail, password: testPassword) { error in
             XCTAssertNil(error)
+        }
+    }
+    
+    func testPostRoom() {
+        api.shouldReturnError = true
+        
+        let testRoomId = "5cd7e911cd7521362637208f"
+        
+        api.postRoom(buildingId: "id", name: "name") { roomId, error in
+            XCTAssertNotNil(error)
+            XCTAssertNil(roomId)
+        }
+        
+        
+        api.shouldReturnError = false
+        api.postRoom(buildingId: "id", name: "name") { roomId, error in
+            XCTAssertNil(error)
+            XCTAssertNotNil(roomId)
+            XCTAssertEqual(testRoomId, roomId)
         }
     }
     
@@ -42,6 +62,7 @@ class ClimifyAPITest: XCTestCase {
         }
         api.shouldReturnError = false
         let question = (question: "How did you perceive the indoor air humidity?", questionId: "", answeredCount: 1)
+        
         api.fetchAnsweredQuestions(roomID: "id", time: Time.day, me: true) { questions, error in
             XCTAssertNil(error)
             XCTAssertEqual(question.question, questions?.first?.question)
@@ -85,7 +106,27 @@ class ClimifyAPITest: XCTestCase {
             XCTAssertEqual(buildings?.first?.rooms?.first?.name, building.rooms?.first?.name)
 
         }
+    }
+    
+    func testPostSignalMap(){
+        let signalMap = [["beaconId": "5cd71058cd752136263717ea", "signals": [-56.8]]]
+        let roomId = "5cd710d0cd752136263717eb"
+        let buildingId = "5cd491da2fc512294ee17df9"
         
+        api.shouldReturnError = true
+        
+        api.postSignalMap(signalMap: signalMap, roomid: nil, buildingId: buildingId) { room, error in
+            XCTAssertNil(room)
+            XCTAssertNotNil(error)
+        }
+        
+        api.shouldReturnError = false
+        
+        api.postSignalMap(signalMap: signalMap, roomid: nil, buildingId: buildingId) { room, error in
+            XCTAssertNil(error)
+            XCTAssertNotNil(room)
+            XCTAssertEqual(room?.id, roomId)
+        }
     }
     
     func testFetchQuestions(){
@@ -129,10 +170,6 @@ class ClimifyAPITest: XCTestCase {
         api.fetchToken(){ error in
             XCTAssertNil(error)
         }
-    }
-    
-    func testPostRoom() {
-        
     }
     
     func testFetchFeedback(){

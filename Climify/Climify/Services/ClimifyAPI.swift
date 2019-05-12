@@ -318,12 +318,13 @@ extension ClimifyAPI: ClimifyAPIProtocol {
         } else if let buildingid = buildingId {
             json["buildingId"] = buildingid
         }
-        
+        print(json)
         let url = "\(baseUrl)/signalmaps"
         AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
             .responseJSON { response in
                 if response.response?.statusCode == 200 {
                     let jsonResult = JSON(response.result.value as Any)
+                    print(jsonResult)
                     if let room = jsonResult["room"].dictionaryObject {
                         if let id = room["_id"] as? String, let name = room["name"] as? String {
                             let room = Room(id: id, name: name)

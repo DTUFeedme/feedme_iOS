@@ -291,7 +291,7 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 }
 
 // PROTOCOLS AND DELEGATES
-extension DataVC: ManuallyChangedRoomDelegate {
+extension DataVC: ManuallyChangedRoomProtocol {
     func roomchanged(roomname: String, roomid: String) {
         manuallyChangedRoom = true
         chosenRoom = roomname
@@ -300,7 +300,7 @@ extension DataVC: ManuallyChangedRoomDelegate {
         fetchAnsweredQuestions()
     }
 }
-extension DataVC: UserChangedRoomDelegate {
+extension DataVC: FoundNewRoomProtocol {
     func userChangedRoom(roomname: String, roomid: String) {
         print("--- I entered")
         currentRoom = roomname

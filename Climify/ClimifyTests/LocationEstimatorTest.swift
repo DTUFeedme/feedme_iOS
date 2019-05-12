@@ -12,6 +12,7 @@ import XCTest
 
 class LocationEstimatorTest: XCTestCase {
     
+    var locationEstimator = MockLocationEstimator()
     var room1: Room?
     var room2: Room?
     var room3: Room?
@@ -33,8 +34,16 @@ class LocationEstimatorTest: XCTestCase {
         
     }
 
-    func testExample() {
+    func testFetchBeacons() {
+        print(locationEstimator.api)
+        locationEstimator.api.fetchBeacons() { beacons, error in
+            print("beacons :", beacons, "error: ",error)
+        }
+        locationEstimator.startLocating()
+        print("beacons: ", locationEstimator.serverBeacons)
 //        LocationEstimator.sharedInstance.addBeacon
+        
+        
     }
 
     func testPerformanceExample() {

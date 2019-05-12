@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class LocationEstimator: NSObject, CLLocationManagerDelegate {
+class LocationEstimator: NSObject, CLLocationManagerDelegate, LocationEstimatorProtocol {
     
     static let sharedInstance = LocationEstimator()
     private var manager:CLLocationManager = CLLocationManager()
@@ -22,7 +22,11 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
     private var buildingId: String?
     private var currentRoomId: String = ""
     var isMappingRoom = false
-    var userChangedRoomDelegate: UserChangedRoomDelegate?
+    var userChangedRoomDelegate: FoundNewRoomProtocol?
+    
+    private override init() {
+        
+    }
     
     func startLocating(){
         fetchBeacons()
@@ -30,7 +34,7 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
         manager.requestAlwaysAuthorization()
     }
     
-    private func fetchBeacons(){
+    func fetchBeacons(){
         ClimifyAPI.sharedInstance.fetchBeacons() { beacons, error in
             if error == nil {
                 self.serverBeacons = beacons!
@@ -48,10 +52,6 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
                 print(error?.errorDescription as Any)
             }
         }
-    }
-    
-    private override init() {
-        
     }
     
     
@@ -75,13 +75,13 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
         timerfetchRoom.invalidate()
     }
 
-    private func initSignalMap(){
+    func initSignalMap(){
         for beacon in serverBeacons {
             signalMap[beacon.uuid] = []
         }
     }
     
-    private func setupRegions(){
+    func setupRegions(){
         for beacon in serverBeacons {
             if let uuid = UUID(uuidString: beacon.uuid){
                 let name = beacon.name
@@ -91,7 +91,7 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    private func rangeBeacons(){
+    func rangeBeacons(){
         for region in regions {
             manager.startRangingBeacons(in: region)
         }
@@ -105,7 +105,6 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
             rangeBeacons()
         case .notDetermined:
             manager.requestAlwaysAuthorization()
-            
         default:
             print("Error")
         }
@@ -118,15 +117,14 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
     }
     
     
-    private func scanRoom(rangedBeacon: CLBeacon){
+    func scanRoom(rangedBeacon: CLBeacon){
         if let beacon = getBeacon(id: rangedBeacon.proximityUUID.uuidString) {
             buildingId = beacon.building.id
-            
             beacon.addRssi(rssi: rangedBeacon.rssi)
         }
     }
     
-    @objc private func addToSignalMap() {
+    @objc func addToSignalMap() {
         
         for beacon in beacons {
             if isMappingRoom {
@@ -137,12 +135,13 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    @objc private func fetchRoom() {
+    @objc func fetchRoom() {
         let serverSignalMap = convertSignalMapToServer(signalMap: signalMap)
         if let buildingId = buildingId {
             if serverSignalMap.isEmpty {
                 return
             }
+            print(serverSignalMap)
             ClimifyAPI.sharedInstance.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) { room, error in
                 if error == nil {
                     self.signalMap.removeAll()
@@ -178,24 +177,23 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    private func convertSignalMapToServer(signalMap: [String: [Double]]) -> [Any] {
+    func convertSignalMapToServer(signalMap: [String: [Double]]) -> [Any] {
         var serverSignalMap: [Any] = []
-//        print("2. ", signalMap)
+
         for beacon in beacons {
             var beaconDict: [String: Any] = [:]
             beaconDict["beaconId"] = beacon.id
             beaconDict["signals"] = signalMap[beacon.uuid]
             serverSignalMap.append(beaconDict)
         }
-//        print("3. ", serverSignalMap)
         return serverSignalMap
     }
     
     
-    private func pushSignalMap(roomid: String, buildingId: String, completion: @escaping (_ room: Room?) -> Void) {
+    func pushSignalMap(roomid: String, buildingId: String, completion: @escaping (_ room: Room?) -> Void) {
 
         let serverSignalMap = convertSignalMapToServer(signalMap: signalMap)
-        ClimifyAPI.sharedInstance.postSignalMap(signalMap: serverSignalMap, roomid: roomid, buildingId: buildingId) {
+        ClimifyAPI.sharedInstance.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) {
             room, error in
             if error == nil {
                 completion(room)
@@ -205,20 +203,14 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    private func addBeacons(){
+    func addBeacons(){
         for beacon in serverBeacons {
             let beacon = AppBeacon(id: beacon.id, uuid: beacon.uuid, building: beacon.building, name: beacon.name)
             beacons.append(beacon)
         }
     }
     
-    private func getBeacon(id: String) -> AppBeacon? {
+    func getBeacon(id: String) -> AppBeacon? {
         return beacons.first(where: { (element) -> Bool in element.uuid == id.lowercased()})
     }
 }
-
-protocol UserChangedRoomDelegate {
-    func userChangedRoom(roomname: String, roomid: String)
-}
-
-

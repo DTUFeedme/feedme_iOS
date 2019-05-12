@@ -68,7 +68,6 @@ class ScanningVC: UIViewController {
                 isScanning = !isScanning
             }
         }
-        
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
