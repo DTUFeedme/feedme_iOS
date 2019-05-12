@@ -36,8 +36,8 @@ class ScanningVC: UIViewController {
     
     @IBAction func startScanning(_ sender: Any) {
         if isScanning {
-            LocationEstimator.sharedInstance.postRoom(roomname: roomname.text!) { statusCode in
-                if statusCode == HTTPCode.SUCCESS {
+            LocationEstimator.sharedInstance.postRoom(roomname: roomname.text!) { error in
+                if error == nil {
                     self.message.text = "Succesfully saved room dimensions"
                     self.roomname.text = nil
                 } else {

@@ -45,7 +45,7 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
                     self.initTimerfetchRoom()
                 }
             } else {
-                print(error?.errorDescription)
+                print(error?.errorDescription as Any)
             }
         }
     }
@@ -135,7 +135,6 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
                 signalMap[beacon.uuid]? = [beacon.calcAverage()]
             }
         }
-//        print("Når jeg adder", signalMap)
     }
     
     @objc private func fetchRoom() {
@@ -144,34 +143,38 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
             if serverSignalMap.isEmpty {
                 return
             }
-            ClimifyAPI.sharedInstance.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) { statusCode, room in
-                self.signalMap.removeAll()
-                self.initSignalMap()
-                
-                if let roomId = room?.id, let roomname = room?.name {
-                    self.currentRoomId = roomId
-                    self.userChangedRoomDelegate?.userChangedRoom(roomname: roomname, roomid: roomId)
+            ClimifyAPI.sharedInstance.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) { room, error in
+                if error == nil {
+                    self.signalMap.removeAll()
+                    self.initSignalMap()
+                    if let roomId = room?.id, let roomname = room?.name {
+                        self.currentRoomId = roomId
+                        self.userChangedRoomDelegate?.userChangedRoom(roomname: roomname, roomid: roomId)
+                    }
+                } else {
+                    print(error?.errorDescription as Any)
                 }
             }
         }
     }
     
-    func postRoom(roomname: String, completion: @escaping (_ statusCode: Int) -> Void) {
-//        print("0. ", signalMap)
+    func postRoom(roomname: String, completion: @escaping (_ error: ServiceError?) -> Void) {
+        
         if let buildingId = buildingId {
             
-            ClimifyAPI.sharedInstance.postRoom(buildingId: buildingId, name: roomname) { statusCode, roomId in
-                
-                if statusCode == HTTPCode.SUCCESS {
-                    self.pushSignalMap(roomid: roomId, buildingId: buildingId) { callbackStatusCode in
-                        completion(callbackStatusCode)
+            ClimifyAPI.sharedInstance.postRoom(buildingId: buildingId, name: roomname) { roomId, error in
+                if error == nil {
+                    self.pushSignalMap(roomid: roomId!, buildingId: buildingId) { room in
+                        completion(error)
                         self.signalMap.removeAll()
                         self.initSignalMap()
                     }
                 } else {
-                    completion(statusCode)
+                    completion(error)
                 }
             }
+        } else {
+            completion(ServiceError.error(description: "Something went wrong, try again later"))
         }
     }
     
@@ -189,14 +192,16 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
     }
     
     
-    private func pushSignalMap(roomid: String, buildingId: String, completion: @escaping (_ statusCode: Int) -> Void) {
-//        print("1: ", signalMap)
+    private func pushSignalMap(roomid: String, buildingId: String, completion: @escaping (_ room: Room?) -> Void) {
+
         let serverSignalMap = convertSignalMapToServer(signalMap: signalMap)
-//        print("4. ", serverSignalMap)
         ClimifyAPI.sharedInstance.postSignalMap(signalMap: serverSignalMap, roomid: roomid, buildingId: buildingId) {
-            statusCode, roomId in
-//            print(statusCode)
-            completion(statusCode)
+            room, error in
+            if error == nil {
+                completion(room)
+            } else {
+                print(error?.errorDescription as Any)
+            }
         }
     }
     

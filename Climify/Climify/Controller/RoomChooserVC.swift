@@ -42,7 +42,7 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
                 self.buildingPickerView.dataSource = self
                 self.buildingPickerView.reloadAllComponents()
             } else {
-                print(error)
+                print(error as Any)
             }
         }
     }

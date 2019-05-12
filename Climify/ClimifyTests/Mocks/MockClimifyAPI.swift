@@ -86,6 +86,16 @@ class MockClimifyAPI {
         ]
     ]
     
+    let fetchFeedbackResponse = [
+    [
+        "answer": [
+            "_id": "5cd710f9cd752136263717f9",
+            "value": "Humid"
+        ],
+        "timesAnswered": 1
+        ]
+    ]
+    
     let mockFetchBuildingsResponse = [
         [
             "name": "Building 303",
@@ -103,6 +113,40 @@ class MockClimifyAPI {
     
 }
 extension MockClimifyAPI: ClimifyAPIProtocol {
+    func postSignalMap(signalMap: [Any], roomid: String?, buildingId: String?, completion: @escaping (Room?, ServiceError?) -> Void) {
+        <#code#>
+    }
+    
+    func postRoom(buildingId: String, name: String, completion: @escaping (String?, ServiceError?) -> Void) {
+        <#code#>
+    }
+    
+    
+    func fetchFeedback(questionID: String, roomID: String, time: Time, me: Bool, completion: @escaping ([(answerOption: String, answerCount: Int)]?, ServiceError?) -> Void) {
+        if shouldReturnError {
+            completion(nil, ServiceError.error(description: ""))
+        } else {
+            
+            var feedback: [(answerOption: String, answerCount: Int)] = []
+            
+            for element in fetchFeedbackResponse {
+                if let answerElement = element["answer"] as! [String:Any]? {
+                    print(answerElement)
+                    if let value = answerElement["value"] as! String?,
+                        let answerCount = element["timesAnswered"] as! Int? {
+                        let answer = (answerOption: value, answerCount: answerCount)
+                        feedback.append(answer)
+                    }
+                }
+            }
+            if feedback.isEmpty {
+                completion(nil, ServiceError.error(description: ""))
+            } else {
+                completion(feedback, nil)
+            }
+        }
+    }
+    
     
     func fetchToken(completion: @escaping (ServiceError?) -> Void) {
         if shouldReturnError {

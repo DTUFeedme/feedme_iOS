@@ -128,7 +128,29 @@ class ClimifyAPITest: XCTestCase {
         api.shouldReturnError = false
         api.fetchToken(){ error in
             XCTAssertNil(error)
-            
+        }
+    }
+    
+    func testPostRoom() {
+        
+    }
+    
+    func testFetchFeedback(){
+        api.shouldReturnError = true
+        
+        api.fetchFeedback(questionID: "id", roomID: "id", time: Time.day, me: true) { feedback, error in
+            XCTAssertNotNil(error)
+            XCTAssertNil(feedback)
+        }
+        
+        api.shouldReturnError = false
+        let localFeedback = [(answerOption: "Humid", answerCount: 1)]
+        api.fetchFeedback(questionID: "id", roomID: "id", time: Time.day, me: true) { feedback, error in
+            XCTAssertNil(error)
+            XCTAssertNotNil(feedback)
+            XCTAssertEqual(localFeedback.first?.answerOption, feedback?.first?.answerOption)
+            XCTAssertEqual(localFeedback.first?.answerCount, feedback?.first?.answerCount)
+            XCTAssertEqual(localFeedback.count, feedback?.count)
         }
     }
 

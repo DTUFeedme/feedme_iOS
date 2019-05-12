@@ -274,10 +274,12 @@ extension ClimifyAPI: ClimifyAPIProtocol {
         }
     }
     
-    func postRoom(buildingId: String, name: String,  completion: @escaping (_ statusCode: Int, _ roomId: String) -> Void) {
+    func postRoom(buildingId: String, name: String,  completion: @escaping (_ roomId: String?, _ error: ServiceError?) -> Void) {
         guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
+            completion(nil, handleError(response: genericErrorMessage))
             return
         }
+        
         let headers: HTTPHeaders = ["x-auth-token": token]
         var json: [String : Any] = [:]
         json["buildingId"] = buildingId
@@ -286,28 +288,24 @@ extension ClimifyAPI: ClimifyAPIProtocol {
         let url = "\(baseUrl)/rooms"
         AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
             .responseJSON { response in
-                
-                guard let statusCode = response.response?.statusCode else { return }
-                switch response.result {
-                case.success(let value):
-                    let json = JSON(value)
+                if response.response?.statusCode == 200 {
+                    let json = JSON(response.result.value)
                     if let roomId = json["_id"].string {
-                        completion(statusCode, roomId)
+                        completion(roomId, nil)
                     } else {
-                        completion(statusCode, "")
+                        completion(nil, self.handleError(response: response.result))
                     }
-                case.failure(let error):
-                    completion(statusCode, "")
-                    print("postRoom",error)
-                    
+                } else {
+                    completion(nil, self.handleError(response: response.result))
                 }
         }
     }
     
     
-    func postSignalMap(signalMap: [Any], roomid: String?, buildingId: String?, completion: @escaping (_ statusCode: Int, _ room: Room?) -> Void) {
+    func postSignalMap(signalMap: [Any], roomid: String?, buildingId: String?, completion: @escaping (_ room: Room?, _ error: ServiceError?) -> Void) {
         
         guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
+            completion(nil, handleError(response: genericErrorMessage))
             return
         }
         
@@ -324,25 +322,20 @@ extension ClimifyAPI: ClimifyAPIProtocol {
         let url = "\(baseUrl)/signalmaps"
         AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
             .responseJSON { response in
-                
-                guard let statusCode = response.response?.statusCode else { return }
-                switch response.result {
-                case.success(let value):
-                    let jsonResult = JSON(value)
+                if response.response?.statusCode == 200 {
+                    let jsonResult = JSON(response.result.value as Any)
                     if let room = jsonResult["room"].dictionaryObject {
                         if let id = room["_id"] as? String, let name = room["name"] as? String {
                             let room = Room(id: id, name: name)
-                            completion(statusCode, room)
+                            completion(room, nil)
                         } else {
-                            completion(statusCode, nil)
+                            completion(nil, self.handleError(response: response.result))
                         }
                     } else {
-                        completion(statusCode, nil)
+                        completion(nil, self.handleError(response: response.result))
                     }
-                case.failure(let error):
-                    print("postSignalMap",error)
-                    completion(statusCode, nil)
-                    
+                } else {
+                    completion(nil, self.handleError(response: response.result))
                 }
         }
     }
