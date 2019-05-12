@@ -128,7 +128,7 @@ class ClimifyAPITest: XCTestCase {
             XCTAssertEqual(room?.id, roomId)
         }
     }
-    
+   
     func testFetchQuestions(){
         api.shouldReturnError = true
         api.fetchQuestions(currentRoomID: "5cd710d0cd752136263717eb") { questions, error in

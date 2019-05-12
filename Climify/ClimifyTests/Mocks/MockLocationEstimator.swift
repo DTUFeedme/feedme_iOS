@@ -37,6 +37,19 @@ class MockLocationEstimator {
     }
 }
 extension MockLocationEstimator: LocationEstimatorProtocol {
+    func convertSignalMapToServer(signalMap: [String : [Double]]) -> [Any] {
+        var serverSignalMap: [Any] = []
+        
+        for beacon in beacons {
+            var beaconDict: [String: Any] = [:]
+            beaconDict["beaconId"] = beacon.id
+            beaconDict["signals"] = signalMap[beacon.uuid]
+            serverSignalMap.append(beaconDict)
+        }
+        return serverSignalMap
+    }
+    
+    
     func initTimerAddToSignalMap() {
         // SIMULATES TIMER
         addToSignalMap()
@@ -50,11 +63,13 @@ extension MockLocationEstimator: LocationEstimatorProtocol {
     
     
     func startLocating() {
+        fetchBeacons()
+    }
+    
+    
+    func fetchBeacons() {
         api.fetchBeacons() { beacons, error in
-            print("test")
             if error == nil {
-                print("ho")
-                print(beacons)
                 self.serverBeacons = beacons!
                 self.addBeacons()
                 self.initSignalMap()
@@ -67,64 +82,109 @@ extension MockLocationEstimator: LocationEstimatorProtocol {
                     self.initTimerfetchRoom()
                 }
             } else {
-                print("hey")
+                return
             }
         }
     }
     
-    
-    func fetchBeacons() {
-        
-    }
-    
     func initSignalMap() {
-        
+        for beacon in serverBeacons {
+            signalMap[beacon.uuid] = []
+        }
     }
     
     func setupRegions() {
-        
+        for beacon in serverBeacons {
+            if let uuid = UUID(uuidString: beacon.uuid){
+                let name = beacon.name
+                let region = CLBeaconRegion(proximityUUID: uuid, identifier: name)
+                regions.append(region)
+            }
+        }
     }
+    
+    func addToSignalMap() {
+        for beacon in beacons {
+            if isMappingRoom {
+                signalMap[beacon.uuid]?.append(beacon.calcAverage())
+            } else {
+                signalMap[beacon.uuid]? = [beacon.calcAverage()]
+            }
+        }
+    }
+    
+    func addBeacons() {
+        for beacon in serverBeacons {
+            let beacon = AppBeacon(id: beacon.id, uuid: beacon.uuid, building: beacon.building, name: beacon.name)
+            beacons.append(beacon)
+        }
+    }
+    
+    func getBeacon(id: String) -> AppBeacon? {
+        return beacons.first(where: { (element) -> Bool in element.uuid == id.lowercased()})
+    }
+    
+    // Pure BLE related methods, it let's the manager start ranging for nearby beacons, so not really feasible to test
     
     func rangeBeacons() {
         
     }
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didRangeBeacons rangedBeacons: [CLBeacon], in region: CLBeaconRegion) {
-        
-    }
-    
-    func scanRoom(rangedBeacon: CLBeacon) {
-        
-    }
-    
-    func addToSignalMap() {
-        
-    }
+    // Since they are basically the same as in MockClimifyAPI it is not worth testing
     
     func fetchRoom() {
+        let serverSignalMap = convertSignalMapToServer(signalMap: signalMap)
+        if let buildingId = buildingId {
+            if serverSignalMap.isEmpty {
+                return
+            }
+            api.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) { room, error in
+                if error == nil {
+                    self.signalMap.removeAll()
+                    self.initSignalMap()
+                    if let roomId = room?.id, let roomname = room?.name {
+                        self.currentRoomId = roomId
+                    }
+                } else {
+                    print(error?.errorDescription as Any)
+                }
+            }
+        }
+    }
+    
+    
+    func postRoom(roomname: String, completion: @escaping (_ error: ServiceError?) -> Void) {
+        if let buildingId = buildingId {
+            
+            api.postRoom(buildingId: buildingId, name: roomname) { roomId, error in
+                if error == nil {
+                    self.pushSignalMap(roomid: roomId!, buildingId: buildingId) { room in
+                        completion(error)
+                        self.signalMap.removeAll()
+                        self.initSignalMap()
+                    }
+                } else {
+                    completion(error)
+                }
+            }
+        } else {
+            completion(ServiceError.error(description: "Something went wrong, try again later"))
+        }
+    }
+    
+    
+    func pushSignalMap(roomid: String, buildingId: String, completion: @escaping (_ room: Room?) -> Void) {
+        let serverSignalMap = convertSignalMapToServer(signalMap: signalMap)
         
+        api.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) {
+            room, error in
+            if error == nil {
+                completion(room)
+            } else {
+                print(error?.errorDescription as Any)
+            }
+        }
     }
-    
-    func postRoom(roomname: String, completion: @escaping (ServiceError?) -> Void) {
-        completion(nil)
-    }
-    
-    func pushSignalMap(roomid: String, buildingId: String, completion: @escaping (Room?) -> Void) {
-        completion(nil)
-    }
-    
-    func addBeacons() {
-    }
-    
-    func getBeacon(id: String) -> AppBeacon? {
-        return nil
-    }
-    
-    
 }
 
  

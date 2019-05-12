@@ -275,7 +275,6 @@ extension MockClimifyAPI: ClimifyAPIProtocol {
     
     
     func fetchBeacons(completion: @escaping ([Beacon]?, ServiceError?) -> Void) {
-        print("########")
         if shouldReturnError {
             completion(nil, ServiceError.error(description: ""))
         } else {
