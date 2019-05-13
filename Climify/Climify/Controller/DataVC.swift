@@ -113,6 +113,7 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // NETWORKING
     
     private func fetchAnsweredQuestions(){
+        print(chosenRoomId)
         ClimifyAPI.sharedInstance.fetchAnsweredQuestions(roomID: chosenRoomId, time: time, me: mydataIsSelected) { questions, error in
             if error == nil {
                 self.showUI()

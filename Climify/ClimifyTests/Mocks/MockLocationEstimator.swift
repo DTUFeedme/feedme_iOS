@@ -130,8 +130,6 @@ extension MockLocationEstimator: LocationEstimatorProtocol {
         
     }
     
-    // Since they are basically the same as in MockClimifyAPI it is not worth testing
-    
     func fetchRoom() {
         let serverSignalMap = convertSignalMapToServer(signalMap: signalMap)
         if let buildingId = buildingId {
@@ -142,7 +140,7 @@ extension MockLocationEstimator: LocationEstimatorProtocol {
                 if error == nil {
                     self.signalMap.removeAll()
                     self.initSignalMap()
-                    if let roomId = room?.id, let roomname = room?.name {
+                    if let roomId = room?.id {
                         self.currentRoomId = roomId
                     }
                 } else {

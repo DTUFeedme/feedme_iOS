@@ -39,7 +39,6 @@ class LocationEstimatorTest: XCTestCase {
         testBeacons = [beacon1!,beacon2!]
         testAppBeacons = [appBeacon, appBeacon1, appBeacon2]
         signalMap = ["signals": [-56.8]]
-      
     }
 
     override func tearDown() {
@@ -167,9 +166,6 @@ class LocationEstimatorTest: XCTestCase {
         locationEstimator.buildingId = "12345"
         locationEstimator.signalMap = signalMap!
         locationEstimator.beacons = testAppBeacons!
-        print(locationEstimator.signalMap)
-        print(locationEstimator.convertSignalMapToServer(signalMap: signalMap!))
-        
         locationEstimator.fetchRoom()
         XCTAssertNotEqual(locationEstimator.currentRoomId, "")
     }

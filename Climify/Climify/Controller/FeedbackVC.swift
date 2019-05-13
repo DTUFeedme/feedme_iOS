@@ -214,6 +214,8 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.questions = questions!
                 self.answers = questions![self.currentQuestionNo].answerOptions
                 self.reloadUI()
+                // test det her
+                self.tableView.reloadData()
                 self.updateUI()
                 if let question = self.questions.first {
                     self.questionLabel.text = question.question

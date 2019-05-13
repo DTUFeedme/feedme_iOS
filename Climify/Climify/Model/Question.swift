@@ -19,10 +19,4 @@ struct Question {
         var id: String
         var value: String
     }
-    
-    init(questionID: String, question: String, answerOptions: [answerOption]) {
-        self.answerOptions = answerOptions
-        self.id = questionID
-        self.question = question
-    }
 }

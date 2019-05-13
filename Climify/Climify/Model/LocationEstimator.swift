@@ -141,7 +141,7 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate, LocationEstimatorP
             if serverSignalMap.isEmpty {
                 return
             }
-            print(serverSignalMap)
+    
             ClimifyAPI.sharedInstance.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) { room, error in
                 if error == nil {
                     self.signalMap.removeAll()

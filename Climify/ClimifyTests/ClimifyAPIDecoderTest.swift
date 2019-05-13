@@ -7,19 +7,30 @@
 //
 
 import XCTest
-import Alamofire
 @testable import Climify
 
-class ClimifyAPITest: XCTestCase {
+class ClimifyAPIDecoderTest: XCTestCase {
  
     let api = MockClimifyAPI()
-    override func setUp() {
-       
+    
+    func testPostRoom() {
+        api.shouldReturnError = true
+        
+        let testRoomId = "5cd7e911cd7521362637208f"
+        
+        api.postRoom(buildingId: "id", name: "name") { roomId, error in
+            XCTAssertNotNil(error)
+            XCTAssertNil(roomId)
+        }
+        
+        api.shouldReturnError = false
+        api.postRoom(buildingId: "id", name: "name") { roomId, error in
+            XCTAssertNil(error)
+            XCTAssertNotNil(roomId)
+            XCTAssertEqual(testRoomId, roomId)
+        }
     }
-
-    override func tearDown() {
-    }
-
+    
     func testLogin() {
         
         let testEmail = "a@a.dk"
@@ -35,24 +46,6 @@ class ClimifyAPITest: XCTestCase {
         }
     }
     
-    func testPostRoom() {
-        api.shouldReturnError = true
-        
-        let testRoomId = "5cd7e911cd7521362637208f"
-        
-        api.postRoom(buildingId: "id", name: "name") { roomId, error in
-            XCTAssertNotNil(error)
-            XCTAssertNil(roomId)
-        }
-        
-        
-        api.shouldReturnError = false
-        api.postRoom(buildingId: "id", name: "name") { roomId, error in
-            XCTAssertNil(error)
-            XCTAssertNotNil(roomId)
-            XCTAssertEqual(testRoomId, roomId)
-        }
-    }
     
     func testFetchAnsweredQuestions() {
         api.shouldReturnError = true
@@ -136,7 +129,7 @@ class ClimifyAPITest: XCTestCase {
             XCTAssertNotNil(error)
         }
         api.shouldReturnError = false 
-        let question = Question(questionID: "5cd710f9cd752136263717f6", question: "How did you perceive the indoor air humidity?", answerOptions: [Question.answerOption(id: "", value: "Very humid"), Question.answerOption(id: "", value: "Humid")])
+        let question = Question(id: "5cd710f9cd752136263717f6", question: "How did you perceive the indoor air humidity?", answerOptions: [Question.answerOption(id: "", value: "Very humid"), Question.answerOption(id: "", value: "Humid")])
         
         api.fetchQuestions(currentRoomID: "5cd710d0cd752136263717eb") { questions, error in
             XCTAssertNotNil(questions)

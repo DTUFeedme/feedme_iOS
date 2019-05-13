@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
         
+        
         if UserDefaults.standard.contains(key: "isAdmin") {
             let admin = UserDefaults.standard.bool(forKey: "isAdmin")
             if admin {

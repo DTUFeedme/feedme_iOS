@@ -15,12 +15,22 @@ class ClimifyAPI {
 
     private let baseUrl = "http://climify.compute.dtu.dk/api"
     private let genericErrorMessage: String = "Something went wrong, try again later"
+    private let decoder = ClimifyAPIDecoder()
 
     static let sharedInstance = ClimifyAPI()
-
+    
     private init() {
-        
+
     }
+    
+    func handleError(response: Any?) -> ServiceError {
+        if let response = response as? String {
+            return ServiceError.error(description: response)
+        } else {
+            return  ServiceError.error(description: genericErrorMessage)
+        }
+    }
+    
     
     struct Connectivity {
         static let sharedInstance = NetworkReachabilityManager()!
@@ -32,7 +42,8 @@ class ClimifyAPI {
 
 extension ClimifyAPI: ClimifyAPIProtocol {
     
-    func fetchAnsweredQuestions(roomID: String, time: Time, me: Bool, completion: @escaping (_ questions: [(question: String, questionId: String, answeredCount: Int)]?, _ error: ServiceError?) -> Void){
+    func fetchAnsweredQuestions(roomID: String, time: Time, me: Bool, completion: @escaping (_ questions: [AnsweredQuestion]?, _ error: ServiceError?) -> Void){
+        
         guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
             completion(nil, handleError(response: genericErrorMessage))
             return
@@ -40,27 +51,17 @@ extension ClimifyAPI: ClimifyAPIProtocol {
         let headers: HTTPHeaders = [ "x-auth-token": token]
         
         var user = "all"
-        if me {
-            user = "me"
-        }
+        if me { user = "me" }
         
         let url = "\(baseUrl)/feedback/answeredquestions/?room=\(roomID)&user=\(user)&t=\(time.rawValue)"
-        var questions: [(question: String, questionId: String, answeredCount: Int)] = []
+        
         AF.request(url, method: .get, headers: headers).responseJSON{ response in
             if response.response?.statusCode == 200 {
-                let json = JSON(response.result.value as Any)
-                for element in json {
-                    if let questionName = element.1["question"]["value"].string,
-                        let questionId = element.1["question"]["_id"].string,
-                        let questionCount = element.1["timesAnswered"].int {
-                        let question = (question: questionName,questionId: questionId,answeredCount: questionCount)
-                        questions.append(question)
-                    }
-                }
-                if questions.isEmpty {
+                let answeredQuestions = self.decoder.decodeFetchAnsweredQuestion(data: response.result.value as Any)
+                if answeredQuestions.isEmpty {
                     completion(nil, self.handleError(response: response.result.value))
                 } else {
-                    completion(questions, nil)
+                    completion(answeredQuestions, nil)
                 }
             } else {
                 completion(nil, self.handleError(response: response.result.value))
@@ -80,36 +81,18 @@ extension ClimifyAPI: ClimifyAPIProtocol {
             "roomId": currentRoomID
         ]
         
-        var questions: [Question] = []
         let url = "\(baseUrl)/questions"
         AF.request(url, method: .get, headers: headers).responseJSON { response in
             if response.response?.statusCode == 200 {
-                let json = JSON(response.result.value as Any)
-                for element in json {
-                    if let questionName = element.1["value"].string, let id = element.1["_id"].string, let answersJson = element.1["answerOptions"].array {
-                        
-                        var answerOptions: [Question.answerOption] = []
-                        for element in answersJson {
-                            if let answerValue = element["value"].string, let answerID = element["_id"].string {
-                                let answerOption = Question.answerOption(id: answerID, value: answerValue)
-                                answerOptions.append(answerOption)
-                            }
-                        }
-                        let question = Question(questionID: id, question: questionName, answerOptions: answerOptions)
-                        questions.append(question)
-                    }
-                }
+                let questions = self.decoder.decodeFetchQuestions(data: response.result.value as Any)
+                
                 if questions.isEmpty {
-                    completion(nil, ServiceError.error(description: self.genericErrorMessage))
+                    completion(nil, self.handleError(response: response.result.value))
                 } else {
                     completion(questions, nil)
                 }
             } else {
-                if let response = response.result.value as? String {
-                    completion(nil, ServiceError.error(description: response))
-                } else {
-                    completion(nil, ServiceError.error(description: self.genericErrorMessage))
-                }
+                completion(nil, self.handleError(response: response.result.value))
             }
         }
     }
@@ -121,25 +104,11 @@ extension ClimifyAPI: ClimifyAPIProtocol {
         }
         let headers: HTTPHeaders = [ "x-auth-token": token ]
         
-        var beacons: [Beacon] = []
-        
         let url = "\(baseUrl)/beacons"
         AF.request(url, method: .get, headers: headers).responseJSON{ response in
             if response.response?.statusCode == 200 {
-                let json = JSON(response.result.value as Any)
-                for element in json {
-                    if let name = element.1["name"].string,
-                        let id = element.1["_id"].string,
-                        let uuid = element.1["uuid"].string,
-                        let building = element.1["building"].dictionary {
-                        
-                        if let buildingId = building["_id"]?.string, let buildingName = building["name"]?.string{
-                            let building = Building(id: buildingId, name: buildingName, rooms: nil)
-                            let beacon = Beacon(id: id, uuid: uuid, name: name, building: building)
-                            beacons.append(beacon)
-                        }
-                    }
-                }
+                let beacons = self.decoder.decodeFetchBeacons(data: response.result.value as Any)
+                
                 if beacons.isEmpty {
                     completion(nil, self.handleError(response: response.result.value))
                 } else {
@@ -151,16 +120,6 @@ extension ClimifyAPI: ClimifyAPIProtocol {
         }
     }
     
-    
-    func handleError(response: Any?) -> ServiceError {
-        if let response = response as? String {
-            return ServiceError.error(description: response)
-        } else {
-            return  ServiceError.error(description: genericErrorMessage)
-        }
-    }
-   
-    
     func fetchBuildings(completion: @escaping (_ buildings: [Building]?,_ error: ServiceError?) -> Void) {
         guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
             completion(nil, handleError(response: genericErrorMessage))
@@ -169,28 +128,10 @@ extension ClimifyAPI: ClimifyAPIProtocol {
         
         let headers: HTTPHeaders = [ "x-auth-token": token ]
         
-        var buildings: [Building] = []
         let url = "\(baseUrl)/buildings"
         AF.request(url, method: .get, headers: headers).responseJSON { response in
             if response.response?.statusCode == 200 {
-                let json = JSON(response.result.value as Any)
-                for building in json {
-                    var buildingRooms: [Room] = []
-                    if let buildingName = building.1["name"].string,
-                        let buildingId = building.1["_id"].string,
-                        let rooms = building.1["rooms"].array {
-                        for room in rooms {
-                            if let roomId = room["_id"].string,
-                                let roomName = room["name"].string {
-                                
-                                let buildingRoom = Room(id: roomId, name: roomName)
-                                buildingRooms.append(buildingRoom)
-                            }
-                        }
-                        let building = Building(id: buildingId, name: buildingName, rooms: buildingRooms)
-                        buildings.append(building)
-                    }
-                }
+                let buildings = self.decoder.decodeFetchBuildings(data: response.result.value as Any)
                 if buildings.isEmpty {
                     completion(nil, self.handleError(response: response.result))
                 } else {
@@ -206,7 +147,7 @@ extension ClimifyAPI: ClimifyAPIProtocol {
         let url = "\(baseUrl)/users"
         AF.request(url, method: .post).responseJSON{ response in
             if response.response?.statusCode == 200 {
-                if let token = JSON(response.response?.allHeaderFields as Any)["x-auth-token"].string {
+                if let token = self.decoder.decodeToken(data: response.response?.allHeaderFields as Any) {
                     UserDefaults.standard.set(token, forKey: "x-auth-token")
                     completion(nil)
                 } else {
@@ -224,7 +165,7 @@ extension ClimifyAPI: ClimifyAPIProtocol {
         let url = "\(baseUrl)/auth"
         AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default).responseString { response in
             if response.response?.statusCode == 200 {
-                if let token = JSON(response.response?.allHeaderFields as Any)["x-auth-token"].string {
+                if let token = self.decoder.decodeToken(data: response.response?.allHeaderFields as Any) {
                     UserDefaults.standard.set(token, forKey: "x-auth-token")
                     UserDefaults.standard.set(true, forKey: "isAdmin")
                     completion(nil)
@@ -236,8 +177,8 @@ extension ClimifyAPI: ClimifyAPIProtocol {
             }
         }
     }
-    
-    func fetchFeedback(questionID: String, roomID: String, time: Time, me: Bool, completion: @escaping (_ answers: [(answerOption: String, answerCount: Int)]?, _ error: ServiceError?) -> Void){
+
+    func fetchFeedback(questionID: String, roomID: String, time: Time, me: Bool, completion: @escaping (_ answers: [AnsweredFeedback]?, _ error: ServiceError?) -> Void){
         
         guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
             completion(nil, handleError(response: genericErrorMessage))
@@ -251,18 +192,10 @@ extension ClimifyAPI: ClimifyAPIProtocol {
         }
         
         let url = "\(baseUrl)/feedback/questionstatistics/\(questionID)/?room=\(roomID)&user=\(user)&t=\(time.rawValue)"
-        var feedback: [(answerOption: String, answerCount: Int)] = []
         
         AF.request(url, method: .get, headers: headers).responseJSON{ response in
             if response.response?.statusCode == 200 {
-                let json = JSON(response.result.value as Any)
-                for element in json {
-                    if let answer = element.1["answer"]["value"].string,
-                        let answerCount = element.1["timesAnswered"].int {
-                        let answer = (answerOption: answer, answerCount: answerCount)
-                        feedback.append(answer)
-                    }
-                }
+                let feedback = self.decoder.decodeFetchFeedback(data: response.result.value as Any)
                 if feedback.isEmpty {
                     completion(nil, self.handleError(response: response.result))
                 } else {
@@ -289,8 +222,7 @@ extension ClimifyAPI: ClimifyAPIProtocol {
         AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
             .responseJSON { response in
                 if response.response?.statusCode == 200 {
-                    let json = JSON(response.result.value)
-                    if let roomId = json["_id"].string {
+                    if let roomId = self.decoder.decodePostRoom(data: response.result.value as Any) {
                         completion(roomId, nil)
                     } else {
                         completion(nil, self.handleError(response: response.result))
@@ -318,20 +250,12 @@ extension ClimifyAPI: ClimifyAPIProtocol {
         } else if let buildingid = buildingId {
             json["buildingId"] = buildingid
         }
-        print(json)
         let url = "\(baseUrl)/signalmaps"
         AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
             .responseJSON { response in
                 if response.response?.statusCode == 200 {
-                    let jsonResult = JSON(response.result.value as Any)
-                    print(jsonResult)
-                    if let room = jsonResult["room"].dictionaryObject {
-                        if let id = room["_id"] as? String, let name = room["name"] as? String {
-                            let room = Room(id: id, name: name)
-                            completion(room, nil)
-                        } else {
-                            completion(nil, self.handleError(response: response.result))
-                        }
+                    if let room = self.decoder.decodePostSignalMap(data:  response.result.value as Any) {
+                        completion(room, nil)
                     } else {
                         completion(nil, self.handleError(response: response.result))
                     }
@@ -357,13 +281,11 @@ extension ClimifyAPI: ClimifyAPIProtocol {
                     if response.response?.statusCode == 200 {
                         completion(nil)
                     } else {
-                        let error = ServiceError.error(description: response.result.value ?? self.genericErrorMessage)
-                        completion(error)
+                        completion(self.handleError(response: response.result))
                     }
             }
         } else {
-            let error = ServiceError.error(description: self.genericErrorMessage)
-            completion(error)
+            completion(self.handleError(response: self.genericErrorMessage))
         }
     }
 }

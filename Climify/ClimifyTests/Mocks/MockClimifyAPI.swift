@@ -12,6 +12,7 @@ import Foundation
 class MockClimifyAPI {
     
     var shouldReturnError = false
+    private let decoder = ClimifyAPIDecoder()
 
     convenience init() {
         self.init(false)
@@ -85,7 +86,7 @@ class MockClimifyAPI {
         ]
     ]
     
-    let fetchFeedbackResponse = [
+    let mockFetchFeedbackResponse = [
     [
         "answer": [
             "_id": "5cd710f9cd752136263717f9",
@@ -149,202 +150,109 @@ class MockClimifyAPI {
             "name" : "Rum1"
         ]
     ]
-    
-    
 }
 extension MockClimifyAPI: ClimifyAPIProtocol {
     
+    func postFeedback(feedback: Feedback, completion: @escaping (ServiceError?) -> Void) {
+        if shouldReturnError {
+            completion(ServiceError.error(description: ""))
+        } else {
+            completion(nil)
+        }
+    }
+    
     func postSignalMap(signalMap: [Any], roomid: String?, buildingId: String?, completion: @escaping (Room?, ServiceError?) -> Void) {
         if shouldReturnError {
-            completion(nil, ServiceError.error(description: ""))
-        } else {
-            if let room = mockPostSignalMapResponse["room"] as! [String: Any]? {
-                if let id = room["_id"] as? String, let name = room["name"] as? String {
-                    let room = Room(id: id, name: name)
-                    completion(room, nil)
-                } else {
-                    completion(nil, ServiceError.error(description: ""))
-                }
+            // Giving wrong response
+            if let _ = self.decoder.decodeToken(data: mockFetchFeedbackResponse) {
+                completion(nil, nil)
             } else {
                 completion(nil, ServiceError.error(description: ""))
             }
+        } else {
+            completion(self.decoder.decodePostSignalMap(data: mockPostSignalMapResponse as Any), nil)
         }
     }
     
     func postRoom(buildingId: String, name: String, completion: @escaping (String?, ServiceError?) -> Void) {
-        
         if shouldReturnError {
-            completion(nil, ServiceError.error(description: ""))
-        } else {
-            if let roomId = mockPostRoomResponse["_id"] as! String? {
-                completion(roomId, nil)
+            // Giving wrong response
+            if let roomid = self.decoder.decodePostRoom(data: mockFetchFeedbackResponse) {
+                completion(roomid, nil)
             } else {
                 completion(nil, ServiceError.error(description: ""))
             }
+        } else {
+            completion(self.decoder.decodePostRoom(data: mockPostRoomResponse), nil)
         }
     }
     
-    
-    func fetchFeedback(questionID: String, roomID: String, time: Time, me: Bool, completion: @escaping ([(answerOption: String, answerCount: Int)]?, ServiceError?) -> Void) {
+    func fetchFeedback(questionID: String, roomID: String, time: Time, me: Bool, completion: @escaping ([AnsweredFeedback]?, ServiceError?) -> Void) {
         if shouldReturnError {
             completion(nil, ServiceError.error(description: ""))
         } else {
-            
-            var feedback: [(answerOption: String, answerCount: Int)] = []
-            
-            for element in fetchFeedbackResponse {
-                if let answerElement = element["answer"] as! [String:Any]? {
-                    print(answerElement)
-                    if let value = answerElement["value"] as! String?,
-                        let answerCount = element["timesAnswered"] as! Int? {
-                        let answer = (answerOption: value, answerCount: answerCount)
-                        feedback.append(answer)
-                    }
-                }
-            }
-            if feedback.isEmpty {
-                completion(nil, ServiceError.error(description: ""))
-            } else {
-                completion(feedback, nil)
-            }
+            completion(self.decoder.decodeFetchFeedback(data: mockFetchFeedbackResponse), nil)
         }
     }
     
+    func login(email: String, password: String, completion: @escaping (ServiceError?) -> Void) {
+        if shouldReturnError {
+            // Giving wrong response
+            if let _ = self.decoder.decodeToken(data: mockFetchFeedbackResponse) {
+                completion(nil)
+            } else {
+                completion(ServiceError.error(description: ""))
+            }
+        } else {
+            if let _ = self.decoder.decodeToken(data: mockLoginResponse) {
+                completion(nil)
+            } else {
+                completion(ServiceError.error(description: ""))
+            }
+        }
+    }
     
     func fetchToken(completion: @escaping (ServiceError?) -> Void) {
         if shouldReturnError {
             completion(ServiceError.error(description: ""))
         } else {
-            completion(nil)
+            if let _ = self.decoder.decodeToken(data: mockLoginResponse) {
+                completion(nil)
+            } else {
+                completion(ServiceError.error(description: ""))
+            }
         }
     }
-    
     
     func fetchBuildings(completion: @escaping ([Building]?, ServiceError?) -> Void) {
         if shouldReturnError {
             completion(nil, ServiceError.error(description: ""))
         } else {
-            var buildings = [Building]()
-            for element in mockFetchBuildingsResponse {
-                var buildingRooms: [Room] = []
-                if let buildingName = element["name"] as! String?,
-                    let buildingId = element["_id"] as! String?,
-                let rooms = element["rooms"] as! [[String: Any]]? {
-                    for room in rooms {
-                        if let roomId = room["_id"] as! String?,
-                            let roomName = room["name"] as! String? {
-                            let buildingRoom = Room(id: roomId, name: roomName)
-                            buildingRooms.append(buildingRoom)
-                        }
-                    }
-                    let building = Building(id: buildingId, name: buildingName, rooms: buildingRooms)
-                    buildings.append(building)
-                }
-            }
-            if buildings.isEmpty {
-                completion(nil, ServiceError.error(description: ""))
-            } else {
-                 completion(buildings,nil )
-            }
+            completion(self.decoder.decodeFetchBuildings(data: mockFetchBuildingsResponse), nil)
         }
     }
-    
-    
-    func fetchAnsweredQuestions(roomID: String, time: Time, me: Bool, completion: @escaping ([(question: String, questionId: String, answeredCount: Int)]?, ServiceError?) -> Void) {
-        if shouldReturnError {
-            completion(nil, ServiceError.error(description: ""))
-        } else {
-            var questions = [(question: String, questionId: String, answeredCount: Int)]()
-            for element in mockFetchAnsweredQuestionsResponse {
-                if let question = element["question"] as! [String: Any]? {
-                    if let questionName = question["value"] as! String?,
-                    let questionId = question["_id"] as! String?,
-                    let questionCount = element["timesAnswered"] as! Int?{
-                        let question = (question: questionName,questionId: questionId,answeredCount: questionCount)
-                        questions.append(question)
-                    }
-                }
-            }
-            if questions.isEmpty {
-                completion(nil, ServiceError.error(description: ""))
-            } else {
-                completion(questions, nil)
-            }
-        }
-    }
-    
     
     func fetchBeacons(completion: @escaping ([Beacon]?, ServiceError?) -> Void) {
         if shouldReturnError {
             completion(nil, ServiceError.error(description: ""))
         } else {
-            var beacons = [Beacon]()
-            for element in mockFetchBeaconsResponse {
-                if let name = element["name"] as! String?,
-                let id = element["_id"] as! String?,
-                let uuid = element["uuid"] as! String?,
-                let building = element["building"] as! [String: Any]? {
-                    if let buildingId = building["_id"] as! String?, let buildingName = building["name"] as! String?{
-                        let building = Building(id: buildingId, name: buildingName, rooms: nil)
-                        let beacon = Beacon(id: id, uuid: uuid, name: name, building: building)
-                        beacons.append(beacon)
-                    }
-                }
-            }
-            if beacons.isEmpty {
-                completion(nil, ServiceError.error(description: ""))
-            } else {
-                completion(beacons, nil)
-            }
+            completion(self.decoder.decodeFetchBeacons(data: mockFetchBeaconsResponse),nil)
         }
     }
     
-    func fetchQuestions(currentRoomID: String, completion: @escaping (_ questions: [Question]?, _ error: ServiceError?) -> Void) {
+    func fetchQuestions(currentRoomID: String, completion: @escaping ([Question]?, ServiceError?) -> Void) {
         if shouldReturnError {
             completion(nil, ServiceError.error(description: ""))
         } else {
-            var questions = [Question]()
-            for element in mockFetchQuestionsResponse {
-                if let questionName = element["value"] as! String?, let id = element["_id"] as! String?, let answersJson = element["answerOptions"] as! [[String:Any]]? {
-                    var answerOptions: [Question.answerOption] = []
-                    for element in answersJson {
-                        if let answerValue = element["value"] as! String?, let answerID = element["_id"] as! String? {
-                            let answerOption = Question.answerOption(id: answerID, value: answerValue)
-                            answerOptions.append(answerOption)
-                        }
-                    }
-                    let question = Question(questionID: id, question: questionName, answerOptions: answerOptions)
-                    questions.append(question)
-                }
-            }
-            if questions.isEmpty {
-                completion(nil, ServiceError.error(description: ""))
-            } else {
-                completion(questions, nil)
-            }
+            completion(self.decoder.decodeFetchQuestions(data: mockFetchQuestionsResponse),nil)
         }
     }
     
-    
-    func postFeedback(feedback: Feedback, completion: @escaping (ServiceError?) -> Void) {
-        
+    func fetchAnsweredQuestions(roomID: String, time: Time, me: Bool, completion: @escaping ([AnsweredQuestion]?, ServiceError?) -> Void) {
         if shouldReturnError {
-            completion(ServiceError.error(description: ""))
+            completion(nil, ServiceError.error(description: ""))
         } else {
-            completion(nil)
-        }
-    }
-    
-    func login(email: String, password: String, completion: @escaping (ServiceError?) -> Void) {
-        
-        if shouldReturnError {
-            completion(ServiceError.error(description: ""))
-        } else {
-            if let _ = mockLoginResponse["x-auth-token"] as String? {
-                completion(nil)
-            } else {
-                completion(ServiceError.error(description: ""))
-            }
+            completion(self.decoder.decodeFetchAnsweredQuestion(data: mockFetchAnsweredQuestionsResponse), nil)
         }
     }
 }

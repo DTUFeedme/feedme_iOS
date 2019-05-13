@@ -24,3 +24,4 @@ protocol LocationEstimatorProtocol {
     func initTimerfetchRoom()
     func convertSignalMapToServer(signalMap: [String: [Double]]) -> [Any]
 }
+

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Beacon: NSObject {
+class Beacon {
     var uuid: String
     var name: String
     var building: Building

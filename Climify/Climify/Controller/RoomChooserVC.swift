@@ -26,7 +26,7 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     }
     
     @IBAction func doneButton(_ sender: Any) {
-        if let name = buildings[safe: selectedBuildingIndex]?.rooms?[selectedRoomIndex].name, let roomid = buildings[safe: selectedBuildingIndex]?.rooms?[selectedRoomIndex].id {
+        if let name = buildings[safe: selectedBuildingIndex]?.rooms?[safe: selectedRoomIndex]?.name, let roomid = buildings[safe: selectedBuildingIndex]?.rooms?[safe: selectedRoomIndex]?.id {
             manuallyChangedRoomDelegate.roomchanged(roomname: name, roomid: roomid)
         }
         dismiss(animated: true, completion: nil)
