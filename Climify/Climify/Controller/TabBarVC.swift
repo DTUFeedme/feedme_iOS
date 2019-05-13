@@ -9,9 +9,13 @@
 import UIKit
 
 class TabBarVC: UITabBarController, UITabBarControllerDelegate {
-
+    
+    var climify: ClimifyAPI!
+    var locationEstimator: LocationEstimator!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.delegate = self
         self.tabBar.isTranslucent = false
     }

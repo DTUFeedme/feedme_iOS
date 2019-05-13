@@ -40,7 +40,6 @@
 		A1EB9F2922326F69006AFB57 /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EB9F2822326F69006AFB57 /* Beacon.swift */; };
 		A1EB9F2C223280EC006AFB57 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EB9F2B223280EC006AFB57 /* Room.swift */; };
 		A1FA8725222589C300461799 /* FeedbackVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FA8724222589C300461799 /* FeedbackVC.swift */; };
-		A1FF5F7822898C4F0009F18D /* MockLocationEstimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CCC3A42288457900D58E8E /* MockLocationEstimator.swift */; };
 		A1FF5F7922898C540009F18D /* MockClimifyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1990B822287280A00A3E431 /* MockClimifyAPI.swift */; };
 		A1FF5F7B22898C6C0009F18D /* ClimifyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1141A1122314B4900659DF1 /* ClimifyAPI.swift */; };
 		A1FF5F7D2289AB190009F18D /* ClimifyAPIDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FF5F7C2289AB190009F18D /* ClimifyAPIDecoder.swift */; };
@@ -92,7 +91,6 @@
 		A1CCC39E22883AC300D58E8E /* FoundNewRoomProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundNewRoomProtocol.swift; sourceTree = "<group>"; };
 		A1CCC3A022883B0D00D58E8E /* ManuallyChangedRoomProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManuallyChangedRoomProtocol.swift; sourceTree = "<group>"; };
 		A1CCC3A2228843A400D58E8E /* LocationEstimatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEstimatorProtocol.swift; sourceTree = "<group>"; };
-		A1CCC3A42288457900D58E8E /* MockLocationEstimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocationEstimator.swift; sourceTree = "<group>"; };
 		A1DB86262226AB3000F7F745 /* Feedback.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Feedback.storyboard; sourceTree = "<group>"; };
 		A1DB862A2226ADBC00F7F745 /* Data.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Data.storyboard; sourceTree = "<group>"; };
 		A1E15B162247F3A200B5C3EF /* DiagramViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramViewVC.swift; sourceTree = "<group>"; };
@@ -246,7 +244,6 @@
 			isa = PBXGroup;
 			children = (
 				A1990B822287280A00A3E431 /* MockClimifyAPI.swift */,
-				A1CCC3A42288457900D58E8E /* MockLocationEstimator.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -475,7 +472,6 @@
 			files = (
 				A1FF5F7922898C540009F18D /* MockClimifyAPI.swift in Sources */,
 				A1734B2C223657FE004AB9DD /* AppBeaconTest.swift in Sources */,
-				A1FF5F7822898C4F0009F18D /* MockLocationEstimator.swift in Sources */,
 				A1990B8522873C3700A3E431 /* ClimifyAPIDecoderTest.swift in Sources */,
 				A16B8B0C22843D7F005D73BE /* LocationEstimatorTest.swift in Sources */,
 			);

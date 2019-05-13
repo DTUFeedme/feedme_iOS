@@ -31,7 +31,8 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var currentRoomID: String = ""
     var currentRoomName: String = ""
     var userChangedRoomDelegate: FoundNewRoomProtocol!
-
+    var climifyApi: ClimifyAPI!
+    var locationEstimator: LocationEstimator!
     
     override func viewDidAppear(_ animated: Bool) {
         sideMenuTrailing.constant = -255
@@ -39,26 +40,28 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         fetchQuestions()
         
         if hasStartedLocation {
-            LocationEstimator.sharedInstance.userChangedRoomDelegate = self
-            LocationEstimator.sharedInstance.initTimerfetchRoom()
+           locationEstimator.userChangedRoomDelegate = self
+           locationEstimator.initTimerfetchRoom()
         }
         hasStartedLocation = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        LocationEstimator.sharedInstance.stopTimerfetchRoom()
+       locationEstimator.stopTimerfetchRoom()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        climifyApi = appDelegate.climifyApi
+        locationEstimator = appDelegate.locationEstimator
+        
         setupUI()
         if checkConnectivity(){
             checkIfUserExists() { wentWell in
                 if wentWell {
                     self.updateUI()
-                    LocationEstimator.sharedInstance.userChangedRoomDelegate = self
-                    LocationEstimator.sharedInstance.startLocating()
+                    self.locationEstimator.userChangedRoomDelegate = self
+                    self.locationEstimator.startLocating()
                     self.reloadUI()
                 }
             }
@@ -133,7 +136,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 animateSlideGesture(forward: true)
                 
                 let feedback = Feedback(answerId: answerId, roomID: currentRoomID, questionId: questionId)
-                ClimifyAPI.sharedInstance.postFeedback(feedback: feedback) { error in
+                climifyApi.postFeedback(feedback: feedback) { error in
                     if error == nil  {
                         if self.currentQuestionNo == self.questions.count {
                             self.performSegue(withIdentifier: "feedbackreceived", sender: self)
@@ -194,7 +197,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private func checkIfUserExists(completion: @escaping (_ didExist: Bool) -> Void) {
         
         if UserDefaults.standard.string(forKey: "x-auth-token") == nil {
-            ClimifyAPI.sharedInstance.fetchToken() { error in
+            climifyApi.fetchToken() { error in
                 if error == nil {
                     completion(true)
                 } else {
@@ -209,7 +212,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     private func fetchQuestions(){
-         ClimifyAPI.sharedInstance.fetchQuestions(currentRoomID: currentRoomID) { questions, error in
+         climifyApi.fetchQuestions(currentRoomID: currentRoomID) { questions, error in
             if error == nil {
                 self.questions = questions!
                 self.answers = questions![self.currentQuestionNo].answerOptions

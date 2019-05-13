@@ -7,21 +7,13 @@
 //
 
 import UIKit
-import SwiftyJSON
 import Alamofire
-import CoreLocation
 
 class ClimifyAPI {
 
     private let baseUrl = "http://climify.compute.dtu.dk/api"
     private let genericErrorMessage: String = "Something went wrong, try again later"
     private let decoder = ClimifyAPIDecoder()
-
-    static let sharedInstance = ClimifyAPI()
-    
-    private init() {
-
-    }
     
     func handleError(response: Any?) -> ServiceError {
         if let response = response as? String {
@@ -37,6 +29,10 @@ class ClimifyAPI {
         static var isConnectedToInternet:Bool {
             return self.sharedInstance.isReachable
         }
+    }
+    
+    func getApi() -> ClimifyAPI {
+        return self
     }
 }
 

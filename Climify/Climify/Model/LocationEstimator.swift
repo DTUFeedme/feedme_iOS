@@ -11,21 +11,21 @@ import CoreLocation
 
 class LocationEstimator: NSObject, CLLocationManagerDelegate, LocationEstimatorProtocol {
     
-    static let sharedInstance = LocationEstimator()
-    private var manager:CLLocationManager = CLLocationManager()
-    private var regions:[CLBeaconRegion] = []
-    private var beacons:[AppBeacon] = []
-    private var serverBeacons:[Beacon] = []
-    private var signalMap:[String: [Double]] = [:]
-    private var timerSetup = Timer()
-    private var timerfetchRoom = Timer()
-    private var buildingId: String?
-    private var currentRoomId: String = ""
+    var manager:CLLocationManager = CLLocationManager()
+    var regions:[CLBeaconRegion] = []
+    var beacons:[AppBeacon] = []
+    var serverBeacons:[Beacon] = []
+    var signalMap:[String: [Double]] = [:]
+    var timerSetup = Timer()
+    var timerfetchRoom = Timer()
+    var buildingId: String?
+    var currentRoomId: String = ""
     var isMappingRoom = false
     var userChangedRoomDelegate: FoundNewRoomProtocol?
+    var climifyApi: ClimifyAPIProtocol
     
-    private override init() {
-        
+    init(api: ClimifyAPIProtocol) {
+        self.climifyApi = api
     }
     
     func startLocating(){
@@ -35,7 +35,7 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate, LocationEstimatorP
     }
     
     func fetchBeacons(){
-        ClimifyAPI.sharedInstance.fetchBeacons() { beacons, error in
+        climifyApi.fetchBeacons() { beacons, error in
             if error == nil {
                 self.serverBeacons = beacons!
                 self.addBeacons()
@@ -53,7 +53,6 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate, LocationEstimatorP
             }
         }
     }
-    
     
     // when scanning
     func initTimerAddToSignalMap(){
@@ -142,7 +141,7 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate, LocationEstimatorP
                 return
             }
     
-            ClimifyAPI.sharedInstance.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) { room, error in
+            climifyApi.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) { room, error in
                 if error == nil {
                     self.signalMap.removeAll()
                     self.initSignalMap()
@@ -161,7 +160,7 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate, LocationEstimatorP
         
         if let buildingId = buildingId {
             
-            ClimifyAPI.sharedInstance.postRoom(buildingId: buildingId, name: roomname) { roomId, error in
+            climifyApi.postRoom(buildingId: buildingId, name: roomname) { roomId, error in
                 if error == nil {
                     self.pushSignalMap(roomid: roomId!, buildingId: buildingId) { room in
                         completion(error)
@@ -193,7 +192,7 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate, LocationEstimatorP
     func pushSignalMap(roomid: String, buildingId: String, completion: @escaping (_ room: Room?) -> Void) {
 
         let serverSignalMap = convertSignalMapToServer(signalMap: signalMap)
-        ClimifyAPI.sharedInstance.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) {
+        climifyApi.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) {
             room, error in
             if error == nil {
                 completion(room)

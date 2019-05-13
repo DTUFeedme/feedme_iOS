@@ -27,7 +27,6 @@ class SuccessVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    
     func setupUI(){
         descriptionLabel.isHidden = true
         thanksLabel.isHidden = true

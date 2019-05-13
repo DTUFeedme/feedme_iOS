@@ -12,7 +12,10 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var climifyApi: ClimifyAPI?
+    var locationEstimator: LocationEstimator?
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         let sb = UIStoryboard(name: "Main", bundle: nil)
@@ -20,7 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
         
-        
+        climifyApi = ClimifyAPI()
+        locationEstimator = LocationEstimator(api: climifyApi!)
+     
         if UserDefaults.standard.contains(key: "isAdmin") {
             let admin = UserDefaults.standard.bool(forKey: "isAdmin")
             if admin {

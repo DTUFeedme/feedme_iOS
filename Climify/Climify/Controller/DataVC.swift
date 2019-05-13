@@ -29,26 +29,31 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private var hasStartedLocating = false
     private var manuallyChangedRoom = false
     
+    var climifyApi: ClimifyAPI!
+    var locationEstimator: LocationEstimator!
     var currentRoom = ""
     var currentRoomId = ""
     var chosenRoomId = ""
     var chosenRoom = ""
     
     override func viewDidAppear(_ animated: Bool) {
-        LocationEstimator.sharedInstance.userChangedRoomDelegate = self
-        LocationEstimator.sharedInstance.initTimerfetchRoom()
+        locationEstimator.userChangedRoomDelegate = self
+        locationEstimator.initTimerfetchRoom()
         fetchAnsweredQuestions()
     }
     
    
     override func viewWillDisappear(_ animated: Bool) {
-        LocationEstimator.sharedInstance.stopTimerfetchRoom()
+       locationEstimator.stopTimerfetchRoom()
     }
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        climifyApi = appDelegate.climifyApi
+        locationEstimator = appDelegate.locationEstimator
+        
+        print(locationEstimator)
         
         if (ClimifyAPI.Connectivity.isConnectedToInternet){
             guard let _ = UserDefaults.standard.string(forKey: "x-auth-token") else { return }
@@ -114,7 +119,7 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private func fetchAnsweredQuestions(){
         print(chosenRoomId)
-        ClimifyAPI.sharedInstance.fetchAnsweredQuestions(roomID: chosenRoomId, time: time, me: mydataIsSelected) { questions, error in
+        climifyApi.fetchAnsweredQuestions(roomID: chosenRoomId, time: time, me: mydataIsSelected) { questions, error in
             if error == nil {
                 self.showUI()
                 self.hasGivenFeedback = true

@@ -14,10 +14,13 @@ class ScanningVC: UIViewController {
     @IBOutlet weak var scanningButton: UIButton!
     @IBOutlet weak var provideRoomLabel: UILabel!
     @IBOutlet weak var message: UILabel!
-    
+    var climifyApi: ClimifyAPI!
+    var locationEstimator: LocationEstimator!
     private var isScanning = false
-
+  
     override func viewDidLoad() {
+        climifyApi = appDelegate.climifyApi
+        locationEstimator = appDelegate.locationEstimator
         super.viewDidLoad()
         setupUI()
     }
@@ -36,15 +39,15 @@ class ScanningVC: UIViewController {
     
     @IBAction func startScanning(_ sender: Any) {
         if isScanning {
-            LocationEstimator.sharedInstance.postRoom(roomname: roomname.text!) { error in
+            locationEstimator.postRoom(roomname: roomname.text!) { error in
                 if error == nil {
                     self.message.text = "Succesfully saved room dimensions"
                     self.roomname.text = nil
                 } else {
                     self.message.text = "Something went wrong. Please check your internet connection"
                 }
-                LocationEstimator.sharedInstance.stopTimerAddToSignalMap()
-                LocationEstimator.sharedInstance.isMappingRoom = false
+                self.locationEstimator.stopTimerAddToSignalMap()
+                self.locationEstimator.isMappingRoom = false
             }
        
             scanningButton.setTitleColor(.myGreen(), for: .normal)
@@ -62,8 +65,8 @@ class ScanningVC: UIViewController {
                 scanningButton.pulseInfite()
                 scanningButton.setTitleColor(.myRed(), for: .normal)
                 scanningButton.layer.borderColor = .myRed()
-                LocationEstimator.sharedInstance.isMappingRoom = true
-                LocationEstimator.sharedInstance.initTimerAddToSignalMap()
+                locationEstimator.isMappingRoom = true
+                locationEstimator.initTimerAddToSignalMap()
                 scanningButton.setTitle("Stop Scanning", for: .normal)
                 isScanning = !isScanning
             }

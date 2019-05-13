@@ -18,6 +18,7 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     private var selectedBuildingIndex = 0
     private var selectedRoomIndex = 0
     
+    var climifyApi: ClimifyAPI!
     var manuallyChangedRoomDelegate: ManuallyChangedRoomProtocol!
     var currentRoom = ""
     
@@ -34,8 +35,9 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        climifyApi = appDelegate.climifyApi
         setupUI()
-        ClimifyAPI.sharedInstance.fetchBuildings() { buildings, error in
+        climifyApi.fetchBuildings() { buildings, error in
             if error == nil {
                 self.buildings = buildings!
                 self.buildingPickerView.delegate = self

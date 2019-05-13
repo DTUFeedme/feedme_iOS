@@ -15,6 +15,7 @@ class DiagramVC: UIViewController {
     @IBOutlet weak var pieChart: PieChartView!
     @IBOutlet weak var roomLocationLabel: UILabel!
     private var dataEntries = [PieChartDataEntry]()
+    var climifyApi: ClimifyAPI!
     
     var room = ""
     var roomID = ""
@@ -25,6 +26,7 @@ class DiagramVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        climifyApi = appDelegate.climifyApi
         setupUI()
         fetchFeedback()
     }
@@ -59,7 +61,7 @@ class DiagramVC: UIViewController {
     }
     
     private func fetchFeedback(){
-        ClimifyAPI.sharedInstance.fetchFeedback(questionID: questionID, roomID: roomID, time: time, me: meIsSelected) { answers, error in
+        climifyApi.fetchFeedback(questionID: questionID, roomID: roomID, time: time, me: meIsSelected) { answers, error in
             if error == nil {
                 for answer in answers! {
                     let dataEntry = PieChartDataEntry(value: Double(answer.answerCount))

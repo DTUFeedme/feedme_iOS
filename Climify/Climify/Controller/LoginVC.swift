@@ -15,10 +15,11 @@ class LoginVC: UIViewController {
     @IBOutlet weak var login: UIButton!
     private var email = ""
     private var password = ""
-    
+    var climifyApi: ClimifyAPI!
     
     
     override func viewDidLoad() {
+        climifyApi = appDelegate.climifyApi
         super.viewDidLoad()
         setupUI()
     }
@@ -41,7 +42,7 @@ class LoginVC: UIViewController {
         }
     }
     @IBAction func loginAction(_ sender: Any) {
-        ClimifyAPI.sharedInstance.login(email: email, password: password) { error in
+        climifyApi.login(email: email, password: password) { error in
             if error == nil {
                 if let tbc = self.tabBarController as? TabBarVC {
                     if tbc.viewControllers?.count == 2 {
