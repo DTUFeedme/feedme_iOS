@@ -1,6 +1,6 @@
 //
-//  ClimifyAPIProtocol.swift
-//  Climify
+//  FeedmeNetworkServiceProtocol.swift
+//  Feedme
 //
 //  Created by Christian Hjelmslund on 11/05/2019.
 //  Copyright © 2019 Christian Hjelmslund. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ClimifyAPIProtocol {
+protocol FeedmeNetworkServiceProtocol {
     func postFeedback(feedback: Feedback, completion: @escaping (_ error: ServiceError?) -> Void)
     func postSignalMap(signalMap: [Any], roomid: String?, buildingId: String?, completion: @escaping (_ room: Room?, _ error: ServiceError?) -> Void)
     func postRoom(buildingId: String, name: String,  completion: @escaping (_ roomId: String?, _ error: ServiceError?) -> Void)

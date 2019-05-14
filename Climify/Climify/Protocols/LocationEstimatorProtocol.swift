@@ -1,6 +1,6 @@
 //
 //  LocationEstimatorProtocol.swift
-//  Climify
+//  Feedme
 //
 //  Created by Christian Hjelmslund on 12/05/2019.
 //  Copyright © 2019 Christian Hjelmslund. All rights reserved.

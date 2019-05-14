@@ -1,6 +1,6 @@
 //
 //  RoomChooserVC.swift
-//  Climify
+//  Feedme
 //
 //  Created by Christian Hjelmslund on 26/03/2019.
 //  Copyright © 2019 Christian Hjelmslund. All rights reserved.
@@ -18,7 +18,7 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     private var selectedBuildingIndex = 0
     private var selectedRoomIndex = 0
     
-    var climifyApi: ClimifyAPI!
+    var feedmeNS: FeedmeNetworkService!
     var manuallyChangedRoomDelegate: ManuallyChangedRoomProtocol!
     var currentRoom = ""
     
@@ -35,9 +35,9 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        climifyApi = appDelegate.climifyApi
+        feedmeNS = appDelegate.feedmeNS
         setupUI()
-        climifyApi.fetchBuildings() { buildings, error in
+        feedmeNS.fetchBuildings() { buildings, error in
             if error == nil {
                 self.buildings = buildings!
                 self.buildingPickerView.delegate = self

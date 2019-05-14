@@ -1,6 +1,6 @@
 //
 //  locationEstimator!Test.swift
-//  ClimifyTests
+//  FeedmeTests
 //
 //  Created by Christian Hjelmslund on 09/05/2019.
 //  Copyright © 2019 Christian Hjelmslund. All rights reserved.
@@ -11,9 +11,9 @@ import XCTest
 import CoreLocation
 @testable import Climify
 
-class locationEstimatorTest: XCTestCase {
+class LocationEstimatorTest: XCTestCase {
 
-    var climifyApi: ClimifyAPIProtocol?
+    var feedmeNS: FeedmeNetworkServiceProtocol?
     var locationEstimator: LocationEstimator?
     var room1: Room?
     var room2: Room?
@@ -32,8 +32,8 @@ class locationEstimatorTest: XCTestCase {
     var testAppBeacons: [AppBeacon]?
     
     override func setUp() {
-        climifyApi = MockClimifyAPI()
-        locationEstimator = LocationEstimator(api: climifyApi!)
+        feedmeNS = MockFeedmeNetworkService()
+        locationEstimator = LocationEstimator(service: feedmeNS!)
         
         room1 = Room(id: "id1", name: "room1")
         room2 = Room(id: "id2", name: "room2")

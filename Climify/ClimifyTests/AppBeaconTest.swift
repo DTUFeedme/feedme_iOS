@@ -1,6 +1,6 @@
 //
 //  AppBeaconTest.swift
-//  ClimifyTests
+//  FeedmeTests
 //
 //  Created by Christian Hjelmslund on 11/03/2019.
 //  Copyright © 2019 Christian Hjelmslund. All rights reserved.

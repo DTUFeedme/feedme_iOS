@@ -29,7 +29,7 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private var hasStartedLocating = false
     private var manuallyChangedRoom = false
     
-    var climifyApi: ClimifyAPI!
+    var feedmeNS: FeedmeNetworkService!
     var locationEstimator: LocationEstimator!
     var currentRoom = ""
     var currentRoomId = ""
@@ -50,12 +50,12 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        climifyApi = appDelegate.climifyApi
+        feedmeNS = appDelegate.feedmeNS
         locationEstimator = appDelegate.locationEstimator
         
         print(locationEstimator)
         
-        if (ClimifyAPI.Connectivity.isConnectedToInternet){
+        if (FeedmeNetworkService.Connectivity.isConnectedToInternet){
             guard let _ = UserDefaults.standard.string(forKey: "x-auth-token") else { return }
         }
         setupUI()
@@ -119,7 +119,7 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private func fetchAnsweredQuestions(){
         print(chosenRoomId)
-        climifyApi.fetchAnsweredQuestions(roomID: chosenRoomId, time: time, me: mydataIsSelected) { questions, error in
+        feedmeNS.fetchAnsweredQuestions(roomID: chosenRoomId, time: time, me: mydataIsSelected) { questions, error in
             if error == nil {
                 self.showUI()
                 self.hasGivenFeedback = true

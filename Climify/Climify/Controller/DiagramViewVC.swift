@@ -1,6 +1,6 @@
 //
 //  DiagramViewController.swift
-//  Climify
+//  Feedme
 //
 //  Created by Christian Hjelmslund on 24/03/2019.
 //  Copyright © 2019 Christian Hjelmslund. All rights reserved.
@@ -15,7 +15,7 @@ class DiagramVC: UIViewController {
     @IBOutlet weak var pieChart: PieChartView!
     @IBOutlet weak var roomLocationLabel: UILabel!
     private var dataEntries = [PieChartDataEntry]()
-    var climifyApi: ClimifyAPI!
+    var feedmeNS: FeedmeNetworkService!
     
     var room = ""
     var roomID = ""
@@ -26,7 +26,7 @@ class DiagramVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        climifyApi = appDelegate.climifyApi
+        feedmeNS = appDelegate.feedmeNS
         setupUI()
         fetchFeedback()
     }
@@ -61,7 +61,7 @@ class DiagramVC: UIViewController {
     }
     
     private func fetchFeedback(){
-        climifyApi.fetchFeedback(questionID: questionID, roomID: roomID, time: time, me: meIsSelected) { answers, error in
+        feedmeNS.fetchFeedback(questionID: questionID, roomID: roomID, time: time, me: meIsSelected) { answers, error in
             if error == nil {
                 for answer in answers! {
                     let dataEntry = PieChartDataEntry(value: Double(answer.answerCount))

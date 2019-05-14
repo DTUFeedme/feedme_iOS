@@ -1,6 +1,6 @@
 //
 //  FeedbackController.swift
-//  Climify
+//  Feedme
 //
 //  Created by Christian Hjelmslund on 26/02/2019.
 //  Copyright © 2019 Christian Hjelmslund. All rights reserved.
@@ -31,7 +31,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var currentRoomID: String = ""
     var currentRoomName: String = ""
     var userChangedRoomDelegate: FoundNewRoomProtocol!
-    var climifyApi: ClimifyAPI!
+    var feedmeNS: FeedmeNetworkService!
     var locationEstimator: LocationEstimator!
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,7 +52,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        climifyApi = appDelegate.climifyApi
+        feedmeNS = appDelegate.feedmeNS
         locationEstimator = appDelegate.locationEstimator
         
         setupUI()
@@ -110,12 +110,12 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     private func checkConnectivity() -> Bool{
-        if !ClimifyAPI.Connectivity.isConnectedToInternet {
+        if !FeedmeNetworkService.Connectivity.isConnectedToInternet {
             restartFeedback()
             updateUI()
             reloadUI()
         }
-        return ClimifyAPI.Connectivity.isConnectedToInternet
+        return FeedmeNetworkService.Connectivity.isConnectedToInternet
     }
     
     private func postFeedback(index: Int){
@@ -136,7 +136,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 animateSlideGesture(forward: true)
                 
                 let feedback = Feedback(answerId: answerId, roomID: currentRoomID, questionId: questionId)
-                climifyApi.postFeedback(feedback: feedback) { error in
+                feedmeNS.postFeedback(feedback: feedback) { error in
                     if error == nil  {
                         if self.currentQuestionNo == self.questions.count {
                             self.performSegue(withIdentifier: "feedbackreceived", sender: self)
@@ -165,7 +165,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     private func reloadUI(){
-        if ClimifyAPI.Connectivity.isConnectedToInternet == false {
+        if FeedmeNetworkService.Connectivity.isConnectedToInternet == false {
             questionLabel.text = "Please make sure you have internet connection 🤔"
             reloadInternetLabel.isHidden = false
             reloadInternetButton.isHidden = false
@@ -197,7 +197,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private func checkIfUserExists(completion: @escaping (_ didExist: Bool) -> Void) {
         
         if UserDefaults.standard.string(forKey: "x-auth-token") == nil {
-            climifyApi.fetchToken() { error in
+            feedmeNS.fetchToken() { error in
                 if error == nil {
                     completion(true)
                 } else {
@@ -212,7 +212,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     private func fetchQuestions(){
-         climifyApi.fetchQuestions(currentRoomID: currentRoomID) { questions, error in
+         feedmeNS.fetchQuestions(currentRoomID: currentRoomID) { questions, error in
             if error == nil {
                 self.questions = questions!
                 self.answers = questions![self.currentQuestionNo].answerOptions

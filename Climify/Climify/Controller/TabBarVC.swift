@@ -1,6 +1,6 @@
 //
 //  MainController.swift
-//  Climify
+//  Feedme
 //
 //  Created by Christian Hjelmslund on 03/04/2019.
 //  Copyright © 2019 Christian Hjelmslund. All rights reserved.
@@ -10,7 +10,7 @@ import UIKit
 
 class TabBarVC: UITabBarController, UITabBarControllerDelegate {
     
-    var climify: ClimifyAPI!
+    var climify: FeedmeNetworkService!
     var locationEstimator: LocationEstimator!
     
     override func viewDidLoad() {

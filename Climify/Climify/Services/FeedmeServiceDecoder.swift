@@ -1,6 +1,6 @@
 //
-//  ClimifyAPIDecoder.swift
-//  Climify
+//  FeedmeNetworkServiceDecoder.swift
+//  Feedme
 //
 //  Created by Christian Hjelmslund on 13/05/2019.
 //  Copyright © 2019 Christian Hjelmslund. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class ClimifyAPIDecoder {
+class FeedmeNetworkServiceDecoder {
     
     func decodeFetchAnsweredQuestion(data: Any) -> [AnsweredQuestion] {
         

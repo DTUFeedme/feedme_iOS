@@ -1,6 +1,6 @@
 //
 //  Extensions.swift
-//  Climify
+//  Feedme
 //
 //  Created by Christian Hjelmslund on 09/05/2019.
 //  Copyright © 2019 Christian Hjelmslund. All rights reserved.

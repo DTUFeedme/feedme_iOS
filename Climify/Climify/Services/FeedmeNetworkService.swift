@@ -1,6 +1,6 @@
 //
-//  ClimifyAPI.swift
-//  Climify
+//  FeedmeNetworkService.swift
+//  Feedme
 //
 //  Created by Christian Hjelmslund on 07/03/2019.
 //  Copyright © 2019 Christian Hjelmslund. All rights reserved.
@@ -9,11 +9,11 @@
 import UIKit
 import Alamofire
 
-class ClimifyAPI {
+class FeedmeNetworkService {
 
     private let baseUrl = "http://climify.compute.dtu.dk/api"
     private let genericErrorMessage: String = "Something went wrong, try again later"
-    private let decoder = ClimifyAPIDecoder()
+    private let decoder = FeedmeNetworkServiceDecoder()
     
     func handleError(response: Any?) -> ServiceError {
         if let response = response as? String {
@@ -23,20 +23,15 @@ class ClimifyAPI {
         }
     }
     
-    
     struct Connectivity {
         static let sharedInstance = NetworkReachabilityManager()!
         static var isConnectedToInternet:Bool {
             return self.sharedInstance.isReachable
         }
     }
-    
-    func getApi() -> ClimifyAPI {
-        return self
-    }
 }
 
-extension ClimifyAPI: ClimifyAPIProtocol {
+extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
     
     func fetchAnsweredQuestions(roomID: String, time: Time, me: Bool, completion: @escaping (_ questions: [AnsweredQuestion]?, _ error: ServiceError?) -> Void){
         

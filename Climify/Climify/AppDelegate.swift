@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Climify
+//  Feedme
 //
 //  Created by Christian Hjelmslund on 07/02/2019.
 //  Copyright © 2019 Christian Hjelmslund. All rights reserved.
@@ -12,9 +12,8 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var climifyApi: ClimifyAPI?
+    var feedmeNS: FeedmeNetworkService?
     var locationEstimator: LocationEstimator?
-    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -23,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
         
-        climifyApi = ClimifyAPI()
-        locationEstimator = LocationEstimator(api: climifyApi!)
+        feedmeNS = FeedmeNetworkService()
+        locationEstimator = LocationEstimator(service: feedmeNS!)
      
         if UserDefaults.standard.contains(key: "isAdmin") {
             let admin = UserDefaults.standard.bool(forKey: "isAdmin")

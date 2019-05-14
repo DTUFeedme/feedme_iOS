@@ -1,6 +1,6 @@
 //
 //  ScanningViewController.swift
-//  Climify
+//  Feedme
 //
 //  Created by Christian Hjelmslund on 30/04/2019.
 //  Copyright © 2019 Christian Hjelmslund. All rights reserved.
@@ -14,12 +14,12 @@ class ScanningVC: UIViewController {
     @IBOutlet weak var scanningButton: UIButton!
     @IBOutlet weak var provideRoomLabel: UILabel!
     @IBOutlet weak var message: UILabel!
-    var climifyApi: ClimifyAPI!
+    var feedmeNS: FeedmeNetworkService!
     var locationEstimator: LocationEstimator!
     private var isScanning = false
   
     override func viewDidLoad() {
-        climifyApi = appDelegate.climifyApi
+        feedmeNS = appDelegate.feedmeNS
         locationEstimator = appDelegate.locationEstimator
         super.viewDidLoad()
         setupUI()

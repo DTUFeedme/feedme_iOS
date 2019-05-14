@@ -17,7 +17,7 @@
                BlueprintIdentifier = "A136A0CD220C595000189E21"
                BuildableName = "Climify.app"
                BlueprintName = "Climify"
-               ReferencedContainer = "container:Climify.xcodeproj">
+               ReferencedContainer = "container:Feedme.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,7 +34,7 @@
             BlueprintIdentifier = "A136A0CD220C595000189E21"
             BuildableName = "Climify.app"
             BlueprintName = "Climify"
-            ReferencedContainer = "container:Climify.xcodeproj">
+            ReferencedContainer = "container:Feedme.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "A1734B202236577A004AB9DD"
                BuildableName = "ClimifyTests.xctest"
                BlueprintName = "ClimifyTests"
-               ReferencedContainer = "container:Climify.xcodeproj">
+               ReferencedContainer = "container:Feedme.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,7 +55,7 @@
             BlueprintIdentifier = "A136A0CD220C595000189E21"
             BuildableName = "Climify.app"
             BlueprintName = "Climify"
-            ReferencedContainer = "container:Climify.xcodeproj">
+            ReferencedContainer = "container:Feedme.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -78,7 +78,7 @@
             BlueprintIdentifier = "A136A0CD220C595000189E21"
             BuildableName = "Climify.app"
             BlueprintName = "Climify"
-            ReferencedContainer = "container:Climify.xcodeproj">
+            ReferencedContainer = "container:Feedme.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -97,7 +97,7 @@
             BlueprintIdentifier = "A136A0CD220C595000189E21"
             BuildableName = "Climify.app"
             BlueprintName = "Climify"
-            ReferencedContainer = "container:Climify.xcodeproj">
+            ReferencedContainer = "container:Feedme.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

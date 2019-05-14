@@ -17,7 +17,7 @@
                BlueprintIdentifier = "A136A0CD220C595000189E21"
                BuildableName = "Climify.app"
                BlueprintName = "Climify"
-               ReferencedContainer = "container:Climify.xcodeproj">
+               ReferencedContainer = "container:Feedme.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -36,7 +36,7 @@
             BlueprintIdentifier = "A136A0CD220C595000189E21"
             BuildableName = "Climify.app"
             BlueprintName = "Climify"
-            ReferencedContainer = "container:Climify.xcodeproj">
+            ReferencedContainer = "container:Feedme.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -59,7 +59,7 @@
             BlueprintIdentifier = "A136A0CD220C595000189E21"
             BuildableName = "Climify.app"
             BlueprintName = "Climify"
-            ReferencedContainer = "container:Climify.xcodeproj">
+            ReferencedContainer = "container:Feedme.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -78,7 +78,7 @@
             BlueprintIdentifier = "A136A0CD220C595000189E21"
             BuildableName = "Climify.app"
             BlueprintName = "Climify"
-            ReferencedContainer = "container:Climify.xcodeproj">
+            ReferencedContainer = "container:Feedme.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -22,8 +22,8 @@
 		A1734B2C223657FE004AB9DD /* AppBeaconTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1734B2B223657FE004AB9DD /* AppBeaconTest.swift */; };
 		A18507322254959F005C081C /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18507312254959F005C081C /* TabBarVC.swift */; };
 		A1907217226707B200B6EE2B /* LocationEstimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1907216226707B200B6EE2B /* LocationEstimator.swift */; };
-		A1990B80228726C600A3E431 /* ClimifyAPIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1990B7F228726C600A3E431 /* ClimifyAPIProtocol.swift */; };
-		A1990B8522873C3700A3E431 /* ClimifyAPIDecoderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1990B8422873C3700A3E431 /* ClimifyAPIDecoderTest.swift */; };
+		A1990B80228726C600A3E431 /* FeedmeNetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1990B7F228726C600A3E431 /* FeedmeNetworkServiceProtocol.swift */; };
+		A1990B8522873C3700A3E431 /* FeedmeNetworkServiceDecoderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1990B8422873C3700A3E431 /* FeedmeNetworkServiceDecoderTest.swift */; };
 		A1B1E3A2223BA77F00CCC8A2 /* DataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B1E3A1223BA77F00CCC8A2 /* DataVC.swift */; };
 		A1B29A32223162AE0065DE01 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B29A31223162AE0065DE01 /* Question.swift */; };
 		A1B490A62231847400198E6F /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B490A52231847400198E6F /* Feedback.swift */; };
@@ -40,9 +40,9 @@
 		A1EB9F2922326F69006AFB57 /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EB9F2822326F69006AFB57 /* Beacon.swift */; };
 		A1EB9F2C223280EC006AFB57 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EB9F2B223280EC006AFB57 /* Room.swift */; };
 		A1FA8725222589C300461799 /* FeedbackVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FA8724222589C300461799 /* FeedbackVC.swift */; };
-		A1FF5F7922898C540009F18D /* MockClimifyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1990B822287280A00A3E431 /* MockClimifyAPI.swift */; };
-		A1FF5F7B22898C6C0009F18D /* ClimifyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1141A1122314B4900659DF1 /* ClimifyAPI.swift */; };
-		A1FF5F7D2289AB190009F18D /* ClimifyAPIDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FF5F7C2289AB190009F18D /* ClimifyAPIDecoder.swift */; };
+		A1FF5F7922898C540009F18D /* MockFeedmeNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1990B822287280A00A3E431 /* MockFeedmeNetworkService.swift */; };
+		A1FF5F7B22898C6C0009F18D /* FeedmeNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1141A1122314B4900659DF1 /* FeedmeNetworkService.swift */; };
+		A1FF5F7D2289AB190009F18D /* FeedmeServiceDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FF5F7C2289AB190009F18D /* FeedmeServiceDecoder.swift */; };
 		A1FF5F7F2289AEA80009F18D /* AnsweredQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FF5F7E2289AEA80009F18D /* AnsweredQuestion.swift */; };
 		A1FF5F812289C08E0009F18D /* AnsweredFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FF5F802289C08E0009F18D /* AnsweredFeedback.swift */; };
 /* End PBXBuildFile section */
@@ -61,7 +61,7 @@
 		7BD095BB893E76FA98D1C554 /* Pods-Climify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Climify.release.xcconfig"; path = "Pods/Target Support Files/Pods-Climify/Pods-Climify.release.xcconfig"; sourceTree = "<group>"; };
 		A10C9DC2226E022A000506C7 /* SuccessVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessVC.swift; sourceTree = "<group>"; };
 		A112693422242AA000B18A38 /* AppBeacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBeacon.swift; sourceTree = "<group>"; };
-		A1141A1122314B4900659DF1 /* ClimifyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimifyAPI.swift; sourceTree = "<group>"; };
+		A1141A1122314B4900659DF1 /* FeedmeNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedmeNetworkService.swift; sourceTree = "<group>"; };
 		A125A5C522842BE30012F7EB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A12AF6402274845C007F6C7D /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		A12B9F7522787C3500FEAC32 /* ScanningVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanningVC.swift; sourceTree = "<group>"; };
@@ -78,9 +78,9 @@
 		A1734B2B223657FE004AB9DD /* AppBeaconTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBeaconTest.swift; sourceTree = "<group>"; };
 		A18507312254959F005C081C /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		A1907216226707B200B6EE2B /* LocationEstimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEstimator.swift; sourceTree = "<group>"; };
-		A1990B7F228726C600A3E431 /* ClimifyAPIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimifyAPIProtocol.swift; sourceTree = "<group>"; };
-		A1990B822287280A00A3E431 /* MockClimifyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockClimifyAPI.swift; sourceTree = "<group>"; };
-		A1990B8422873C3700A3E431 /* ClimifyAPIDecoderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimifyAPIDecoderTest.swift; sourceTree = "<group>"; };
+		A1990B7F228726C600A3E431 /* FeedmeNetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedmeNetworkServiceProtocol.swift; sourceTree = "<group>"; };
+		A1990B822287280A00A3E431 /* MockFeedmeNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFeedmeNetworkService.swift; sourceTree = "<group>"; };
+		A1990B8422873C3700A3E431 /* FeedmeNetworkServiceDecoderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedmeNetworkServiceDecoderTest.swift; sourceTree = "<group>"; };
 		A1B0C47A224790C800F5A885 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A1B1E3A1223BA77F00CCC8A2 /* DataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataVC.swift; sourceTree = "<group>"; };
 		A1B29A31223162AE0065DE01 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
@@ -97,7 +97,7 @@
 		A1EB9F2822326F69006AFB57 /* Beacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beacon.swift; sourceTree = "<group>"; };
 		A1EB9F2B223280EC006AFB57 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		A1FA8724222589C300461799 /* FeedbackVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackVC.swift; sourceTree = "<group>"; };
-		A1FF5F7C2289AB190009F18D /* ClimifyAPIDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimifyAPIDecoder.swift; sourceTree = "<group>"; };
+		A1FF5F7C2289AB190009F18D /* FeedmeServiceDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedmeServiceDecoder.swift; sourceTree = "<group>"; };
 		A1FF5F7E2289AEA80009F18D /* AnsweredQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsweredQuestion.swift; sourceTree = "<group>"; };
 		A1FF5F802289C08E0009F18D /* AnsweredFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsweredFeedback.swift; sourceTree = "<group>"; };
 		A8DAFB9C4349805DFA56BFFE /* Pods-Climify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Climify.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Climify/Pods-Climify.debug.xcconfig"; sourceTree = "<group>"; };
@@ -134,8 +134,8 @@
 		A1141A1022314B3200659DF1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				A1141A1122314B4900659DF1 /* ClimifyAPI.swift */,
-				A1FF5F7C2289AB190009F18D /* ClimifyAPIDecoder.swift */,
+				A1141A1122314B4900659DF1 /* FeedmeNetworkService.swift */,
+				A1FF5F7C2289AB190009F18D /* FeedmeServiceDecoder.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -233,7 +233,7 @@
 			children = (
 				A1990B81228727EB00A3E431 /* Mocks */,
 				A1734B252236577A004AB9DD /* Info.plist */,
-				A1990B8422873C3700A3E431 /* ClimifyAPIDecoderTest.swift */,
+				A1990B8422873C3700A3E431 /* FeedmeNetworkServiceDecoderTest.swift */,
 				A1734B2B223657FE004AB9DD /* AppBeaconTest.swift */,
 				A16B8B0B22843D7F005D73BE /* LocationEstimatorTest.swift */,
 			);
@@ -243,7 +243,7 @@
 		A1990B81228727EB00A3E431 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				A1990B822287280A00A3E431 /* MockClimifyAPI.swift */,
+				A1990B822287280A00A3E431 /* MockFeedmeNetworkService.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -260,7 +260,7 @@
 		A1CCC39B22883A1400D58E8E /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				A1990B7F228726C600A3E431 /* ClimifyAPIProtocol.swift */,
+				A1990B7F228726C600A3E431 /* FeedmeNetworkServiceProtocol.swift */,
 				A1CCC39E22883AC300D58E8E /* FoundNewRoomProtocol.swift */,
 				A1CCC3A022883B0D00D58E8E /* ManuallyChangedRoomProtocol.swift */,
 				A1CCC3A2228843A400D58E8E /* LocationEstimatorProtocol.swift */,
@@ -336,7 +336,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A136A0C9220C595000189E21 /* Build configuration list for PBXProject "Climify" */;
+			buildConfigurationList = A136A0C9220C595000189E21 /* Build configuration list for PBXProject "Feedme" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -442,13 +442,13 @@
 				A1FF5F7F2289AEA80009F18D /* AnsweredQuestion.swift in Sources */,
 				A1C9B4B022561DE000A8748D /* Building.swift in Sources */,
 				A1E15B172247F3A200B5C3EF /* DiagramViewVC.swift in Sources */,
-				A1990B80228726C600A3E431 /* ClimifyAPIProtocol.swift in Sources */,
+				A1990B80228726C600A3E431 /* FeedmeNetworkServiceProtocol.swift in Sources */,
 				A12B9F7622787C3500FEAC32 /* ScanningVC.swift in Sources */,
 				A18507322254959F005C081C /* TabBarVC.swift in Sources */,
 				A12AF6412274845C007F6C7D /* LoginVC.swift in Sources */,
 				A1FF5F812289C08E0009F18D /* AnsweredFeedback.swift in Sources */,
 				A1EB9F2C223280EC006AFB57 /* Room.swift in Sources */,
-				A1FF5F7D2289AB190009F18D /* ClimifyAPIDecoder.swift in Sources */,
+				A1FF5F7D2289AB190009F18D /* FeedmeServiceDecoder.swift in Sources */,
 				A1BD499D2247AEA700DCA20D /* QuestionCell.swift in Sources */,
 				A1B5D365224AACA100FE92E2 /* RoomChooserVC.swift in Sources */,
 				A1B1E3A2223BA77F00CCC8A2 /* DataVC.swift in Sources */,
@@ -461,7 +461,7 @@
 				A1CCC39F22883AC300D58E8E /* FoundNewRoomProtocol.swift in Sources */,
 				A1581EB9223A96230083C4C9 /* AnswerCell.swift in Sources */,
 				A1CCC3A3228843A400D58E8E /* LocationEstimatorProtocol.swift in Sources */,
-				A1FF5F7B22898C6C0009F18D /* ClimifyAPI.swift in Sources */,
+				A1FF5F7B22898C6C0009F18D /* FeedmeNetworkService.swift in Sources */,
 				A136A0D2220C595000189E21 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -470,9 +470,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1FF5F7922898C540009F18D /* MockClimifyAPI.swift in Sources */,
+				A1FF5F7922898C540009F18D /* MockFeedmeNetworkService.swift in Sources */,
 				A1734B2C223657FE004AB9DD /* AppBeaconTest.swift in Sources */,
-				A1990B8522873C3700A3E431 /* ClimifyAPIDecoderTest.swift in Sources */,
+				A1990B8522873C3700A3E431 /* FeedmeNetworkServiceDecoderTest.swift in Sources */,
 				A16B8B0C22843D7F005D73BE /* LocationEstimatorTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -704,7 +704,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A136A0C9220C595000189E21 /* Build configuration list for PBXProject "Climify" */ = {
+		A136A0C9220C595000189E21 /* Build configuration list for PBXProject "Feedme" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A136A0DE220C595000189E21 /* Debug */,

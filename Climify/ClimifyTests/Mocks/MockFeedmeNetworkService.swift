@@ -1,6 +1,6 @@
 //
-//  MockClimifyAPI.swift
-//  ClimifyTests
+//  MockFeedmeNetworkService.swift
+//  FeedmeTests
 //
 //  Created by Christian Hjelmslund on 11/05/2019.
 //  Copyright © 2019 Christian Hjelmslund. All rights reserved.
@@ -9,10 +9,10 @@
 import Foundation
 @testable import Climify
 
-class MockClimifyAPI {
+class MockFeedmeNetworkService {
     
     var shouldReturnError = false
-    private let decoder = ClimifyAPIDecoder()
+    private let decoder = FeedmeNetworkServiceDecoder()
 
     convenience init() {
         self.init(false)
@@ -96,6 +96,38 @@ class MockClimifyAPI {
         ]
     ]
     
+    let mockLoginResponse = ["x-auth-token": "1234567810"]
+    
+    let mockPostRoomResponse: [String : Any] = [
+        "_id": "5cd7e911cd7521362637208f",
+        "name": "Test Room",
+        "building": "5cd491da2fc512294ee17df9",
+        "__v": 0
+        ]
+    
+    
+    
+    let mockPostSignalMapResponse: [String : Any] = [
+        "_id" : "5cd7f39ccd75213626372092",
+        "isActive" : false,
+        "beacons" : [
+            [
+                "_id" : "5cd71058cd752136263717ea",
+                "signals" : [
+                    -57.200000000000003
+                ]
+            ]
+        ],
+        "__v" : 0,
+        "room" : [
+            "_id" : "5cd710d0cd752136263717eb",
+            "__v" : 0,
+            "building" : "5cd491da2fc512294ee17df9",
+            "name" : "Rum1"
+        ]
+    ]
+    
+    
     let mockFetchBuildingsResponse = [
         [
             "name": "Building 303",
@@ -121,49 +153,48 @@ class MockClimifyAPI {
             "rooms": []
         ]
     ]
-    
-    let mockLoginResponse = ["x-auth-token": "1234567810"]
-    
-    let mockPostRoomResponse: [String : Any] = [
-        "_id": "5cd7e911cd7521362637208f",
-        "name": "Test Room",
-        "building": "5cd491da2fc512294ee17df9",
-        "__v": 0
-        ]
-    
-    let mockPostSignalMapResponse: [String : Any] = [
-        "_id" : "5cd7f39ccd75213626372092",
-        "isActive" : false,
-        "beacons" : [
-            [
-                "_id" : "5cd71058cd752136263717ea",
-                "signals" : [
-                    -57.200000000000003
-                ]
-            ]
-        ],
-        "__v" : 0,
-        "room" : [
-            "_id" : "5cd710d0cd752136263717eb",
-            "__v" : 0,
-            "building" : "5cd491da2fc512294ee17df9",
-            "name" : "Rum1"
-        ]
-    ]
 }
-extension MockClimifyAPI: ClimifyAPIProtocol {
+
+extension MockFeedmeNetworkService: FeedmeNetworkServiceProtocol {
+    
+    func fetchBuildings(completion: @escaping ([Building]?, ServiceError?) -> Void) {
+        if shouldReturnError {
+            completion(nil, ServiceError.error(description: ""))
+        } else {
+            completion(self.decoder.decodeFetchBuildings(data: mockFetchBuildingsResponse), nil)
+        }
+    }
+    
+    func postRoom(buildingId: String, name: String, completion: @escaping (String?, ServiceError?) -> Void) {
+        if shouldReturnError {
+            // Giving error response (the data put in the decoder is from the wrong resposne)
+            if let roomid = self.decoder.decodePostRoom(data: mockFetchFeedbackResponse) {
+                completion(roomid, nil)
+            } else {
+                completion(nil, ServiceError.error(description: ""))
+            }
+        } else {
+            completion(self.decoder.decodePostRoom(data: mockPostRoomResponse), nil)
+        }
+    }
+    
+    
     
     func postFeedback(feedback: Feedback, completion: @escaping (ServiceError?) -> Void) {
         if shouldReturnError {
+            // Giving error response
             completion(ServiceError.error(description: ""))
         } else {
             completion(nil)
         }
     }
     
+   
+    
+    
     func postSignalMap(signalMap: [Any], roomid: String?, buildingId: String?, completion: @escaping (Room?, ServiceError?) -> Void) {
         if shouldReturnError {
-            // Giving wrong response
+            // Giving error response (the data put in the decoder is from the wrong resposne)
             if let _ = self.decoder.decodeToken(data: mockFetchFeedbackResponse) {
                 completion(nil, nil)
             } else {
@@ -174,18 +205,7 @@ extension MockClimifyAPI: ClimifyAPIProtocol {
         }
     }
     
-    func postRoom(buildingId: String, name: String, completion: @escaping (String?, ServiceError?) -> Void) {
-        if shouldReturnError {
-            // Giving wrong response
-            if let roomid = self.decoder.decodePostRoom(data: mockFetchFeedbackResponse) {
-                completion(roomid, nil)
-            } else {
-                completion(nil, ServiceError.error(description: ""))
-            }
-        } else {
-            completion(self.decoder.decodePostRoom(data: mockPostRoomResponse), nil)
-        }
-    }
+    
     
     func fetchFeedback(questionID: String, roomID: String, time: Time, me: Bool, completion: @escaping ([AnsweredFeedback]?, ServiceError?) -> Void) {
         if shouldReturnError {
@@ -221,14 +241,6 @@ extension MockClimifyAPI: ClimifyAPIProtocol {
             } else {
                 completion(ServiceError.error(description: ""))
             }
-        }
-    }
-    
-    func fetchBuildings(completion: @escaping ([Building]?, ServiceError?) -> Void) {
-        if shouldReturnError {
-            completion(nil, ServiceError.error(description: ""))
-        } else {
-            completion(self.decoder.decodeFetchBuildings(data: mockFetchBuildingsResponse), nil)
         }
     }
     

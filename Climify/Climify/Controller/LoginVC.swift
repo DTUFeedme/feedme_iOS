@@ -1,6 +1,6 @@
 //
 //  LoginController.swift
-//  Climify
+//  Feedme
 //
 //  Created by Christian Hjelmslund on 27/04/2019.
 //  Copyright © 2019 Christian Hjelmslund. All rights reserved.
@@ -15,11 +15,11 @@ class LoginVC: UIViewController {
     @IBOutlet weak var login: UIButton!
     private var email = ""
     private var password = ""
-    var climifyApi: ClimifyAPI!
+    var feedmeNS: FeedmeNetworkService!
     
     
     override func viewDidLoad() {
-        climifyApi = appDelegate.climifyApi
+        feedmeNS = appDelegate.feedmeNS
         super.viewDidLoad()
         setupUI()
     }
@@ -42,7 +42,7 @@ class LoginVC: UIViewController {
         }
     }
     @IBAction func loginAction(_ sender: Any) {
-        climifyApi.login(email: email, password: password) { error in
+        feedmeNS.login(email: email, password: password) { error in
             if error == nil {
                 if let tbc = self.tabBarController as? TabBarVC {
                     if tbc.viewControllers?.count == 2 {
