@@ -143,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				A1141A1122314B4900659DF1 /* FeedmeNetworkService.swift */,
-				A1FF5F7C2289AB190009F18D /* FeedmeServiceDecoder.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -196,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				A1907216226707B200B6EE2B /* LocationEstimator.swift */,
+				A1FF5F7C2289AB190009F18D /* FeedmeServiceDecoder.swift */,
 				A112693422242AA000B18A38 /* AppBeacon.swift */,
 				A1EB9F2822326F69006AFB57 /* Beacon.swift */,
 				A1B29A31223162AE0065DE01 /* Question.swift */,

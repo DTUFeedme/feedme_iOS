@@ -44,7 +44,12 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
                 self.buildingPickerView.dataSource = self
                 self.buildingPickerView.reloadAllComponents()
             } else {
-                print(error as Any)
+                if (FeedmeNetworkService.Connectivity.isConnectedToInternet){
+                    self.choosenRoomLabel.text = "Please give some feedback."
+                } else {
+                    self.choosenRoomLabel.text = "No internet connection"
+                }
+                self.saveChanges.setTitle("close", for: .normal)
             }
         }
     }

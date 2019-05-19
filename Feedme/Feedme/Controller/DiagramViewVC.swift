@@ -70,7 +70,11 @@ class DiagramVC: UIViewController {
                 }
                 self.updateChart()
             } else {
-                self.roomLocationLabel.text = error?.errorDescription
+                if (FeedmeNetworkService.Connectivity.isConnectedToInternet){
+                    self.roomLocationLabel.text = error?.errorDescription
+                } else {
+                    self.roomLocationLabel.text = "No internet connection"
+                }
             }
         }
     }

@@ -13,7 +13,7 @@
         <!--feedback-->
         <scene sceneID="Fgf-p4-B1h">
             <objects>
-                <viewController storyboardIdentifier="Feedback" id="cYD-PC-89k" customClass="FeedbackVC" customModule="Climify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Feedback" id="cYD-PC-89k" customClass="FeedbackVC" customModule="Feedme" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZAl-hK-E2o">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -41,7 +41,7 @@
                                                 <rect key="frame" x="0.0" y="10" width="337.5" height="531"/>
                                                 <color key="backgroundColor" red="0.16078431369999999" green="0.16862745100000001" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellAnswer" id="Fhi-Uo-rwe" customClass="AnswerCell" customModule="Climify" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellAnswer" id="Fhi-Uo-rwe" customClass="AnswerCell" customModule="Feedme" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="337.5" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Fhi-Uo-rwe" id="Wo7-SB-mcv">
@@ -186,9 +186,6 @@
                     <navigationItem key="navigationItem" title="feedback" id="EGj-Ga-lTg">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="back_glyph" id="kYH-fF-nZV">
                             <color key="tintColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="backButtonAction:" destination="cYD-PC-89k" id="7rZ-jV-z3y"/>
-                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="settings_glyph" id="zYy-mW-zZ6">
                             <color key="tintColor" red="0.098039215690000001" green="0.70980392160000005" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -273,7 +270,7 @@
         <!--LoginVC-->
         <scene sceneID="73D-f6-C8x">
             <objects>
-                <viewController modalPresentationStyle="overFullScreen" id="Fnk-20-Vyy" customClass="LoginVC" customModule="Climify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="overFullScreen" id="Fnk-20-Vyy" customClass="LoginVC" customModule="Feedme" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tC3-UU-ecn">
                         <rect key="frame" x="0.0" y="0.0" width="250" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -365,7 +362,7 @@
         <!--Item-->
         <scene sceneID="LdS-v5-opr">
             <objects>
-                <viewController storyboardIdentifier="Scanning" id="vOx-9X-xVT" customClass="ScanningVC" customModule="Climify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Scanning" id="vOx-9X-xVT" customClass="ScanningVC" customModule="Feedme" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jGN-cK-jyn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -476,12 +473,12 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1226" y="72"/>
+            <point key="canvasLocation" x="1159" y="72"/>
         </scene>
         <!--SuccessVC-->
         <scene sceneID="qtD-72-m7E">
             <objects>
-                <viewController id="grJ-g7-5el" customClass="SuccessVC" customModule="Climify" sceneMemberID="viewController">
+                <viewController id="grJ-g7-5el" customClass="SuccessVC" customModule="Feedme" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vHz-Ui-zwh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -542,9 +539,6 @@
                                         <barButtonItem key="backBarButtonItem" title="Back" id="NdZ-dk-0Vs"/>
                                         <barButtonItem key="leftBarButtonItem" image="back_glyph" id="Pe6-ep-rD6">
                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <connections>
-                                                <action selector="backButtonAction:" destination="cYD-PC-89k" id="AUX-hv-KOh"/>
-                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>

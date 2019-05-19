@@ -31,11 +31,12 @@ class FeedmeNetworkServiceDecoder {
         var questions: [Question] = []
         let json = JSON(data)
         for element in json {
-            if let questionName = element.1["value"].string, let id = element.1["_id"].string, let answersJson = element.1["answerOptions"].array {
+            if let questionName = element.1["value"].string, let id = element.1["_id"].string,
+                let answers = element.1["answerOptions"].array {
                 
                 var answerOptions: [Question.answerOption] = []
-                for element in answersJson {
-                    if let answerValue = element["value"].string, let answerID = element["_id"].string {
+                for answer in answers {
+                    if let answerValue = answer["value"].string, let answerID = answer["_id"].string {
                         let answerOption = Question.answerOption(id: answerID, value: answerValue)
                         answerOptions.append(answerOption)
                     }

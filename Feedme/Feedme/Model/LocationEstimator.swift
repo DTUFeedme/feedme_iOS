@@ -49,7 +49,6 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
                     self.initTimerfetchRoom()
                 }
             } else {
-                print(error?.errorDescription as Any)
             }
         }
     }
@@ -150,7 +149,7 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
                         self.userChangedRoomDelegate?.userChangedRoom(roomname: roomname, roomid: roomId)
                     }
                 } else {
-                    print(error?.errorDescription as Any)
+                    
                 }
             }
         }
@@ -176,8 +175,8 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    func convertSignalMapToServer(signalMap: [String: [Double]]) -> [Any] {
-        var serverSignalMap: [Any] = []
+    func convertSignalMapToServer(signalMap: [String: [Double]]) -> [[String: Any]] {
+        var serverSignalMap: [[String: Any]] = []
 
         for beacon in beacons {
             var beaconDict: [String: Any] = [:]
@@ -197,7 +196,6 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
             if error == nil {
                 completion(room)
             } else {
-                print(error?.errorDescription as Any)
             }
         }
     }

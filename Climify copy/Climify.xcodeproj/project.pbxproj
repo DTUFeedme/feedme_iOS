@@ -336,7 +336,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A136A0C9220C595000189E21 /* Build configuration list for PBXProject "Feedme" */;
+			buildConfigurationList = A136A0C9220C595000189E21 /* Build configuration list for PBXProject "Climify" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -704,7 +704,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A136A0C9220C595000189E21 /* Build configuration list for PBXProject "Feedme" */ = {
+		A136A0C9220C595000189E21 /* Build configuration list for PBXProject "Climify" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A136A0DE220C595000189E21 /* Debug */,

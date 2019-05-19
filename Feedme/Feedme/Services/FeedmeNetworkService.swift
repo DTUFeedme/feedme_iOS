@@ -60,7 +60,8 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         }
     }
     
-    func fetchQuestions(currentRoomID: String, completion: @escaping (_ questions: [Question]?, _ error: ServiceError?) -> Void) {
+    func fetchQuestions(currentRoomID: String, completion:
+        @escaping (_ questions: [Question]?, _ error: ServiceError?) -> Void) {
         
         guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
             completion(nil, handleError(response: genericErrorMessage))
@@ -78,6 +79,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
                 let questions = self.decoder.decodeFetchQuestions(data: response.result.value as Any)
                 
                 if questions.isEmpty {
+//               
                     completion(nil, self.handleError(response: response.result.value))
                 } else {
                     completion(questions, nil)
@@ -119,17 +121,18 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         
         let headers: HTTPHeaders = [ "x-auth-token": token ]
         
-        let url = "\(baseUrl)/buildings"
+        let url = "\(baseUrl)/buildings?feedback=me"
         AF.request(url, method: .get, headers: headers).responseJSON { response in
             if response.response?.statusCode == 200 {
                 let buildings = self.decoder.decodeFetchBuildings(data: response.result.value as Any)
+          
                 if buildings.isEmpty {
-                    completion(nil, self.handleError(response: response.result))
+                    completion(nil, self.handleError(response: response.result.value))
                 } else {
                     completion(buildings, nil)
                 }
             } else {
-                completion(nil, self.handleError(response: response.result))
+                completion(nil, self.handleError(response: response.result.value))
             }
         }
     }
@@ -142,7 +145,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
                     UserDefaults.standard.set(token, forKey: "x-auth-token")
                     completion(nil)
                 } else {
-                    completion(self.handleError(response: response.result))
+                    completion(self.handleError(response: response.result.value))
                 }
             }
         }
@@ -188,12 +191,12 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
             if response.response?.statusCode == 200 {
                 let feedback = self.decoder.decodeFetchFeedback(data: response.result.value as Any)
                 if feedback.isEmpty {
-                    completion(nil, self.handleError(response: response.result))
+                    completion(nil, self.handleError(response: response.result.value))
                 } else {
                     completion(feedback, nil)
                 }
             } else {
-                completion(nil, self.handleError(response: response.result))
+                completion(nil, self.handleError(response: response.result.value))
             }
         }
     }
@@ -216,16 +219,16 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
                     if let roomId = self.decoder.decodePostRoom(data: response.result.value as Any) {
                         completion(roomId, nil)
                     } else {
-                        completion(nil, self.handleError(response: response.result))
+                        completion(nil, self.handleError(response: response.result.value))
                     }
                 } else {
-                    completion(nil, self.handleError(response: response.result))
+                    completion(nil, self.handleError(response: response.result.value))
                 }
         }
     }
     
     
-    func postSignalMap(signalMap: [Any], roomid: String?, buildingId: String?, completion: @escaping (_ room: Room?, _ error: ServiceError?) -> Void) {
+    func postSignalMap(signalMap: [[String : Any]], roomid: String?, buildingId: String?, completion: @escaping (_ room: Room?, _ error: ServiceError?) -> Void) {
         
         guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
             completion(nil, handleError(response: genericErrorMessage))
@@ -248,10 +251,10 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
                     if let room = self.decoder.decodePostSignalMap(data:  response.result.value as Any) {
                         completion(room, nil)
                     } else {
-                        completion(nil, self.handleError(response: response.result))
+                        completion(nil, self.handleError(response: response.result.value))
                     }
                 } else {
-                    completion(nil, self.handleError(response: response.result))
+                    completion(nil, self.handleError(response: response.result.value))
                 }
         }
     }
@@ -272,7 +275,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
                     if response.response?.statusCode == 200 {
                         completion(nil)
                     } else {
-                        completion(self.handleError(response: response.result))
+                        completion(self.handleError(response: response.result.value))
                     }
             }
         } else {

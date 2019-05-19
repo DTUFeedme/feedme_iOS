@@ -192,7 +192,7 @@ extension MockFeedmeNetworkService: FeedmeNetworkServiceProtocol {
    
     
     
-    func postSignalMap(signalMap: [Any], roomid: String?, buildingId: String?, completion: @escaping (Room?, ServiceError?) -> Void) {
+    func postSignalMap(signalMap: [[String: Any]], roomid: String?, buildingId: String?, completion: @escaping (Room?, ServiceError?) -> Void) {
         if shouldReturnError {
             // Giving error response (the data put in the decoder is from the wrong resposne)
             if let _ = self.decoder.decodeToken(data: mockFetchFeedbackResponse) {

@@ -53,8 +53,6 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         feedmeNS = appDelegate.feedmeNS
         locationEstimator = appDelegate.locationEstimator
         
-        print(locationEstimator)
-        
         if (FeedmeNetworkService.Connectivity.isConnectedToInternet){
             guard let _ = UserDefaults.standard.string(forKey: "x-auth-token") else { return }
         }
@@ -70,7 +68,11 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         label.numberOfLines = 0
         label.center = self.view.center
         label.textAlignment = .justified
+        if (FeedmeNetworkService.Connectivity.isConnectedToInternet){
         label.text = "Woops. You have not given any feedback in this room yet. Please change room in the upper right corner or provide feedback 😎"
+        } else {
+            label.text = "Please make sure you have internet connection 🤔"
+        }
         label.font = .avenir18()
         label.textColor = .white
         self.view.addSubview(label)
@@ -131,6 +133,11 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.questions = localQuestions
                 self.tableView.reloadData()
             } else {
+                if (!FeedmeNetworkService.Connectivity.isConnectedToInternet) {
+                    self.label.text = "Please make sure you have internet connection 🤔"
+                } else {
+                    self.label.text = "Woops. You have not given any feedback in this room yet. Please change room in the upper right corner or provide feedback 😎"
+                }
                 self.hideUI()
             }
         }
