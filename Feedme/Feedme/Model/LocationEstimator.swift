@@ -160,7 +160,6 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
     func postRoom(roomname: String, completion: @escaping (_ error: ServiceError?) -> Void) {
         
         if let buildingId = buildingId {
-            
             feedmeNS.postRoom(buildingId: buildingId, name: roomname) { roomId, error in
                 if error == nil {
                     self.pushSignalMap(roomid: roomId!, buildingId: buildingId) { room in

@@ -43,7 +43,10 @@ class TabBarVC: UITabBarController, UITabBarControllerDelegate {
         }
     }
 
-
+    func removeTabBarItem(){
+        self.viewControllers?.removeLast()
+    }
+    
     func addNewTabBarItem(){
         let sb = UIStoryboard(name: "Feedback", bundle: nil)
         if let scanVC = sb.instantiateViewController(withIdentifier: "Scanning") as? ScanningVC {

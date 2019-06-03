@@ -10,6 +10,7 @@ import UIKit
 
 class ScanningVC: UIViewController {
     
+    @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var roomname: UITextField!
     @IBOutlet weak var scanningButton: UIButton!
     @IBOutlet weak var provideRoomLabel: UILabel!
@@ -18,6 +19,9 @@ class ScanningVC: UIViewController {
     var locationEstimator: LocationEstimator!
     private var isScanning = false
   
+    @IBAction func showInfo(_ sender: Any) {
+        infoLabel.isHidden = false
+    }
     override func viewDidLoad() {
         feedmeNS = appDelegate.feedmeNS
         locationEstimator = appDelegate.locationEstimator
@@ -32,9 +36,6 @@ class ScanningVC: UIViewController {
         scanningButton.backgroundColor = .clear
         scanningButton.layer.borderColor = .myGreen()
         scanningButton.layer.borderWidth = 3
-        scanningButton.layer.shadowOpacity = 1
-        scanningButton.layer.shadowOffset = CGSize.zero
-        scanningButton.layer.shadowRadius = 10
     }
     
     @IBAction func startScanning(_ sender: Any) {
@@ -44,7 +45,7 @@ class ScanningVC: UIViewController {
                     self.message.text = "Succesfully saved room dimensions"
                     self.roomname.text = nil
                 } else {
-                    self.message.text = "Something went wrong. Please check your internet connection"
+                    self.message.text = "Something went wrong. Please check your internet connection or make sure that the beacons are nearby"
                 }
                 self.locationEstimator.stopTimerAddToSignalMap()
                 self.locationEstimator.isMappingRoom = false

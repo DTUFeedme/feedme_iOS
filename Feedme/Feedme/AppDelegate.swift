@@ -33,13 +33,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
-
-        UINavigationBar.appearance().barTintColor = .myGray()
-        UITabBar.appearance().barTintColor = .myGray()
-        UITabBar.appearance().tintColor = .white
-        UITabBar.appearance().unselectedItemTintColor = .myCyan()
+        let bgColor = UIColor(named: "backgroundColor")
+        let color = UIColor(named: "colorOne")
         
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.myCyan(), NSAttributedString.Key.font: UIFont.navigationFont()]
+        UINavigationBar.appearance().barTintColor = color
+        UITabBar.appearance().barTintColor = color
+        UITabBar.appearance().tintColor = bgColor
+        UITabBar.appearance().unselectedItemTintColor = .black
+        
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "backgroundColor")!, NSAttributedString.Key.font: UIFont.navigationFont()]
         return true
     }
 }

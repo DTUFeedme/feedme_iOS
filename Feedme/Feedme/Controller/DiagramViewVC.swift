@@ -38,15 +38,11 @@ class DiagramVC: UIViewController {
     func setupUI(){
         bgView.layer.cornerRadius = 15
         bgView.layer.masksToBounds = true
-        pieChart.layer.shadowColor = UIColor.black.cgColor
-        pieChart.layer.shadowOpacity = 5
-        pieChart.layer.shadowOffset = CGSize.zero
-        pieChart.layer.shadowRadius = 15
         
         roomLocationLabel.text = room
         pieChart.centerText = question
         
-        let centerText = NSAttributedString(string: question, attributes: [NSAttributedString.Key.foregroundColor: UIColor.myCyan(),NSAttributedString.Key.font: UIFont(name: "Verdana", size: 16)!])
+        let centerText = NSAttributedString(string: question, attributes: [NSAttributedString.Key.foregroundColor: UIColor.colorOne!,NSAttributedString.Key.font: UIFont(name: "Verdana", size: 16)!])
         
         pieChart.centerAttributedText = centerText
         pieChart.holeColor = UIColor.clear
@@ -57,7 +53,7 @@ class DiagramVC: UIViewController {
         l.xEntrySpace = 7
         l.yEntrySpace = 0
         l.yOffset = 10
-        l.textColor = .myCyan()
+        l.textColor = UIColor.colorOne!
     }
     
     private func fetchFeedback(){

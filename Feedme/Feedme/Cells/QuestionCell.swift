@@ -25,17 +25,12 @@ class QuestionCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        questionLabel.textColor = .white
-        howManyTimesAnsweredLabel.textColor = .white
+        questionLabel.textColor = .colorOne
+        howManyTimesAnsweredLabel.textColor = .colorOne
         bgView.backgroundColor = .clear
         bgView.layer.cornerRadius = 20
         bgView.layer.borderWidth = 1
-        bgView.layer.cornerRadius = 15
-        bgView.layer.shadowOpacity = 1
-        bgView.layer.shadowOffset = CGSize.zero
-        bgView.layer.shadowColor = UIColor.white.cgColor
-        bgView.layer.shadowRadius = 10
-        bgView.layer.borderColor = UIColor.white.cgColor
+        bgView.layer.borderColor = .colorOne
     }
     func flash() {
         

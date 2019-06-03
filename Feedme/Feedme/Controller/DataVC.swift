@@ -69,7 +69,7 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             label.text = "Please make sure you have internet connection 🤔"
         }
         label.font = .avenir18()
-        label.textColor = .white
+        label.textColor = .colorOne
         self.view.addSubview(label)
         label.isHidden = true
     }
@@ -174,59 +174,59 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         case 0:
             todayButton.pulsate()
             todayButton.titleLabel?.font = .avenir20()
-            todayButton.setTitleColor(.white, for: .normal)
+            todayButton.setTitleColor(.darkGray, for: .normal)
             
             lastweekButton.titleLabel?.font = .avenir18()
-            lastweekButton.setTitleColor(.myCyan(), for: .normal)
+            lastweekButton.setTitleColor(.colorOne, for: .normal)
             
             lastmonthButton.titleLabel?.font = .avenir18()
-            lastmonthButton.setTitleColor(.myCyan(), for: .normal)
+            lastmonthButton.setTitleColor(.colorOne, for: .normal)
             
             alltimeButton.titleLabel?.font = .avenir18()
-            alltimeButton.setTitleColor(.myCyan(), for: .normal)
+            alltimeButton.setTitleColor(.colorOne, for: .normal)
             time = Time.day
         case 1:
             lastweekButton.pulsate()
             lastweekButton.titleLabel?.font = .avenir20()
-            lastweekButton.setTitleColor(.white, for: .normal)
+            lastweekButton.setTitleColor(.darkGray, for: .normal)
             
             todayButton.titleLabel?.font = .avenir18()
-            todayButton.setTitleColor(.myCyan(), for: .normal)
+            todayButton.setTitleColor(.colorOne, for: .normal)
             
             lastmonthButton.titleLabel?.font = .avenir18()
-            lastmonthButton.setTitleColor(.myCyan(), for: .normal)
+            lastmonthButton.setTitleColor(.colorOne, for: .normal)
             time = Time.week
             
             alltimeButton.titleLabel?.font = .avenir18()
-            alltimeButton.setTitleColor(.myCyan(), for: .normal)
+            alltimeButton.setTitleColor(.colorOne, for: .normal)
         case 2:
             lastmonthButton.pulsate()
             lastmonthButton.titleLabel?.font = .avenir20()
-            lastmonthButton.setTitleColor(.white, for: .normal)
+            lastmonthButton.setTitleColor(.darkGray, for: .normal)
             
             todayButton.titleLabel?.font = .avenir18()
-            todayButton.setTitleColor(.myCyan(), for: .normal)
+            todayButton.setTitleColor(.colorOne, for: .normal)
             
             lastweekButton.titleLabel?.font = .avenir18()
-            lastweekButton.setTitleColor(.myCyan(), for: .normal)
+            lastweekButton.setTitleColor(.colorOne, for: .normal)
             time = Time.month
             
             alltimeButton.titleLabel?.font = .avenir18()
-            alltimeButton.setTitleColor(.myCyan(), for: .normal)
+            alltimeButton.setTitleColor(.colorOne, for: .normal)
             
         case 3:
             alltimeButton.titleLabel?.font = .avenir20()
-            alltimeButton.setTitleColor(.white, for: .normal)
+            alltimeButton.setTitleColor(.darkGray, for: .normal)
             alltimeButton.pulsate()
             
             lastmonthButton.titleLabel?.font = .avenir18()
-            lastmonthButton.setTitleColor(.myCyan(), for: .normal)
+            lastmonthButton.setTitleColor(.colorOne, for: .normal)
             
             todayButton.titleLabel?.font = .avenir18()
-            todayButton.setTitleColor(.myCyan(), for: .normal)
+            todayButton.setTitleColor(.colorOne, for: .normal)
             
             lastweekButton.titleLabel?.font = .avenir18()
-            lastweekButton.setTitleColor(.myCyan(), for: .normal)
+            lastweekButton.setTitleColor(.colorOne, for: .normal)
             time = Time.all
         default:
             break
@@ -240,6 +240,7 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private func showUI(){
         roomLocationBottomConstraint.constant = 44
         alltimeButton.isHidden = false
+        choosenRoomLabel.isHidden = false
         tableView.isHidden = false
         mydataButton.isHidden = false
         alldataButton.isHidden = false
@@ -306,7 +307,7 @@ extension DataVC: ManuallyChangedRoomProtocol {
         manuallyChangedRoom = true
         chosenRoom = roomname
         chosenRoomId = roomid
-        choosenRoomLabel.text = "showing questions answered from \(roomname)"
+        choosenRoomLabel.text = "Showing questions answered from \(roomname)"
         fetchAnsweredQuestions()
     }
 }
@@ -320,7 +321,7 @@ extension DataVC: FoundNewRoomProtocol {
         if !manuallyChangedRoom {
             chosenRoom = roomname
             chosenRoomId = roomid
-            choosenRoomLabel.text =  "showing questions answered from \(roomname)"
+            choosenRoomLabel.text =  "Showing questions answered from \(roomname)"
             fetchAnsweredQuestions()
         }
     }

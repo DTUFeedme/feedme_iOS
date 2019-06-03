@@ -35,17 +35,18 @@ class SuccessVC: UIViewController {
         returnButton.backgroundColor = .clear
         returnButton.layer.cornerRadius = 20
         returnButton.layer.borderWidth = 2
-        returnButton.layer.borderColor = UIColor.white.cgColor
+        returnButton.layer.borderColor = UIColor.colorOne?.cgColor
     }
     
     func runAnimation(){
         
         let shape = CAShapeLayer()
         animationViewLabel.text = "sending..."
-        animationViewLabel.textColor = .myCyan()
+        
+        animationViewLabel.textColor = .colorOne
         animationView.layer.addSublayer(shape)
         shape.fillColor = UIColor.clear.cgColor
-        shape.strokeColor = .myCyan()
+        shape.strokeColor = .colorOne
         shape.lineCap = CAShapeLayerLineCap.round
         shape.strokeEnd = 0
         shape.lineWidth = 10
@@ -73,5 +74,9 @@ class SuccessVC: UIViewController {
             self.thanksLabel.isHidden = false
             self.returnButton.isHidden = false
         }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 }

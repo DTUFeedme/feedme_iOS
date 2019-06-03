@@ -60,15 +60,10 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         } else {
             choosenRoomLabel.text = "you are in \(currentRoom)"
         }
-        buildingPickerView.layer.shadowColor = UIColor.black.cgColor
-        buildingPickerView.layer.shadowOpacity = 5
-        buildingPickerView.layer.shadowOffset = CGSize.zero
-        buildingPickerView.layer.shadowRadius = 15
         saveChanges.backgroundColor = .clear
         saveChanges.layer.cornerRadius = 20
-        saveChanges.layer.borderWidth = 2
-        saveChanges.layer.borderColor = .myCyan()
-        
+        saveChanges.layer.borderWidth = 1
+        saveChanges.layer.borderColor = .colorOne
         bgView.layer.cornerRadius = 15
         bgView.layer.masksToBounds = true
         
@@ -129,7 +124,7 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         } else {
            label = UILabel(frame: CGRect(x: 0, y: 0, width: pickerView.frame.width/2, height: 400))
         }
-        label.textColor = .myCyan()
+        label.textColor = .colorOne
         label.textAlignment = .left
         label.font = label.font.withSize(22)
 //        

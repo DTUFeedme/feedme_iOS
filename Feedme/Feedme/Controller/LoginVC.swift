@@ -10,6 +10,18 @@ import UIKit
 
 class LoginVC: UIViewController {
     
+    @IBOutlet weak var passwordTextfield: UITextField!{
+        didSet {
+            passwordTextfield.tintColor = .colorOne
+            passwordTextfield.setIcon(#imageLiteral(resourceName: "lock"))
+        }
+    }
+    @IBOutlet weak var emailTextfield: UITextField!{
+        didSet {
+            emailTextfield.tintColor = .colorOne
+            emailTextfield.setIcon(#imageLiteral(resourceName: "profile_glyph"))
+        }
+    }
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var login: UIButton!
@@ -21,20 +33,12 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         feedmeNS = appDelegate.feedmeNS
         super.viewDidLoad()
-        setupUI()
+        login.backgroundColor = .clear
+        login.layer.cornerRadius = 20
+        login.layer.borderWidth = 1
+        login.layer.borderColor = .colorOne
     }
     
-    func setupUI(){
-        backgroundView.layer.cornerRadius = 15
-        backgroundView.layer.shadowOpacity = 1
-        backgroundView.layer.shadowOffset = CGSize.zero
-        backgroundView.layer.shadowRadius = 10
-        login.setTitleColor(.myDark(), for: .normal)
-        login.backgroundColor = .clear
-        login.layer.cornerRadius = 15
-        login.layer.borderWidth = 2
-        login.layer.borderColor = .myDark()
-    }
    
     @IBAction func email(_ sender: UITextField) {
         if let text = sender.text {
@@ -57,9 +61,22 @@ class LoginVC: UIViewController {
         }
     }
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    @IBAction func tapped(_ sender: Any) {
+        view.endEditing(true)
+    }
+    
     @IBAction func password(_ sender: UITextField) {
         if let text = sender.text {
             password = text
         }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 }

@@ -66,9 +66,22 @@ extension UIButton {
         self.layer.add(rotationAnimation, forKey: "rotationAnimation")
     }
 }
+extension UITextField {
+    func setIcon(_ image: UIImage) {
+        let iconView = UIImageView(frame:
+            CGRect(x: 0, y: 5, width: 20, height: 20))
+        iconView.image = image
+        let iconContainerView: UIView = UIView(frame:
+            CGRect(x: 5, y: 0, width: 30, height: 30))
+        iconContainerView.addSubview(iconView)
+        leftView = iconContainerView
+        leftViewMode = .always
+    }
+}
 
 // COLORS EXTENSION
 extension UIColor {
+    static let colorOne = UIColor(named: "colorOne")
     class func myCyan () -> UIColor { return UIColor(red: 25/255, green: 181/255, blue: 178/255, alpha: 1) }
     class func myDark () -> UIColor { return UIColor(red: 15/255, green: 20/255, blue: 15/255, alpha: 1) }
     class func myGray () -> UIColor { return UIColor(red: 71/255, green: 71/255, blue: 79/255, alpha: 1) }
@@ -79,6 +92,7 @@ extension UIColor {
 }
 
 extension CGColor {
+    static let colorOne = UIColor(named: "colorOne")?.cgColor
     class func myCyan () -> CGColor { return UIColor(red: 25/255, green: 181/255, blue: 178/255, alpha: 1).cgColor }
     class func myDark () -> CGColor { return UIColor(red: 15/255, green: 20/255, blue: 15/255, alpha: 1).cgColor }
     class func myGreen () -> CGColor { return UIColor(red:103/255, green:211/255, blue:141/255, alpha: 1).cgColor }

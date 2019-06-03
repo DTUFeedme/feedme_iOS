@@ -10,6 +10,7 @@ import UIKit
 
 class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var loginButton: UIBarButtonItem!
     @IBOutlet weak var pagesLabel: UILabel!
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var questionLabel: UILabel!
@@ -33,9 +34,10 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var locationEstimator: LocationEstimator!
     
     override func viewDidAppear(_ animated: Bool) {
-        sideMenuTrailing.constant = -255
+//        sideMenuTrailing.constant = -255
         restartFeedback()
         fetchQuestions()
+        isLoggedIn()
         
         if hasStartedLocation {
            locationEstimator.userChangedRoomDelegate = self
@@ -63,18 +65,43 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
-    
-    @IBAction func sideMenuAction(_ sender: Any) {
-        if isMenuShowing {
-            sideMenuTrailing.constant = -255
+    @IBAction func login(_ sender: Any) {
+        if loginButton.title == "Logout" {
+            UserDefaults.standard.removeObject(forKey: "isAdmin")
+            
+            if let tbc = self.tabBarController as? TabBarVC {
+                tbc.removeTabBarItem()
+                loginButton.title = "Login"
+            }
         } else {
-            sideMenuTrailing.constant = 0
-            UIView.animate(withDuration: 0.3, animations: {
-                self.view.layoutIfNeeded()
-            })
+            self.performSegue(withIdentifier: "login", sender: nil)
         }
-        isMenuShowing = !isMenuShowing
     }
+    
+    func isLoggedIn(){
+        if UserDefaults.standard.contains(key: "isAdmin") {
+            loginButton.title = "Logout"
+        } else {
+            loginButton.title = "Login"
+        }
+    }
+    
+    
+    // FUNCTIONALITY FOR WHEN A SIDEMENU IS NEEDED
+//    @IBAction func sideMenuAction(_ sender: Any) {
+//        if isMenuShowing {
+//            sideMenuTrailing.constant = -255
+//        } else {
+//            if UserDefaults.standard.contains(key: "isAdmin") {
+//
+//            }
+//            sideMenuTrailing.constant = 0
+//            UIView.animate(withDuration: 0.3, animations: {
+//                self.view.layoutIfNeeded()
+//            })
+//        }
+//        isMenuShowing = !isMenuShowing
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return answers.count
@@ -200,8 +227,8 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private func setupUI(){
         tableView.separatorColor = UIColor.clear
-        sideMenu.layer.shadowOpacity = 1
-        sideMenu.layer.shadowRadius = 6
+//        sideMenu.layer.shadowOpacity = 1
+//        sideMenu.layer.shadowRadius = 6
     }
     
     private func reloadUI(){
@@ -213,6 +240,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             questionLabel.text = "Couldn't estimate your location..."
             roomLocationLabel.text = "Trying to estimate your location 🤔"
         } else if questions.isEmpty {
+            pagesLabel.text = ""
             questionLabel.text = systemStatusMessage
         }
         reloadInternetOutlet(hide: true)

@@ -160,7 +160,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         let url = "\(baseUrl)/auth"
         AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default).responseString { response in
             if response.response?.statusCode == 200 {
-                if let token = self.decoder.decodeToken(data: response.data) {
+                if let token = response.response?.allHeaderFields["x-auth-token"] {
                     UserDefaults.standard.set(token, forKey: "x-auth-token")
                     UserDefaults.standard.set(true, forKey: "isAdmin")
                     completion(nil)
