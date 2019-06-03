@@ -39,6 +39,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         restartFeedback()
         fetchQuestions()
         
+        
         if hasStartedLocation {
            locationEstimator.userChangedRoomDelegate = self
            locationEstimator.initTimerfetchRoom()
@@ -212,8 +213,10 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     private func fetchQuestions(){
+         print(currentRoomID)
          feedmeNS.fetchQuestions(currentRoomID: currentRoomID) { questions, error in
             if error == nil {
+                print(questions)
                 self.questions = questions!
                 self.answers = questions![self.currentQuestionNo].answerOptions
                 self.reloadUI()
@@ -225,6 +228,9 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.pagesLabel.text = "\(self.currentQuestionNo+1)/\(questions!.count)"
                 }
             } else {
+                self.questions = []
+                self.answers = []
+                self.tableView.reloadData()
                 self.systemStatusMessage = "No feedback is needed right now ☺️"
                 self.reloadUI()
             }

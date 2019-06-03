@@ -72,8 +72,8 @@ class FeedmeNetworkServiceDecoderTest: XCTestCase {
         }
         
         feedmeNS.shouldReturnError = false
-        let building = Building(id: "", name: "Building 303", rooms: nil)
-        let beacon = Beacon(id: "", uuid: "f7826da6-4fa2-4e98-8024-bc5b71e0893b", name: "vIgJ", building: building)
+        let building = Building(_id: "", name: "Building 303", rooms: nil)
+        let beacon = Beacon(_id: "", uuid: "f7826da6-4fa2-4e98-8024-bc5b71e0893b", name: "vIgJ", building: building)
         feedmeNS.fetchBeacons() { beacons, error in
             XCTAssertNil(error)
             XCTAssertNotNil(beacons)
@@ -90,7 +90,7 @@ class FeedmeNetworkServiceDecoderTest: XCTestCase {
             XCTAssertNil(buildings)
             XCTAssertNotNil(error)
         }
-        let building = Building(id: "", name: "Building 303", rooms: [Room(id: "", name: "Rum1")])
+        let building = Building(_id: "", name: "Building 303", rooms: [Room(id: "", name: "Rum1")])
         feedmeNS.shouldReturnError = false
         feedmeNS.fetchBuildings() { buildings, error in
             XCTAssertNotNil(buildings)

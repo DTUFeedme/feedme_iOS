@@ -23,9 +23,9 @@ class LocationEstimatorTest: XCTestCase {
     var beacon2: Beacon?
     var testBeacons: [Beacon]?
     
-    let appBeacon = AppBeacon(id: "id1", uuid: "f7826da6-4fa2-4e98-8024-bc5b71e0893b", building: Building(id: "id", name: "building", rooms: nil), name: "beacon")
-    let appBeacon1 = AppBeacon(id: "id2", uuid: "f7826da6-4fa2-4e98-8024-bc5b71e08932", building: Building(id: "id", name: "building", rooms: nil), name: "beacon")
-    let appBeacon2 = AppBeacon(id: "id3", uuid: "f7826da6-4fa2-4e98-8024-bc5b71e08931", building: Building(id: "id", name: "building", rooms: nil), name: "beacon")
+    let appBeacon = AppBeacon(_id: "id1", uuid: "f7826da6-4fa2-4e98-8024-bc5b71e0893b", building: Building(_id: "id", name: "building", rooms: nil), name: "beacon")
+    let appBeacon1 = AppBeacon(_id: "id2", uuid: "f7826da6-4fa2-4e98-8024-bc5b71e08932", building: Building(_id: "id", name: "building", rooms: nil), name: "beacon")
+    let appBeacon2 = AppBeacon(_id: "id3", uuid: "f7826da6-4fa2-4e98-8024-bc5b71e08931", building: Building(_id: "id", name: "building", rooms: nil), name: "beacon")
     
     var signalMap: [String: [Double]]?
    
@@ -38,9 +38,9 @@ class LocationEstimatorTest: XCTestCase {
         room1 = Room(id: "id1", name: "room1")
         room2 = Room(id: "id2", name: "room2")
         room3 = Room(id: "id3", name: "room3")
-        building = Building(id: "id", name: "building", rooms: [room1!, room2!, room3!])
-        beacon1 = Beacon(id: "id1", uuid: "f7826da6-4fa2-4e98-8024-bc5b71e0893b", name: "beacon1", building: building!)
-        beacon2 = Beacon(id: "id2", uuid: "f7826da6-4fa2-4e98-8024-bc5b71e0893a", name: "beacon2", building: building!)
+        building = Building(_id: "id", name: "building", rooms: [room1!, room2!, room3!])
+        beacon1 = Beacon(_id: "id1", uuid: "f7826da6-4fa2-4e98-8024-bc5b71e0893b", name: "beacon1", building: building!)
+        beacon2 = Beacon(_id: "id2", uuid: "f7826da6-4fa2-4e98-8024-bc5b71e0893a", name: "beacon2", building: building!)
         testBeacons = [beacon1!,beacon2!]
         testAppBeacons = [appBeacon, appBeacon1, appBeacon2]
         signalMap = ["signals": [-56.8]]
@@ -91,9 +91,6 @@ class LocationEstimatorTest: XCTestCase {
         XCTAssertNotNil(locationEstimator!.signalMap.first?.key)
         XCTAssertEqual(locationEstimator!.signalMap["f7826da6-4fa2-4e98-8024-bc5b71e0893b"]!, [])
         
-        // This is of course not the optimal test, because in the real location estimator it is an actual time running, but in the mock version I "faked" the timer by just calling addToSignalMap 3 times (e.g. a timer that runs for three seconds)
-        
-        
         locationEstimator!.addBeacons()
         
         locationEstimator!.beacons.first?.addRssi(rssi: -30)
@@ -101,17 +98,7 @@ class LocationEstimatorTest: XCTestCase {
         locationEstimator!.beacons.first?.addRssi(rssi: -60)
         
 
-        locationEstimator!.initTimerAddToSignalMap()
-        
-//        let firstBeaconAverage = locationEstimator!.beacons.first?.calcAverage()
-//        XCTAssertEqual(locationEstimator!.signalMap["f7826da6-4fa2-4e98-8024-bc5b71e0893b"]!.first, firstBeaconAverage)
-//
-//        locationEstimator!.beacons.first?.addRssi(rssi: -1)
-//        locationEstimator!.beacons.first?.addRssi(rssi: -1)
-//        locationEstimator!.beacons.first?.addRssi(rssi: -1)
-//        locationEstimator!.addToSignalMap()
-//        
-//        XCTAssertNotEqual(locationEstimator!.beacons.first?.calcAverage(), firstBeaconAverage)
+
     }
     
     

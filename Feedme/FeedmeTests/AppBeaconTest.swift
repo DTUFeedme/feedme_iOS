@@ -12,9 +12,9 @@ import XCTest
 
 class AppBeaconTest: XCTestCase {
     
-    let beacon = AppBeacon(id: "id", uuid: "uuid", building: Building(id: "id", name: "building", rooms: nil), name: "beacon")
-    let beacon1 = AppBeacon(id: "id", uuid: "uuid", building: Building(id: "id", name: "building", rooms: nil), name: "beacon")
-    let beacon2 = AppBeacon(id: "id", uuid: "uuid", building: Building(id: "id", name: "building", rooms: nil), name: "beacon")
+    let beacon = AppBeacon(_id: "id", uuid: "uuid", building: Building(_id: "id", name: "building", rooms: nil), name: "beacon")
+    let beacon1 = AppBeacon(_id: "id", uuid: "uuid", building: Building(_id: "id", name: "building", rooms: nil), name: "beacon")
+    let beacon2 = AppBeacon(_id: "id", uuid: "uuid", building: Building(_id: "id", name: "building", rooms: nil), name: "beacon")
 
     
     func testCalcAverage(){

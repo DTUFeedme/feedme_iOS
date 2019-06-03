@@ -99,8 +99,9 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         
         let url = "\(baseUrl)/beacons"
         AF.request(url, method: .get, headers: headers).responseJSON{ response in
+            
             if response.response?.statusCode == 200 {
-                let beacons = self.decoder.decodeFetchBeacons(data: response.result.value as Any)
+                let beacons = self.decoder.decodeFetchBeacons(data: response.data)
                 
                 if beacons.isEmpty {
                     completion(nil, self.handleError(response: response.result.value))

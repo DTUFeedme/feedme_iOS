@@ -8,14 +8,14 @@
 
 import UIKit
 
-class Beacon {
+class Beacon: Decodable {
     var uuid: String
     var name: String
     var building: Building
-    var id: String
+    var _id: String
     
-    init (id: String, uuid: String, name: String, building: Building){
-        self.id = id
+    init (_id: String, uuid: String, name: String, building: Building){
+        self._id = _id
         self.uuid = uuid
         self.name = name
         self.building = building

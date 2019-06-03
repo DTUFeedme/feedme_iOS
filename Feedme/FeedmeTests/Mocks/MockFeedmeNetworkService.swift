@@ -248,7 +248,8 @@ extension MockFeedmeNetworkService: FeedmeNetworkServiceProtocol {
         if shouldReturnError {
             completion(nil, ServiceError.error(description: ""))
         } else {
-            completion(self.decoder.decodeFetchBeacons(data: mockFetchBeaconsResponse),nil)
+            let data = try? JSONSerialization.data(withJSONObject: mockFetchBeaconsResponse, options: .prettyPrinted)
+            completion(self.decoder.decodeFetchBeacons(data: data!),nil)
         }
     }
     

@@ -8,8 +8,8 @@
 
 import UIKit
 
-struct Building {
-    var id: String
+struct Building: Decodable {
+    var _id: String
     var name: String
     var rooms: [Room]?
 }

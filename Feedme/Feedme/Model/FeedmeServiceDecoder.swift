@@ -11,9 +11,14 @@ import SwiftyJSON
 
 class FeedmeNetworkServiceDecoder {
     
+    
+    
+    
     func decodeFetchAnsweredQuestion(data: Any) -> [AnsweredQuestion] {
         
         var answeredQuestions: [AnsweredQuestion] = []
+        
+        
         let json = JSON(data)
         for element in json {
             if let questionName = element.1["question"]["value"].string,
@@ -23,6 +28,7 @@ class FeedmeNetworkServiceDecoder {
                 answeredQuestions.append(answeredQuestion)
             }
         }
+        
         return answeredQuestions
     }
     
@@ -48,24 +54,35 @@ class FeedmeNetworkServiceDecoder {
         return questions
     }
     
-    func decodeFetchBeacons(data: Any) -> [Beacon] {
+    func decodeFetchBeacons(data: Data?) -> [Beacon] {
         
-        var beacons: [Beacon] = []
-        let json = JSON(data)
-        for element in json {
-            if let name = element.1["name"].string,
-                let id = element.1["_id"].string,
-                let uuid = element.1["uuid"].string,
-                let building = element.1["building"].dictionary {
-                
-                if let buildingId = building["_id"]?.string, let buildingName = building["name"]?.string{
-                    let building = Building(id: buildingId, name: buildingName, rooms: nil)
-                    let beacon = Beacon(id: id, uuid: uuid, name: name, building: building)
-                    beacons.append(beacon)
-                }
-            }
+//        var beacons: [Beacon] = []
+        
+        guard let data = data else { return [] }
+        
+        do {
+            let beacons = try JSONDecoder().decode([Beacon].self, from: data)
+            return beacons
+        } catch let jsonErr {
+            print("Error serializing json:", jsonErr)
+            return []
         }
-        return beacons
+        
+//        let json = JSON(data)
+//        for element in json {
+//            if let name = element.1["name"].string,
+//                let id = element.1["_id"].string,
+//                let uuid = element.1["uuid"].string,
+//                let building = element.1["building"].dictionary {
+//
+//                if let buildingId = building["_id"]?.string, let buildingName = building["name"]?.string{
+//                    let building = Building(id: buildingId, name: buildingName, rooms: nil)
+//                    let beacon = Beacon(id: id, uuid: uuid, name: name, building: building)
+//                    beacons.append(beacon)
+//                }
+//            }
+//        }
+//        return beacons
     }
     
     func decodeFetchBuildings(data: Any) -> [Building] {
@@ -84,7 +101,7 @@ class FeedmeNetworkServiceDecoder {
                         buildingRooms.append(buildingRoom)
                     }
                 }
-                let building = Building(id: buildingId, name: buildingName, rooms: buildingRooms)
+                let building = Building(_id: buildingId, name: buildingName, rooms: buildingRooms)
                 buildings.append(building)
             }
         }

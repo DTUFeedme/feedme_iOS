@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Room {
+struct Room: Decodable {
     var id: String
     var name: String
 }

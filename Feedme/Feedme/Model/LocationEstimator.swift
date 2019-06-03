@@ -117,9 +117,11 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
     
     func scanRoom(rangedBeacon: CLBeacon){
         if let beacon = getBeacon(id: rangedBeacon.proximityUUID.uuidString) {
-            buildingId = beacon.building.id
+            buildingId = beacon.building._id
             beacon.addRssi(rssi: rangedBeacon.rssi)
+            print(rangedBeacon.rssi)
         }
+       
     }
     
     @objc func addToSignalMap() {
@@ -180,7 +182,7 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
 
         for beacon in beacons {
             var beaconDict: [String: Any] = [:]
-            beaconDict["beaconId"] = beacon.id
+            beaconDict["beaconId"] = beacon._id
             beaconDict["signals"] = signalMap[beacon.uuid]
             serverSignalMap.append(beaconDict)
         }
@@ -191,18 +193,19 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
     func pushSignalMap(roomid: String, buildingId: String, completion: @escaping (_ room: Room?) -> Void) {
 
         let serverSignalMap = convertSignalMapToServer(signalMap: signalMap)
-        feedmeNS.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) {
+        feedmeNS.postSignalMap(signalMap: serverSignalMap, roomid: roomid, buildingId: nil) {
             room, error in
             if error == nil {
                 completion(room)
             } else {
+//                completion(error)
             }
         }
     }
     
     func addBeacons(){
         for beacon in serverBeacons {
-            let beacon = AppBeacon(id: beacon.id, uuid: beacon.uuid, building: beacon.building, name: beacon.name)
+            let beacon = AppBeacon(_id: beacon._id, uuid: beacon.uuid, building: beacon.building, name: beacon.name)
             beacons.append(beacon)
         }
     }
