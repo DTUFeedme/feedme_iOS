@@ -9,8 +9,12 @@
 import UIKit
 
 struct Room: Decodable {
-    var id: String
+    var _id: String
     var name: String
+}
+
+struct SignalmapWithRoom: Decodable {
+    var room: Room
 }
 
 

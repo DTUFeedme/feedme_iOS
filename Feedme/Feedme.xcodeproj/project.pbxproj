@@ -39,6 +39,7 @@
 		A1E15B172247F3A200B5C3EF /* DiagramViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E15B162247F3A200B5C3EF /* DiagramViewVC.swift */; };
 		A1EB9F2922326F69006AFB57 /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EB9F2822326F69006AFB57 /* Beacon.swift */; };
 		A1EB9F2C223280EC006AFB57 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EB9F2B223280EC006AFB57 /* Room.swift */; };
+		A1F28B4322A53C4900F93C3C /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F28B4222A53C4900F93C3C /* Token.swift */; };
 		A1FA8725222589C300461799 /* FeedbackVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FA8724222589C300461799 /* FeedbackVC.swift */; };
 		A1FF5F7922898C540009F18D /* MockFeedmeNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1990B822287280A00A3E431 /* MockFeedmeNetworkService.swift */; };
 		A1FF5F7B22898C6C0009F18D /* FeedmeNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1141A1122314B4900659DF1 /* FeedmeNetworkService.swift */; };
@@ -99,6 +100,7 @@
 		A1E15B162247F3A200B5C3EF /* DiagramViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramViewVC.swift; sourceTree = "<group>"; };
 		A1EB9F2822326F69006AFB57 /* Beacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beacon.swift; sourceTree = "<group>"; };
 		A1EB9F2B223280EC006AFB57 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
+		A1F28B4222A53C4900F93C3C /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		A1FA8724222589C300461799 /* FeedbackVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackVC.swift; sourceTree = "<group>"; };
 		A1FF5F7C2289AB190009F18D /* FeedmeServiceDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedmeServiceDecoder.swift; sourceTree = "<group>"; };
 		A1FF5F7E2289AEA80009F18D /* AnsweredQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsweredQuestion.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				A1B0C47A224790C800F5A885 /* Constants.swift */,
 				A1FF5F7E2289AEA80009F18D /* AnsweredQuestion.swift */,
 				A1FF5F802289C08E0009F18D /* AnsweredFeedback.swift */,
+				A1F28B4222A53C4900F93C3C /* Token.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -398,7 +401,6 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Feedme/Pods-Feedme-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -406,7 +408,6 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -478,6 +479,7 @@
 				A1FF5F812289C08E0009F18D /* AnsweredFeedback.swift in Sources */,
 				A1EB9F2C223280EC006AFB57 /* Room.swift in Sources */,
 				A1FF5F7D2289AB190009F18D /* FeedmeServiceDecoder.swift in Sources */,
+				A1F28B4322A53C4900F93C3C /* Token.swift in Sources */,
 				A1BD499D2247AEA700DCA20D /* QuestionCell.swift in Sources */,
 				A1B5D365224AACA100FE92E2 /* RoomChooserVC.swift in Sources */,
 				A1B1E3A2223BA77F00CCC8A2 /* DataVC.swift in Sources */,

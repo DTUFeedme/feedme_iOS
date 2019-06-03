@@ -146,7 +146,7 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
                 if error == nil {
                     self.signalMap.removeAll()
                     self.initSignalMap()
-                    if let roomId = room?.id, let roomname = room?.name {
+                    if let roomId = room?._id, let roomname = room?.name {
                         self.currentRoomId = roomId
                         self.userChangedRoomDelegate?.userChangedRoom(roomname: roomname, roomid: roomId)
                     }

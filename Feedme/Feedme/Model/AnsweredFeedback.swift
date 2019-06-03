@@ -8,7 +8,12 @@
 
 import Foundation
 
-struct AnsweredFeedback {
-    var answerOption: String
-    var answerCount: Int
+struct AnsweredFeedback: Decodable {
+    var answer: SubAnsweredFeedback
+    var timesAnswered: Int
+}
+
+struct SubAnsweredFeedback: Decodable {
+    var value: String
+    var _id: String
 }

@@ -161,20 +161,23 @@ extension MockFeedmeNetworkService: FeedmeNetworkServiceProtocol {
         if shouldReturnError {
             completion(nil, ServiceError.error(description: ""))
         } else {
-            completion(self.decoder.decodeFetchBuildings(data: mockFetchBuildingsResponse), nil)
+            let data = try? JSONSerialization.data(withJSONObject: mockFetchBuildingsResponse, options: .prettyPrinted)
+            completion(self.decoder.decodeFetchBuildings(data: data!), nil)
         }
     }
     
     func postRoom(buildingId: String, name: String, completion: @escaping (String?, ServiceError?) -> Void) {
         if shouldReturnError {
             // Giving error response (the data put in the decoder is from the wrong resposne)
-            if let roomid = self.decoder.decodePostRoom(data: mockFetchFeedbackResponse) {
+            let data = try? JSONSerialization.data(withJSONObject: mockFetchFeedbackResponse, options: .prettyPrinted)
+            if let roomid = self.decoder.decodePostRoom(data: data) {
                 completion(roomid, nil)
             } else {
                 completion(nil, ServiceError.error(description: ""))
             }
         } else {
-            completion(self.decoder.decodePostRoom(data: mockPostRoomResponse), nil)
+            let data = try? JSONSerialization.data(withJSONObject: mockPostRoomResponse, options: .prettyPrinted)
+            completion(self.decoder.decodePostRoom(data: data!), nil)
         }
     }
     
@@ -195,13 +198,15 @@ extension MockFeedmeNetworkService: FeedmeNetworkServiceProtocol {
     func postSignalMap(signalMap: [[String: Any]], roomid: String?, buildingId: String?, completion: @escaping (Room?, ServiceError?) -> Void) {
         if shouldReturnError {
             // Giving error response (the data put in the decoder is from the wrong resposne)
-            if let _ = self.decoder.decodeToken(data: mockFetchFeedbackResponse) {
+            let data = try? JSONSerialization.data(withJSONObject: mockFetchFeedbackResponse, options: .prettyPrinted)
+            if let _ = self.decoder.decodeToken(data: data!) {
                 completion(nil, nil)
             } else {
                 completion(nil, ServiceError.error(description: ""))
             }
         } else {
-            completion(self.decoder.decodePostSignalMap(data: mockPostSignalMapResponse as Any), nil)
+            let data = try? JSONSerialization.data(withJSONObject: mockPostSignalMapResponse, options: .prettyPrinted)
+            completion(self.decoder.decodePostSignalMap(data: data!), nil)
         }
     }
     
@@ -211,20 +216,23 @@ extension MockFeedmeNetworkService: FeedmeNetworkServiceProtocol {
         if shouldReturnError {
             completion(nil, ServiceError.error(description: ""))
         } else {
-            completion(self.decoder.decodeFetchFeedback(data: mockFetchFeedbackResponse), nil)
+            let data = try? JSONSerialization.data(withJSONObject: mockFetchFeedbackResponse, options: .prettyPrinted)
+            completion(self.decoder.decodeFetchFeedback(data: data!), nil)
         }
     }
     
     func login(email: String, password: String, completion: @escaping (ServiceError?) -> Void) {
         if shouldReturnError {
             // Giving wrong response
-            if let _ = self.decoder.decodeToken(data: mockFetchFeedbackResponse) {
+            let data = try? JSONSerialization.data(withJSONObject: mockFetchFeedbackResponse, options: .prettyPrinted)
+            if let _ = self.decoder.decodeToken(data: data!) {
                 completion(nil)
             } else {
                 completion(ServiceError.error(description: ""))
             }
         } else {
-            if let _ = self.decoder.decodeToken(data: mockLoginResponse) {
+            let data = try? JSONSerialization.data(withJSONObject: mockLoginResponse, options: .prettyPrinted)
+            if let _ = self.decoder.decodeToken(data: data!) {
                 completion(nil)
             } else {
                 completion(ServiceError.error(description: ""))
@@ -236,7 +244,8 @@ extension MockFeedmeNetworkService: FeedmeNetworkServiceProtocol {
         if shouldReturnError {
             completion(ServiceError.error(description: ""))
         } else {
-            if let _ = self.decoder.decodeToken(data: mockLoginResponse) {
+            let data = try? JSONSerialization.data(withJSONObject: mockLoginResponse, options: .prettyPrinted)
+            if let _ = self.decoder.decodeToken(data: data!) {
                 completion(nil)
             } else {
                 completion(ServiceError.error(description: ""))
@@ -257,7 +266,8 @@ extension MockFeedmeNetworkService: FeedmeNetworkServiceProtocol {
         if shouldReturnError {
             completion(nil, ServiceError.error(description: ""))
         } else {
-            completion(self.decoder.decodeFetchQuestions(data: mockFetchQuestionsResponse),nil)
+            let data = try? JSONSerialization.data(withJSONObject: mockFetchQuestionsResponse, options: .prettyPrinted)
+            completion(self.decoder.decodeFetchQuestions(data: data!),nil)
         }
     }
     
@@ -265,7 +275,8 @@ extension MockFeedmeNetworkService: FeedmeNetworkServiceProtocol {
         if shouldReturnError {
             completion(nil, ServiceError.error(description: ""))
         } else {
-            completion(self.decoder.decodeFetchAnsweredQuestion(data: mockFetchAnsweredQuestionsResponse), nil)
+            let data = try? JSONSerialization.data(withJSONObject: mockFetchAnsweredQuestionsResponse, options: .prettyPrinted)
+            completion(self.decoder.decodeFetchAnsweredQuestion(data: data!), nil)
         }
     }
 }

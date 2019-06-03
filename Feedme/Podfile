@@ -6,7 +6,6 @@ target 'Feedme' do
   use_frameworks!
 
   # Pods for Feedme
-	pod 'SwiftyJSON', '~> 4.0'
   	pod 'Alamofire', '~> 5.0.0-beta.2'
 	pod 'Charts'
   target 'FeedmeTests' do

@@ -19,7 +19,7 @@ class FeedmeNetworkService {
         if let response = response as? String {
             return ServiceError.error(description: response)
         } else {
-            return  ServiceError.error(description: genericErrorMessage)
+            return ServiceError.error(description: genericErrorMessage)
         }
     }
     
@@ -48,7 +48,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         
         AF.request(url, method: .get, headers: headers).responseJSON{ response in
             if response.response?.statusCode == 200 {
-                let answeredQuestions = self.decoder.decodeFetchAnsweredQuestion(data: response.result.value as Any)
+                let answeredQuestions = self.decoder.decodeFetchAnsweredQuestion(data: response.data)
                 if answeredQuestions.isEmpty {
                     completion(nil, self.handleError(response: response.result.value))
                 } else {
@@ -76,7 +76,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         let url = "\(baseUrl)/questions"
         AF.request(url, method: .get, headers: headers).responseJSON { response in
             if response.response?.statusCode == 200 {
-                let questions = self.decoder.decodeFetchQuestions(data: response.result.value as Any)
+                let questions = self.decoder.decodeFetchQuestions(data: response.data)
                 
                 if questions.isEmpty {
 //               
@@ -125,7 +125,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         let url = "\(baseUrl)/buildings?feedback=me"
         AF.request(url, method: .get, headers: headers).responseJSON { response in
             if response.response?.statusCode == 200 {
-                let buildings = self.decoder.decodeFetchBuildings(data: response.result.value as Any)
+                let buildings = self.decoder.decodeFetchBuildings(data: response.data)
           
                 if buildings.isEmpty {
                     completion(nil, self.handleError(response: response.result.value))
@@ -142,7 +142,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         let url = "\(baseUrl)/users"
         AF.request(url, method: .post).responseJSON{ response in
             if response.response?.statusCode == 200 {
-                if let token = self.decoder.decodeToken(data: response.response?.allHeaderFields as Any) {
+                if let token = self.decoder.decodeToken(data: response.data) {
                     UserDefaults.standard.set(token, forKey: "x-auth-token")
                     completion(nil)
                 } else {
@@ -160,7 +160,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         let url = "\(baseUrl)/auth"
         AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default).responseString { response in
             if response.response?.statusCode == 200 {
-                if let token = self.decoder.decodeToken(data: response.response?.allHeaderFields as Any) {
+                if let token = self.decoder.decodeToken(data: response.data) {
                     UserDefaults.standard.set(token, forKey: "x-auth-token")
                     UserDefaults.standard.set(true, forKey: "isAdmin")
                     completion(nil)
@@ -190,7 +190,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         
         AF.request(url, method: .get, headers: headers).responseJSON{ response in
             if response.response?.statusCode == 200 {
-                let feedback = self.decoder.decodeFetchFeedback(data: response.result.value as Any)
+                let feedback = self.decoder.decodeFetchFeedback(data: response.data)
                 if feedback.isEmpty {
                     completion(nil, self.handleError(response: response.result.value))
                 } else {
@@ -217,7 +217,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
             .responseJSON { response in
                 if response.response?.statusCode == 200 {
-                    if let roomId = self.decoder.decodePostRoom(data: response.result.value as Any) {
+                    if let roomId = self.decoder.decodePostRoom(data: response.data) {
                         completion(roomId, nil)
                     } else {
                         completion(nil, self.handleError(response: response.result.value))
@@ -249,7 +249,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
             .responseJSON { response in
                 if response.response?.statusCode == 200 {
-                    if let room = self.decoder.decodePostSignalMap(data:  response.result.value as Any) {
+                    if let room = self.decoder.decodePostSignalMap(data:  response.data) {
                         completion(room, nil)
                     } else {
                         completion(nil, self.handleError(response: response.result.value))

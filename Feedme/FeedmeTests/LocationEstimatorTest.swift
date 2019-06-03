@@ -35,9 +35,9 @@ class LocationEstimatorTest: XCTestCase {
         feedmeNS = MockFeedmeNetworkService()
         locationEstimator = LocationEstimator(service: feedmeNS!)
         
-        room1 = Room(id: "id1", name: "room1")
-        room2 = Room(id: "id2", name: "room2")
-        room3 = Room(id: "id3", name: "room3")
+        room1 = Room(_id: "id1", name: "room1")
+        room2 = Room(_id: "id2", name: "room2")
+        room3 = Room(_id: "id3", name: "room3")
         building = Building(_id: "id", name: "building", rooms: [room1!, room2!, room3!])
         beacon1 = Beacon(_id: "id1", uuid: "f7826da6-4fa2-4e98-8024-bc5b71e0893b", name: "beacon1", building: building!)
         beacon2 = Beacon(_id: "id2", uuid: "f7826da6-4fa2-4e98-8024-bc5b71e0893a", name: "beacon2", building: building!)

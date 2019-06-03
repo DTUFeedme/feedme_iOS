@@ -7,57 +7,35 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 class FeedmeNetworkServiceDecoder {
-    
-    
-    
-    
-    func decodeFetchAnsweredQuestion(data: Any) -> [AnsweredQuestion] {
+ 
+    func decodeFetchAnsweredQuestion(data: Data?) -> [AnsweredQuestion] {
         
-        var answeredQuestions: [AnsweredQuestion] = []
+        guard let data = data else { return [] }
         
-        
-        let json = JSON(data)
-        for element in json {
-            if let questionName = element.1["question"]["value"].string,
-                let questionId = element.1["question"]["_id"].string,
-                let questionCount = element.1["timesAnswered"].int {
-                let answeredQuestion = AnsweredQuestion(question: questionName, questionId: questionId, answeredCount: questionCount)
-                answeredQuestions.append(answeredQuestion)
-            }
+        do {
+            let answeredQuestions = try JSONDecoder().decode([AnsweredQuestion].self, from: data)
+            return answeredQuestions
+        } catch let jsonErr {
+            print("Error serializing json:", jsonErr)
+            return []
         }
-        
-        return answeredQuestions
     }
-    
-    func decodeFetchQuestions(data: Any) -> [Question] {
+
+    func decodeFetchQuestions(data: Data?) -> [Question] {
+        guard let data = data else { return [] }
         
-        var questions: [Question] = []
-        let json = JSON(data)
-        for element in json {
-            if let questionName = element.1["value"].string, let id = element.1["_id"].string,
-                let answers = element.1["answerOptions"].array {
-                
-                var answerOptions: [Question.answerOption] = []
-                for answer in answers {
-                    if let answerValue = answer["value"].string, let answerID = answer["_id"].string {
-                        let answerOption = Question.answerOption(id: answerID, value: answerValue)
-                        answerOptions.append(answerOption)
-                    }
-                }
-                let question = Question(id: id, question: questionName, answerOptions: answerOptions)
-                questions.append(question)
-            }
+        do {
+            let questions = try JSONDecoder().decode([Question].self, from: data)
+            return questions
+        } catch let jsonErr {
+            print("Error serializing json:", jsonErr)
+            return []
         }
-        return questions
     }
     
     func decodeFetchBeacons(data: Data?) -> [Beacon] {
-        
-//        var beacons: [Beacon] = []
-        
         guard let data = data else { return [] }
         
         do {
@@ -67,83 +45,68 @@ class FeedmeNetworkServiceDecoder {
             print("Error serializing json:", jsonErr)
             return []
         }
+    }
+    
+    func decodeFetchBuildings(data: Data?) -> [Building] {
+        guard let data = data else { return [] }
+        do {
+            let buildings = try JSONDecoder().decode([Building].self, from: data)
+            return buildings
+        } catch let jsonErr {
+            print("Error serializing json:", jsonErr)
+            return []
+        }
+    }
+    
+    func decodeToken(data: Data?) -> String? {
         
-//        let json = JSON(data)
-//        for element in json {
-//            if let name = element.1["name"].string,
-//                let id = element.1["_id"].string,
-//                let uuid = element.1["uuid"].string,
-//                let building = element.1["building"].dictionary {
+        guard let data = data else { return nil }
+        do {
+            let token = try JSONDecoder().decode(Token.self, from: data)
+            return token.token
+        } catch let jsonErr {
+            print("Error serializing json:", jsonErr)
+            return nil
+        }
+        
 //
-//                if let buildingId = building["_id"]?.string, let buildingName = building["name"]?.string{
-//                    let building = Building(id: buildingId, name: buildingName, rooms: nil)
-//                    let beacon = Beacon(id: id, uuid: uuid, name: name, building: building)
-//                    beacons.append(beacon)
-//                }
-//            }
+//        let json = JSON(data)
+//        if let token = json["x-auth-token"].string {
+//            return token
 //        }
-//        return beacons
+//        return nil
     }
     
-    func decodeFetchBuildings(data: Any) -> [Building] {
-        var buildings: [Building] = []
-        let json = JSON(data)
-        for building in json {
-            var buildingRooms: [Room] = []
-            if let buildingName = building.1["name"].string,
-                let buildingId = building.1["_id"].string,
-                let rooms = building.1["rooms"].array {
-                for room in rooms {
-                    if let roomId = room["_id"].string,
-                        let roomName = room["name"].string {
-                        
-                        let buildingRoom = Room(id: roomId, name: roomName)
-                        buildingRooms.append(buildingRoom)
-                    }
-                }
-                let building = Building(_id: buildingId, name: buildingName, rooms: buildingRooms)
-                buildings.append(building)
-            }
+    func decodeFetchFeedback(data: Data?) -> [AnsweredFeedback] {
+        guard let data = data else { return [] }
+        do {
+            let feedback = try JSONDecoder().decode([AnsweredFeedback].self, from: data)
+            return feedback
+        } catch let jsonErr {
+            print("Error serializing json:", jsonErr)
+            return []
         }
-        return buildings
     }
     
-    func decodeToken(data: Any) -> String? {
-        let json = JSON(data)
-        if let token = json["x-auth-token"].string {
-            return token
+    func decodePostRoom(data: Data?) -> String? {
+        guard let data = data else { return nil }
+        do {
+            let room = try JSONDecoder().decode(Room.self, from: data)
+            return room._id
+        } catch let jsonErr {
+            print("Error serializing json:", jsonErr)
+            return nil
         }
-        return nil
     }
     
-    func decodeFetchFeedback(data: Any) -> [AnsweredFeedback] {
-        var feedback: [AnsweredFeedback] = []
-        let json = JSON(data)
-        for element in json {
-            if let answer = element.1["answer"]["value"].string,
-                let answerCount = element.1["timesAnswered"].int {
-                let answer = AnsweredFeedback(answerOption: answer, answerCount: answerCount)
-                feedback.append(answer)
-            }
+    func decodePostSignalMap(data: Data?) -> Room? {
+        guard let data = data else { return nil }
+        do {
+            let room = try JSONDecoder().decode(SignalmapWithRoom.self, from: data)
+            return room.room
+        } catch let jsonErr {
+            print("Error serializing json:", jsonErr)
+            return nil
         }
-        return feedback
-    }
-    
-    func decodePostRoom(data: Any) -> String? {
-        let json = JSON(data)
-        if let roomId = json["_id"].string {
-            return roomId
-        }
-        return nil
-    }
-    
-    func decodePostSignalMap(data: Any) -> Room? {
-        let json = JSON(data)
-        if let room = json["room"].dictionaryObject {
-            if let id = room["_id"] as? String, let name = room["name"] as? String {
-                 return Room(id: id, name: name)
-            }
-        }
-        return nil
     }
 }

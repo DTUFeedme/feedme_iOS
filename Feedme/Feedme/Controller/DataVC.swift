@@ -16,12 +16,7 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var roomLocationBottomConstraint: NSLayoutConstraint!
     
     private var label = UILabel()
-    private struct Question {
-        var question: String
-        var questionId: String
-        var answeredCount: Int
-    }
-    private var questions: [Question] = []
+    private var questions: [AnsweredQuestion] = []
     private var hasGivenFeedback = false
     private var mydataIsSelected = true
     private var time = Time.all
@@ -125,12 +120,14 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             if error == nil {
                 self.showUI()
                 self.hasGivenFeedback = true
-                var localQuestions: [Question] = []
-                for question in questions! {
-                    let question = Question(question: question.question, questionId: question.questionId, answeredCount: question.answeredCount)
-                    localQuestions.append(question)
-                }
-                self.questions = localQuestions
+                self.questions = questions!
+//                var localQuestions: [LocalQuestion] = []
+//                for question in questions! {
+//
+//                    let question = LocalQuestion(question: question.question.value, questionId: question.question.value, answeredCount: question.timesAnswered)
+//                    localQuestions.append(question)
+//                }
+//                self.questions = localQuestions
                 self.tableView.reloadData()
             } else {
                 if (!FeedmeNetworkService.Connectivity.isConnectedToInternet) {
@@ -150,8 +147,8 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellQuestion", for: indexPath) as! QuestionCell
-        cell.questionLabel.text = questions[indexPath.row].question
-        cell.howManyTimesAnsweredLabel.text = String(questions[indexPath.row].answeredCount)        
+        cell.questionLabel.text = questions[indexPath.row].question.value
+        cell.howManyTimesAnsweredLabel.text = String(questions[indexPath.row].timesAnswered)
         return cell
     }
     
@@ -164,8 +161,8 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         diagramVC.meIsSelected = mydataIsSelected
         diagramVC.roomID = chosenRoomId
         diagramVC.time = time
-        diagramVC.questionID = questions[indexPath.row].questionId
-        diagramVC.question = questions[indexPath.row].question
+        diagramVC.questionID = questions[indexPath.row].question._id
+        diagramVC.question = questions[indexPath.row].question.value
         
         present(diagramVC, animated: true, completion: nil)
     }

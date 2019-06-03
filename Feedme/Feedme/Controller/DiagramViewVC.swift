@@ -64,8 +64,8 @@ class DiagramVC: UIViewController {
         feedmeNS.fetchFeedback(questionID: questionID, roomID: roomID, time: time, me: meIsSelected) { answers, error in
             if error == nil {
                 for answer in answers! {
-                    let dataEntry = PieChartDataEntry(value: Double(answer.answerCount))
-                    dataEntry.label = answer.answerOption
+                    let dataEntry = PieChartDataEntry(value: Double(answer.timesAnswered))
+                    dataEntry.label = answer.answer.value
                     self.dataEntries.append(dataEntry)
                 }
                 self.updateChart()

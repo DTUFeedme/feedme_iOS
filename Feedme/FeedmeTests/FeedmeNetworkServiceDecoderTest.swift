@@ -58,8 +58,8 @@ class FeedmeNetworkServiceDecoderTest: XCTestCase {
         
         feedmeNS.fetchAnsweredQuestions(roomID: "id", time: Time.day, me: true) { questions, error in
             XCTAssertNil(error)
-            XCTAssertEqual(question.question, questions?.first?.question)
-            XCTAssertEqual(question.answeredCount, questions?.first?.answeredCount)
+            XCTAssertEqual(question.question, questions?.first?.question.value)
+            XCTAssertEqual(question.answeredCount, questions?.first?.timesAnswered)
         }
     }
     
@@ -90,7 +90,7 @@ class FeedmeNetworkServiceDecoderTest: XCTestCase {
             XCTAssertNil(buildings)
             XCTAssertNotNil(error)
         }
-        let building = Building(_id: "", name: "Building 303", rooms: [Room(id: "", name: "Rum1")])
+        let building = Building(_id: "", name: "Building 303", rooms: [Room(_id: "", name: "Rum1")])
         feedmeNS.shouldReturnError = false
         feedmeNS.fetchBuildings() { buildings, error in
             XCTAssertNotNil(buildings)
@@ -118,7 +118,7 @@ class FeedmeNetworkServiceDecoderTest: XCTestCase {
         feedmeNS.postSignalMap(signalMap: signalMap, roomid: nil, buildingId: buildingId) { room, error in
             XCTAssertNil(error)
             XCTAssertNotNil(room)
-            XCTAssertEqual(room?.id, roomId)
+            XCTAssertEqual(room?._id, roomId)
         }
     }
    
@@ -129,13 +129,13 @@ class FeedmeNetworkServiceDecoderTest: XCTestCase {
             XCTAssertNotNil(error)
         }
         feedmeNS.shouldReturnError = false
-        let question = Question(id: "5cd710f9cd752136263717f6", question: "How did you perceive the indoor air humidity?", answerOptions: [Question.answerOption(id: "", value: "Very humid"), Question.answerOption(id: "", value: "Humid")])
+        let question = Question(_id: "5cd710f9cd752136263717f6", value: "How did you perceive the indoor air humidity?", answerOptions: [Question.answerOption(_id: "", value: "Very humid"), Question.answerOption(_id: "", value: "Humid")])
         
         feedmeNS.fetchQuestions(currentRoomID: "5cd710d0cd752136263717eb") { questions, error in
             XCTAssertNotNil(questions)
-            XCTAssertEqual(questions?.first?.question, question.question)
+            XCTAssertEqual(questions?.first?.value, question.value)
             XCTAssertEqual(questions?.first?.answerOptions.first?.value , question.answerOptions.first?.value)
-            XCTAssertEqual(questions?.first?.id, question.id)
+            XCTAssertEqual(questions?.first?._id, question._id)
             XCTAssertEqual(questions?.first?.answerOptions[1].value, question.answerOptions[1].value)
         }
     }
@@ -178,8 +178,8 @@ class FeedmeNetworkServiceDecoderTest: XCTestCase {
         feedmeNS.fetchFeedback(questionID: "id", roomID: "id", time: Time.day, me: true) { feedback, error in
             XCTAssertNil(error)
             XCTAssertNotNil(feedback)
-            XCTAssertEqual(localFeedback.first?.answerOption, feedback?.first?.answerOption)
-            XCTAssertEqual(localFeedback.first?.answerCount, feedback?.first?.answerCount)
+            XCTAssertEqual(localFeedback.first?.answerOption, feedback?.first?.answer.value)
+            XCTAssertEqual(localFeedback.first?.answerCount, feedback?.first?.timesAnswered)
             XCTAssertEqual(localFeedback.count, feedback?.count)
         }
     }

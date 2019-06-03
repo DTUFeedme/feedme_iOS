@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.348299"
+            timestampString = "581254676.6780159"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "131"
             endingLineNumber = "131"
-            landmarkName = "fetchBuildings(completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -26,13 +26,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.348384"
+            timestampString = "581254676.6781909"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "132"
             endingLineNumber = "132"
-            landmarkName = "fetchBuildings(completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -42,13 +42,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.348448"
+            timestampString = "581254676.678268"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "134"
             endingLineNumber = "134"
-            landmarkName = "fetchBuildings(completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -58,13 +58,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.348508"
+            timestampString = "581254676.678332"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "137"
             endingLineNumber = "137"
-            landmarkName = "fetchBuildings(completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -74,13 +74,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.348564"
+            timestampString = "581254676.678404"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "129"
             endingLineNumber = "129"
-            landmarkName = "fetchBuildings(completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -90,13 +90,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.348617"
+            timestampString = "581254676.678479"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "139"
             endingLineNumber = "139"
-            landmarkName = "fetchBuildings(completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -106,103 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.3486691"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "fetchQuestions(currentRoomID:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feedme/Model/FeedmeServiceDecoder.swift"
-            timestampString = "579781652.186856"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feedme/Model/FeedmeServiceDecoder.swift"
-            timestampString = "579781652.187019"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feedme/Model/FeedmeServiceDecoder.swift"
-            timestampString = "579781652.187115"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feedme/Model/FeedmeServiceDecoder.swift"
-            timestampString = "579781652.187238"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feedme/Model/FeedmeServiceDecoder.swift"
-            timestampString = "579781652.187295"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feedme/Model/FeedmeServiceDecoder.swift"
-            timestampString = "579781652.187394"
+            timestampString = "581254676.67855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "82"
@@ -214,33 +118,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Model/FeedmeServiceDecoder.swift"
-            timestampString = "579781652.187449"
+            timestampString = "581254676.678617"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feedme/Model/FeedmeServiceDecoder.swift"
-            timestampString = "579781652.1875"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "48"
+            endingLineNumber = "48">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -250,29 +136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Model/FeedmeServiceDecoder.swift"
-            timestampString = "579781652.187546"
+            timestampString = "581254676.678672"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feedme/Model/FeedmeServiceDecoder.swift"
-            timestampString = "579781652.187592"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "50"
+            endingLineNumber = "50">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -282,13 +150,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.348847"
+            timestampString = "581254676.678728"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "222"
             endingLineNumber = "222"
-            landmarkName = "postRoom(buildingId:name:completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -298,13 +166,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.3489079"
+            timestampString = "581254676.678792"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "253"
             endingLineNumber = "253"
-            landmarkName = "postSignalMap(signalMap:roomid:buildingId:completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -314,13 +182,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.348955"
+            timestampString = "581254676.678857"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "254"
             endingLineNumber = "254"
-            landmarkName = "postSignalMap(signalMap:roomid:buildingId:completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -330,13 +198,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.349002"
+            timestampString = "581254676.678925"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "256"
             endingLineNumber = "256"
-            landmarkName = "postSignalMap(signalMap:roomid:buildingId:completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -346,13 +214,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.349048"
+            timestampString = "581254676.678979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "259"
             endingLineNumber = "259"
-            landmarkName = "postSignalMap(signalMap:roomid:buildingId:completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -362,7 +230,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Model/LocationEstimator.swift"
-            timestampString = "579782283.88659"
+            timestampString = "581254676.6790431"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "112"
@@ -390,11 +258,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Model/LocationEstimator.swift"
-            timestampString = "579782283.886659"
+            timestampString = "581254676.679167"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "161"
@@ -406,11 +274,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Model/LocationEstimator.swift"
-            timestampString = "579782283.886703"
+            timestampString = "581254676.679219"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "175"
@@ -426,13 +294,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.349189"
+            timestampString = "581254676.67928"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "225"
             endingLineNumber = "225"
-            landmarkName = "postRoom(buildingId:name:completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -442,13 +310,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.349236"
+            timestampString = "581254676.67933"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "224"
             endingLineNumber = "224"
-            landmarkName = "postRoom(buildingId:name:completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -458,13 +326,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.349285"
+            timestampString = "581254676.679409"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "228"
             endingLineNumber = "228"
-            landmarkName = "postRoom(buildingId:name:completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -474,13 +342,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.3493299"
+            timestampString = "581254676.679484"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "227"
             endingLineNumber = "227"
-            landmarkName = "postRoom(buildingId:name:completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -490,29 +358,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.3493741"
+            timestampString = "581254676.6795551"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "206"
             endingLineNumber = "206"
-            landmarkName = "postRoom(buildingId:name:completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Model/LocationEstimator.swift"
-            timestampString = "579782283.888216"
+            timestampString = "581254676.679655"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "159"
             endingLineNumber = "159"
-            landmarkName = "postRoom(roomname:completion:)"
-            landmarkType = "7">
+            landmarkName = "LocationEstimator"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -522,11 +390,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Controller/DataVC.swift"
-            timestampString = "579787415.349434"
+            timestampString = "581254676.6797169"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "setupUI()"
             landmarkType = "7">
          </BreakpointContent>
@@ -538,13 +406,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.349481"
+            timestampString = "581254676.679783"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "265"
             endingLineNumber = "265"
-            landmarkName = "postFeedback(feedback:completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -554,13 +422,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Services/FeedmeNetworkService.swift"
-            timestampString = "579787415.349524"
+            timestampString = "581254676.679857"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "260"
             endingLineNumber = "260"
-            landmarkName = "postSignalMap(signalMap:roomid:buildingId:completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -570,11 +438,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Controller/DataVC.swift"
-            timestampString = "579787415.349568"
+            timestampString = "581254676.679921"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
             landmarkName = "setupUI()"
             landmarkType = "7">
          </BreakpointContent>
@@ -586,12 +454,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feedme/Model/LocationEstimator.swift"
-            timestampString = "579786831.590687"
+            timestampString = "581254676.679987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "113"
             endingLineNumber = "113"
             landmarkName = "locationManager(_:didRangeBeacons:in:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FeedmeTests/Mocks/MockFeedmeNetworkService.swift"
+            timestampString = "581254676.680043"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
+            landmarkName = "postRoom(buildingId:name:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FeedmeTests/Mocks/MockFeedmeNetworkService.swift"
+            timestampString = "581254676.680128"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "postRoom(buildingId:name:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -9,14 +9,14 @@
 import UIKit
 
 
-struct Question {
+struct Question: Decodable {
     
-    var id: String
-    var question: String
+    var _id: String
+    var value: String
     var answerOptions: [answerOption]
     
-    struct answerOption {
-        var id: String
+    struct answerOption: Decodable {
+        var _id: String
         var value: String
     }
 }

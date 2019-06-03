@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SwiftyJSON
 
 class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -20,7 +19,6 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var reloadInternetButton: UIButton!
     @IBOutlet weak var reloadInternetLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    
     private let userErrorMessage =  "Couldn't send feedback. Try again later 😐"
     private var questions: [Question] = []
     private var answers: [Question.answerOption] = []
@@ -39,7 +37,6 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         restartFeedback()
         fetchQuestions()
         
-        
         if hasStartedLocation {
            locationEstimator.userChangedRoomDelegate = self
            locationEstimator.initTimerfetchRoom()
@@ -55,21 +52,19 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.viewDidLoad()
         feedmeNS = appDelegate.feedmeNS
         locationEstimator = appDelegate.locationEstimator
-        
         setupUI()
-        if checkConnectivity(){
-            checkIfUserExists() { wentWell in
-                if wentWell {
-                    self.updateUI()
-                    self.locationEstimator.userChangedRoomDelegate = self
-                    self.locationEstimator.startLocating()
-                    self.reloadUI()
-                }
+        
+        if checkConnectivity() {
+            checkIfUserExists() { _ in
+                self.updateUI()
+                self.locationEstimator.userChangedRoomDelegate = self
+                self.locationEstimator.startLocating()
+                self.reloadUI()
             }
         }
     }
     
-    func setupUI(){
+    private func setupUI(){
         tableView.separatorColor = UIColor.clear
         sideMenu.layer.shadowOpacity = 1
         sideMenu.layer.shadowRadius = 6
@@ -88,8 +83,8 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         isMenuShowing = !isMenuShowing
     }
     
-    private func updateUI(){
-        if let text = questions[safe: currentQuestionNo]?.question {
+    private func updateQuestionsUI(){
+        if let text = questions[safe: currentQuestionNo]?.value {
             questionLabel.text = text
             pagesLabel.text = "\(currentQuestionNo+1)/\(questions.count)"
             tableView.reloadData()
@@ -123,8 +118,8 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if checkConnectivity() {
             if currentQuestionNo < questions.count {
                 
-                let questionId = questions[currentQuestionNo].id
-                let answerId = answers[index].id
+                let questionId = questions[currentQuestionNo]._id
+                let answerId = answers[index]._id
                 
                 if currentQuestionNo < questions.count-1 {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
@@ -216,7 +211,6 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
          print(currentRoomID)
          feedmeNS.fetchQuestions(currentRoomID: currentRoomID) { questions, error in
             if error == nil {
-                print(questions)
                 self.questions = questions!
                 self.answers = questions![self.currentQuestionNo].answerOptions
                 self.reloadUI()
@@ -224,7 +218,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.tableView.reloadData()
                 self.updateUI()
                 if let question = self.questions.first {
-                    self.questionLabel.text = question.question
+                    self.questionLabel.text = question.value
                     self.pagesLabel.text = "\(self.currentQuestionNo+1)/\(questions!.count)"
                 }
             } else {
