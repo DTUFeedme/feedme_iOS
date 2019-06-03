@@ -56,20 +56,13 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         if checkConnectivity() {
             checkIfUserExists() { _ in
-                self.updateUI()
+                self.updateQuestionsUI()
                 self.locationEstimator.userChangedRoomDelegate = self
                 self.locationEstimator.startLocating()
                 self.reloadUI()
             }
         }
     }
-    
-    private func setupUI(){
-        tableView.separatorColor = UIColor.clear
-        sideMenu.layer.shadowOpacity = 1
-        sideMenu.layer.shadowRadius = 6
-    }
-    
     
     @IBAction func sideMenuAction(_ sender: Any) {
         if isMenuShowing {
@@ -81,14 +74,6 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             })
         }
         isMenuShowing = !isMenuShowing
-    }
-    
-    private func updateQuestionsUI(){
-        if let text = questions[safe: currentQuestionNo]?.value {
-            questionLabel.text = text
-            pagesLabel.text = "\(currentQuestionNo+1)/\(questions.count)"
-            tableView.reloadData()
-        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -108,7 +93,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private func checkConnectivity() -> Bool{
         if !FeedmeNetworkService.Connectivity.isConnectedToInternet {
             restartFeedback()
-            updateUI()
+            updateQuestionsUI()
             reloadUI()
         }
         return FeedmeNetworkService.Connectivity.isConnectedToInternet
@@ -120,17 +105,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 
                 let questionId = questions[currentQuestionNo]._id
                 let answerId = answers[index]._id
-                
-                if currentQuestionNo < questions.count-1 {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
-                        self.answers = self.questions[self.currentQuestionNo].answerOptions
-                        self.updateUI()
-                        self.tableView.reloadData()
-                    }
-                }
-                currentQuestionNo += 1
-                animateSlideGesture(forward: true)
-                
+                prepareForNextQuestion()
                 let feedback = Feedback(answerId: answerId, roomID: currentRoomID, questionId: questionId)
                 feedmeNS.postFeedback(feedback: feedback) { error in
                     if error == nil  {
@@ -138,19 +113,33 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                             self.performSegue(withIdentifier: "feedbackreceived", sender: self)
                         }
                     } else {
-                        self.answers.removeAll()
-                        self.tableView.reloadData()
-                        self.systemStatusMessage = self.userErrorMessage
-                        self.reloadUI()
+                        self.restart()
                     }
                 }
             }
         } else {
-            self.answers.removeAll()
-            self.tableView.reloadData()
-            self.systemStatusMessage = self.userErrorMessage
-            self.reloadUI()
+            restart()
         }
+    }
+    
+    func restart(){
+        self.answers.removeAll()
+        self.restartFeedback()
+        self.tableView.reloadData()
+        self.systemStatusMessage = self.userErrorMessage
+        self.reloadUI()
+    }
+  
+    func prepareForNextQuestion(){
+        if currentQuestionNo < questions.count-1 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                self.answers = self.questions[self.currentQuestionNo].answerOptions
+                self.updateQuestionsUI()
+                self.tableView.reloadData()
+            }
+        }
+        currentQuestionNo += 1
+        animateSlideGesture(forward: true)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -160,31 +149,6 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         postFeedback(index: indexPath.row)
     }
     
-    private func reloadUI(){
-        if FeedmeNetworkService.Connectivity.isConnectedToInternet == false {
-            questionLabel.text = "Please make sure you have internet connection 🤔"
-            reloadInternetLabel.isHidden = false
-            reloadInternetButton.isHidden = false
-        } else if currentRoomID == "" {
-            questionLabel.text = "Couldn't estimate your location..."
-            roomLocationLabel.text = "Trying to estimate your location 🤔"
-            reloadInternetLabel.isHidden = true
-            reloadInternetButton.isHidden = true
-        } else if questions.isEmpty {
-            questionLabel.text = systemStatusMessage
-            reloadInternetLabel.isHidden = true
-            reloadInternetButton.isHidden = true
-        } else {
-            reloadInternetLabel.isHidden = true
-            reloadInternetButton.isHidden = true
-        }
-    }
-    
-    @IBAction func reloadIfConnected(_ sender: Any) {
-        reloadInternetButton.rotateImage()
-        reloadInternetLabel.text = "Are you sure you are connected? 🤔"
-        viewDidLoad()
-    }
     private func restartFeedback(){
         currentQuestionNo = 0
         questions.removeAll()
@@ -214,13 +178,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.questions = questions!
                 self.answers = questions![self.currentQuestionNo].answerOptions
                 self.reloadUI()
-                // test det her
-                self.tableView.reloadData()
-                self.updateUI()
-                if let question = self.questions.first {
-                    self.questionLabel.text = question.value
-                    self.pagesLabel.text = "\(self.currentQuestionNo+1)/\(questions!.count)"
-                }
+                self.updateQuestionsUI()
             } else {
                 self.questions = []
                 self.answers = []
@@ -232,6 +190,46 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     // UI and Extensions...
+    private func updateQuestionsUI(){
+        if let text = questions[safe: currentQuestionNo]?.value {
+            questionLabel.text = text
+            pagesLabel.text = "\(currentQuestionNo+1)/\(questions.count)"
+            tableView.reloadData()
+        }
+    }
+    
+    private func setupUI(){
+        tableView.separatorColor = UIColor.clear
+        sideMenu.layer.shadowOpacity = 1
+        sideMenu.layer.shadowRadius = 6
+    }
+    
+    private func reloadUI(){
+        if FeedmeNetworkService.Connectivity.isConnectedToInternet == false {
+            questionLabel.text = "Please make sure you have internet connection 🤔"
+            reloadInternetOutlet(hide: false)
+            return
+        } else if currentRoomID == "" {
+            questionLabel.text = "Couldn't estimate your location..."
+            roomLocationLabel.text = "Trying to estimate your location 🤔"
+        } else if questions.isEmpty {
+            questionLabel.text = systemStatusMessage
+        }
+        reloadInternetOutlet(hide: true)
+    }
+    
+    func reloadInternetOutlet(hide: Bool){
+        reloadInternetLabel.isHidden = hide
+        reloadInternetButton.isHidden = hide
+    }
+    
+    @IBAction func reloadIfConnected(_ sender: Any) {
+        reloadInternetButton.rotateImage()
+        viewDidLoad()
+    }
+    
+    
+    
     private func animateSlideGesture(forward: Bool){
         
         if forward {
@@ -272,7 +270,7 @@ extension FeedbackVC: FoundNewRoomProtocol {
             restartFeedback()
             fetchQuestions()
             reloadUI()
-            roomLocationLabel.text = "You are in \(roomname) 🙂"
+            updateCurrentRoomNameLabel()
         }
         currentRoomID = roomid
         currentRoomName = roomname
