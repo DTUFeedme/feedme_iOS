@@ -13,10 +13,5 @@ struct Question: Decodable {
     
     var _id: String
     var value: String
-    var answerOptions: [answerOption]
-    
-    struct answerOption: Decodable {
-        var _id: String
-        var value: String
-    }
+    var answerOptions: [Option]
 }

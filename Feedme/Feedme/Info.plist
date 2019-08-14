@@ -36,9 +36,9 @@
 		</dict>
 	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>To be able to to use this app, we will need the authorization to access your location ☺️</string>
+	<string>We need permission to track your location to make this app work</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Ey yo</string>
+	<string>We need permission to track your location to make this app work</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

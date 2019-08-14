@@ -142,7 +142,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         let url = "\(baseUrl)/users"
         AF.request(url, method: .post).responseJSON{ response in
             if response.response?.statusCode == 200 {
-                if let token = self.decoder.decodeToken(data: response.data) {
+                if let token = response.response?.allHeaderFields["x-auth-token"] {
                     UserDefaults.standard.set(token, forKey: "x-auth-token")
                     completion(nil)
                 } else {

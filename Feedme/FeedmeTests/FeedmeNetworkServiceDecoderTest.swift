@@ -129,7 +129,7 @@ class FeedmeNetworkServiceDecoderTest: XCTestCase {
             XCTAssertNotNil(error)
         }
         feedmeNS.shouldReturnError = false
-        let question = Question(_id: "5cd710f9cd752136263717f6", value: "How did you perceive the indoor air humidity?", answerOptions: [Question.answerOption(_id: "", value: "Very humid"), Question.answerOption(_id: "", value: "Humid")])
+        let question = Question(_id: "5cd710f9cd752136263717f6", value: "How did you perceive the indoor air humidity?", answerOptions: [Option(_id: "", value: "Very humid"), Option(_id: "", value: "Humid")])
         
         feedmeNS.fetchQuestions(currentRoomID: "5cd710d0cd752136263717eb") { questions, error in
             XCTAssertNotNil(questions)

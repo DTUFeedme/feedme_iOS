@@ -17,14 +17,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
+        if !UserDefaults.standard.contains(key: "hasLoggedInBefore") {
+            let sb = UIStoryboard(name: "Main", bundle: nil)
+            let vc = sb.instantiateViewController(withIdentifier: "privacypolicy")
+            window?.rootViewController = vc
+            window?.makeKeyAndVisible()
+            
+        }
+        
         let sb = UIStoryboard(name: "Main", bundle: nil)
         let vc = sb.instantiateViewController(withIdentifier: "main")
-        window?.rootViewController = vc
-        window?.makeKeyAndVisible()
+        
         
         feedmeNS = FeedmeNetworkService()
         locationEstimator = LocationEstimator(service: feedmeNS!)
-     
+        
         if UserDefaults.standard.contains(key: "isAdmin") {
             let admin = UserDefaults.standard.bool(forKey: "isAdmin")
             if admin {
@@ -33,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
+        
+    
         let bgColor = UIColor(named: "backgroundColor")
         let color = UIColor(named: "colorOne")
         

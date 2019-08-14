@@ -40,6 +40,7 @@ class ScanningVC: UIViewController {
     
     @IBAction func startScanning(_ sender: Any) {
         if isScanning {
+            infoLabel.isHidden = true
             locationEstimator.postRoom(roomname: roomname.text!) { error in
                 if error == nil {
                     self.message.text = "Succesfully saved room dimensions"
@@ -50,7 +51,6 @@ class ScanningVC: UIViewController {
                 self.locationEstimator.stopTimerAddToSignalMap()
                 self.locationEstimator.isMappingRoom = false
             }
-       
             scanningButton.setTitleColor(.myGreen(), for: .normal)
             scanningButton.layer.borderColor = .myGreen()
             scanningButton.layer.removeAllAnimations()

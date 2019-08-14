@@ -9,11 +9,6 @@
 import Foundation
 
 struct AnsweredQuestion: Decodable {
-    var question: SubAnsweredQuestion
+    var question: Option
     var timesAnswered: Int
-}
-
-struct SubAnsweredQuestion: Decodable {
-    var value: String
-    var _id: String
 }

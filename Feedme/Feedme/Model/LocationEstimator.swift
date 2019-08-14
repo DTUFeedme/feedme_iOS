@@ -121,7 +121,6 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
             beacon.addRssi(rssi: rangedBeacon.rssi)
             print(rangedBeacon.rssi)
         }
-       
     }
     
     @objc func addToSignalMap() {

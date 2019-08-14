@@ -3,6 +3,7 @@ import Charts
 
 class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var labelConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var mydataButton: UIButton!
     @IBOutlet weak var alldataButton: UIButton!
@@ -13,7 +14,6 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var slideView: UIView!
     @IBOutlet weak var choosenRoomLabel: UILabel!
     @IBOutlet weak var roomLocationLabel: UILabel!
-    @IBOutlet weak var roomLocationBottomConstraint: NSLayoutConstraint!
     
     private var label = UILabel()
     private var questions: [AnsweredQuestion] = []
@@ -121,13 +121,6 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.showUI()
                 self.hasGivenFeedback = true
                 self.questions = questions!
-//                var localQuestions: [LocalQuestion] = []
-//                for question in questions! {
-//
-//                    let question = LocalQuestion(question: question.question.value, questionId: question.question.value, answeredCount: question.timesAnswered)
-//                    localQuestions.append(question)
-//                }
-//                self.questions = localQuestions
                 self.tableView.reloadData()
             } else {
                 if (!FeedmeNetworkService.Connectivity.isConnectedToInternet) {
@@ -238,7 +231,7 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return .lightContent
     }
     private func showUI(){
-        roomLocationBottomConstraint.constant = 44
+        labelConstraint.constant = -10
         alltimeButton.isHidden = false
         choosenRoomLabel.isHidden = false
         tableView.isHidden = false
@@ -253,11 +246,12 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         label.isHidden = true
     }
     private func hideUI(){
-        
+       
         choosenRoomLabel.isHidden = true
         tableView.isHidden = true
         label.isHidden = false
         if !hasGivenFeedback {
+            labelConstraint.constant = 30
             alltimeButton.isHidden = true
             slideView.isHidden = true
             alldataButton.isHidden = true
@@ -265,7 +259,6 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             lastweekButton.isHidden = true
             lastmonthButton.isHidden = true
             mydataButton.isHidden = true
-            roomLocationBottomConstraint.constant = 10
         }
     }
     

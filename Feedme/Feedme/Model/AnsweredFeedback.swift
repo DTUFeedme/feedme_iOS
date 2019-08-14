@@ -9,11 +9,6 @@
 import Foundation
 
 struct AnsweredFeedback: Decodable {
-    var answer: SubAnsweredFeedback
+    var answer: Option
     var timesAnswered: Int
-}
-
-struct SubAnsweredFeedback: Decodable {
-    var value: String
-    var _id: String
 }

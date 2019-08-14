@@ -22,7 +22,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     private let userErrorMessage =  "Couldn't send feedback. Try again later 😐"
     private var questions: [Question] = []
-    private var answers: [Question.answerOption] = []
+    private var answers: [Option] = []
     private var systemStatusMessage = ""
     private var currentQuestionNo = 0
     private var isMenuShowing = false
