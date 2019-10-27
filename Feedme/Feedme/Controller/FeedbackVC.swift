@@ -80,6 +80,11 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func isLoggedIn(){
         if UserDefaults.standard.contains(key: "isAdmin") {
+            if let tbc = self.tabBarController as? TabBarVC {
+                if tbc.viewControllers?.count == 2 {
+                    tbc.addNewTabBarItem()
+                }
+            }
             loginButton.title = "Logout"
         } else {
             loginButton.title = "Login"
@@ -199,7 +204,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     private func fetchQuestions(){
-         print(currentRoomID)
+
          feedmeNS.fetchQuestions(currentRoomID: currentRoomID) { questions, error in
             if error == nil {
                 self.questions = questions!
@@ -279,7 +284,11 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func updateCurrentRoomNameLabel() {
-        roomLocationLabel.text = "You are in \(currentRoomName) 🙂"
+        if currentRoomID.isEmpty {
+            roomLocationLabel.text = "Trying to estimate your location 🤔"
+        } else {
+            roomLocationLabel.text = "You are in \(currentRoomName) 🙂"
+        }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

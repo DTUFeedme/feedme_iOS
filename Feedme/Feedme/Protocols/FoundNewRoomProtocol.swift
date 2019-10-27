@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol FoundNewRoomProtocol {
     func userChangedRoom(roomname: String, roomid: String)
 }

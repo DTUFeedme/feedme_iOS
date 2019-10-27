@@ -119,7 +119,7 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
         if let beacon = getBeacon(id: rangedBeacon.proximityUUID.uuidString) {
             buildingId = beacon.building._id
             beacon.addRssi(rssi: rangedBeacon.rssi)
-            print(rangedBeacon.rssi)
+            
         }
     }
     
@@ -140,7 +140,6 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
             if serverSignalMap.isEmpty {
                 return
             }
-    
             feedmeNS.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) { room, error in
                 if error == nil {
                     self.signalMap.removeAll()
@@ -149,8 +148,6 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
                         self.currentRoomId = roomId
                         self.userChangedRoomDelegate?.userChangedRoom(roomname: roomname, roomid: roomId)
                     }
-                } else {
-                    
                 }
             }
         }
@@ -189,14 +186,14 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
     
     
     func pushSignalMap(roomid: String, buildingId: String, completion: @escaping (_ room: Room?) -> Void) {
-
+        
         let serverSignalMap = convertSignalMapToServer(signalMap: signalMap)
         feedmeNS.postSignalMap(signalMap: serverSignalMap, roomid: roomid, buildingId: nil) {
             room, error in
             if error == nil {
                 completion(room)
             } else {
-//                completion(error)
+               completion(nil)
             }
         }
     }

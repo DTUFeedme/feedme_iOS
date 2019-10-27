@@ -17,11 +17,21 @@ class TermsOfServiceVC: UIViewController, UITextViewDelegate {
     }
     @IBOutlet weak var buttonHeight: NSLayoutConstraint!
     
+    enum UIUserInterfaceIdiom : Int {
+        case unspecified
+        case phone
+        case pad
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        doneButton.isHidden = true
-        buttonHeight.constant = 0
-        // Do any additional setup after loading the view.
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            doneButton.isHidden = false
+            buttonHeight.constant = 36
+        } else {
+            doneButton.isHidden = true
+            buttonHeight.constant = 0
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

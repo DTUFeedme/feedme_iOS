@@ -52,6 +52,7 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             guard let _ = UserDefaults.standard.string(forKey: "x-auth-token") else { return }
         }
         setupUI()
+        self.hideUI()
     }
     
     func setupUI(){
@@ -115,7 +116,6 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // NETWORKING
     
     private func fetchAnsweredQuestions(){
-        print(chosenRoomId)
         feedmeNS.fetchAnsweredQuestions(roomID: chosenRoomId, time: time, me: mydataIsSelected) { questions, error in
             if error == nil {
                 self.showUI()
@@ -306,7 +306,6 @@ extension DataVC: ManuallyChangedRoomProtocol {
 }
 extension DataVC: FoundNewRoomProtocol {
     func userChangedRoom(roomname: String, roomid: String) {
-        print("--- I entered")
         currentRoom = roomname
         currentRoomId = roomid
         roomLocationLabel.text = "You are in \(roomname) 🙂"

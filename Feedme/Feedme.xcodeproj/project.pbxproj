@@ -20,6 +20,7 @@
 		A136A0D9220C595000189E21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A136A0D8220C595000189E21 /* Assets.xcassets */; };
 		A136A0DC220C595000189E21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136A0DA220C595000189E21 /* LaunchScreen.storyboard */; };
 		A149FC3122A548F700A9A23C /* ColorAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A149FC3022A548F700A9A23C /* ColorAssets.xcassets */; };
+		A14A5045234E6ACA0033BE68 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A14A5044234E6ACA0033BE68 /* StoreKit.framework */; };
 		A1581EB9223A96230083C4C9 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1581EB8223A96230083C4C9 /* AnswerCell.swift */; };
 		A16B8B0C22843D7F005D73BE /* LocationEstimatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16B8B0B22843D7F005D73BE /* LocationEstimatorTest.swift */; };
 		A1734B2C223657FE004AB9DD /* AppBeaconTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1734B2B223657FE004AB9DD /* AppBeaconTest.swift */; };
@@ -82,6 +83,8 @@
 		A136A0DB220C595000189E21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A136A0DD220C595000189E21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A149FC3022A548F700A9A23C /* ColorAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorAssets.xcassets; sourceTree = "<group>"; };
+		A14A5041234E69240033BE68 /* Feedme.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Feedme.entitlements; sourceTree = "<group>"; };
+		A14A5044234E6ACA0033BE68 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A1581EB8223A96230083C4C9 /* AnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
 		A16B8B0B22843D7F005D73BE /* LocationEstimatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEstimatorTest.swift; sourceTree = "<group>"; };
 		A1734B212236577A004AB9DD /* FeedmeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FeedmeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA4861E85A6EDBF390413147 /* Pods_Feedme.framework in Frameworks */,
+				A14A5045234E6ACA0033BE68 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +192,7 @@
 		A136A0D0220C595000189E21 /* Feedme */ = {
 			isa = PBXGroup;
 			children = (
+				A14A5041234E69240033BE68 /* Feedme.entitlements */,
 				A1CCC39B22883A1400D58E8E /* Protocols */,
 				A11662D32236F6FB00A7F607 /* Extensions */,
 				A1141A1022314B3200659DF1 /* Services */,
@@ -254,6 +259,7 @@
 		A1405ACBB893BFA21F6B8474 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A14A5044234E6ACA0033BE68 /* StoreKit.framework */,
 				252B2DD3999B842FA90C0352 /* Pods_Feedme.framework */,
 				B4E749F0068B6FDBF0AE89DD /* Pods_FeedmeTests.framework */,
 			);
@@ -353,6 +359,17 @@
 				TargetAttributes = {
 					A136A0CD220C595000189E21 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.AccessWiFi = {
+								enabled = 0;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+							com.apple.SafariKeychain = {
+								enabled = 0;
+							};
+						};
 					};
 					A1734B202236577A004AB9DD = {
 						CreatedOnToolsVersion = 10.1;
@@ -675,15 +692,17 @@
 			baseConfigurationReference = 0DBAED9CA7186EB2885D75F0 /* Pods-Feedme.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 89RE53M4T5;
+				DEVELOPMENT_TEAM = JD4KMD4VG6;
 				INFOPLIST_FILE = Feedme/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = christianhjelmslund.Feedme;
+				PRODUCT_BUNDLE_IDENTIFIER = "dtu-informatics.feedme";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -694,15 +713,17 @@
 			baseConfigurationReference = 5473F9A76C45A6C4C671062E /* Pods-Feedme.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 89RE53M4T5;
+				DEVELOPMENT_TEAM = JD4KMD4VG6;
 				INFOPLIST_FILE = Feedme/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = christianhjelmslund.Feedme;
+				PRODUCT_BUNDLE_IDENTIFIER = "dtu-informatics.feedme";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

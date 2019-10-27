@@ -17,18 +17,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
+        var vc = UIViewController()
         if !UserDefaults.standard.contains(key: "hasLoggedInBefore") {
             let sb = UIStoryboard(name: "Main", bundle: nil)
-            let vc = sb.instantiateViewController(withIdentifier: "privacypolicy")
+            
+            if !UserDefaults.standard.contains(key: "didReadTermsOfService") {
+                UserDefaults.standard.set(true, forKey: "didReadTermsOfService")
+                vc = sb.instantiateViewController(withIdentifier: "privacypolicy")
+            } else {
+                vc = sb.instantiateViewController(withIdentifier: "main")
+            }
             window?.rootViewController = vc
             window?.makeKeyAndVisible()
             
         }
-        
-        let sb = UIStoryboard(name: "Main", bundle: nil)
-        let vc = sb.instantiateViewController(withIdentifier: "main")
-        
-        
+
         feedmeNS = FeedmeNetworkService()
         locationEstimator = LocationEstimator(service: feedmeNS!)
         

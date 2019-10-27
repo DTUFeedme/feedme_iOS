@@ -28,7 +28,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PcV-w2-SpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2015" y="-856"/>
+            <point key="canvasLocation" x="-2015" y="-940"/>
         </scene>
         <!--Terms Of ServiceVC-->
         <scene sceneID="Iwy-bD-Fdh">
@@ -39,97 +39,44 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SNi-7o-vXF">
-                                <rect key="frame" x="10" y="59" width="355" height="552"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <string key="text">Hans Hansen built the Feedme app as an Open Source app. This SERVICE is provided by Hans Hansen at no cost and is intended for use as is.
+                                <rect key="frame" x="10" y="59" width="355" height="547"/>
+                                <mutableString key="text">Our mission is to provide you the best experience in your indoor environment. To make that possible, we rely on the feedback that you provide when entering a building and room that we are monitoring. To use the functionalities of the application, you will need internet connection. We have deployed Bluetooth Low Energy beacons in our buildings and through the application, we can locate the room you are in and ask specific questions relating to that particular room. That could be questions such as "How is the temperature" and based on your answer and the actual temperature we measure, we can adjust it to your needs. 
 
-This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
+Behind Feedme are two students and one researcher from the Technical University of Denmark and in this version of the application, we give you the option of not needing to create a user, since we do this for research purposes. When you download the application a random generated token (number) is assigned, so we can distinguish each individual "user", so this token is actually the only thing that distinguishes you from the other "users". 
 
-If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.
-
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Feedme unless otherwise defined in this Privacy Policy.
-
-Information Collection and Use
-
-For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way.
-
-The app does use third party services that may collect information used to identify you.
-
-Link to privacy policy of third party service providers used by the app
-
-Google Play Services
-Log Data
-
-I want to inform you that whenever you use my Service, in a case of an error in the app I collect data and information (through third party products) on your phone called Log Data. This Log Data may include information such as your device Internet Protocol (“IP”) address, device name, operating system version, the configuration of the app when utilizing my Service, the time and date of your use of the Service, and other statistics.
-
-Cookies
-
-Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.
-
-This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
-
-Service Providers
-
-I may employ third-party companies and individuals due to the following reasons:
-
-To facilitate our Service;
-To provide the Service on our behalf;
-To perform Service-related services; or
-To assist us in analyzing how our Service is used.
-I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.
-
-Security
-
-I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
-
-Links to Other Sites
-
-This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
-
-Children’s Privacy
-
-These Services do not address anyone under the age of 13. I do not knowingly collect personally identifiable information from children under 13. In the case I discover that a child under 13 has provided me with personal information, I immediately delete this from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact me so that I will be able to do necessary actions.
-
-Changes to This Privacy Policy
-
-I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page. These changes are effective immediately after they are posted on this page.
-
-Contact Us
-
-If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at feedme@gmail.com.
-
-This privacy policy page was created at privacypolicytemplate.net and modified/generated by App Privacy Policy Generator</string>
-                                <color key="textColor" name="colorOne"/>
+How the application actually works is, that the main page is the "Feedback" tab and once you step into a room that we monitor, you will see a message in the bottom indicating the room you are in and presented a few questions that you can answer. The other tab "Data" is where you can see the feedback that you have given in a particular room or building, but more interestingly also the feedback from other people! Again, each user is assigned this random number, so that is how we distinguish between "you" and "them". There is however a login button in the top right corner and that is if you want to be a building administrator yourself. If that is the case, you will have to buy your own Bluetooth Beacons and register on our website: http://feedme.compute.dtu.dk/</mutableString>
+                                <color key="textColor" name="backgroundColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Terms of Service" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Wj-87-kGN">
                                 <rect key="frame" x="5" y="25" width="365" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" name="colorOne"/>
+                                <color key="textColor" name="backgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Sy-1O-knc">
                                 <rect key="frame" x="10" y="621" width="355" height="36"/>
+                                <color key="backgroundColor" name="colorOne"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="3kt-X4-10L"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Done">
-                                    <color key="titleColor" name="colorOne"/>
+                                    <color key="titleColor" name="backgroundColor"/>
                                 </state>
                                 <connections>
                                     <action selector="toMain:" destination="J2k-At-1QL" eventType="touchUpInside" id="o4f-AQ-6MF"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="colorOne"/>
                         <constraints>
                             <constraint firstItem="7Sy-1O-knc" firstAttribute="leading" secondItem="mGK-sb-8SG" secondAttribute="leading" constant="10" id="D9O-eD-svT"/>
                             <constraint firstItem="mGK-sb-8SG" firstAttribute="trailing" secondItem="SNi-7o-vXF" secondAttribute="trailing" constant="10" id="ETL-yW-RKm"/>
                             <constraint firstItem="4Wj-87-kGN" firstAttribute="top" secondItem="mGK-sb-8SG" secondAttribute="top" constant="5" id="FmA-Yd-hvX"/>
                             <constraint firstItem="SNi-7o-vXF" firstAttribute="top" secondItem="4Wj-87-kGN" secondAttribute="bottom" constant="5" id="Ifa-oF-sSS"/>
-                            <constraint firstItem="7Sy-1O-knc" firstAttribute="top" secondItem="SNi-7o-vXF" secondAttribute="bottom" constant="10" id="KCa-SY-BSr"/>
+                            <constraint firstItem="7Sy-1O-knc" firstAttribute="top" secondItem="SNi-7o-vXF" secondAttribute="bottom" constant="15" id="KCa-SY-BSr"/>
                             <constraint firstItem="mGK-sb-8SG" firstAttribute="bottom" secondItem="7Sy-1O-knc" secondAttribute="bottom" constant="10" id="LqQ-1p-74G"/>
                             <constraint firstItem="SNi-7o-vXF" firstAttribute="top" secondItem="4Wj-87-kGN" secondAttribute="bottom" constant="5" id="Waj-FR-ddR"/>
                             <constraint firstItem="4Wj-87-kGN" firstAttribute="leading" secondItem="mGK-sb-8SG" secondAttribute="leading" constant="5" id="XPD-zT-lXC"/>
@@ -148,7 +95,7 @@ This privacy policy page was created at privacypolicytemplate.net and modified/g
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zhP-gi-Cp1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1135" y="-873"/>
+            <point key="canvasLocation" x="-2015" y="-1643"/>
         </scene>
         <!--Feedback-->
         <scene sceneID="hv1-aG-yEK">
@@ -172,6 +119,9 @@ This privacy policy page was created at privacypolicytemplate.net and modified/g
         </scene>
     </scenes>
     <resources>
+        <namedColor name="backgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="colorOne">
             <color red="0.15686274509803921" green="0.65490196078431373" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -20,7 +20,6 @@ enum ServiceError: LocalizedError {
     }
 }
 
-
 enum Time: String {
     case day = "day"
     case week = "week"

@@ -18,7 +18,7 @@ class FeedmeNetworkServiceDecoder {
             let answeredQuestions = try JSONDecoder().decode([AnsweredQuestion].self, from: data)
             return answeredQuestions
         } catch let jsonErr {
-            print("Error serializing json:", jsonErr)
+            print("Error serializing json decodeFetchAnsweredQuestions:", jsonErr)
             return []
         }
     }
@@ -30,7 +30,7 @@ class FeedmeNetworkServiceDecoder {
             let questions = try JSONDecoder().decode([Question].self, from: data)
             return questions
         } catch let jsonErr {
-            print("Error serializing json:", jsonErr)
+            print("Error serializing json decodeFetchQuestions:", jsonErr)
             return []
         }
     }
@@ -42,7 +42,7 @@ class FeedmeNetworkServiceDecoder {
             let beacons = try JSONDecoder().decode([Beacon].self, from: data)
             return beacons
         } catch let jsonErr {
-            print("Error serializing json:", jsonErr)
+            print("Error serializing json decodeFetchBeacons:", jsonErr)
             return []
         }
     }
@@ -53,7 +53,7 @@ class FeedmeNetworkServiceDecoder {
             let buildings = try JSONDecoder().decode([Building].self, from: data)
             return buildings
         } catch let jsonErr {
-            print("Error serializing json:", jsonErr)
+            print("Error serializing json decodeFetchBuildings:", jsonErr)
             return []
         }
     }
@@ -65,16 +65,9 @@ class FeedmeNetworkServiceDecoder {
             let token = try JSONDecoder().decode(Token.self, from: data)
             return token.token
         } catch let jsonErr {
-            print("Error serializing json:", jsonErr)
+            print("Error serializing json decodeToken:", jsonErr)
             return nil
         }
-        
-//
-//        let json = JSON(data)
-//        if let token = json["x-auth-token"].string {
-//            return token
-//        }
-//        return nil
     }
     
     func decodeFetchFeedback(data: Data?) -> [AnsweredFeedback] {
@@ -83,7 +76,7 @@ class FeedmeNetworkServiceDecoder {
             let feedback = try JSONDecoder().decode([AnsweredFeedback].self, from: data)
             return feedback
         } catch let jsonErr {
-            print("Error serializing json:", jsonErr)
+            print("Error serializing json decodeFetchFeedback:", jsonErr)
             return []
         }
     }
@@ -94,7 +87,7 @@ class FeedmeNetworkServiceDecoder {
             let room = try JSONDecoder().decode(Room.self, from: data)
             return room._id
         } catch let jsonErr {
-            print("Error serializing json:", jsonErr)
+            print("Error serializing json decodePostRoom:", jsonErr)
             return nil
         }
     }
@@ -105,7 +98,7 @@ class FeedmeNetworkServiceDecoder {
             let room = try JSONDecoder().decode(SignalmapWithRoom.self, from: data)
             return room.room
         } catch let jsonErr {
-            print("Error serializing json:", jsonErr)
+            print("Error serializing json decodePostSignalMap:", jsonErr)
             return nil
         }
     }
