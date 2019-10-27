@@ -45,13 +45,13 @@ class AppBeaconTest: XCTestCase {
         
         // also test with mixed numbers
         beacon2.addRssi(rssi: 0)
-        print(beacon2.calcAverage())
+        
         beacon2.addRssi(rssi: 0)
-        print(beacon2.calcAverage())
+        
         beacon2.addRssi(rssi: -130)
-        print(beacon2.calcAverage())
+
         beacon2.addRssi(rssi: -60)
-        print(beacon2.calcAverage())
+        
         beacon2.addRssi(rssi: -25)
         // (60-25)/2 = -42.5
         

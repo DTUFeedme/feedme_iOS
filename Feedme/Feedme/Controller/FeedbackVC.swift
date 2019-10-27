@@ -34,7 +34,6 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var locationEstimator: LocationEstimator!
     
     override func viewDidAppear(_ animated: Bool) {
-//        sideMenuTrailing.constant = -255
         restartFeedback()
         fetchQuestions()
         isLoggedIn()

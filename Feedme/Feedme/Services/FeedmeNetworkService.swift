@@ -11,7 +11,7 @@ import Alamofire
 
 class FeedmeNetworkService {
 
-    private let baseUrl = "http://feedme.compute.dtu.dk/api"
+    private let baseUrl = "http://feedme.compute.dtu.dk/api-dev"
     private let genericErrorMessage: String = "Something went wrong, try again later"
     private let decoder = FeedmeNetworkServiceDecoder()
     
@@ -248,6 +248,12 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         let url = "\(baseUrl)/signalmaps"
         AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
             .responseJSON { response in
+                
+            if let data = response.data {
+                let json = String(data: data, encoding: String.Encoding.utf8)
+                print("Failure Response: \(json)")
+            }
+                
             if response.response?.statusCode == 200 {
                 if let room = self.decoder.decodePostSignalMap(data: response.data) {
                     completion(room, nil)
@@ -255,6 +261,13 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
                     completion(nil, self.handleError(response: response.result.value))
                 }
             } else {
+                print(response.description)
+                print(response.data)
+                print(response.result.value)
+                print(response.debugDescription)
+                print(response.response?.statusCode)
+                print(response.error)
+                
                 completion(nil, self.handleError(response: response.result.value))
             }
         }

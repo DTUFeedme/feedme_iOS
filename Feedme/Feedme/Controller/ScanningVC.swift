@@ -55,8 +55,7 @@ class ScanningVC: UIViewController {
         if isScanning {
             infoLabel.isHidden = true
             if chosenRoom != nil {
-                print(chosenRoomId)
-                locationEstimator.pushSignalMap(roomid: chosenRoomId!, buildingId: "5db439ca56505b7106422be4") { room in
+                locationEstimator.pushSignalMap(roomid: chosenRoomId!, buildingId: "5db5ad9b5b8ca238f4891ca7") { room in
                     if room == nil {
                         self.message.text = "Something went wrong. Please check your internet connection or make sure that the beacons are nearby"
                     } else {
@@ -68,8 +67,6 @@ class ScanningVC: UIViewController {
                 }
             } else {
                 locationEstimator.postRoom(roomname: roomnametextfield.text!) { error in
-                    print("now here")
-                    print("error")
                     if error == nil {
                         self.message.text = "Succesfully saved room dimensions"
                         self.roomnametextfield.text = nil
