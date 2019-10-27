@@ -57,7 +57,6 @@ class ScanningVC: UIViewController {
             if chosenRoom != nil {
                 print(chosenRoomId)
                 locationEstimator.pushSignalMap(roomid: chosenRoomId!, buildingId: "5db439ca56505b7106422be4") { room in
-                    print("room", room)
                     if room == nil {
                         self.message.text = "Something went wrong. Please check your internet connection or make sure that the beacons are nearby"
                     } else {

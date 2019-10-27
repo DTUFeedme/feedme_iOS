@@ -359,6 +359,7 @@
 				TargetAttributes = {
 					A136A0CD220C595000189E21 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1110;
 						SystemCapabilities = {
 							com.apple.AccessWiFi = {
 								enabled = 0;
@@ -373,6 +374,7 @@
 					};
 					A1734B202236577A004AB9DD = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1110;
 						TestTargetID = A136A0CD220C595000189E21;
 					};
 				};
@@ -703,7 +705,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "dtu-informatics.feedme";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -724,7 +726,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "dtu-informatics.feedme";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -744,7 +746,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = christianhjelmslund.FeedmeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Feedme.app/Feedme";
 			};
@@ -765,7 +767,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = christianhjelmslund.FeedmeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Feedme.app/Feedme";
 			};
