@@ -55,6 +55,19 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.hideUI()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        if UIDevice.current.orientation.isLandscape {
+            print("Landscape")
+            label.center = self.view.center
+        } else if UIDevice.current.orientation.isFlat {
+            label.center = self.view.center
+            print("Flat")
+        } else {
+            print("Portrait")
+        }
+    }
+    
+        
     func setupUI(){
         chosenRoom = currentRoom
         chosenRoomId = currentRoomId
@@ -65,7 +78,7 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         label.center = self.view.center
         label.textAlignment = .justified
         if (FeedmeNetworkService.Connectivity.isConnectedToInternet){
-        label.text = "Woops. You have not given any feedback in this room yet. Please change room in the upper right corner or provide feedback 😎"
+            label.text = "Woops. You have not given any feedback in this room yet. Please change room in the upper right corner or provide feedback 😎"
         } else {
             label.text = "Please make sure you have internet connection 🤔"
         }

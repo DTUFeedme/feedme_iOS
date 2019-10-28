@@ -12,21 +12,23 @@ import Alamofire
 class FeedmeNetworkService {
 
     private let baseUrl = "http://feedme.compute.dtu.dk/api-dev"
-    private let genericErrorMessage: String = "Something went wrong, try again later"
+    private let genericErrorMessage = "Something went wrong, try again later"
+    private let tokenErrorMessage = "Couldn't find user token"
     private let decoder = FeedmeNetworkServiceDecoder()
-    
-    func handleError(response: Any?) -> ServiceError {
-        if let response = response as? String {
-            return ServiceError.error(description: response)
-        } else {
-            return ServiceError.error(description: genericErrorMessage)
-        }
-    }
     
     struct Connectivity {
         static let sharedInstance = NetworkReachabilityManager()!
         static var isConnectedToInternet:Bool {
             return self.sharedInstance.isReachable
+        }
+    }
+    
+    func getNetworkJsonResponse(response: Data?) -> String {
+        if let data = response {
+            print(String(data: data, encoding: String.Encoding.utf8) ?? genericErrorMessage)
+            return String(data: data, encoding: String.Encoding.utf8) ?? genericErrorMessage
+        } else {
+            return genericErrorMessage
         }
     }
 }
@@ -36,7 +38,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
     func fetchAnsweredQuestions(roomID: String, time: Time, me: Bool, completion: @escaping (_ questions: [AnsweredQuestion]?, _ error: ServiceError?) -> Void){
         
         guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
-            completion(nil, handleError(response: genericErrorMessage))
+            completion(nil, ServiceError.error(description: tokenErrorMessage))
             return
         }
         let headers: HTTPHeaders = [ "x-auth-token": token]
@@ -50,12 +52,12 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
             if response.response?.statusCode == 200 {
                 let answeredQuestions = self.decoder.decodeFetchAnsweredQuestion(data: response.data)
                 if answeredQuestions.isEmpty {
-                    completion(nil, self.handleError(response: response.result.value))
+                    completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
                 } else {
                     completion(answeredQuestions, nil)
                 }
             } else {
-                completion(nil, self.handleError(response: response.result.value))
+                completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
             }
         }
     }
@@ -64,7 +66,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         @escaping (_ questions: [Question]?, _ error: ServiceError?) -> Void) {
         
         guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
-            completion(nil, handleError(response: genericErrorMessage))
+            completion(nil, ServiceError.error(description: tokenErrorMessage))
             return
         }
         
@@ -77,22 +79,20 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         AF.request(url, method: .get, headers: headers).responseJSON { response in
             if response.response?.statusCode == 200 {
                 let questions = self.decoder.decodeFetchQuestions(data: response.data)
-                
                 if questions.isEmpty {
-//               
-                    completion(nil, self.handleError(response: response.result.value))
+                    completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
                 } else {
                     completion(questions, nil)
                 }
             } else {
-                completion(nil, self.handleError(response: response.result.value))
+                completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
             }
         }
     }
     
     func fetchBeacons(completion: @escaping (_ beacons: [Beacon]?, _ error: ServiceError?) -> Void) {
         guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
-            completion(nil, handleError(response: genericErrorMessage))
+            completion(nil, ServiceError.error(description: tokenErrorMessage))
             return
         }
         let headers: HTTPHeaders = [ "x-auth-token": token ]
@@ -104,19 +104,19 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
                 let beacons = self.decoder.decodeFetchBeacons(data: response.data)
                 
                 if beacons.isEmpty {
-                    completion(nil, self.handleError(response: response.result.value))
+                    completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
                 } else {
                     completion(beacons, nil)
                 }
             } else {
-                completion(nil, self.handleError(response: response.result.value))
+                completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
             }
         }
     }
     
     func fetchBuildings(completion: @escaping (_ buildings: [Building]?,_ error: ServiceError?) -> Void) {
         guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
-            completion(nil, handleError(response: genericErrorMessage))
+            completion(nil, ServiceError.error(description: tokenErrorMessage))
             return
         }
         
@@ -128,12 +128,12 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
                 let buildings = self.decoder.decodeFetchBuildings(data: response.data)
           
                 if buildings.isEmpty {
-                    completion(nil, self.handleError(response: response.result.value))
+                    completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
                 } else {
                     completion(buildings, nil)
                 }
             } else {
-                completion(nil, self.handleError(response: response.result.value))
+                completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
             }
         }
     }
@@ -146,7 +146,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
                     UserDefaults.standard.set(token, forKey: "x-auth-token")
                     completion(nil)
                 } else {
-                    completion(self.handleError(response: response.result.value))
+                    completion(ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
                 }
             }
         }
@@ -165,10 +165,10 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
                     UserDefaults.standard.set(true, forKey: "isAdmin")
                     completion(nil)
                 } else {
-                    completion(self.handleError(response: response.result.value))
+                    completion(ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
                 }
             } else {
-                completion(self.handleError(response: response.result.value))
+                completion(ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
             }
         }
     }
@@ -176,7 +176,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
     func fetchFeedback(questionID: String, roomID: String, time: Time, me: Bool, completion: @escaping (_ answers: [AnsweredFeedback]?, _ error: ServiceError?) -> Void){
         
         guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
-            completion(nil, handleError(response: genericErrorMessage))
+            completion(nil, ServiceError.error(description: tokenErrorMessage))
             return
         }
         
@@ -192,19 +192,19 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
             if response.response?.statusCode == 200 {
                 let feedback = self.decoder.decodeFetchFeedback(data: response.data)
                 if feedback.isEmpty {
-                    completion(nil, self.handleError(response: response.result.value))
+                    completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
                 } else {
                     completion(feedback, nil)
                 }
             } else {
-                completion(nil, self.handleError(response: response.result.value))
+                completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
             }
         }
     }
     
     func postRoom(buildingId: String, name: String,  completion: @escaping (_ roomId: String?, _ error: ServiceError?) -> Void) {
         guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
-            completion(nil, handleError(response: genericErrorMessage))
+            completion(nil, ServiceError.error(description: tokenErrorMessage))
             return
         }
         
@@ -220,11 +220,11 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
                     if let roomId = self.decoder.decodePostRoom(data: response.data) {
                         completion(roomId, nil)
                     } else {
-                        completion(nil, self.handleError(response: response.result.value))
+                        completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
                     }
                 } else {
-                    completion(nil, self.handleError(response: response.result.value))
-                }
+                    completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
+            }
         }
     }
     
@@ -232,7 +232,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
     func postSignalMap(signalMap: [[String : Any]], roomid: String?, buildingId: String?, completion: @escaping (_ room: Room?, _ error: ServiceError?) -> Void) {
         
         guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
-            completion(nil, handleError(response: genericErrorMessage))
+            completion(nil, ServiceError.error(description: tokenErrorMessage))
             return
         }
         
@@ -249,51 +249,40 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
             .responseJSON { response in
                 
-            if let data = response.data {
-                let json = String(data: data, encoding: String.Encoding.utf8)
-                print("Failure Response: \(json)")
-            }
-                
             if response.response?.statusCode == 200 {
                 if let room = self.decoder.decodePostSignalMap(data: response.data) {
                     completion(room, nil)
                 } else {
-                    completion(nil, self.handleError(response: response.result.value))
+                    completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
                 }
             } else {
-                print(response.description)
-                print(response.data)
-                print(response.result.value)
-                print(response.debugDescription)
-                print(response.response?.statusCode)
-                print(response.error)
-                
-                completion(nil, self.handleError(response: response.result.value))
+                print("Sent JSON: ", json)
+                completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
             }
         }
     }
     
     
     func postFeedback(feedback: Feedback, completion: @escaping (_ error: ServiceError?) -> Void){
-        if let token = feedback.authToken {
-            let headers: HTTPHeaders = [ "x-auth-token": token ]
-            
-            var json: [String : Any] = [:]
-            json["roomId"] = feedback.roomID
-            json["questionId"] = feedback.questionId
-            json["answerId"] = feedback.answerId
-            
-            let url = "\(baseUrl)/feedback"
-            AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
-                .responseString { response in
-                    if response.response?.statusCode == 200 {
-                        completion(nil)
-                    } else {
-                        completion(self.handleError(response: response.result.value))
-                    }
+        guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
+            completion(ServiceError.error(description: tokenErrorMessage))
+            return
+        }
+        let headers: HTTPHeaders = [ "x-auth-token": token ]
+        
+        var json: [String : Any] = [:]
+        json["roomId"] = feedback.roomID
+        json["questionId"] = feedback.questionId
+        json["answerId"] = feedback.answerId
+        
+        let url = "\(baseUrl)/feedback"
+        AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
+            .responseString { response in
+            if response.response?.statusCode == 200 {
+                completion(nil)
+            } else {
+                completion(ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
             }
-        } else {
-            completion(self.handleError(response: self.genericErrorMessage))
         }
     }
 }

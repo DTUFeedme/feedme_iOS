@@ -21,6 +21,7 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     var feedmeNS: FeedmeNetworkService!
     var manuallyChangedRoomDelegate: ManuallyChangedRoomProtocol!
     var currentRoom = ""
+    var didPickRoom = false
     
     @IBAction func hidePopUp(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -55,11 +56,14 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     }
     
     func setupUI(){
-        if currentRoom == "" {
-            choosenRoomLabel.text = "couldn't estimate your location 😱"
+        if didPickRoom {
+            choosenRoomLabel.text = ""
+        } else if currentRoom == "" {
+            choosenRoomLabel.text = "Couldn't estimate your location 😱"
         } else {
             choosenRoomLabel.text = "you are in \(currentRoom)"
         }
+        didPickRoom = false
         saveChanges.backgroundColor = .clear
         saveChanges.layer.cornerRadius = 20
         saveChanges.layer.borderWidth = 1
@@ -127,7 +131,7 @@ class RoomChooserVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         label.textColor = .colorOne
         label.textAlignment = .left
         label.font = label.font.withSize(22)
-//        
+        
         if component == 0 {
             label.text =  buildings[row].name
         } else {

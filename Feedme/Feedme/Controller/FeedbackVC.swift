@@ -231,8 +231,6 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private func setupUI(){
         tableView.separatorColor = UIColor.clear
-//        sideMenu.layer.shadowOpacity = 1
-//        sideMenu.layer.shadowRadius = 6
     }
     
     private func reloadUI(){

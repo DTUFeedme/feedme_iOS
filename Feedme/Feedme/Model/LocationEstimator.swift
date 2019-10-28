@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import CoreBluetooth
 
 class LocationEstimator: NSObject, CLLocationManagerDelegate {
     
@@ -20,6 +21,7 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
     var timerfetchRoom = Timer()
     var buildingId: String?
     var currentRoomId: String = ""
+    var isBluetoothOn = false
     var isMappingRoom = false
     var userChangedRoomDelegate: FoundNewRoomProtocol?
     var feedmeNS: FeedmeNetworkServiceProtocol
@@ -33,6 +35,29 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
         manager.delegate = self
         manager.requestAlwaysAuthorization()
     }
+    
+//    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+//        switch central.state {
+//        case .poweredOn:
+//            print("powered on")
+//            isBluetoothOn = true
+//            break
+//        case .poweredOff:
+//            print("powered off")
+//            isBluetoothOn = false
+//            break
+//        case .resetting:
+//            break
+//        case .unauthorized:
+//            break
+//        case .unsupported:
+//            break
+//        case .unknown:
+//            break
+//        default:
+//            break
+//        }
+//    }
     
     func fetchBeacons(){
         feedmeNS.fetchBeacons() { beacons, error in
@@ -113,7 +138,6 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
             scanRoom(rangedBeacon: beacon)
         }
     }
-    
     
     func scanRoom(rangedBeacon: CLBeacon){
         if let beacon = getBeacon(id: rangedBeacon.proximityUUID.uuidString) {

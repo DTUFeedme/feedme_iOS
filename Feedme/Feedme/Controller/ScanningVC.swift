@@ -26,14 +26,20 @@ class ScanningVC: UIViewController {
         let sb = UIStoryboard(name: "Data", bundle: nil)
         let roomChooserVC = sb.instantiateViewController(withIdentifier: "roomchooser") as! RoomChooserVC
         
+        roomChooserVC.didPickRoom = true
         roomChooserVC.manuallyChangedRoomDelegate = self
+        
         present(roomChooserVC, animated: true, completion: nil)
 
     }
     
-    
     @IBAction func showInfo(_ sender: Any) {
-        infoLabel.isHidden = false
+        if infoLabel.isHidden {
+            infoLabel.isHidden = false
+            message.text = ""
+        } else {
+            infoLabel.isHidden = true
+        }
     }
     override func viewDidLoad() {
         feedmeNS = appDelegate.feedmeNS
@@ -55,7 +61,11 @@ class ScanningVC: UIViewController {
         if isScanning {
             infoLabel.isHidden = true
             if chosenRoom != nil {
-                locationEstimator.pushSignalMap(roomid: chosenRoomId!, buildingId: "5db5ad9b5b8ca238f4891ca7") { room in
+                guard let buildingId = locationEstimator.buildingId else {
+                    self.message.text = "Something went wrong. Please check your internet connection or make sure that the beacons are nearby"
+                    return
+                }
+                locationEstimator.pushSignalMap(roomid: chosenRoomId!, buildingId: buildingId) { room in
                     if room == nil {
                         self.message.text = "Something went wrong. Please check your internet connection or make sure that the beacons are nearby"
                     } else {
@@ -68,7 +78,7 @@ class ScanningVC: UIViewController {
             } else {
                 locationEstimator.postRoom(roomname: roomnametextfield.text!) { error in
                     if error == nil {
-                        self.message.text = "Succesfully saved room dimensions"
+                        self.message.text = "Succesfully saved room with dimensions"
                         self.roomnametextfield.text = nil
                     } else {
                         self.message.text = "Something went wrong. Please check your internet connection or make sure that the beacons are nearby"
@@ -77,26 +87,26 @@ class ScanningVC: UIViewController {
                     self.locationEstimator.isMappingRoom = false
                 }
             }
+            chosenRoom = nil
             scanningButton.setTitleColor(.myGreen(), for: .normal)
             scanningButton.layer.borderColor = .myGreen()
             scanningButton.layer.removeAllAnimations()
             scanningButton.setTitle("Start Scanning", for: .normal)
             isScanning = !isScanning
+        } else if (roomnametextfield.text?.isEmpty)! {
+            provideRoomLabel.shake()
+            provideRoomLabel.text = "Please give a room name" 
         } else {
-            if (roomnametextfield.text?.isEmpty)! {
-                provideRoomLabel.text = "Please give a room name"
-            } else {
-                self.message.text = ""
-                view.endEditing(true)
-                provideRoomLabel.text = ""
-                scanningButton.pulseInfite()
-                scanningButton.setTitleColor(.myRed(), for: .normal)
-                scanningButton.layer.borderColor = .myRed()
-                locationEstimator.isMappingRoom = true
-                locationEstimator.initTimerAddToSignalMap()
-                scanningButton.setTitle("Stop Scanning", for: .normal)
-                isScanning = !isScanning
-            }
+            self.message.text = ""
+            view.endEditing(true)
+            provideRoomLabel.text = ""
+            scanningButton.pulseInfite()
+            scanningButton.setTitleColor(.myRed(), for: .normal)
+            scanningButton.layer.borderColor = .myRed()
+            locationEstimator.isMappingRoom = true
+            locationEstimator.initTimerAddToSignalMap()
+            scanningButton.setTitle("Stop Scanning", for: .normal)
+            isScanning = !isScanning
         }
     }
     
