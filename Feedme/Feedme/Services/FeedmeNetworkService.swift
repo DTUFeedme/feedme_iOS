@@ -11,7 +11,7 @@ import Alamofire
 
 class FeedmeNetworkService {
 
-    private let baseUrl = "http://feedme.compute.dtu.dk/api-dev"
+    private let baseUrl = "http://feedme.compute.dtu.dk/api"
     private let genericErrorMessage = "Something went wrong, try again later"
     private let tokenErrorMessage = "Couldn't find user token"
     private let decoder = FeedmeNetworkServiceDecoder()
