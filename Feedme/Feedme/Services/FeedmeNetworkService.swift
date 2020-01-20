@@ -25,7 +25,6 @@ class FeedmeNetworkService {
     
     func getNetworkJsonResponse(response: Data?) -> String {
         if let data = response {
-            print(String(data: data, encoding: String.Encoding.utf8) ?? genericErrorMessage)
             return String(data: data, encoding: String.Encoding.utf8) ?? genericErrorMessage
         } else {
             return genericErrorMessage
@@ -41,7 +40,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
             completion(nil, ServiceError.error(description: tokenErrorMessage))
             return
         }
-        let headers: HTTPHeaders = [ "x-auth-token": token]
+        let headers: HTTPHeaders = ["x-auth-token": token]
         
         var user = "all"
         if me { user = "me" }
