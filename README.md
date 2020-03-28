@@ -20,7 +20,7 @@ If you want to know more, please don't hesitate to reach out or if you are inter
 ------------------------------------------------------------------------------------------------------------------------
 # Short and brief description
 
-The application is currently in-use at Borgerskolen in Høje Taastrup in Denmark, where it is deployed through TestFlight. I won't describe the images, because you can read a more detailed description in the thesis.
+The application is currently in-use at Borgerskolen in Høje Taastrup in Denmark, where it is deployed through TestFlight. I won't describe the images, because you can read a more detailed description in the thesis. The pictures used below are from the version of when the thesis was handed it. There have been some updates since then, including UI changes. 
 
 Main libraries used:
 
