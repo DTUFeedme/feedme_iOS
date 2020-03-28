@@ -9,7 +9,7 @@ To determine users' location, a modification of the K-Nearest Neighbors algorith
 
 ------------------------------------------------------------------------------------------------------------------------
 
-* web server written in NodeJS: https://github.com/DTUFeedme/feedme-server
+web server written in NodeJS: https://github.com/DTUFeedme/feedme-server
 
 To read the whole thesis, please see https://github.com/christianhjelmslund/feedme-iOS/blob/master/bachelors_thesis.pdf.
 
