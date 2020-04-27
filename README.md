@@ -11,7 +11,7 @@ To determine users' location, a modification of the K-Nearest Neighbors algorith
 
 web server written in NodeJS: https://github.com/DTUFeedme/feedme-server
 
-To read the whole thesis, please see https://github.com/christianhjelmslund/feedme-iOS/blob/master/bachelors_thesis.pdf.
+To read the whole thesis, please see https://github.com/christianhjelmslund/feedme-iOS/blob/master/thesis_and_images/bachelors_thesis.pdf.
 
 I would highly recommend Chapter 5 (Software Handbook), before reading the specifics about the iOS app, which are Section 7.1 (Design - System Overview), 7.3 (Design - Mobile Application Architecture), 8.1 (Implementation - Mobile Application) and 9.2 (Testing - Mobile Application). You might have to download it and open it with a PDF-reader such as Adobe acrobat.
 
