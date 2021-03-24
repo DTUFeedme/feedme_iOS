@@ -11,11 +11,11 @@ import UIKit
 class Beacon: Decodable {
     var uuid: String
     var name: String
-    var building: Building
-    var _id: String
+    var building: String
+    // var _id: String
     
-    init (_id: String, uuid: String, name: String, building: Building){
-        self._id = _id
+    init (uuid: String, name: String, building: String){
+        // self._id = _id
         self.uuid = uuid
         self.name = name
         self.building = building

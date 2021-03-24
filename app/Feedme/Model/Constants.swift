@@ -20,6 +20,17 @@ enum ServiceError: LocalizedError {
     }
 }
 
+enum JwtExpiredError: LocalizedError{
+    case error(description: String)
+    
+    var errorDescription: String? {
+        switch self {
+        case let .error(description):
+            return description
+        }
+    }
+}
+
 enum Time: String {
     case day = "day"
     case week = "week"

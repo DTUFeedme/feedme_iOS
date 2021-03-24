@@ -11,7 +11,7 @@ import Alamofire
 
 class FeedmeNetworkService {
 
-    private let baseUrl = "http://feedme.compute.dtu.dk/api"
+    private let baseUrl = "https://feedme.compute.dtu.dk/api-dev"
     private let genericErrorMessage = "Something went wrong, try again later"
     private let tokenErrorMessage = "Couldn't find user token"
     private let decoder = FeedmeNetworkServiceDecoder()
@@ -61,6 +61,44 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         }
     }
     
+    func refreshToken(completion:
+                            @escaping (_ error: ServiceError?) -> Void) {
+        
+        guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
+            completion(ServiceError.error(description: tokenErrorMessage))
+            return
+        }
+        
+        guard let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") else {
+            completion(ServiceError.error(description: tokenErrorMessage))
+            return
+        }
+        
+        var json: [String : Any] = [:]
+        json["refreshToken"] = refreshToken
+        
+        let headers: HTTPHeaders = [
+            "x-auth-token": token
+        ]
+        
+        let url = "\(baseUrl)/auth/refresh/"
+        AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
+            if response.response?.statusCode == 200 {
+                if let token = response.response?.allHeaderFields["x-auth-token"] {
+                    let refreshToken = self.decoder.decodeRefreshToken(data: response.data)
+                    UserDefaults.standard.set(token, forKey: "x-auth-token")
+                    UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
+                    completion(nil)
+                }
+                
+            } else {
+                completion(ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
+            }
+        }
+        
+        
+    }
+    
     func fetchQuestions(currentRoomID: String, completion:
         @escaping (_ questions: [Question]?, _ error: ServiceError?) -> Void) {
         
@@ -83,7 +121,9 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
                 } else {
                     completion(questions, nil)
                 }
-            } else {
+            } else if response.response?.statusCode == 401 {
+                completion(nil, ServiceError.error(description: String(response.response!.statusCode)))
+            }else {
                 completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
             }
         }
@@ -126,6 +166,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
             if response.response?.statusCode == 200 {
                 let buildings = self.decoder.decodeFetchBuildings(data: response.data)
           
+                
                 if buildings.isEmpty {
                     completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
                 } else {
@@ -138,16 +179,22 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
     }
     
     func fetchToken(completion: @escaping (_ error: ServiceError?) -> Void){
-        let url = "\(baseUrl)/users"
+        let url = "\(baseUrl)/users/"
+        
         AF.request(url, method: .post).responseJSON{ response in
             if response.response?.statusCode == 200 {
                 if let token = response.response?.allHeaderFields["x-auth-token"] {
+                    let refreshToken = self.decoder.decodeRefreshToken(data: response.data)
+            
                     UserDefaults.standard.set(token, forKey: "x-auth-token")
+                    UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
+                    
                     completion(nil)
                 } else {
                     completion(ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
                 }
             }
+            
         }
     }
     
@@ -160,8 +207,10 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default).responseString { response in
             if response.response?.statusCode == 200 {
                 if let token = response.response?.allHeaderFields["x-auth-token"] {
+                    let refreshToken = self.decoder.decodeRefreshToken(data: response.data)
                     UserDefaults.standard.set(token, forKey: "x-auth-token")
                     UserDefaults.standard.set(true, forKey: "isAdmin")
+                    UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
                     completion(nil)
                 } else {
                     completion(ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
@@ -242,7 +291,7 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         if let roomid = roomid {
             json["roomId"] = roomid
         } else if let buildingid = buildingId {
-            json["buildingId"] = buildingid
+//            json["building"] = buildingid
         }
         let url = "\(baseUrl)/signalmaps"
         AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers)
@@ -254,7 +303,9 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
                 } else {
                     completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
                 }
-            } else {
+            } else if response.response?.statusCode == 401 {
+                completion(nil, ServiceError.error(description: String(response.response!.statusCode)))
+            }else {
                 print("Sent JSON: ", json)
                 completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
             }

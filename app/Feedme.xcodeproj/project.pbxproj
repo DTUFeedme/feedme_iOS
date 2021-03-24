@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6B91D82F507BF6ECDC8985F8 /* Pods_FeedmeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E749F0068B6FDBF0AE89DD /* Pods_FeedmeTests.framework */; };
+		9EBA62E42604B54700BD0072 /* RefreshToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBA62E32604B54700BD0072 /* RefreshToken.swift */; };
 		A104380D2303FF600044DA9E /* InfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A104380C2303FF600044DA9E /* InfoVC.swift */; };
 		A104380F230408F60044DA9E /* TermsOfServiceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A104380E230408F60044DA9E /* TermsOfServiceVC.swift */; };
 		A10C9DC3226E022A000506C7 /* SuccessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10C9DC2226E022A000506C7 /* SuccessVC.swift */; };
@@ -68,6 +69,7 @@
 		0DBAED9CA7186EB2885D75F0 /* Pods-Feedme.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feedme.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Feedme/Pods-Feedme.debug.xcconfig"; sourceTree = "<group>"; };
 		252B2DD3999B842FA90C0352 /* Pods_Feedme.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Feedme.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5473F9A76C45A6C4C671062E /* Pods-Feedme.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feedme.release.xcconfig"; path = "Pods/Target Support Files/Pods-Feedme/Pods-Feedme.release.xcconfig"; sourceTree = "<group>"; };
+		9EBA62E32604B54700BD0072 /* RefreshToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshToken.swift; sourceTree = "<group>"; };
 		A104380C2303FF600044DA9E /* InfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoVC.swift; sourceTree = "<group>"; };
 		A104380E230408F60044DA9E /* TermsOfServiceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceVC.swift; sourceTree = "<group>"; };
 		A10C9DC2226E022A000506C7 /* SuccessVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessVC.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				A1FF5F802289C08E0009F18D /* AnsweredFeedback.swift */,
 				A1F28B4222A53C4900F93C3C /* Token.swift */,
 				A1985E3422C4CB63007FCE08 /* Option.swift */,
+				9EBA62E32604B54700BD0072 /* RefreshToken.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				A1CCC39F22883AC300D58E8E /* FoundNewRoomProtocol.swift in Sources */,
 				A104380F230408F60044DA9E /* TermsOfServiceVC.swift in Sources */,
 				A1581EB9223A96230083C4C9 /* AnswerCell.swift in Sources */,
+				9EBA62E42604B54700BD0072 /* RefreshToken.swift in Sources */,
 				A1CCC3A3228843A400D58E8E /* LocationEstimatorProtocol.swift in Sources */,
 				A1FF5F7B22898C6C0009F18D /* FeedmeNetworkService.swift in Sources */,
 				A136A0D2220C595000189E21 /* AppDelegate.swift in Sources */,
@@ -695,7 +699,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = JD4KMD4VG6;
 				INFOPLIST_FILE = Feedme/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
@@ -705,7 +709,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "dtu-informatics.feedme";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = Seb;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -717,7 +721,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = JD4KMD4VG6;
 				INFOPLIST_FILE = Feedme/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
@@ -727,7 +731,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "dtu-informatics.feedme";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = Seb;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
