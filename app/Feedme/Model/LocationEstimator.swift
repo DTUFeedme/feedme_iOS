@@ -25,6 +25,7 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
     var isMappingRoom = false
     var userChangedRoomDelegate: FoundNewRoomProtocol?
     var feedmeNS: FeedmeNetworkServiceProtocol
+    var scanningRoomId: String = ""
     
     init(service: FeedmeNetworkServiceProtocol) {
         self.feedmeNS = service
@@ -43,6 +44,7 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
         }
         manager.delegate = self
         manager.requestAlwaysAuthorization()
+        print("callingsdsadad")
     }
     
 //    func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -71,11 +73,14 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
     func fetchBeacons(){
         feedmeNS.fetchBeacons() { beacons, error in
             if error?.errorDescription == "401" {
-                
                 self.feedmeNS.refreshToken { (error) in
                     self.feedmeNS.fetchBeacons { (beacons, error) in
                         if error == nil {
                             self.serverBeacons = beacons!
+                            self.addBeacons()
+                            self.initSignalMap()
+                            self.setupRegions()
+                            self.rangeBeacons()
                         } else {
                             print(error.debugDescription)
                             return
@@ -84,15 +89,17 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
                 }
             } else if error != nil {
                 print(error.debugDescription)
+                print("error in fetching beacnos")
                 return
             } else {
                 self.serverBeacons = beacons!
+                self.addBeacons()
+                self.initSignalMap()
+                self.setupRegions()
+                self.rangeBeacons()
             }
             
-            self.addBeacons()
-            self.initSignalMap()
-            self.setupRegions()
-            self.rangeBeacons()
+            
 //            if self.isMappingRoom {
 //                self.initTimerAddToSignalMap()
 //            } else {
@@ -106,16 +113,25 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
     
     // when scanning
     func initTimerAddToSignalMap(){
-        timerSetup = Timer.scheduledTimer(timeInterval: 1, target: self, selector:#selector(addToSignalMap), userInfo: nil, repeats: true)
+        print("initialized")
+        
+        if !timerSetup.isValid {
+            timerSetup = Timer.scheduledTimer(timeInterval: 1, target: self, selector:#selector(addToSignalMap), userInfo: nil, repeats: true)
+        }
     }
     
     // when wanting to get room location
     func initTimerfetchRoom(){
-        timerfetchRoom = Timer.scheduledTimer(timeInterval: 2, target: self, selector:#selector(fetchRoom), userInfo: nil, repeats: true)
+        print("init timer fetch room ")
+        if !timerfetchRoom.isValid{
+            timerfetchRoom = Timer.scheduledTimer(timeInterval: 2, target: self, selector:#selector(fetchRoom), userInfo: nil, repeats: true)
+        }
+        
     }
     
     
     func stopTimerAddToSignalMap() {
+        print("stopped")
         timerSetup.invalidate()
     }
     
@@ -163,8 +179,8 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
 //        print("called")
         
 //        print(String(rangedBeacons.count))
+        print("Scanning")
         if let beacon = rangedBeacons.first {
-            
             scanRoom(rangedBeacon: beacon)
         }
     }
@@ -173,6 +189,8 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
         if let beacon = getBeacon(id: rangedBeacon.proximityUUID.uuidString) {
             buildingId = beacon.building
             beacon.addRssi(rssi: rangedBeacon.rssi)
+        } else {
+            print("beacon not found")
         }
         
 //        var beacon = beacons.first(where: { (b ) -> Bool in
@@ -196,28 +214,39 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
     }
     
     @objc func addToSignalMap() {
-        
+        print("adding to signalmap")
         for beacon in beacons {
-            if isMappingRoom {
-                // signalMap[beacon.uuid]?.append(beacon.calcAverage())
-            } else {
-//                print("calledd")
-//                print(String(beacon.calcAverage()))
+//            if isMappingRoom {
+//                 signalMap[beacon.name]?.append(beacon.calcAverage())
+//            } else {
+////                print("calledd")
+////                print(String(beacon.calcAverage()))
                 signalMap[beacon.name] = beacon.calcAverage()
 //                signalMap[beacon.uuid]? = beacon.calcAverage()
                 
+//            }
+        }
+        
+        // Send scanning to room
+        if isMappingRoom && !scanningRoomId.isEmpty {
+            pushSignalMap(roomid: scanningRoomId, buildingId: "") { (room) in
+                print("yay")
             }
         }
+        
     }
     
     @objc func fetchRoom() {
         let serverSignalMap = convertSignalMapToServer(signalMap: signalMap)
         if let buildingId = buildingId {
+            
             if serverSignalMap.isEmpty {
+
                 return
             }
             
             feedmeNS.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) { room, error in
+                
                 if error == nil {
                     self.signalMap.removeAll()
                     self.initSignalMap()
@@ -243,19 +272,22 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
                     }
                 }
             }
+        } else {
+            print("no building id")
         }
     }
     
     func postRoom(roomname: String, completion: @escaping (_ error: ServiceError?) -> Void) {
-        
         if let buildingId = buildingId {
             feedmeNS.postRoom(buildingId: buildingId, name: roomname) { roomId, error in
                 if error == nil {
-                    self.pushSignalMap(roomid: roomId!, buildingId: buildingId) { room in
-                        completion(error)
-                        self.signalMap.removeAll()
-                        self.initSignalMap()
-                    }
+                    self.scanningRoomId = roomId!
+                    completion(nil)
+//                    self.pushSignalMap(roomid: roomId!, buildingId: buildingId) { room in
+//                        completion(error)
+//                        self.signalMap.removeAll()
+//                        self.initSignalMap()
+//                    }
                 } else {
                     completion(error)
                 }
@@ -265,14 +297,18 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
         }
     }
     
+    
+    
     func convertSignalMapToServer(signalMap: [String: Double]) -> [[String: Any]] {
         var serverSignalMap: [[String: Any]] = []
 
+        dump(signalMap)
         for beacon in beacons {
             var beaconDict: [String: Any] = [:]
             
             beaconDict["name"] = beacon.name
             beaconDict["signal"] = signalMap[beacon.name]
+            
             print(String(signalMap[beacon.name]!))
             serverSignalMap.append(beaconDict)
         }

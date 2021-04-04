@@ -147,10 +147,15 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
                 } else {
                     completion(beacons, nil)
                 }
+                
+            } else if response.response?.statusCode == 401 {
+                completion(nil, ServiceError.error(description: String(response.response!.statusCode)))
             } else {
                 completion(nil, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
             }
         }
+        
+        
     }
     
     func fetchBuildings(completion: @escaping (_ buildings: [Building]?,_ error: ServiceError?) -> Void) {
@@ -279,7 +284,10 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
     
     func postSignalMap(signalMap: [[String : Any]], roomid: String?, buildingId: String?, completion: @escaping (_ room: Room?, _ error: ServiceError?) -> Void) {
         
+        print("posting signalmap")
         guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
+            print("errro")
+            print(tokenErrorMessage)
             completion(nil, ServiceError.error(description: tokenErrorMessage))
             return
         }
