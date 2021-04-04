@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UiN-GM-flf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UiN-GM-flf">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,7 +29,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
                                 <color key="backgroundColor" name="colorOne"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pW7-9q-VtH">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pW7-9q-VtH">
                                 <rect key="frame" x="0.0" y="578" width="186.5" height="40"/>
                                 <color key="backgroundColor" name="colorOne"/>
                                 <constraints>
@@ -51,7 +51,7 @@
                                     <constraint firstAttribute="width" constant="2" id="rHh-ZG-iu2"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YIb-TV-d7q">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YIb-TV-d7q">
                                 <rect key="frame" x="186.5" y="578" width="188.5" height="40"/>
                                 <color key="backgroundColor" name="colorOne"/>
                                 <constraints>
@@ -75,7 +75,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="T4r-Oe-IGw">
                                 <rect key="frame" x="0.0" y="50" width="375" height="40"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ogQ-jj-Rfm">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ogQ-jj-Rfm">
                                         <rect key="frame" x="0.0" y="0.0" width="94" height="40"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
                                         <state key="normal" title="today">
@@ -85,7 +85,7 @@
                                             <action selector="timespanAction:" destination="UiN-GM-flf" eventType="touchUpInside" id="qy6-8A-x8z"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SrV-27-91z">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SrV-27-91z">
                                         <rect key="frame" x="94" y="0.0" width="93.5" height="40"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
                                         <state key="normal" title="weekly">
@@ -95,7 +95,7 @@
                                             <action selector="timespanAction:" destination="UiN-GM-flf" eventType="touchUpInside" id="uxV-Bw-JcS"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EwY-qt-Dbw">
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EwY-qt-Dbw">
                                         <rect key="frame" x="187.5" y="0.0" width="94" height="40"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
                                         <state key="normal" title="monthly">
@@ -105,7 +105,7 @@
                                             <action selector="timespanAction:" destination="UiN-GM-flf" eventType="touchUpInside" id="wHg-hG-Lr8"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UE6-tC-ErN">
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UE6-tC-ErN">
                                         <rect key="frame" x="281.5" y="0.0" width="93.5" height="40"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
                                         <state key="normal" title="all time">
@@ -171,7 +171,7 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="how was the weather today?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5H-kT-Qlg">
-                                                    <rect key="frame" x="15" y="11" width="291.5" height="28"/>
+                                                    <rect key="frame" x="16" y="11" width="290.5" height="28"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
                                                     <color key="textColor" name="colorOne"/>
                                                     <nil key="highlightedColor"/>
@@ -212,6 +212,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Kr8-Qo-fQp"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
                             <constraint firstItem="T4r-Oe-IGw" firstAttribute="top" secondItem="Y79-13-tEu" secondAttribute="bottom" constant="6" id="2ZX-SE-zeY"/>
@@ -252,7 +253,6 @@
                             <constraint firstItem="MgC-ZF-RjA" firstAttribute="width" secondItem="pW7-9q-VtH" secondAttribute="width" id="xCq-gt-uDk"/>
                             <constraint firstAttribute="trailing" secondItem="Y79-13-tEu" secondAttribute="trailing" id="yIl-KZ-ZtW"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Kr8-Qo-fQp"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Data" image="bar_glyph" id="CrF-Ms-84t">
                         <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-10"/>
@@ -326,6 +326,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="47G-AC-wcB"/>
                         <color key="backgroundColor" white="0.5" alpha="0.8454264322916667" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
@@ -333,7 +334,6 @@
                             <constraint firstItem="6wO-nx-VG3" firstAttribute="centerY" secondItem="W71-4I-eMU" secondAttribute="centerY" id="IVq-Ko-oCz"/>
                             <constraint firstItem="6wO-nx-VG3" firstAttribute="centerX" secondItem="W71-4I-eMU" secondAttribute="centerX" id="V1g-LX-fRe"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="47G-AC-wcB"/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="D5A-Xc-uot" appends="YES" id="PrT-av-ig2"/>
                         </connections>
@@ -364,7 +364,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6JE-tj-ze1">
                                 <rect key="frame" x="19" y="165" width="337.5" height="337.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9aJ-VZ-wXY">
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9aJ-VZ-wXY">
                                         <rect key="frame" x="84" y="272.5" width="169" height="45"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -443,6 +443,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="ght-Jn-8TT"/>
                         <color key="backgroundColor" white="0.74803008930000003" alpha="0.84503580730000005" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
@@ -450,7 +451,6 @@
                             <constraint firstItem="6JE-tj-ze1" firstAttribute="centerX" secondItem="BGA-N3-3EM" secondAttribute="centerX" id="thl-op-Js2"/>
                             <constraint firstItem="6JE-tj-ze1" firstAttribute="width" secondItem="BGA-N3-3EM" secondAttribute="width" multiplier="0.9" id="xUY-iG-jAq"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="ght-Jn-8TT"/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="Led-Gr-fKd" appends="YES" id="suI-rt-2Ut"/>
                         </connections>

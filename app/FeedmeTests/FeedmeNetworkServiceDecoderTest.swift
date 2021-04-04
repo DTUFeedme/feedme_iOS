@@ -73,13 +73,13 @@ class FeedmeNetworkServiceDecoderTest: XCTestCase {
         
         feedmeNS.shouldReturnError = false
         let building = Building(_id: "", name: "Building 303", rooms: nil)
-        let beacon = Beacon(_id: "", uuid: "f7826da6-4fa2-4e98-8024-bc5b71e0893b", name: "vIgJ", building: building)
+        let beacon = Beacon(uuid: "f7826da6-4fa2-4e98-8024-bc5b71e0893b", name: "vIgJ")
         feedmeNS.fetchBeacons() { beacons, error in
             XCTAssertNil(error)
             XCTAssertNotNil(beacons)
             XCTAssertEqual(beacons?.first?.uuid, beacon.uuid)
-            XCTAssertEqual(beacons?.first?.building.name, beacon.building.name)
-            XCTAssertNil(beacons?.first?.building.rooms)
+            //XCTAssertEqual(beacons?.first?.building.name, beacon.building.name)
+            //XCTAssertNil(beacons?.first?.building.rooms)
             XCTAssertEqual(beacons?.first?.name, beacon.name)
         }
     }

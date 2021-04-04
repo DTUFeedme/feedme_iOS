@@ -60,7 +60,25 @@ class ScanningVC: UIViewController {
     @IBAction func startScanning(_ sender: Any) {
         if isScanning {
             infoLabel.isHidden = true
+            
+            chosenRoom = nil
+            scanningButton.setTitleColor(.myGreen(), for: .normal)
+            scanningButton.layer.borderColor = .myGreen()
+            scanningButton.layer.removeAllAnimations()
+            scanningButton.setTitle("Start Scanning", for: .normal)
+            isScanning = !isScanning
+            self.locationEstimator.scanningRoomId = ""
+            self.locationEstimator.isMappingRoom = false
+            self.message.text = "Succesfully saved room with dimensions"
+            self.roomnametextfield.text = nil
+            self.locationEstimator.initTimerfetchRoom()
+            
+        } else if (roomnametextfield.text?.isEmpty)! {
+            provideRoomLabel.shake()
+            provideRoomLabel.text = "Please give a room name" 
+        } else {
             if chosenRoom != nil {
+                print("hey")
                 guard let buildingId = locationEstimator.buildingId else {
                     self.message.text = "Something went wrong. Please check your internet connection or make sure that the beacons are nearby"
                     return
@@ -78,35 +96,30 @@ class ScanningVC: UIViewController {
             } else {
                 locationEstimator.postRoom(roomname: roomnametextfield.text!) { error in
                     if error == nil {
-                        self.message.text = "Succesfully saved room with dimensions"
-                        self.roomnametextfield.text = nil
+                        print("hey")
+                        self.message.text = ""
+                        self.view.endEditing(true)
+                        self.provideRoomLabel.text = ""
+                        self.scanningButton.pulseInfite()
+                        self.scanningButton.setTitleColor(.myRed(), for: .normal)
+                        self.scanningButton.layer.borderColor = .myRed()
+                        self.locationEstimator.isMappingRoom = true
+                        self.locationEstimator.initTimerAddToSignalMap()
+                        self.locationEstimator.stopTimerfetchRoom()
+                        self.scanningButton.setTitle("Stop Scanning", for: .normal)
+                        self.isScanning = !self.isScanning
+//                        self.message.text = "Succesfully saved room with dimensions"
+//                        self.roomnametextfield.text = nil
                     } else {
                         self.message.text = "Something went wrong. Please check your internet connection or make sure that the beacons are nearby"
                     }
-                    self.locationEstimator.stopTimerAddToSignalMap()
-                    self.locationEstimator.isMappingRoom = false
+                    
+                    
                 }
             }
-            chosenRoom = nil
-            scanningButton.setTitleColor(.myGreen(), for: .normal)
-            scanningButton.layer.borderColor = .myGreen()
-            scanningButton.layer.removeAllAnimations()
-            scanningButton.setTitle("Start Scanning", for: .normal)
-            isScanning = !isScanning
-        } else if (roomnametextfield.text?.isEmpty)! {
-            provideRoomLabel.shake()
-            provideRoomLabel.text = "Please give a room name" 
-        } else {
-            self.message.text = ""
-            view.endEditing(true)
-            provideRoomLabel.text = ""
-            scanningButton.pulseInfite()
-            scanningButton.setTitleColor(.myRed(), for: .normal)
-            scanningButton.layer.borderColor = .myRed()
-            locationEstimator.isMappingRoom = true
-            locationEstimator.initTimerAddToSignalMap()
-            scanningButton.setTitle("Stop Scanning", for: .normal)
-            isScanning = !isScanning
+            
+            
+            
         }
     }
     

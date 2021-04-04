@@ -19,4 +19,5 @@ protocol FeedmeNetworkServiceProtocol {
     func fetchBeacons(completion: @escaping (_ beacons: [Beacon]?, _ error: ServiceError?) -> Void)
     func fetchQuestions(currentRoomID: String, completion: @escaping (_ questions: [Question]?, _ error: ServiceError?) -> Void)
     func fetchAnsweredQuestions(roomID: String, time: Time, me: Bool, completion: @escaping (_ questions: [AnsweredQuestion]?, _ error: ServiceError?) -> Void)
+    func refreshToken(completion: @escaping (_ error: ServiceError?) -> Void)
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hPZ-xK-bCI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hPZ-xK-bCI">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -53,7 +53,7 @@ How the application actually works is, that the main page is the "Feedback" tab 
                                 <color key="textColor" name="backgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Sy-1O-knc">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Sy-1O-knc">
                                 <rect key="frame" x="10" y="621" width="355" height="36"/>
                                 <color key="backgroundColor" name="colorOne"/>
                                 <constraints>
@@ -68,6 +68,7 @@ How the application actually works is, that the main page is the "Feedback" tab 
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="mGK-sb-8SG"/>
                         <color key="backgroundColor" name="colorOne"/>
                         <constraints>
                             <constraint firstItem="7Sy-1O-knc" firstAttribute="leading" secondItem="mGK-sb-8SG" secondAttribute="leading" constant="10" id="D9O-eD-svT"/>
@@ -82,7 +83,6 @@ How the application actually works is, that the main page is the "Feedback" tab 
                             <constraint firstItem="mGK-sb-8SG" firstAttribute="trailing" secondItem="4Wj-87-kGN" secondAttribute="trailing" constant="5" id="nAO-IB-xsi"/>
                             <constraint firstItem="SNi-7o-vXF" firstAttribute="leading" secondItem="mGK-sb-8SG" secondAttribute="leading" constant="10" id="xsv-bT-zl9"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="mGK-sb-8SG"/>
                     </view>
                     <connections>
                         <outlet property="buttonHeight" destination="3kt-X4-10L" id="Gau-16-L9f"/>

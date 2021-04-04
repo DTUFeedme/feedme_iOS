@@ -34,6 +34,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var locationEstimator: LocationEstimator!
     
     override func viewDidAppear(_ animated: Bool) {
+        print("videDidAppear")
         restartFeedback()
         fetchQuestions()
         isLoggedIn()
@@ -51,6 +52,7 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("viewDidLoad")
         feedmeNS = appDelegate.feedmeNS
         locationEstimator = appDelegate.locationEstimator
         setupUI()
@@ -187,7 +189,9 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private func checkIfUserExists(completion: @escaping (_ didExist: Bool) -> Void) {
         
-        if UserDefaults.standard.string(forKey: "x-auth-token") == nil {
+        if UserDefaults.standard.string(forKey: "x-auth-token") == nil ||
+            UserDefaults.standard.string(forKey: "refreshToken") == nil{
+            print("auth token or x-auth-token null")
             feedmeNS.fetchToken() { error in
                 if error == nil {
                     completion(true)
@@ -203,21 +207,40 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     private func fetchQuestions(){
-
-         feedmeNS.fetchQuestions(currentRoomID: currentRoomID) { questions, error in
-            if error == nil {
-                self.questions = questions!
-                self.answers = questions![self.currentQuestionNo].answerOptions
-                self.reloadUI()
-                self.updateQuestionsUI()
-            } else {
-                self.questions = []
-                self.answers = []
-                self.tableView.reloadData()
-                self.systemStatusMessage = "No feedback is needed right now ☺️"
-                self.reloadUI()
-            }
+        if currentRoomID.isEmpty {
+            questionLabel.text = "Couldn't estimate your location..."
+            roomLocationLabel.text = "Trying to estimate your location 🤔"
+        } else {
+            feedmeNS.fetchQuestions(currentRoomID: currentRoomID) { questions, error in
+               if error == nil {
+                   self.questions = questions!
+                   self.answers = questions![self.currentQuestionNo].answerOptions
+                   self.reloadUI()
+                   self.updateQuestionsUI()
+                   return
+               } else if (error?.errorDescription == "401"){
+                   self.feedmeNS.refreshToken { (error) in
+                       if error == nil {
+                           self.feedmeNS.fetchQuestions(currentRoomID: self.currentRoomID) { (quetions, error) in
+                               if (error == nil){
+                                   self.questions = questions!
+                                   self.answers = questions![self.currentQuestionNo].answerOptions
+                                   self.updateQuestionsUI()
+                                   self.reloadUI()
+                                   return
+                               }
+                           }
+                       }
+                   }
+               }
+               self.questions = []
+               self.answers = []
+               self.tableView.reloadData()
+               self.systemStatusMessage = "No feedback is needed right now ☺️"
+               self.reloadUI()
+           }
         }
+         
     }
     
     // UI and Extensions...

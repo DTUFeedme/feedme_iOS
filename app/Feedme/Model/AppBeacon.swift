@@ -15,11 +15,11 @@ class AppBeacon: Beacon {
     private var connectionLost: [Int]
     private var numberOfRssis = 5
     
-    init(_id: String, uuid: String, building: Building, name: String){
+    override init(uuid: String, name: String, building: String){
         self.currMessurement = 0
         self.latestRssis = Array(repeating: -100, count: numberOfRssis)
         self.connectionLost = Array(repeating: -100, count: numberOfRssis)
-        super.init(_id: _id, uuid: uuid, name: name, building: building)
+        super.init(uuid: uuid, name: name, building: building)
     }
     
     required init(from decoder: Decoder) throws {

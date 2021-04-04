@@ -70,6 +70,17 @@ class FeedmeNetworkServiceDecoder {
         }
     }
     
+    func decodeRefreshToken(data: Data?) -> String? {
+        guard let data = data else { return nil }
+        do {
+            let refreshToken = try JSONDecoder().decode(RefreshToken.self, from: data)
+            return refreshToken.refreshToken
+        } catch let jsonErr {
+            print("Error serializing json decodeToken:", jsonErr)
+            return nil
+        }
+    }
+    
     func decodeFetchFeedback(data: Data?) -> [AnsweredFeedback] {
         guard let data = data else { return [] }
         do {
