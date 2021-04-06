@@ -43,6 +43,11 @@
 	<string>We need permission to track your location in order to determine in what room you are in 😃</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need permission to track your location in order to determine in what room you are in 😃</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
