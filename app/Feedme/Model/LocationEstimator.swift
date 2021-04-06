@@ -158,6 +158,7 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
     
     func rangeBeacons(){
         for region in regions {
+            manager.startMonitoring(for: region)
             manager.startRangingBeacons(in: region)
         }
     }
@@ -175,14 +176,32 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
         }
     }
     
+//    func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
+//        <#code#>
+//    }
+    
     func locationManager(_ manager: CLLocationManager, didRangeBeacons rangedBeacons: [CLBeacon], in region: CLBeaconRegion) {
 //        print("called")
-        
+
 //        print(String(rangedBeacons.count))
         print("Scanning")
         if let beacon = rangedBeacons.first {
             scanRoom(rangedBeacon: beacon)
         }
+    }
+    
+
+    @available(iOS 13.0, *)
+    func locationManager(_ manager: CLLocationManager, didFailRangingFor beaconConstraint: CLBeaconIdentityConstraint, error: Error) {
+        print("some error occured \(error.localizedDescription)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("some error occured didFailWithError \(error.localizedDescription)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, rangingBeaconsDidFailFor region: CLBeaconRegion, withError error: Error) {
+        print("some error occured rangingBeaconsDidFailFor \(error.localizedDescription)")
     }
     
     func scanRoom(rangedBeacon: CLBeacon){

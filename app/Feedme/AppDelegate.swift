@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var feedmeNS: FeedmeNetworkService?
     var locationEstimator: LocationEstimator?
+    var backgroundUpdateTask: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier(rawValue: 0)
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -55,6 +56,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "backgroundColor")!, NSAttributedString.Key.font: UIFont.navigationFont()]
         return true
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        self.backgroundUpdateTask = UIApplication.shared.beginBackgroundTask(expirationHandler: {
+            self.endBackgroundUpdateTask()
+        })
+    }
+
+    func applicationDidEnterBackground(_ application: UIApplication) {}
+
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        self.endBackgroundUpdateTask()
+        //if CLLocationManager.authorizedToRequestLocation() {} else {locationPermissionAlert(true)}
+    }
+
+    func endBackgroundUpdateTask() {
+        UIApplication.shared.endBackgroundTask(self.backgroundUpdateTask)
+        self.backgroundUpdateTask = UIBackgroundTaskIdentifier.invalid
     }
 }
 
