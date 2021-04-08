@@ -124,6 +124,7 @@
 		9BC6E418B9CDB0AD26972359BD2336D6 /* Pods-FeedmeTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9569BC7CEB11FFC0796D8990F63AF4 /* Pods-FeedmeTests-dummy.m */; };
 		9BF77CA9C59F9492F772BEF752358BF4 /* XShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF509A37E97ECCC325B7594048089A9 /* XShapeRenderer.swift */; };
 		9E0986DBC285D7C5226F160DD4280A33 /* IPieChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA5D7A0A7EE831DC820018A3E357AE5 /* IPieChartDataSet.swift */; };
+		9EA1F3E0261ED9E5006ADE68 /* ViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA1F3DF261ED9E5006ADE68 /* ViewerUITests.swift */; };
 		A13234B0BE7D9C12FC39CCF82026D359 /* OperationQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1582B04B6A41B4183E6F197CA3557A /* OperationQueue+Alamofire.swift */; };
 		A44E0B6040359CCDD6A44E22B99B576B /* RadarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255A659D0A38A490E45384967658CB21 /* RadarChartDataSet.swift */; };
 		A572C2AD8E7BC66ACB7C1E80A306452A /* RedirectHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B079074B3D3F40CF818FEB5CA6AEEF /* RedirectHandler.swift */; };
@@ -333,6 +334,9 @@
 		9B97E01109EA98EDBFF9F8CE5E02E65C /* ServerTrustEvaluation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ServerTrustEvaluation.swift; path = Source/ServerTrustEvaluation.swift; sourceTree = "<group>"; };
 		9DA9D56B1C8E5467B3FFF4F3A918314B /* XAxisRendererHorizontalBarChart.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = XAxisRendererHorizontalBarChart.swift; path = Source/Charts/Renderers/XAxisRendererHorizontalBarChart.swift; sourceTree = "<group>"; };
 		9E56AF50ADEE0070D4F93E11D46A2AEF /* AFError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AFError.swift; path = Source/AFError.swift; sourceTree = "<group>"; };
+		9EA1F3DD261ED9E5006ADE68 /* ViewerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViewerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EA1F3DF261ED9E5006ADE68 /* ViewerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerUITests.swift; sourceTree = "<group>"; };
+		9EA1F3E1261ED9E5006ADE68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A07D95D8D9FE5C3F3E947E6A2090F5ED /* AnimatedZoomViewJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedZoomViewJob.swift; path = Source/Charts/Jobs/AnimatedZoomViewJob.swift; sourceTree = "<group>"; };
 		A20430A2EA63C7489DC4DB92A84BD3AF /* CandleStickChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CandleStickChartRenderer.swift; path = Source/Charts/Renderers/CandleStickChartRenderer.swift; sourceTree = "<group>"; };
 		A2FB4BE3387B2368EBAEAE9DA871F3BC /* ChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartData.swift; path = Source/Charts/Data/Implementations/Standard/ChartData.swift; sourceTree = "<group>"; };
@@ -454,6 +458,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9EA1F3DA261ED9E5006ADE68 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -492,6 +503,7 @@
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				9EA1F3DE261ED9E5006ADE68 /* ViewerUITests */,
 				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
 				FB8120A75B0044363079610BF628B422 /* Pods */,
 				F142952F2598B47CFAD9651B4FAE2330 /* Products */,
@@ -683,6 +695,15 @@
 			path = "../Target Support Files/Alamofire";
 			sourceTree = "<group>";
 		};
+		9EA1F3DE261ED9E5006ADE68 /* ViewerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9EA1F3DF261ED9E5006ADE68 /* ViewerUITests.swift */,
+				9EA1F3E1261ED9E5006ADE68 /* Info.plist */,
+			);
+			path = ViewerUITests;
+			sourceTree = "<group>";
+		};
 		D6FD2577A93DD8557208AA9EB9497299 /* Alamofire */ = {
 			isa = PBXGroup;
 			children = (
@@ -746,6 +767,7 @@
 				B0321512E0EF4B0C7D264E5E85ADAFC7 /* Charts.framework */,
 				EDC9FD201BCAC189DC6AFEBFBEC9DDEA /* Pods_Feedme.framework */,
 				36E0681F0C48B4261E9FE8F26FC5D75F /* Pods_FeedmeTests.framework */,
+				9EA1F3DD261ED9E5006ADE68 /* ViewerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -863,6 +885,23 @@
 			productReference = EDC9FD201BCAC189DC6AFEBFBEC9DDEA /* Pods_Feedme.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		9EA1F3DC261ED9E5006ADE68 /* ViewerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9EA1F3E4261ED9E5006ADE68 /* Build configuration list for PBXNativeTarget "ViewerUITests" */;
+			buildPhases = (
+				9EA1F3D9261ED9E5006ADE68 /* Sources */,
+				9EA1F3DA261ED9E5006ADE68 /* Frameworks */,
+				9EA1F3DB261ED9E5006ADE68 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ViewerUITests;
+			productName = ViewerUITests;
+			productReference = 9EA1F3DD261ED9E5006ADE68 /* ViewerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		EBFD1DA8DB9C5E9C282BBCAD1778A64A /* Charts */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 232465D02EE4BB98B5673A80AB4C5B0C /* Build configuration list for PBXNativeTarget "Charts" */;
@@ -887,11 +926,16 @@
 		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0930;
+				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1110;
 				TargetAttributes = {
 					5B3A7BCCABAE83232F14C87C5CE350FC = {
 						LastSwiftMigration = 1110;
+					};
+					9EA1F3DC261ED9E5006ADE68 = {
+						CreatedOnToolsVersion = 12.4;
+						DevelopmentTeam = JD4KMD4VG6;
+						ProvisioningStyle = Automatic;
 					};
 					EBFD1DA8DB9C5E9C282BBCAD1778A64A = {
 						LastSwiftMigration = 1110;
@@ -915,6 +959,7 @@
 				EBFD1DA8DB9C5E9C282BBCAD1778A64A /* Charts */,
 				6B3C5312D14CA4C47AACAA18C3C256E7 /* Pods-Feedme */,
 				6A3DF31C04BEC613B1E0D2355736B96E /* Pods-FeedmeTests */,
+				9EA1F3DC261ED9E5006ADE68 /* ViewerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -928,6 +973,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6D6416F644D5E1473D813EA67AB86DD8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9EA1F3DB261ED9E5006ADE68 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1146,6 +1198,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				29D13E5CDEAF5E357CB06DE3AA1CDB1E /* Pods-Feedme-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9EA1F3D9261ED9E5006ADE68 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9EA1F3E0261ED9E5006ADE68 /* ViewerUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1468,6 +1528,45 @@
 			};
 			name = Debug;
 		};
+		9EA1F3E2261ED9E5006ADE68 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JD4KMD4VG6;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ViewerUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = DTU.ViewerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9EA1F3E3261ED9E5006ADE68 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JD4KMD4VG6;
+				INFOPLIST_FILE = ViewerUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = DTU.ViewerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		AF490A7D74DB0EDAE52290B9B3D3A75A /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8DFC8CE099CAF0F41DC006DB37CA8BB3 /* Pods-FeedmeTests.release.xcconfig */;
@@ -1612,6 +1711,15 @@
 			buildConfigurations = (
 				92B1BFF2DAAD7B5BACC8DB24D2389597 /* Debug */,
 				AF490A7D74DB0EDAE52290B9B3D3A75A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9EA1F3E4261ED9E5006ADE68 /* Build configuration list for PBXNativeTarget "ViewerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9EA1F3E2261ED9E5006ADE68 /* Debug */,
+				9EA1F3E3261ED9E5006ADE68 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
