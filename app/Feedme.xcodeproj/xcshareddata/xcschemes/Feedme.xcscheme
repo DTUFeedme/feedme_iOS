@@ -47,6 +47,16 @@
                ReferencedContainer = "container:Feedme.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9EA1F40A261EF2E4006ADE68"
+               BuildableName = "FeedmeUITests.xctest"
+               BlueprintName = "FeedmeUITests"
+               ReferencedContainer = "container:Feedme.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

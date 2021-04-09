@@ -1,13 +1,14 @@
 //
-//  ViewerUITests.swift
-//  ViewerUITests
+//  FeedmeUITests.swift
+//  FeedmeUITests
 //
 //  Created by Sebastian on 08/04/2021.
+//  Copyright © 2021 Christian Hjelmslund. All rights reserved.
 //
 
 import XCTest
 
-class ViewerUITests: XCTestCase {
+class FeedmeUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -24,9 +25,11 @@ class ViewerUITests: XCTestCase {
 
     func testExample() throws {
         // UI tests must launch the application that they test.
+        print("works")
         let app = XCUIApplication()
         Snapshot.setupSnapshot(app)
         app.launch()
+        
         snapshot("01LoginScreen")
 
         // Use recording to get started writing UI tests.
@@ -38,9 +41,7 @@ class ViewerUITests: XCTestCase {
             // This measures how long it takes to launch your application.
             measure(metrics: [XCTApplicationLaunchMetric()]) {
                 XCUIApplication().launch()
-                snapshot("01LoginScreen")
             }
-            snapshot("01LoginScreen")
         }
     }
 }

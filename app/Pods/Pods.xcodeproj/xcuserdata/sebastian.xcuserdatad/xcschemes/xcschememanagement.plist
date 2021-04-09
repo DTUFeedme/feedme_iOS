@@ -24,10 +24,13 @@
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
-		<key>ViewerUITests.xcscheme_^#shared#^_</key>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>9EA1F3DC261ED9E5006ADE68</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>6</integer>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
