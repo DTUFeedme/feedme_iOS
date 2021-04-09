@@ -1,0 +1,8 @@
+app_identifier("dtu-informatics.feedme") # The bundle identifier of your app
+apple_id("sebastian.a.specht@gmail.com") # Your Apple email address
+
+itc_team_id("678601") # App Store Connect Team ID
+team_id("JD4KMD4VG6") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
