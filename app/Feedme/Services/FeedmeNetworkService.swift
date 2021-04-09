@@ -129,6 +129,8 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
         }
     }
     
+  
+    
     func fetchBeacons(completion: @escaping (_ beacons: [Beacon]?, _ error: ServiceError?) -> Void) {
         guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
             completion(nil, ServiceError.error(description: tokenErrorMessage))
@@ -340,6 +342,40 @@ extension FeedmeNetworkService: FeedmeNetworkServiceProtocol {
                 completion(nil)
             } else {
                 completion(ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
+            }
+        }
+    }
+    
+    func sendFeedback(feedback: String, completion:
+        @escaping (_ response:Bool, _ error: ServiceError?) -> Void) {
+        
+        guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
+            completion(false, ServiceError.error(description: tokenErrorMessage))
+            return
+        }
+        
+        let headers: HTTPHeaders = [
+            "x-auth-token": token
+        ]
+        
+        var json: [String : Any] = [:]
+        json["feedback"] = feedback
+
+        
+        let url = "\(baseUrl)/app-feedback"
+        AF.request(url, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers).responseString { response in
+            print(response)
+            if response.response?.statusCode == 200 {
+//                let questions = self.decoder.decodeFetchQuestions(data: response.data)
+//                if questions.isEmpty {
+//                    completion(false, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
+//                } else {
+                    completion(true, nil)
+               // }
+            } else if response.response?.statusCode == 401 {
+                completion(false, ServiceError.error(description: String(response.response!.statusCode)))
+            }else {
+                completion(false, ServiceError.error(description: self.getNetworkJsonResponse(response: response.data)))
             }
         }
     }

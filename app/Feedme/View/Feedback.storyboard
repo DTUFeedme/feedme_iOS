@@ -6,8 +6,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--feedback-->
         <scene sceneID="Fgf-p4-B1h">
@@ -252,6 +258,14 @@ How the application actually works is, that the main page is the "Feedback" tab 
                             <constraint firstItem="96n-ix-fS5" firstAttribute="top" secondItem="ok1-xt-w2d" secondAttribute="bottom" id="xWY-It-qmt"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="YTH-jx-afD">
+                        <barButtonItem key="rightBarButtonItem" image="icons8-feedback-64" id="Im8-1d-Zod">
+                            <inset key="imageInsets" minX="2" minY="-7" maxX="0.0" maxY="9"/>
+                            <connections>
+                                <segue destination="QuH-xU-a3X" kind="show" id="EKH-sx-KIm"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dra-CZ-oVK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -605,6 +619,10 @@ How the application actually works is, that the main page is the "Feedback" tab 
                                         <barButtonItem key="leftBarButtonItem" image="back_glyph" id="Pe6-ep-rD6">
                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Item" image="icons8-feedback-64" id="5JN-ZS-ydY">
+                                            <inset key="imageInsets" minX="0.0" minY="3" maxX="0.0" maxY="-5"/>
+                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -655,11 +673,118 @@ How the application actually works is, that the main page is the "Feedback" tab 
                         <outlet property="descriptionLabel" destination="WdH-R2-HW1" id="jzG-an-uih"/>
                         <outlet property="returnButton" destination="rtQ-Ns-T9n" id="Fir-xJ-aa4"/>
                         <outlet property="thanksLabel" destination="tDt-Ca-lhq" id="zQE-Co-1xy"/>
+                        <segue destination="QuH-xU-a3X" kind="show" id="uAS-Lh-cHR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l9a-N0-mX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="332" y="900"/>
+        </scene>
+        <!--Give Feedback-->
+        <scene sceneID="SfQ-BU-Tx2">
+            <objects>
+                <viewController storyboardIdentifier="SendFeedbackVC" id="QuH-xU-a3X" customClass="SendFeedbackVC" customModule="Feedme" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="u0b-s4-NfM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lJf-KB-BuE">
+                                <rect key="frame" x="33" y="193" width="348" height="200"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="dwa-rq-dFE"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We want to hear what you thought of your experience at Feedme so we we'd love to hear your feedback." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdR-6w-Peg">
+                                <rect key="frame" x="33" y="80" width="348" height="61"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="348" id="zxy-cR-wLA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.21986305710000001" green="0.65734946729999999" blue="0.18635913730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dUR-Ra-Z2H">
+                                <rect key="frame" x="57" y="161" width="300" height="2"/>
+                                <color key="backgroundColor" red="0.60392156860000001" green="0.63529411759999999" blue="0.71372549019999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="KQZ-zS-Pia"/>
+                                    <constraint firstAttribute="width" constant="300" id="hJO-5V-biH"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0EV-vg-3eB">
+                                <rect key="frame" x="107" y="473" width="200" height="45"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="STn-EL-wtC"/>
+                                    <constraint firstAttribute="width" constant="200" id="X8T-6k-Hko"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
+                                <state key="normal" title="Send Feedback">
+                                    <color key="titleColor" name="colorOne"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendBtn:" destination="QuH-xU-a3X" eventType="touchUpInside" id="VkX-aB-ua4"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AHp-DH-d36">
+                                <rect key="frame" x="0.0" y="10" width="414" height="685"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CUm-gn-nze">
+                                        <rect key="frame" x="30" y="191.5" width="354" height="302"/>
+                                        <string key="text">Thank you so much for taking the time to send this! Thank you so much for taking the time to send this! Everyone here at Feedme loves to know that our customers enjoy what we do. We're glad that you loved (product, service, experience, person etc.). We are always trying our best to make your experience memorable, and we're glad that we've achieved it!</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                        <color key="textColor" red="0.21986305710000001" green="0.65734946729999999" blue="0.18635913730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="CUm-gn-nze" firstAttribute="centerY" secondItem="AHp-DH-d36" secondAttribute="centerY" id="6vU-OW-Rgh"/>
+                                    <constraint firstAttribute="trailing" secondItem="CUm-gn-nze" secondAttribute="trailing" constant="30" id="T82-D6-Hab"/>
+                                    <constraint firstItem="CUm-gn-nze" firstAttribute="centerX" secondItem="AHp-DH-d36" secondAttribute="centerX" id="dIx-j4-gDB"/>
+                                    <constraint firstItem="CUm-gn-nze" firstAttribute="leading" secondItem="AHp-DH-d36" secondAttribute="leading" constant="30" id="zcq-rX-loi"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="8ZK-l6-icM"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dUR-Ra-Z2H" firstAttribute="top" secondItem="OdR-6w-Peg" secondAttribute="bottom" constant="20" id="GpV-Fr-W2d"/>
+                            <constraint firstItem="AHp-DH-d36" firstAttribute="leading" secondItem="8ZK-l6-icM" secondAttribute="leading" id="LbM-Px-et7"/>
+                            <constraint firstItem="0EV-vg-3eB" firstAttribute="centerX" secondItem="u0b-s4-NfM" secondAttribute="centerX" id="Lhh-RW-bX0"/>
+                            <constraint firstItem="lJf-KB-BuE" firstAttribute="top" secondItem="dUR-Ra-Z2H" secondAttribute="bottom" constant="30" id="OQf-d2-fYn"/>
+                            <constraint firstItem="AHp-DH-d36" firstAttribute="trailing" secondItem="8ZK-l6-icM" secondAttribute="trailing" id="Pn7-Ba-irP"/>
+                            <constraint firstItem="AHp-DH-d36" firstAttribute="top" secondItem="8ZK-l6-icM" secondAttribute="top" constant="10" id="YpX-0U-SHg"/>
+                            <constraint firstItem="OdR-6w-Peg" firstAttribute="top" secondItem="8ZK-l6-icM" secondAttribute="top" constant="80" id="ety-5G-N6a"/>
+                            <constraint firstItem="dUR-Ra-Z2H" firstAttribute="centerX" secondItem="u0b-s4-NfM" secondAttribute="centerX" id="gbc-HO-GCH"/>
+                            <constraint firstItem="0EV-vg-3eB" firstAttribute="top" secondItem="lJf-KB-BuE" secondAttribute="bottom" constant="80" id="kXu-LR-a3C"/>
+                            <constraint firstItem="8ZK-l6-icM" firstAttribute="bottom" secondItem="AHp-DH-d36" secondAttribute="bottom" constant="30" id="lAx-2z-yPD"/>
+                            <constraint firstItem="OdR-6w-Peg" firstAttribute="centerX" secondItem="u0b-s4-NfM" secondAttribute="centerX" id="lSB-gL-hnd"/>
+                            <constraint firstItem="OdR-6w-Peg" firstAttribute="leading" secondItem="lJf-KB-BuE" secondAttribute="leading" id="mDM-pE-f4v"/>
+                            <constraint firstItem="OdR-6w-Peg" firstAttribute="trailing" secondItem="lJf-KB-BuE" secondAttribute="trailing" id="xPd-ME-SOW"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Give Feedback" id="g0Z-kZ-Nye">
+                        <barButtonItem key="leftBarButtonItem" image="back_glyph" id="1uq-n4-Dd3">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="backBtn:" destination="QuH-xU-a3X" id="r7X-9b-Af4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="sendFbBtn" destination="0EV-vg-3eB" id="Mwm-cZ-qTi"/>
+                        <outlet property="submittedFbView" destination="AHp-DH-d36" id="xA5-b9-i78"/>
+                        <outlet property="textView" destination="lJf-KB-BuE" id="ay5-Rh-FIc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7G7-wS-7x2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1144.9275362318842" y="900"/>
         </scene>
         <!--Feedback-->
         <scene sceneID="Rqk-8P-Z3h">
@@ -686,11 +811,15 @@ How the application actually works is, that the main page is the "Feedback" tab 
             <point key="canvasLocation" x="-1460" y="879"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="EKH-sx-KIm"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.096866182980000007" green="0.71135669950000002" blue="0.697058022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
         <image name="back_glyph" width="32" height="32"/>
         <image name="beacon_glyph" width="30" height="30"/>
         <image name="cloud_glyph" width="30" height="30"/>
+        <image name="icons8-feedback-64" width="64" height="64"/>
         <image name="info" width="25" height="25"/>
         <image name="retry" width="500" height="500"/>
         <namedColor name="backgroundColor">
@@ -702,5 +831,14 @@ How the application actually works is, that the main page is the "Feedback" tab 
         <namedColor name="greenColor">
             <color red="0.15686274509803921" green="0.65490196078431373" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>
