@@ -140,15 +140,13 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 let answerId = answers[index]._id
                 prepareForNextQuestion()
                 let feedback = Feedback(answerId: answerId, roomID: currentRoomID, questionId: questionId)
-                feedmeNS.postFeedback(feedback: feedback) { error in
-                    if error == nil  {
-                        if self.currentQuestionNo == self.questions.count {
-                            self.performSegue(withIdentifier: "feedbackreceived", sender: self)
-                        }
-                    } else {
-                        self.restart()
+                feedmeNS.postFeedback(feedback: feedback, completion: {
+                    if self.currentQuestionNo == self.questions.count {
+                        self.performSegue(withIdentifier: "feedbackreceived", sender: self)
                     }
-                }
+                }, onError: { error in
+                    self.restart()
+                })
             }
         } else {
             restart()
@@ -211,34 +209,18 @@ class FeedbackVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             questionLabel.text = "Couldn't estimate your location..."
             roomLocationLabel.text = "Trying to estimate your location 🤔"
         } else {
-            feedmeNS.fetchQuestions(currentRoomID: currentRoomID) { questions, error in
-               if error == nil {
-                   self.questions = questions!
-                   self.answers = questions![self.currentQuestionNo].answerOptions
-                   self.reloadUI()
-                   self.updateQuestionsUI()
-                   return
-               } else if (error?.errorDescription == "401"){
-                   self.feedmeNS.refreshToken { (error) in
-                       if error == nil {
-                           self.feedmeNS.fetchQuestions(currentRoomID: self.currentRoomID) { (quetions, error) in
-                               if (error == nil){
-                                   self.questions = questions!
-                                   self.answers = questions![self.currentQuestionNo].answerOptions
-                                   self.updateQuestionsUI()
-                                   self.reloadUI()
-                                   return
-                               }
-                           }
-                       }
-                   }
-               }
-               self.questions = []
-               self.answers = []
-               self.tableView.reloadData()
-               self.systemStatusMessage = "No feedback is needed right now ☺️"
+            feedmeNS.fetchQuestions(currentRoomID: currentRoomID, completion: { questions in
+               self.questions = questions
+               self.answers = questions[self.currentQuestionNo].answerOptions
                self.reloadUI()
-           }
+               self.updateQuestionsUI()
+            }, onError: { ServiceError in
+                self.questions = []
+                self.answers = []
+                self.tableView.reloadData()
+                self.systemStatusMessage = "No feedback is needed right now ☺️"
+                self.reloadUI()
+            })
         }
          
     }

@@ -103,11 +103,11 @@ class FeedmeNetworkServiceDecoder {
         }
     }
     
-    func decodePostSignalMap(data: Data?) -> Room? {
+    func decodePostSignalMap(data: Data?) -> SignalmapWithRoom? {
         guard let data = data else { return nil }
         do {
-            let room = try JSONDecoder().decode(SignalmapWithRoom.self, from: data)
-            return room.room
+            let signalMap = try JSONDecoder().decode(SignalmapWithRoom.self, from: data)
+            return signalMap
         } catch let jsonErr {
             print("Error serializing json decodePostSignalMap:", jsonErr)
             return nil

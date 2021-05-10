@@ -54,6 +54,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YIb-TV-d7q">
                                 <rect key="frame" x="186.5" y="578" width="188.5" height="40"/>
                                 <color key="backgroundColor" name="colorOne"/>
+                                <accessibility key="accessibilityConfiguration" label="everyoneBtn"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="fOv-bA-sIw"/>
                                 </constraints>

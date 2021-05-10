@@ -2,12 +2,13 @@
 
 # A list of devices you want to take the screenshots from
 devices([
-#   "iPhone 12 Pro Max",
-#   "iPhone 8 Plus",
-#   "iPhone SE",
-#   "iPhone X",
-  # "iPad Pro (12.9-inch) (4th generation)",
-   "iPad Pro (12.9-inch) (2nd generation)",
+   "iPhone 12 Pro Max", # 6.5
+   "iPhone 8 Plus", # 5.5
+   #"iPhone 8",
+   "iPhone SE (2nd generation)", # 4.7
+  # "iPhone 12 Pro", # 5.5?
+   "iPad Pro (12.9-inch) (4th generation)", #3rd gen
+   "iPad Pro (12.9-inch) (2nd generation)", #2nd gen
 #   "iPad Pro (9.7-inch)",
 #   "Apple TV 1080p"
  ])
@@ -26,7 +27,7 @@ scheme("FeedmeUITests")
  output_directory("./screenshots")
 
 # remove the '#' to clear all previously generated screenshots before creating new ones
-# clear_previous_screenshots(true)
+clear_previous_screenshots(true)
 
 # Remove the '#' to set the status bar to 9:41 AM, and show full battery and reception.
 # override_status_bar(true)
