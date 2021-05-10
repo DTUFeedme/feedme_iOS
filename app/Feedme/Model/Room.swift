@@ -15,6 +15,7 @@ struct Room: Decodable {
 
 struct SignalmapWithRoom: Decodable {
     var room: Room
+    var building: String
 }
 
 

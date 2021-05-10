@@ -129,21 +129,19 @@ class DataVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // NETWORKING
     
     private func fetchAnsweredQuestions(){
-        feedmeNS.fetchAnsweredQuestions(roomID: chosenRoomId, time: time, me: mydataIsSelected) { questions, error in
-            if error == nil {
-                self.showUI()
-                self.hasGivenFeedback = true
-                self.questions = questions!
-                self.tableView.reloadData()
+        feedmeNS.fetchAnsweredQuestions(roomID: chosenRoomId, time: time, me: mydataIsSelected, completion: { questions in
+            self.showUI()
+            self.hasGivenFeedback = true
+            self.questions = questions
+            self.tableView.reloadData()
+        }, onError: { serviceError in
+            if (!FeedmeNetworkService.Connectivity.isConnectedToInternet) {
+                self.label.text = "Please make sure you have internet connection 🤔"
             } else {
-                if (!FeedmeNetworkService.Connectivity.isConnectedToInternet) {
-                    self.label.text = "Please make sure you have internet connection 🤔"
-                } else {
-                    self.label.text = "Woops. You have not given any feedback in this room yet. Please change room in the upper right corner or provide feedback 😎"
-                }
-                self.hideUI()
+                self.label.text = "Woops. You have not given any feedback in this room yet. Please change room in the upper right corner or provide feedback 😎"
             }
-        }
+            self.hideUI()
+        })
     }
     
     // HANDLE TABLE VIEW

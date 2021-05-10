@@ -19,7 +19,7 @@ class SendFeedbackVC: UIViewController,UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.tabBarItem.accessibilityIdentifier = "NewRecordTab"
         setupUI()
         // Do any additional setup after loading the view.
     }
@@ -39,6 +39,17 @@ class SendFeedbackVC: UIViewController,UITextViewDelegate {
         sendFbBtn.layer.cornerRadius = sendFbBtn.layer.frame.height/2
         sendFbBtn.layer.borderWidth = 1
         sendFbBtn.layer.borderColor = UIColor.green.cgColor
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+
+            //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+            //tap.cancelsTouchesInView = false
+
+        view.addGestureRecognizer(tap)
+    }
+    //Calls this function when the tap is recognized.
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

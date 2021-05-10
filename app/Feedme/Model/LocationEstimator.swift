@@ -14,37 +14,45 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
     
     var manager:CLLocationManager = CLLocationManager()
     var regions:[CLBeaconRegion] = []
+    var region: CLBeaconRegion?
     var beacons:[AppBeacon] = []
     var serverBeacons:[Beacon] = []
     var signalMap:[String: Double] = [:]
     var timerSetup = Timer()
     var timerfetchRoom = Timer()
-    var buildingId: String?
     var currentRoomId: String = ""
     var isBluetoothOn = false
     var isMappingRoom = false
     var userChangedRoomDelegate: FoundNewRoomProtocol?
     var feedmeNS: FeedmeNetworkServiceProtocol
     var scanningRoomId: String = ""
+    var demo = false
+    var uuid : String?
+    var buildingId: String?
     
     init(service: FeedmeNetworkServiceProtocol) {
         self.feedmeNS = service
     }
     
     func startLocating(){
-        fetchBeacons()
-        self.initSignalMap()
-        self.setupRegions()
-        self.rangeBeacons()
-        if self.isMappingRoom {
-            self.initTimerAddToSignalMap()
-        } else {
-            self.initTimerAddToSignalMap()
-            self.initTimerfetchRoom()
-        }
-        manager.delegate = self
-        manager.requestAlwaysAuthorization()
-        print("callingsdsadad")
+        feedmeNS.fetchUuid(completion: {uuid in
+            self.uuid = uuid
+            self.initSignalMap()
+            self.setupRegions()
+            self.rangeBeacons()
+            if self.isMappingRoom {
+                self.initTimerAddToSignalMap()
+            } else {
+                self.initTimerAddToSignalMap()
+                self.initTimerfetchRoom()
+            }
+            self.manager.delegate = self
+            self.manager.requestAlwaysAuthorization()
+            
+        }, onError: {error in
+            print(error.errorDescription)
+        })
+        
     }
     
 //    func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -69,47 +77,46 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
 //            break
 //        }
 //    }
-    
-    func fetchBeacons(){
-        feedmeNS.fetchBeacons() { beacons, error in
-            if error?.errorDescription == "401" {
-                self.feedmeNS.refreshToken { (error) in
-                    self.feedmeNS.fetchBeacons { (beacons, error) in
-                        if error == nil {
-                            self.serverBeacons = beacons!
-                            self.addBeacons()
-                            self.initSignalMap()
-                            self.setupRegions()
-                            self.rangeBeacons()
-                        } else {
-                            print(error.debugDescription)
-                            return
-                        }
-                    }
-                }
-            } else if error != nil {
-                print(error.debugDescription)
-                print("error in fetching beacnos")
-                return
-            } else {
-                self.serverBeacons = beacons!
-                self.addBeacons()
-                self.initSignalMap()
-                self.setupRegions()
-                self.rangeBeacons()
-            }
-            
-            
-//            if self.isMappingRoom {
-//                self.initTimerAddToSignalMap()
+//    func fetchBeacons(){
+//        feedmeNS.fetchBeacons() { beacons, error in
+//            if error?.errorDescription == "401" {
+//                self.feedmeNS.refreshToken { (error) in
+//                    self.feedmeNS.fetchBeacons { (beacons, error) in
+//                        if error == nil {
+//                            self.serverBeacons = beacons!
+//                            //self.addBeacons()
+//                            self.initSignalMap()
+//                            self.setupRegions()
+//                            self.rangeBeacons()
+//                        } else {
+//                            print(error.debugDescription)
+//                            return
+//                        }
+//                    }
+//                }
+//            } else if error != nil {
+//                print(error.debugDescription)
+//                print("error in fetching beacnos")
+//                return
 //            } else {
-//                self.initTimerAddToSignalMap()
-//                self.initTimerfetchRoom()
+//                self.serverBeacons = beacons!
+//                self.addBeacons()
+//                self.initSignalMap()
+//                self.setupRegions()
+//                self.rangeBeacons()
 //            }
-        }
-        
-        
-    }
+//
+//
+////            if self.isMappingRoom {
+////                self.initTimerAddToSignalMap()
+////            } else {
+////                self.initTimerAddToSignalMap()
+////                self.initTimerfetchRoom()
+////            }
+//        }
+//
+//
+//    }
     
     // when scanning
     func initTimerAddToSignalMap(){
@@ -141,26 +148,34 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
     }
 
     func initSignalMap(){
-//        for beacon in serverBeacons {
-//            signalMap[beacon.uuid] = -100.0
-//        }
+        for beacon in serverBeacons {
+            signalMap[beacon.uuid] = -100.0
+         }
     }
     
     func setupRegions(){
-        for beacon in serverBeacons {
-            if let uuid = UUID(uuidString: beacon.uuid){
-                let name = beacon.name
-                let region = CLBeaconRegion(proximityUUID: uuid, identifier: name)
-                regions.append(region)
-            }
+        
+        if let uuid = UUID(uuidString: self.uuid!) {
+            region = CLBeaconRegion(proximityUUID: uuid, identifier: "")
         }
+        
+//        for beacon in serverBeacons {
+//            if let uuid = UUID(uuidString: beacon.uuid){
+//                let name = beacon.name
+//                let region = CLBeaconRegion(proximityUUID: uuid, identifier: name)
+//                regions.append(region)
+//            }
+//        }
     }
     
     func rangeBeacons(){
-        for region in regions {
-            manager.startMonitoring(for: region)
-            manager.startRangingBeacons(in: region)
-        }
+        manager.startMonitoring(for: region!)
+        manager.startRangingBeacons(in: region!)
+//
+//        for region in regions {
+//            manager.startMonitoring(for: region)
+//            manager.startRangingBeacons(in: region)
+//        }
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -185,9 +200,14 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
 
 //        print(String(rangedBeacons.count))
         print("Scanning")
-        if let beacon = rangedBeacons.first {
+        for beacon in rangedBeacons {
+            print(beacon.description)
             scanRoom(rangedBeacon: beacon)
         }
+        
+//        if let beacon = rangedBeacons.first {
+//            scanRoom(rangedBeacon: beacon)
+//        }
     }
     
 
@@ -205,12 +225,24 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
     }
     
     func scanRoom(rangedBeacon: CLBeacon){
-        if let beacon = getBeacon(id: rangedBeacon.proximityUUID.uuidString) {
-            buildingId = beacon.building
+        let beaconName = rangedBeacon.major.stringValue + " - " + rangedBeacon.minor.stringValue
+        if let beacon = beacons.first(where: {appBeacon in
+            appBeacon.name == beaconName
+        }) {
             beacon.addRssi(rssi: rangedBeacon.rssi)
         } else {
-            print("beacon not found")
+            let appBeacon = AppBeacon(uuid: self.uuid!, name: beaconName)
+            appBeacon.addRssi(rssi: rangedBeacon.rssi)
+            print("added beacon")
+            beacons.append(appBeacon)
         }
+        
+//        if let beacon = getBeacon(id: rangedBeacon.proximityUUID.uuidString) {
+//            buildingId = beacon.building
+//            beacon.addRssi(rssi: rangedBeacon.rssi)
+//        } else {
+//            print("beacon not found")
+//        }
         
 //        var beacon = beacons.first(where: { (b ) -> Bool in
 //            b.uuid == rangedBeacon.proximityUUID.uuidString.lowercased()
@@ -257,60 +289,38 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
     
     @objc func fetchRoom() {
         let serverSignalMap = convertSignalMapToServer(signalMap: signalMap)
-        if let buildingId = buildingId {
-            
-            if serverSignalMap.isEmpty {
-
-                return
-            }
-            
-            feedmeNS.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) { room, error in
-                
-                if error == nil {
-                    self.signalMap.removeAll()
-                    self.initSignalMap()
-                    if let roomId = room?._id, let roomname = room?.name {
-                        self.currentRoomId = roomId
-                        self.userChangedRoomDelegate?.userChangedRoom(roomname: roomname, roomid: roomId)
-                    }
-                } else if error?.errorDescription == "401" {
-                    self.feedmeNS.refreshToken { (error) in
-                        if error == nil {
-                            self.feedmeNS.postSignalMap(signalMap: serverSignalMap, roomid: nil, buildingId: buildingId) { (room, error) in
-                                if (error == nil){
-                                    self.signalMap.removeAll()
-                                    self.initSignalMap()
-                                    if let roomId = room?._id, let roomname = room?.name {
-                                        self.currentRoomId = roomId
-                                        self.userChangedRoomDelegate?.userChangedRoom(roomname: roomname, roomid: roomId)
-                                    }
-                                }
-                            }
-                        }
-                    
-                    }
-                }
-            }
-        } else {
-            print("no building id")
+        
+        print("gets here");
+        
+        if serverSignalMap.isEmpty && !demo{
+            return
         }
+        
+        print(signalMap)
+        
+        print(serverSignalMap)
+        
+        feedmeNS.postSignalMap(signalMap: serverSignalMap, roomid: nil, completion: { signalMap in
+            self.signalMap.removeAll()
+            self.initSignalMap()
+            self.currentRoomId = signalMap.room._id
+            let roomName = signalMap.room.name
+            self.userChangedRoomDelegate?.userChangedRoom(roomname: roomName, roomid: self.currentRoomId)
+    
+        }, onError: { error in
+            // TODO: What should happen here?
+            print(error)
+        })
     }
     
     func postRoom(roomname: String, completion: @escaping (_ error: ServiceError?) -> Void) {
         if let buildingId = buildingId {
-            feedmeNS.postRoom(buildingId: buildingId, name: roomname) { roomId, error in
-                if error == nil {
-                    self.scanningRoomId = roomId!
-                    completion(nil)
-//                    self.pushSignalMap(roomid: roomId!, buildingId: buildingId) { room in
-//                        completion(error)
-//                        self.signalMap.removeAll()
-//                        self.initSignalMap()
-//                    }
-                } else {
-                    completion(error)
-                }
-            }
+            feedmeNS.postRoom(buildingId: buildingId, name: roomname, completion: {roomId in
+                self.scanningRoomId = roomId
+                completion(nil)
+            }, onError: { error in
+                completion(error)
+            })
         } else {
             completion(ServiceError.error(description: "Something went wrong, try again later"))
         }
@@ -328,34 +338,22 @@ class LocationEstimator: NSObject, CLLocationManagerDelegate {
             beaconDict["name"] = beacon.name
             beaconDict["signal"] = signalMap[beacon.name]
             
-            print(String(signalMap[beacon.name]!))
+            // print(String(signalMap[beacon.name]!))
             serverSignalMap.append(beaconDict)
         }
         return serverSignalMap
     }
     
     
-    func pushSignalMap(roomid: String, buildingId: String, completion: @escaping (_ room: Room?) -> Void) {
+    func pushSignalMap(roomid: String, buildingId: String, completion: @escaping (_ signalMap: SignalmapWithRoom?) -> Void) {
         
+        print("what")
         let serverSignalMap = convertSignalMapToServer(signalMap: signalMap)
-        feedmeNS.postSignalMap(signalMap: serverSignalMap, roomid: roomid, buildingId: nil) {
-            room, error in
-            if error == nil {
-                completion(room)
-            } else {
-               completion(nil)
-            }
-        }
-    }
-    
-    func addBeacons(){
-        for beacon in serverBeacons {
-            let beacon = AppBeacon(uuid: beacon.uuid, name: beacon.name, building: beacon.building)
-            beacons.append(beacon)
-        }
-    }
-    
-    func getBeacon(id: String) -> AppBeacon? {
-        return beacons.first(where: { (element) -> Bool in element.uuid == id.lowercased()})
+        feedmeNS.postSignalMap(signalMap: serverSignalMap, roomid: roomid, completion: {
+            signalMap in
+            completion(signalMap)
+        }, onError: { error in
+            completion(nil)
+        })
     }
 }

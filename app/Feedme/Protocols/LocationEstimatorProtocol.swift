@@ -10,6 +10,7 @@ import Foundation
 
 protocol LocationEstimatorProtocol {
     func startLocating()
+    func fetchUuid()
     func fetchBeacons()
     func initSignalMap()
     func setupRegions()

@@ -57,22 +57,22 @@ class DiagramVC: UIViewController {
     }
     
     private func fetchFeedback(){
-        feedmeNS.fetchFeedback(questionID: questionID, roomID: roomID, time: time, me: meIsSelected) { answers, error in
-            if error == nil {
-                for answer in answers! {
-                    let dataEntry = PieChartDataEntry(value: Double(answer.timesAnswered))
-                    dataEntry.label = answer.answer.value
-                    self.dataEntries.append(dataEntry)
-                }
-                self.updateChart()
-            } else {
-                if (FeedmeNetworkService.Connectivity.isConnectedToInternet){
-                    self.roomLocationLabel.text = error?.errorDescription
-                } else {
-                    self.roomLocationLabel.text = "No internet connection"
-                }
+        feedmeNS.fetchFeedback(questionID: questionID, roomID: roomID, time: time, me: meIsSelected, completion: {
+            answers in
+            for answer in answers {
+                let dataEntry = PieChartDataEntry(value: Double(answer.timesAnswered))
+                dataEntry.label = answer.answer.value
+                self.dataEntries.append(dataEntry)
             }
-        }
+            self.updateChart()
+            
+        }, onError: { error in
+            if (FeedmeNetworkService.Connectivity.isConnectedToInternet){
+                self.roomLocationLabel.text = error.errorDescription
+            } else {
+                self.roomLocationLabel.text = "No internet connection"
+            }
+        })
     }
     
     private func updateChart(){

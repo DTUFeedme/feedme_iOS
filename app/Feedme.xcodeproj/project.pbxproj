@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		049F3EAD261F5C4A00146B61 /* SendFeedbackVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F3EAC261F5C4A00146B61 /* SendFeedbackVC.swift */; };
 		6B91D82F507BF6ECDC8985F8 /* Pods_FeedmeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E749F0068B6FDBF0AE89DD /* Pods_FeedmeTests.framework */; };
+		9E075F8826369A4F00514283 /* Uuid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E075F8726369A4F00514283 /* Uuid.swift */; };
 		9EA1F3F9261EE0ED006ADE68 /* fastlane in Resources */ = {isa = PBXBuildFile; fileRef = 9EA1F3F8261EE0ED006ADE68 /* fastlane */; };
 		9EA1F40E261EF2E4006ADE68 /* FeedmeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA1F40D261EF2E4006ADE68 /* FeedmeUITests.swift */; };
 		9EA1F419261EF2EE006ADE68 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA1F418261EF2EE006ADE68 /* SnapshotHelper.swift */; };
@@ -81,6 +82,7 @@
 		0DBAED9CA7186EB2885D75F0 /* Pods-Feedme.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feedme.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Feedme/Pods-Feedme.debug.xcconfig"; sourceTree = "<group>"; };
 		252B2DD3999B842FA90C0352 /* Pods_Feedme.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Feedme.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5473F9A76C45A6C4C671062E /* Pods-Feedme.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feedme.release.xcconfig"; path = "Pods/Target Support Files/Pods-Feedme/Pods-Feedme.release.xcconfig"; sourceTree = "<group>"; };
+		9E075F8726369A4F00514283 /* Uuid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uuid.swift; sourceTree = "<group>"; };
 		9EA1F3F8261EE0ED006ADE68 /* fastlane */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fastlane; sourceTree = "<group>"; };
 		9EA1F40B261EF2E4006ADE68 /* FeedmeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FeedmeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EA1F40D261EF2E4006ADE68 /* FeedmeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedmeUITests.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				A1F28B4222A53C4900F93C3C /* Token.swift */,
 				A1985E3422C4CB63007FCE08 /* Option.swift */,
 				9EBA62E32604B54700BD0072 /* RefreshToken.swift */,
+				9E075F8726369A4F00514283 /* Uuid.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -588,6 +591,7 @@
 				A1990B80228726C600A3E431 /* FeedmeNetworkServiceProtocol.swift in Sources */,
 				A12B9F7622787C3500FEAC32 /* ScanningVC.swift in Sources */,
 				A18507322254959F005C081C /* TabBarVC.swift in Sources */,
+				9E075F8826369A4F00514283 /* Uuid.swift in Sources */,
 				A12AF6412274845C007F6C7D /* LoginVC.swift in Sources */,
 				A1FF5F812289C08E0009F18D /* AnsweredFeedback.swift in Sources */,
 				A1EB9F2C223280EC006AFB57 /* Room.swift in Sources */,
@@ -826,7 +830,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = JD4KMD4VG6;
 				INFOPLIST_FILE = Feedme/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
@@ -849,7 +853,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = JD4KMD4VG6;
 				INFOPLIST_FILE = Feedme/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
